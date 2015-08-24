@@ -1,0 +1,14 @@
+#Fat Jar Configuration File
+#Tue Nov 12 09:45:09 CST 2013
+onejar.license.required=false
+manifest.classpath=
+manifest.removesigners=true
+onejar.checkbox=true
+jarname=D\:\\workspace\\GCR-PSRouting\\Admin_v2.jar
+manifest.mergeall=true
+manifest.mainclass=org.apache.servicemix.wsn.router.admin.AdminMgr
+manifest.file=<createnew>
+jarname.isextern=true
+onejar.expand=
+excludes=
+includes=

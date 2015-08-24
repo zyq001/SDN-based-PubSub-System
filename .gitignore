@@ -1,0 +1,7 @@
+*.jar
+*.class
+flow-master/bin
+flow-master/lib
+
+wsn-sdn/lib
+wsn-sdn/bin

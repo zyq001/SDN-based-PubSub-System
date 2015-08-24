@@ -1,0 +1,28 @@
+package org.apache.servicemix.wsn.router.mgr;
+
+import java.util.Date;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.apache.servicemix.wsn.router.mgr.base.SysInfo;
+
+public class MsgqueueListenTread2 extends SysInfo implements Runnable {
+	private static Log log = LogFactory.getLog(QueueListenThread.class);
+	private RtMgr rt;
+
+	public MsgqueueListenTread2(RtMgr rt) {
+		this.rt = rt;
+	}
+
+	public void run() {
+		while (true) {
+			QueueMsgNotis qmn = rt.connectqueuepool.getCqFirst(rt.connectqueuepool.msgq2);
+			if (qmn != null) {
+
+				rt.getState().forwardQ2Msg(qmn);
+
+			}
+
+		}//while
+	}//run
+}

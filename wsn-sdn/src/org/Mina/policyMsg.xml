@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WsnPolicyMsgs>
+  <policyMsg targetTopic="test1">
+  </policyMsg>
+  <policyMsg targetTopic="test2">
+  </policyMsg>
+
+
+
+<policyMsg targetTopic="test">
+    <array as="targetGroups">
+      <TargetGroup allMsg="false" name="test0">
+        <array as="targetList">
+          <TargetRep allMsg="false" repIp="rep0"/>
+          <TargetRep allMsg="false" repIp="rep1">
+            <array as="targetClients">
+              <TargetHost hostIp="HOST"/>
+            </array>
+          </TargetRep>
+          <TargetRep allMsg="false" repIp="rep2"/>
+        </array>
+      </TargetGroup>
+    </array>
+    <array as="complexGroups">
+      <ComplexGroup allMsg="false" name="complexGroup">
+        <array as="targetGroups">
+          <TargetGroup allMsg="false" name="test0">
+            <array as="targetList">
+              <TargetRep allMsg="false" repIp="rep0"/>
+              <TargetRep allMsg="false" repIp="rep1">
+                <array as="targetClients">
+                  <TargetHost hostIp="HOST"/>
+                </array>
+              </TargetRep>
+              <TargetRep allMsg="false" repIp="rep2"/>
+            </array>
+          </TargetGroup>
+          <TargetGroup allMsg="false" name="test1"/>
+          <TargetGroup allMsg="false" name="test2"/>
+        </array>
+      </ComplexGroup>
+    </array>
+  </policyMsg>
+</WsnPolicyMsgs>

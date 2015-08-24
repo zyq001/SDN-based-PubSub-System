@@ -1,0 +1,13 @@
+package org.apache.servicemix.wsn.router.msg.tcp;
+
+import java.io.Serializable;
+
+public class MsgGroupLost implements Serializable {
+
+	public String name;//lost group name
+	
+	public String sender;
+	
+	public boolean needRoot;//return root address or not
+	
+}

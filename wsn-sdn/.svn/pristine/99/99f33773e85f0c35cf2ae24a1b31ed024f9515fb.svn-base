@@ -1,0 +1,13 @@
+package org.apache.servicemix.wsn.router.mgr;
+
+public class QueueMsgNotis {
+	public String addr;
+	public int port;
+	public MsgNotis msg;
+
+	public QueueMsgNotis(String addr, int port, MsgNotis msg) {
+		this.addr = addr;
+		this.port = port;
+		this.msg = msg;
+	}
+}

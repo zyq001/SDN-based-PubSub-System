@@ -1,0 +1,107 @@
+package org.apache.servicemix.wsn.router.router;
+
+import java.util.Iterator;
+import java.util.TreeSet;
+import java.util.Vector;
+
+import org.apache.servicemix.wsn.router.mgr.base.SysInfo;
+
+public class Router extends SysInfo implements IRouter {
+
+	private int size;
+	
+	public Router() {
+		
+		size = 2;
+		
+	}
+	
+	public void setSize(int size) {
+		
+		this.size = size;
+		
+	}
+	
+	public int getSize() {
+		
+		return size;
+		
+	}
+	
+	
+	public Vector<String> route(String topic, String sender,String oraginatorGroup) {
+		// TODO Auto-generated method stub
+		
+		Vector<String> ret = new Vector<String>();
+		
+		if (localAddr.equals(sender)) {
+			//消息来自本地，需要满足本集群其他成员的订阅需求以及别的集群的订阅需求
+	//		ret.add(localAddr);
+			if(brokerTable.containsKey(topic))//满足本集群需求
+			ret.addAll(brokerTable.get(topic));
+			
+			if(groupTable.containsKey(topic)){//其他集群有需求，如果本地集群有订阅，要将本地集群加入转发树，除了定位前两个转发点之外，需要完成其本身作为转发点的的转发功能
+				TreeSet<String> ts1=groupTable.get(topic);
+				if(brokerTable.containsKey(topic)||clientTable.contains(topic)){//如果本地集群有订阅，在转发树中加入本集群
+					ts1.add(groupName);
+					}
+				Iterator<String> it = ts1.iterator();//完整的转发树
+				
+				for (int i = 0; i < size && it.hasNext(); i++)//选出前两个结点
+					ret.add(it.next());
+				
+				String[] ss1 = ts1.toArray(new String[]{});//找出二叉树上其自身需要转发的节点
+				
+				int j = -1;
+				for (int i = 0; i < ss1.length; i++)
+					if (ss1[i].equals(groupName)) {
+						j = i;
+						break;
+					}
+				for (int i = 0; i < size; i++){
+					int m=(j + 1) * size + i;
+					if(m<ss1.length && ss1[m]!=sender)
+					   ret.add(ss1[m]);
+				}//for
+			}//if
+						
+		} else {
+			
+			if (rep.addr.equals(sender) || neighbors.containsKey(sender)) {
+				//消息来自本集群的其他成员，则不需转发
+				
+			} else {
+				//消息来自其他集群，需要满足本集群其他成员的订阅需求，以及利用算法得出转发的其他集群
+				if(brokerTable.containsKey(topic)){
+					ret.addAll(brokerTable.get(topic));
+				}
+				
+				if(groupTable.containsKey(topic)){
+					TreeSet<String> ts2=groupTable.get(topic);
+					ts2.add(groupName);
+					String[] ss = ts2.toArray(new String[]{});
+					
+					int j = -1;
+					for (int i = 0; i < ss.length; i++)
+						if (ss[i].equals(groupName)) {
+							j = i;
+							break;
+						}
+					for (int i = 0; i < size; i++){
+						int m=(j + 1) * size + i;
+						if(m<ss.length && ss[m]!=sender)
+						   ret.add(ss[m]);
+					}//for
+					if(ret.contains(oraginatorGroup)){
+						ret.remove(oraginatorGroup);
+					}
+				}	//if
+				
+			}//else
+			
+		}//else
+		
+		return ret;
+	}
+	
+}

@@ -1,0 +1,13 @@
+package org.apache.servicemix.wsn.router.msg.tcp;
+
+import java.io.Serializable;
+
+public class MsgJoinGroup implements Serializable {
+
+	//新代理启动时，向集群代表发送
+	
+	public String name;//group name
+
+	public int tPort;//sender's TCP port
+	
+}

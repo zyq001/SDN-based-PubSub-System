@@ -1,0 +1,40 @@
+package org.apache.servicemix.wsn.router.mgr;
+
+import java.util.Date;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.apache.servicemix.wsn.router.mgr.base.SysInfo;
+
+public class QueueListenThread extends SysInfo implements Runnable {
+	private static Log log = LogFactory.getLog(QueueListenThread.class);
+	private RtMgr rt;
+
+	public QueueListenThread(RtMgr rt) {
+		this.rt = rt;
+	}
+
+	public void run() {
+		log.info("start scanning the queue");
+		System.out.println("start scanning the queue");
+		while (true) {
+
+			MsgNotis msg = rt.getMqFirst();
+			if (msg != null) {
+				Date time = new Date();
+				log.info("take from queue Delay:" + (time.getTime() - msg.sendDate.getTime()));
+				rt.getState().processNotisMsg(msg);
+			}
+
+//			else {
+//				try {
+//					Thread.sleep(1);//防止无限循环cup负载过高
+//					log.info("after from the queue sleep1");
+//				} catch (InterruptedException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
+//			}
+		}//while
+	}//run
+}

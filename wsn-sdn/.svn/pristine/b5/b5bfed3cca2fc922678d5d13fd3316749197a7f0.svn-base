@@ -1,0 +1,11 @@
+package org.apache.servicemix.wsn.router.msg.tcp;
+
+import java.io.Serializable;
+
+public class MsgSetConf implements Serializable {
+
+	public String address;//specify the broker, all if null
+	
+	public MsgConf_ conf_;
+	
+}

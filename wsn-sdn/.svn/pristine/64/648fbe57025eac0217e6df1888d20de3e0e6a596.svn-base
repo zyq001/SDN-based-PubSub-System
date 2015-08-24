@@ -1,0 +1,2529 @@
+package org.apache.servicemix.wsn.router.mgr;
+
+import java.io.BufferedWriter;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
+import java.net.Socket;
+import java.net.SocketException;
+import java.net.UnknownHostException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.Scanner;
+import java.util.Stack;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.TreeSet;
+import java.util.Vector;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.apache.servicemix.wsn.push.SendNotification;
+import org.apache.servicemix.wsn.router.detection.IDt;
+import org.apache.servicemix.wsn.router.mgr.base.AState;
+import org.apache.servicemix.wsn.router.mgr.MsgNotis;
+import org.apache.servicemix.wsn.router.msg.tcp.MsgAdReboot;
+import org.apache.servicemix.wsn.router.msg.tcp.MsgAdReboot_;
+import org.apache.servicemix.wsn.router.msg.tcp.MsgAdminChange;
+import org.apache.servicemix.wsn.router.msg.tcp.MsgGroupJunk;
+import org.apache.servicemix.wsn.router.msg.tcp.MsgGroupLost;
+import org.apache.servicemix.wsn.router.msg.tcp.MsgGroupLost_;
+import org.apache.servicemix.wsn.router.msg.tcp.MsgInfoChange;
+import org.apache.servicemix.wsn.router.msg.tcp.MsgInsert;
+import org.apache.servicemix.wsn.router.msg.tcp.MsgInsert_;
+import org.apache.servicemix.wsn.router.msg.tcp.MsgJoinGroup;
+import org.apache.servicemix.wsn.router.msg.tcp.MsgJoinGroup_;
+import org.apache.servicemix.wsn.router.msg.tcp.MsgLookupGroupMember;
+import org.apache.servicemix.wsn.router.msg.tcp.MsgLookupGroupMember_;
+import org.apache.servicemix.wsn.router.msg.tcp.MsgLookupGroupSubscriptions;
+import org.apache.servicemix.wsn.router.msg.tcp.MsgLookupGroupSubscriptions_;
+import org.apache.servicemix.wsn.router.msg.tcp.MsgLookupMemberSubscriptions;
+import org.apache.servicemix.wsn.router.msg.tcp.MsgLookupMemberSubscriptions_;
+import org.apache.servicemix.wsn.router.msg.tcp.MsgNewGroup;
+import org.apache.servicemix.wsn.router.msg.tcp.MsgNewGroup_;
+import org.apache.servicemix.wsn.router.msg.tcp.MsgNewRep;
+import org.apache.servicemix.wsn.router.msg.tcp.MsgSetAddr;
+import org.apache.servicemix.wsn.router.msg.tcp.MsgSetConf;
+import org.apache.servicemix.wsn.router.msg.tcp.MsgSynSubs;
+import org.apache.servicemix.wsn.router.msg.udp.MsgGroup;
+import org.apache.servicemix.wsn.router.msg.udp.MsgHeart;
+import org.apache.servicemix.wsn.router.msg.udp.MsgLost;
+import org.apache.servicemix.wsn.router.msg.udp.MsgNewBroker;
+import org.apache.servicemix.wsn.router.msg.udp.MsgSubs;
+import org.apache.servicemix.wsn.router.router.Router;
+
+public class RepState extends AState {
+	private static Log log = LogFactory.getLog(RepState.class);
+	private RtMgr mgr;
+
+	private IDt dt;
+
+//	private ByteArrayOutputStream baosConstant = null;
+//	private ObjectOutputStream oosConstant = null;
+//	private DatagramSocket sConstant = null;
+
+	public RepState(RtMgr mgr, IDt dt) {
+		this.mgr = mgr;
+		this.dt = dt;
+
+//		this.baosConstant = new ByteArrayOutputStream();
+//		try {
+//			this.oosConstant = new ObjectOutputStream(baosConstant);
+//			this.sConstant = new DatagramSocket();
+//			this.sConstant.setSendBufferSize(1024 * 1024);
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+	}
+
+	@Override
+	public void join() {
+		// TODO Auto-generated method stub
+		Stack<GroupUnit> stack = new Stack<GroupUnit>();
+		Socket s = null;
+		ObjectInputStream ois = null;
+		ObjectOutputStream oos = null;
+
+		MsgNewGroup_ mng_ = null;
+		//send new group message to administrator
+		try {
+			s = new Socket(adminAddr, adminPort);
+			oos = new ObjectOutputStream(s.getOutputStream());
+			ois = new ObjectInputStream(s.getInputStream());
+
+			MsgNewGroup mng = new MsgNewGroup();
+			mng.name = groupName;
+			mng.tPort = tPort;
+			oos.writeObject(mng);
+			mng_ = (MsgNewGroup_) ois.readObject();
+
+			oos.close();
+			ois.close();
+			s.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			log.warn(e);
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			log.warn(e);
+		}
+
+		if (mng_ != null && mng_.isOK) {
+
+			//send message to find the parent node
+			if (mng_.rootAddr == null) {//being the root
+
+				System.out.println("This is the root");
+				log.info("This is the root");
+				parent = "";
+				joinOK = true;
+
+			} else {//find a group to insert
+
+				//insert message
+				MsgInsert mi = new MsgInsert();
+				mi.name = groupName;
+				mi.needInit = true;
+				mi.addr = localAddr;
+				mi.tPort = tPort;
+				mi.uPort = uPort;
+				mi.id = id;
+
+				//initialize the first insert node
+				String insertAddr = mng_.rootAddr;
+				String insertName = mng_.rootName;
+				int insertPort = mng_.tPort;
+
+				MsgInsert_ mi_ = null;
+
+				mi.tagetGroupName = insertName;
+
+				while (!joinOK) {
+
+					int i;
+					for (i = 0; i < joinTimes; i++) {
+						//try 'joinTimes' times
+						try {
+
+							s = new Socket(insertAddr, insertPort);
+							oos = new ObjectOutputStream(s.getOutputStream());
+							ois = new ObjectInputStream(s.getInputStream());
+							oos.writeObject(mi);
+							mi_ = (MsgInsert_) ois.readObject();
+
+							oos.close();
+							ois.close();
+							s.close();
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+							log.warn(e);
+
+							//if connection fail
+							try {
+								Thread.sleep(1000);
+							} catch (InterruptedException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+
+						} catch (ClassNotFoundException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+							log.warn(e);
+						}
+
+						if (mi_ != null) {
+
+							if (mi_.isOK) {
+
+								System.out.println("successfully insert into " + mi_.name);
+								log.info("successfully insert into " + mi_.name);
+
+								//get the subscriptions
+								groupTable.putAll(mi_.groupTab);
+								//save the groups' information
+								groupMap.putAll(mi_.groupMap);
+								//add parent group information
+								GroupUnit p = new GroupUnit();
+								p.name = mi_.name;
+								p.uPort = mi_.uPort;
+								p.date = new Date();
+								p.rep.addr = insertAddr;
+								p.rep.tPort = insertPort;
+								p.rep.id = mi_.id;
+								groupMap.put(p.name, p);
+								parent = p.name;
+
+								joinOK = true;
+
+								//send heart to parent node
+								dt.addTarget(p.name);
+
+							} else {
+								//set the address of next try
+								System.out.println("try next group: " + mi_.name);
+								log.info("try next group: " + mi_.name);
+
+								GroupUnit g = new GroupUnit();
+								g.name = insertName;
+								g.date = new Date();
+								g.rep.addr = insertAddr;
+								g.rep.tPort = insertPort;
+								stack.push(g);
+
+								insertName = mi_.name;
+								insertAddr = mi_.next;
+								insertPort = mi_.tPort;
+
+							}
+							break;
+						}
+					}
+
+					if (i == joinTimes) {
+						//判定目标集群已不存在
+						System.out.println("group " + insertName + " no longer exists.");
+						log.info("group " + insertName + " no longer exists.");
+						try {
+
+							s = new Socket(adminAddr, adminPort);
+							oos = new ObjectOutputStream(s.getOutputStream());
+
+							MsgGroupJunk mgj = new MsgGroupJunk();
+							mgj.name = insertName;
+							oos.writeObject(mgj);
+
+							oos.close();
+							s.close();
+
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+							log.warn(e);
+						}
+						//join again
+
+						if (stack.isEmpty()) {
+
+							System.out.println("This is the root");
+							log.info("This is the root");
+							parent = "";
+							joinOK = true;
+
+						} else {
+
+							GroupUnit g = stack.pop();
+							insertName = g.name;
+							insertAddr = g.rep.addr;
+							insertPort = g.rep.tPort;
+
+						}
+					}
+				}
+			}
+
+		} else {
+
+//			System.out.println(mng_.description);
+			log.info(mng_.description);
+//			System.out.println("Enter a new name:");
+			log.info("Enter a new name:");
+			Scanner sc = new Scanner(System.in);
+			groupName = sc.next();
+
+		}
+
+	}
+
+	@Override
+	public void sendHrt() {
+		// TODO Auto-generated method stub
+		//generate heart message beforehand
+		ByteArrayOutputStream baos = null;
+		ObjectOutputStream oos = null;
+		MsgHeart heart = new MsgHeart();
+		byte[] inHeart = null;
+		byte[] outHeart = null;
+
+		try {
+			baos = new ByteArrayOutputStream();
+			oos = new ObjectOutputStream(baos);
+			heart.indicator = localAddr;
+			oos.writeObject(heart);
+			inHeart = baos.toByteArray();
+
+			baos = new ByteArrayOutputStream();
+			oos = new ObjectOutputStream(baos);
+			heart.indicator = groupName;
+			oos.writeObject(heart);
+			outHeart = baos.toByteArray();
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			log.warn(e);
+		}
+
+		try {
+			DatagramPacket p = new DatagramPacket(inHeart, inHeart.length, InetAddress.getByName(multiAddr), uPort);
+			DatagramSocket s = new DatagramSocket();
+			s.send(p);
+
+			//sent to other groups
+			ArrayList<String> li = new ArrayList<String>(children);
+			li.add(parent);
+			for (String n : li)
+				if (groupMap.get(n) != null) {
+					p = new DatagramPacket(outHeart, outHeart.length, InetAddress.getByName(groupMap
+							.get(n).rep.addr), groupMap.get(n).uPort);
+					s.send(p);
+					System.out.println("heart to " + p.getAddress().getHostAddress() + " " + p
+							.getPort());
+					log.info("heart to " + p.getAddress().getHostAddress() + " " + p.getPort());
+				}
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			log.warn(e);
+		}
+	}
+
+	@Override
+	public void sendSbp(Object msg) {
+		// TODO Auto-generated method stub
+		ByteArrayOutputStream baos = null;
+		ObjectOutputStream oos = null;
+		DatagramSocket s = null;
+
+		MsgSubs mss = (MsgSubs) msg;
+
+		try {
+
+			baos = new ByteArrayOutputStream();
+			oos = new ObjectOutputStream(baos);
+
+			//spread it in this group
+			mss.originator = localAddr;
+			mss.sender = localAddr;
+
+			oos.writeObject(msg);
+			byte[] buf = baos.toByteArray();
+
+			DatagramPacket p = new DatagramPacket(buf, buf.length, InetAddress.getByName(multiAddr), uPort);
+			s = new DatagramSocket();
+			s.send(p);
+
+			baos = new ByteArrayOutputStream();
+			oos = new ObjectOutputStream(baos);
+
+			//spread it in other groups
+			mss.originator = groupName;
+			mss.sender = groupName;
+
+			oos.writeObject(msg);
+			buf = baos.toByteArray();
+
+			ArrayList<String> li = new ArrayList<String>(children);
+			li.add(parent);
+			for (String n : li)
+				if (groupMap.get(n) != null) {
+					p = new DatagramPacket(buf, buf.length, InetAddress.getByName(groupMap.get(n).rep.addr), groupMap
+							.get(n).uPort);
+					s.send(p);
+				}
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			log.warn(e);
+		} finally {
+
+			try {
+				baos.close();
+				oos.close();
+				s.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				log.warn(e);
+			}
+
+		}
+	}
+
+	private boolean insertOK() {
+		//check whether the requesting group can insert as child node
+		if (children.size() < childrenSize)
+			return true;
+		else
+			return false;
+	}
+
+	class LostTask extends TimerTask {
+
+		String name;
+
+		public LostTask(String name) {
+			this.name = name;
+		}
+
+		@Override
+		public void run() {
+			// TODO Auto-generated method stub
+			if (wait4Hrt.contains(name)) {
+				//group lost
+				groupMap.remove(name);
+
+				MsgLost ml = new MsgLost();
+				ml.indicator = name;
+				ml.inside = false;
+
+				ByteArrayOutputStream baos = new ByteArrayOutputStream();
+				ObjectOutputStream oos = null;
+				ObjectInputStream ois = null;
+				DatagramSocket s = null;
+				DatagramPacket p = null;
+				byte[] buf = null;
+
+				try {
+					oos = new ObjectOutputStream(baos);
+					s = new DatagramSocket();
+					oos.writeObject(ml);
+					buf = baos.toByteArray();
+
+					//multicast it in this group
+					p = new DatagramPacket(buf, buf.length, InetAddress.getByName(multiAddr), uPort);
+					s.send(p);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					log.warn(e);
+				}
+
+				//删除订阅
+				for (String t : groupTable.keySet()) {
+
+					if (groupTable.get(t).contains(name)) {
+						groupTable.get(t).remove(name);
+
+						if (groupTable.get(t).isEmpty())
+							groupTable.remove(t);
+
+					}
+				}
+
+				MsgGroupLost mgl = new MsgGroupLost();
+				mgl.name = name;
+				mgl.sender = groupName;
+				mgl.needRoot = false;
+
+				Socket ss = null;
+
+				ArrayList<String> li = new ArrayList<String>(children);
+				li.add(parent);
+
+				//通知邻居集群
+				for (String n : li)
+					if (groupMap.get(n) != null) {
+						try {
+							ss = new Socket(groupMap.get(n).rep.addr, groupMap.get(n).rep.tPort);
+							oos = new ObjectOutputStream(ss.getOutputStream());
+							ois = new ObjectInputStream(ss.getInputStream());
+
+							oos.writeObject(mgl);
+
+							ois.close();
+							oos.close();
+							ss.close();
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+							log.warn(e);
+						}
+					}
+
+				if (parent.equals(name)) {
+					//it's the parent node that lost
+					MsgGroupLost_ mgl_ = null;
+
+					try {
+						//通知管理者并要求返回根节点信息用来重新加入到拓扑
+						mgl.needRoot = true;
+
+						ss = new Socket(adminAddr, adminPort);
+
+						oos = new ObjectOutputStream(ss.getOutputStream());
+						ois = new ObjectInputStream(ss.getInputStream());
+						oos.writeObject(mgl);
+						mgl_ = (MsgGroupLost_) ois.readObject();
+
+						oos.close();
+						ois.close();
+						ss.close();
+
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+						log.warn(e);
+					} catch (ClassNotFoundException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+						log.warn(e);
+					}
+
+					//send message to find the parent node
+					if (mgl_.name.equals(groupName)) {//being the root
+
+						parent = "";
+
+					} else {//find a group to insert
+
+						//insert message
+						MsgInsert mi = new MsgInsert();
+						mi.name = groupName;
+						mi.needInit = false;
+						mi.addr = localAddr;
+						mi.tPort = tPort;
+						mi.uPort = uPort;
+
+						//initialize the first insert node
+						String insertAddr = mgl_.addr;
+						int insertPort = mgl_.tPort;
+						mi.tagetGroupName = mgl_.name;
+
+						boolean insertOK = false;
+						while (!insertOK) {
+
+							MsgInsert_ mi_ = null;
+
+							for (int i = 0; i < joinTimes; i++) {//try 'joinTimes' times
+
+								try {
+
+									ss = new Socket(insertAddr, insertPort);
+									oos = new ObjectOutputStream(ss.getOutputStream());
+									ois = new ObjectInputStream(ss.getInputStream());
+
+									oos.writeObject(mi);
+									mi_ = (MsgInsert_) ois.readObject();
+
+									ois.close();
+									oos.close();
+									ss.close();
+								} catch (IOException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+									log.warn(e);
+
+									//if connection fail
+									try {
+										Thread.sleep(1000);
+									} catch (InterruptedException e1) {
+										// TODO Auto-generated catch block
+										e1.printStackTrace();
+									}
+
+								} catch (ClassNotFoundException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+									log.warn(e);
+								}
+
+								if (mi_ != null) {
+
+									if (mi_.isOK) {
+
+										parent = mi.tagetGroupName;
+
+										insertOK = true;
+
+										//send heart to parent node
+										dt.addTarget(parent);
+
+									} else {
+										//set the address of next try
+										insertAddr = mi_.next;
+										insertPort = mi_.tPort;
+										mi.tagetGroupName = mi_.name;
+
+									}
+
+									break;
+								}
+
+							}
+
+						}
+					}
+
+				} else {
+					//some child node lost
+					mgl.needRoot = false;
+
+					try {
+
+						ss = new Socket(adminAddr, adminPort);
+						oos = new ObjectOutputStream(ss.getOutputStream());
+						ois = new ObjectInputStream(ss.getInputStream());
+						oos.writeObject(mgl);
+
+						oos.close();
+						ois.close();
+						ss.close();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+						log.warn(e);
+					}
+
+					children.remove(name);
+				}
+
+			}
+
+		}
+
+	}
+
+	@Override
+	public void lost(String indicator) {
+		// TODO Auto-generated method stub
+
+		System.out.println("timeout: " + indicator);
+		log.info("timeout: " + indicator);
+
+		if (neighbors.containsKey(indicator)) {
+			//some broker in this group is lost
+
+			MsgLost ml = new MsgLost();
+			ml.indicator = indicator;
+			ml.inside = true;
+
+			ByteArrayOutputStream baos = new ByteArrayOutputStream();
+			ObjectOutputStream doos = null;
+			DatagramSocket s = null;
+			DatagramPacket p = null;
+			byte[] buf = null;
+
+			try {
+				doos = new ObjectOutputStream(baos);
+				s = new DatagramSocket();
+				doos.writeObject(ml);
+				buf = baos.toByteArray();
+
+				//multicast it in this group
+				p = new DatagramPacket(buf, buf.length, InetAddress.getByName(multiAddr), uPort);
+				s.send(p);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				log.warn(e);
+			}
+
+			//cancel the subscriptions of this broker
+			ArrayList<String> topics = new ArrayList<String>();
+			for (String t : brokerTable.keySet()) {
+
+				if (brokerTable.get(t).contains(indicator)) {
+					brokerTable.get(t).remove(indicator);
+
+					if (brokerTable.get(t).isEmpty()) {
+						brokerTable.remove(t);
+
+						if (!clientTable.contains(t)) {
+							//tell other groups to cancel this subscription
+							topics.add(t);
+						}
+					}
+				}
+			}
+			if (!topics.isEmpty()) {
+				MsgSubs mss = new MsgSubs();
+				mss.type = 1;
+				mss.topics = topics;
+				mss.originator = groupName;
+				mss.sender = groupName;
+
+				try {
+					baos.flush();
+					doos.writeObject(mss);
+					buf = baos.toByteArray();
+
+					ArrayList<String> li = new ArrayList<String>(children);
+					li.add(parent);
+					for (String n : li)
+						if (groupMap.get(n) != null) {
+							p = new DatagramPacket(buf, buf.length, InetAddress.getByName(groupMap
+									.get(n).rep.addr), groupMap.get(n).uPort);
+							s.send(p);
+						}
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					log.warn(e);
+				}
+
+			}
+
+			//erase it
+			neighbors.remove(indicator);
+
+		} else if (children.contains(indicator) || parent.equals(indicator)) {
+			//representative of some neighbor group is lost
+
+			LostTask lt = null;
+
+			wait4Hrt.add(indicator);
+
+			lt = new LostTask(indicator);
+
+			Timer timer = new Timer();
+			timer.schedule(lt, scanPeriod * 3);
+
+		}
+	}
+
+	@Override
+	public void processUdpMsg(Object msg) {
+		// TODO Auto-generated method stub
+		System.out.println(msg);
+		if (msg instanceof MsgHeart) {
+
+			if (wait4Hrt.contains(((MsgHeart) msg).indicator)) {
+				wait4Hrt.remove(((MsgHeart) msg).indicator);
+			}
+			dt.onMsg(msg);
+			System.out.println("heart from " + ((MsgHeart) msg).indicator);
+			log.info("heart from " + ((MsgHeart) msg).indicator);
+
+		} else if (msg instanceof MsgSubs) {
+
+			MsgSubs mss = (MsgSubs) msg;
+			System.out.println("subs: " + mss.originator);
+			log.info("subs: " + mss.originator);
+
+			ObjectOutputStream oos = null;
+			ByteArrayOutputStream baos = new ByteArrayOutputStream();
+			byte[] buf = null;
+			DatagramSocket s = null;
+			DatagramPacket p = null;
+			try {
+				oos = new ObjectOutputStream(baos);
+				s = new DatagramSocket();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				log.warn(e);
+			}
+
+			ArrayList<String> spreadTopics = new ArrayList<String>();
+			if (neighbors.containsKey(mss.originator)) {
+				//if the msg comes from this group
+				for (String t : mss.topics) {
+					if (brokerTable.containsKey(t)) {//if this topic exists
+						if (mss.type == 0)//add
+							brokerTable.get(t).add(mss.originator);
+						else {//remove
+							brokerTable.get(t).remove(mss.originator);
+							if (brokerTable.get(t).isEmpty()) {
+								brokerTable.remove(t);
+
+								if (!clientTable.contains(t))
+									spreadTopics.add(t);
+							}
+						}
+					} else if (mss.type == 0) {//if not exists and the type is 0
+						TreeSet<String> ts = new TreeSet<String>();
+						ts.add(mss.originator);
+						brokerTable.put(t, ts);
+
+						if (!clientTable.contains(t))
+							spreadTopics.add(t);
+					}
+				}
+				if (!spreadTopics.isEmpty()) {
+
+					//spread it in neighbor groups
+					mss.originator = groupName;//set group name
+					mss.sender = groupName;
+					mss.topics = spreadTopics;
+
+					try {
+						oos.writeObject(mss);
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+						log.warn(e);
+					}
+					buf = baos.toByteArray();
+
+					ArrayList<String> li = new ArrayList<String>(children);
+					li.add(parent);
+
+					for (String n : li)
+						if (groupMap.get(n) != null) {
+							try {
+								p = new DatagramPacket(buf, buf.length, InetAddress.getByName(groupMap
+										.get(n).rep.addr), groupMap.get(n).uPort);
+								s.send(p);
+							} catch (IOException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+								log.warn(e);
+							}
+						}
+
+				}
+
+			} else {
+				//comes from other groups
+				for (String t : mss.topics) {
+					if (groupTable.containsKey(t)) {
+						if (mss.type == 0)
+							groupTable.get(t).add(mss.originator);
+						else {
+							groupTable.get(t).remove(mss.originator);
+							if (groupTable.get(t) == null)
+								groupTable.remove(t);
+//							if (groupTable.get(mss.originator).isEmpty())
+//								groupTable.remove(t);
+						}
+
+					} else if (mss.type == 0) {
+						TreeSet<String> ts = new TreeSet<String>();
+						ts.add(mss.originator);
+						groupTable.put(t, ts);
+					}
+				}
+
+				String sender = mss.sender;
+				mss.sender = groupName;
+				try {
+					oos.writeObject(mss);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					log.warn(e);
+				}
+				buf = baos.toByteArray();
+
+				//multicast it in this group
+				try {
+					p = new DatagramPacket(buf, buf.length, InetAddress.getByName(multiAddr), uPort);
+					s.send(p);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					log.warn(e);
+				}
+
+				//send it to other groups
+				ArrayList<String> li = new ArrayList<String>(children);
+				li.add(parent);
+
+				for (String n : li)
+					if (!n.equals(sender) && groupMap.get(n) != null) {//except where it comes from
+						try {
+							p = new DatagramPacket(buf, buf.length, InetAddress.getByName(groupMap
+									.get(n).rep.addr), groupMap.get(n).uPort);
+							s.send(p);
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+							log.warn(e);
+						}
+
+					}
+
+			}
+
+		} else if (msg instanceof MsgGroup) {
+
+			MsgGroup mg = (MsgGroup) msg;
+			System.out.println("comes group: " + mg.g.name);
+			log.info("comes group: " + mg.g.name);
+
+			ByteArrayOutputStream baos = new ByteArrayOutputStream();
+			ObjectOutputStream oo = null;
+			DatagramSocket ds = null;
+			byte[] buf = null;
+
+			ByteArrayOutputStream baos2 = new ByteArrayOutputStream();//转发向外部集群
+			ObjectOutputStream oo2 = null;
+			DatagramSocket ds2 = null;
+			byte[] buf2 = null;
+
+			try {
+				oo = new ObjectOutputStream(baos);
+				ds = new DatagramSocket();
+
+				oo.writeObject(mg);
+				buf = baos.toByteArray();
+
+				//tell brokers about this group
+				DatagramPacket p = new DatagramPacket(buf, buf.length, InetAddress.getByName(multiAddr), uPort);
+				ds.send(p);
+
+				//tell other neighbor groups about this group
+				String incoming = mg.sender;
+				mg.sender = groupName;
+
+				oo2 = new ObjectOutputStream(baos2);
+				ds2 = new DatagramSocket();
+				oo2.writeObject(mg);
+				buf2 = baos2.toByteArray();
+
+				ArrayList<String> li = new ArrayList<String>(children);
+				li.add(parent);
+				for (String n : li)
+					if (!incoming.equals(n) && groupMap.get(n) != null) {
+						p = new DatagramPacket(buf2, buf2.length, InetAddress.getByName(groupMap
+								.get(n).rep.addr), groupMap.get(n).uPort);
+						ds2.send(p);
+					}
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				log.warn(e);
+			}
+
+			//add this new group as a child 
+			if (groupMap.keySet().contains(mg.g.name)) {
+				//if this group already exists, update its information
+				groupMap.get(mg.g.name).uPort = mg.g.uPort;
+				groupMap.get(mg.g.name).rep.addr = mg.g.rep.addr;
+				groupMap.get(mg.g.name).rep.id = mg.g.rep.id;
+				groupMap.get(mg.g.name).rep.tPort = mg.g.rep.tPort;
+
+			} else {
+				GroupUnit g = new GroupUnit();
+				g.rep.addr = mg.g.rep.addr;
+				g.name = mg.g.name;
+				g.date = mg.g.date;
+				g.rep.tPort = mg.g.rep.tPort;
+				g.uPort = mg.g.uPort;
+				g.rep.id = mg.g.rep.id;
+
+				groupMap.put(g.name, g);
+			}
+
+		} else {
+			System.out.println("No this UDP msg!");
+			log.info("No this UDP msg!");
+		}
+	}
+
+	@Override
+	public void processTcpMsg(final Socket s) {
+		// TODO Auto-generated method stub
+		new Thread() {
+			public void run() {
+				ObjectInputStream ois = null;
+				ObjectOutputStream oos = null;
+				Object msg = null;
+
+				try {
+					ois = new ObjectInputStream(s.getInputStream());
+					oos = new ObjectOutputStream(s.getOutputStream());
+					while (true) {
+						msg = ois.readObject();//read 阻塞了，如果对方关闭了socket 系统会抛出io异常，从而关闭此方的socket，因为socket全双工，双方都要关
+						if ((msg != null)) {
+							boolean isLong = processKindTcpMsg(ois, oos, s, msg);
+							if (!isLong) {
+								break;
+							}
+						}
+						else
+							break;
+//						s.setSoTimeout(120000);
+					}
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					log.warn(e);
+					try {
+						oos.close();
+						ois.close();
+						s.close();
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+						log.warn(e1);
+					}
+				} catch (ClassNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					log.warn(e);
+					try {
+						oos.close();
+						ois.close();
+						s.close();
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+						log.warn(e1);
+					}
+				}
+				try {
+					oos.close();
+					ois.close();
+					s.close();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					log.warn(e);
+				}
+			}
+		}.start();
+	}
+
+	private boolean processKindTcpMsg(ObjectInputStream ois, ObjectOutputStream oos, Socket s, Object msg)
+	{
+		if (msg instanceof MsgJoinGroup) {
+			//有代理请求加入到本集群中
+			MsgJoinGroup mjg = (MsgJoinGroup) msg;
+			processSpecificTcpMsg(ois, oos, s, mjg);
+			return false;
+
+		} else if (msg instanceof MsgInsert) {
+
+			MsgInsert mi = (MsgInsert) msg;
+			processSpecificTcpMsg(ois, oos, s, mi);
+			return false;
+
+		} else if (msg instanceof MsgNewRep) {
+
+			MsgNewRep mnr = (MsgNewRep) msg;
+			processSpecificTcpMsg(ois, oos, s, mnr);
+			return false;
+
+		} else if (msg instanceof MsgSynSubs) {
+
+			MsgSynSubs mss = (MsgSynSubs) msg;
+			processSpecificTcpMsg(ois, oos, s, mss);
+			return false;
+
+		} else if (msg instanceof MsgSetAddr) {
+
+			MsgSetAddr msa = (MsgSetAddr) msg;
+			processSpecificTcpMsg(ois, oos, s, msa);
+			return false;
+
+		} else if (msg instanceof MsgAdminChange) {
+
+			MsgAdminChange mac = (MsgAdminChange) msg;
+			processSpecificTcpMsg(ois, oos, s, mac);
+			return false;
+
+		} else if (msg instanceof MsgGroupLost) {
+
+			MsgGroupLost mgl = (MsgGroupLost) msg;
+			processSpecificTcpMsg(ois, oos, s, mgl);
+			return false;
+
+		} else if (msg instanceof MsgLookupGroupMember) {
+
+			MsgLookupGroupMember mlgm = (MsgLookupGroupMember) msg;
+			processSpecificTcpMsg(ois, oos, s, mlgm);
+			return false;
+
+		} else if (msg instanceof MsgInfoChange) {
+
+			MsgInfoChange mic = (MsgInfoChange) msg;
+			processSpecificTcpMsg(ois, oos, s, mic);
+			return false;
+
+		} else if (msg instanceof MsgSetConf) {
+
+			MsgSetConf msc = (MsgSetConf) msg;
+			processSpecificTcpMsg(ois, oos, s, msc);
+			return false;
+
+		} else if (msg instanceof MsgAdReboot) {
+
+			MsgAdReboot mar = (MsgAdReboot) msg;
+			processSpecificTcpMsg(ois, oos, s, mar);
+			return false;
+		}
+		else if (msg instanceof MsgLookupGroupSubscriptions) {
+
+			MsgLookupGroupSubscriptions mlgs = (MsgLookupGroupSubscriptions) msg;
+			processSpecificTcpMsg(ois, oos, s, mlgs);
+			return false;
+		}
+		else if (msg instanceof MsgLookupMemberSubscriptions) {
+
+			MsgLookupMemberSubscriptions mlms = (MsgLookupMemberSubscriptions) msg;
+			processSpecificTcpMsg(ois, oos, s, mlms);
+			return false;
+		}
+		else if (msg instanceof MsgNotis) {
+			MsgNotis mns = (MsgNotis) msg;
+			mgr.addMqLast(mns);
+			Date timeNow2 = new Date();
+			log.info("add a msg " + "Delay:" + (timeNow2.getTime() - mns.sendDate.getTime()) + ",and the Queue size is" + mgr
+					.getMqSize());
+
+//			System.out.println("Receive:topic" + mns.topicName + ":content" + mns.doc + ":startTime" + mns.sendDate);
+			log.info("Receive:topic" + mns.topicName + ":content" + mns.doc + ":startTime" + mns.sendDate);
+			if(mns.topicName.indexOf("EventType=1") >= 0){
+				return false;
+			}
+			else{
+				return true;
+			}
+		}
+		else {
+			System.out.println("No this TCP msg!");
+			log.info("No this TCP msg!");
+
+			return false;
+		}
+	}
+
+	@Override
+	public void synSubs() {
+		// TODO Auto-generated method stub
+		MsgSynSubs mss = new MsgSynSubs();
+		mss.originator = groupName;
+		mss.sender = groupName;
+		mss.topics.addAll(brokerTable.keySet());
+		for (String t : clientTable)
+			if (!mss.topics.contains(t))
+				mss.topics.add(t);
+
+		Socket s = null;
+		ObjectOutputStream oos = null;
+		ObjectInputStream ois = null;
+
+		ArrayList<String> li = new ArrayList<String>(children);
+		li.add(parent);
+
+		for (String n : li)
+			if (groupMap.get(n) != null && !wait4Hrt.contains(n)) {
+				try {
+					s = new Socket(groupMap.get(n).rep.addr, groupMap.get(n).rep.tPort);
+					oos = new ObjectOutputStream(s.getOutputStream());
+					ois = new ObjectInputStream(s.getInputStream());
+					oos.writeObject(mss);
+
+					ois.close();
+					oos.close();
+					s.close();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					log.warn(e);
+				}
+			}
+	}
+
+	@Override
+	public void processNotisMsg(Object msg) {
+		log.info("to processNotisMsg");
+		final MsgNotis mns = (MsgNotis) msg;
+		Router testRouter = new Router();
+		Vector<String> ret = testRouter.route(mns.topicName, mns.sender, mns.originatorGroup);
+		log.info("in processNotisMsg new router");
+
+		if (clientTable.contains(mns.topicName) && (!mns.originatorAddr.equals(localAddr)))//本地有订阅并且不是消息产生者，则上交wsn。在这个地方不适合做多线程，全局变量，只读，也会出现问题
+		{
+			try {
+				int flag = 1;
+				while (flag == 1) {
+					if (mgr.limitbool()) {
+						mgr.add();
+						mgr.pool.execute(new Thread() {
+							public void run() {
+								SendNotification SN = new SendNotification();//调用上层wsn的接口
+								try {
+//									Date timeNow1 = new Date();
+//									log.info("before WSN delay:" + (timeNow1
+//											.getTime() - mns.sendDate
+//											.getTime()) + "  " + "NUMBER" + mns.Ccount);
+									SN.send(mns.doc);
+//									Date timeNow = new Date();
+//									log.info("Submit:topic" + mns.topicName + ":content" + mns.doc + ":startTime" + mns.sendDate + ":receiveTime" + timeNow + ":Delay2" + (timeNow
+//											.getTime() - mns.sendDate
+//											.getTime()) + "  " + "NUMBER" + mns.Ccount);
+//									long tmp = timeNow.getTime() - timeNow1
+//											.getTime();
+//									if (tmp > 100)
+//										mgr.limtTo1();
+//									else if (tmp < 50)
+//										mgr.addLimit();
+									mgr.subtract();
+								} catch (Exception e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
+							}
+						});
+						flag = 0;
+					}//if
+					else {
+						Thread.sleep(1);
+					}
+				}//while
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+				log.warn(e1);
+			}
+		}
+//		if (clientTable.contains(mns.topicName) && (!mns.originatorAddr.equals(localAddr)))//本地有订阅，则上交wsn
+//		{
+//			Date timeNow = new Date();
+//			System.out.println("Submit:topic" + mns.topicName + ":content" + mns.doc + ":startTime" + mns.sendDate + ":receiveTime" + timeNow + ":Delay" + (timeNow
+//					.getTime() - mns.sendDate.getTime()));
+//			File file = new File("file.txt");
+//			FileWriter FW = null;
+//			try {
+//				FW = new FileWriter(file, true);
+//			} catch (IOException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//			BufferedWriter BW = new BufferedWriter(FW);
+//			try {
+//				BW.write("Receive:topic" + mns.topicName + ":content" + mns.doc + ":startTime" + mns.sendDate);
+//				BW.write("Submit:topic" + mns.topicName + ":content" + mns.doc + ":startTime" + mns.sendDate + ":receiveTime" + timeNow + ":Delay" + (timeNow
+//						.getTime() - mns.sendDate.getTime()));
+//			} catch (IOException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//
+//			try {
+//				BW.flush();
+//			} catch (IOException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//		}
+
+		log.info("after submit wsn");
+		ByteArrayOutputStream baos = null;
+		ObjectOutputStream oos = null;
+		DatagramSocket s = null;
+
+		Socket sTcp = null;
+		ObjectOutputStream oosTcp = null;
+		ObjectInputStream oisTcp = null;
+
+		mns.sender = localAddr;
+
+		//new added
+		if(mns.doc.contains("<EventType=1></EventType=1>")){
+			mns.topicName = mns.topicName + "EventType=1";
+		}	
+		
+		if (mns.topicName.indexOf("EventType=1") >= 0) {//关键消息类型
+			mns.topicName = mns.topicName.substring(0, (mns.topicName.length() - "EventType=1".length()));
+			
+			log.info("eventtype ** ");
+			Iterator<String> it = ret.iterator();
+			while (it.hasNext()) {
+				String itNext = it.next();
+				if (itNext.equals(groupName)) {
+				}
+				else if (groupMap.containsKey(itNext)) {
+					try {
+						sTcp = new Socket(groupMap.get(itNext).rep.addr, groupMap.get(itNext).rep.tPort);
+						oosTcp = new ObjectOutputStream(sTcp.getOutputStream());
+						oisTcp = new ObjectInputStream(sTcp.getInputStream());
+						oosTcp.writeObject(mns);
+					} catch (UnknownHostException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				} else if ((neighbors.get(itNext)) != null) {
+					try {
+						sTcp = new Socket(neighbors.get(itNext).addr, neighbors.get(itNext).tPort);
+						oosTcp = new ObjectOutputStream(sTcp.getOutputStream());
+						oisTcp = new ObjectInputStream(sTcp.getInputStream());
+						oosTcp.writeObject(mns);
+					} catch (UnknownHostException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+				log.info("Forward:topic" + mns.topicName + ":content" + mns.doc + ":startTime" + mns.sendDate);
+//				System.out.println("Forward:topic" + mns.topicName + ":content" + mns.doc + ":startTime" + mns.sendDate);
+	
+				if (!(sTcp == null)) {
+					try {
+						oisTcp.close();
+						oosTcp.close();
+						sTcp.close();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+						log.warn(e);
+					}
+				}
+			}
+
+		} else {//普通消息，非关键消息类型
+//			log.info("get into Forward");
+			Iterator<String> it = ret.iterator();
+			int multiTimes = 0;//保证组播的话，一个组内，一次就足够了
+//			log.info("before while");
+
+			while (it.hasNext()) {
+//				log.info("after while");
+				String itNext = it.next();
+				if (itNext.equals(groupName)) {
+				}
+				else if (groupMap.containsKey(itNext)) {
+					String address = groupMap.get(itNext).rep.addr;
+
+					QueueMsgNotis qmn = new QueueMsgNotis(address, groupMap.get(itNext).rep.tPort, mns);
+					if (mgr.connectqueuepool.hadCQlist(address)) {
+						Date time = new Date();
+						mgr.connectqueuepool.setCQtime(address, time);
+						mgr.connectqueuepool
+								.addCqLast(mgr.connectqueuepool
+										.getCQlist(address), qmn);
+					}
+					else {
+						if (mgr.connectqueuepool.isCQlistNoFull()) {
+							mgr.connectqueuepool.addCQueuelist(address);
+							Date time = new Date();
+							mgr.connectqueuepool.setCQtime(address, time);
+							mgr.connectqueuepool
+									.addCqLast(mgr.connectqueuepool
+											.getCQlist(address), qmn);
+						}
+						else {
+							Date time = new Date();
+							for (int i = 0; i < 5; i++) {
+								if (mgr.connectqueuepool.datelist.get(i) != null) {
+									if ((time.getTime() - mgr.connectqueuepool.datelist
+											.get(i).getTime()) > 600000) {
+										mgr.connectqueuepool.addrlist
+												.set(i, null);
+										mgr.connectqueuepool.abqlist.get(i)
+												.clear();
+										mgr.connectqueuepool.datelist
+												.set(i, null);
+										try {
+											mgr.connectqueuepool.sendsocketlist
+													.get(i)
+													.getInputStream()
+													.close();
+											mgr.connectqueuepool.sendsocketlist
+													.get(i)
+													.getOutputStream()
+													.close();
+											mgr.connectqueuepool.sendsocketlist
+													.get(i)
+													.getSocket()
+													.close();
+										} catch (IOException e) {
+											// TODO Auto-generated catch block
+											e.printStackTrace();
+										}
+									}
+								}
+							}
+//							mgr.connectqueuepool.clearSendSocketList();
+							mgr.connectpool.addCqLast(qmn);
+						}
+					}
+				} else if (multiTimes == 0) {
+					multiTimes = 1;
+
+					try {//顺序不能随便变
+						baos = new ByteArrayOutputStream();
+
+						oos = new ObjectOutputStream(baos);
+						s = new DatagramSocket();
+						s.setSendBufferSize(1024 * 1024);
+
+						oos.writeObject(mns);
+						byte[] buf = baos.toByteArray();
+						DatagramPacket p = new DatagramPacket(buf, buf.length, InetAddress
+								.getByName(multiAddr), uPort);
+						s.send(p);
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					try {
+						baos.close();
+						oos.close();
+						s.close();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+						log.warn(e);
+					}
+//					log.info("Multicast:topic" + mns.topicName + ":content" + mns.doc + ":startTime" + mns.sendDate);
+//					System.out.println("Multicast:topic" + mns.topicName + ":content" + mns.doc + ":startTime" + mns.sendDate);
+
+				}
+			}
+//			log.info("after forward");
+		}
+	}
+
+	@Override
+	public void provideNotisMsg(Object msg) {
+		MsgNotis mns = (MsgNotis) msg;
+		mgr.addMqLast(mns);
+		log.info("add a msg,and the Queue size is" + mgr.getMqSize());
+//		System.out.println("add a msg,and the Queue size is" + mgr.getMqSize());
+
+//		log.info("WSN Get:topic" + mns.topicName + ":content" + mns.doc + ":startTime" + mns.sendDate);
+//		System.out.println("WSN Get:topic" + mns.topicName + ":content" + mns.doc + ":startTime" + mns.sendDate);
+
+	}
+
+	private void processSpecificTcpMsg(ObjectInputStream ois, ObjectOutputStream oos, Socket s, MsgJoinGroup mjg) {
+		//有代理请求加入到本集群中
+		System.out.println("join group message: " + s.getInetAddress().getHostAddress());
+		log.info("join group message: " + s.getInetAddress().getHostAddress());
+
+		if (mjg.name.equals(groupName)) {
+
+			BrokerUnit b = new BrokerUnit();
+			b.addr = s.getInetAddress().getHostAddress();
+			b.id = new Date().getTime();//use this value as id
+			b.tPort = mjg.tPort;
+
+			//first multicast in this group about this new broker
+			MsgNewBroker mnm = new MsgNewBroker();
+			mnm.name = groupName;
+			mnm.broker = b;
+
+			ByteArrayOutputStream baos = new ByteArrayOutputStream();
+			ObjectOutputStream doos = null;
+
+			DatagramPacket p;
+			DatagramSocket ds;
+
+			try {
+				doos = new ObjectOutputStream(baos);
+				doos.writeObject(mnm);
+				byte[] buf = baos.toByteArray();
+
+				p = new DatagramPacket(buf, buf.length, InetAddress.getByName(multiAddr), uPort);
+				ds = new DatagramSocket();
+				ds.send(p);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				log.warn(e);
+			}
+
+			//response this join request
+			MsgJoinGroup_ mjg_ = new MsgJoinGroup_();
+			mjg_.id = b.id;
+			//broker table
+			//mjg_.brokerTab.putAll(brokerTable);
+			for (String key : brokerTable.keySet()) {
+				TreeSet<String> ts = new TreeSet<String>();
+				for (String addr : brokerTable.get(key)) {
+					ts.add(addr);
+				}
+				mjg_.brokerTab.put(key, ts);
+			}
+			for (String t : clientTable) {
+				if (mjg_.brokerTab.keySet().contains(t)) {
+					mjg_.brokerTab.get(t).add(localAddr);
+					//brokerTable.get(t).remove(localAddr);
+				}
+				else {
+					TreeSet<String> set = new TreeSet<String>();
+					set.add(localAddr);
+					mjg_.brokerTab.put(t, set);
+				}
+			}
+			//group table
+			mjg_.groupTab.putAll(groupTable);
+			//neighbors table
+			mjg_.neighbors.putAll(neighbors);
+			//parent node
+			mjg_.parent = parent;
+			//children node
+			mjg_.children.addAll(children);
+			//group map
+			mjg_.groupMap.putAll(groupMap);
+
+			try {
+				oos.writeObject(mjg_);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				log.warn(e);
+			}
+
+			//send heart to new broker
+			dt.addTarget(b.addr);
+
+			//将该代理添加进来
+			neighbors.put(b.addr, b);
+		}
+
+	}
+
+	private void processSpecificTcpMsg(ObjectInputStream ois, ObjectOutputStream oos, Socket s, MsgInsert mi) {
+
+		System.out.println("insert message: " + s.getInetAddress().getHostAddress());
+		log.info("insert message: " + s.getInetAddress().getHostAddress());
+		MsgInsert_ mi_ = new MsgInsert_();
+		ObjectOutputStream doos = null;
+
+		if (insertOK()) {
+
+			MsgGroup mg = new MsgGroup();
+			mg.sender = groupName;
+			mg.g.name = mi.name;
+			mg.g.uPort = mi.uPort;
+			mg.g.rep.addr = mi.addr;
+			mg.g.rep.id = mi.id;
+			mg.g.rep.tPort = mi.tPort;
+			mg.g.date = new Date();
+
+			ByteArrayOutputStream baos = new ByteArrayOutputStream();
+			DatagramSocket ds = null;
+
+			try {
+				doos = new ObjectOutputStream(baos);
+				ds = new DatagramSocket();
+				doos.writeObject(mg);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				log.warn(e);
+			}
+
+			byte[] buf = baos.toByteArray();
+
+			//tell brokers about this group
+			DatagramPacket p;
+			try {
+				p = new DatagramPacket(buf, buf.length, InetAddress.getByName(multiAddr), uPort);
+				ds.send(p);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				log.warn(e);
+			}
+
+			if (mi.needInit) {
+
+				//tell neighbor groups about this group
+				ArrayList<String> li = new ArrayList<String>(children);
+				li.add(parent);
+				for (String n : li)
+					if (groupMap.get(n) != null) {
+						try {
+							p = new DatagramPacket(buf, buf.length, InetAddress.getByName(groupMap
+									.get(n).rep.addr), groupMap.get(n).uPort);
+							ds.send(p);
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+							log.warn(e);
+						}
+
+					}
+
+				mi_.groupMap.putAll(groupMap);
+				//add this group's subscriptions information
+				for (String t : clientTable) {
+					TreeSet<String> set = new TreeSet<String>();
+					set.add(groupName);
+					mi_.groupTab.put(t, set);
+				}
+				for (String t : brokerTable.keySet())
+					if (!mi_.groupTab.keySet().contains(t)) {
+						TreeSet<String> set = new TreeSet<String>();
+						set.add(groupName);
+						mi_.groupTab.put(t, set);
+					}
+				//add other groups' subscriptions information
+				for (String t : groupTable.keySet()) {
+					if (mi_.groupTab.keySet().contains(t))
+						mi_.groupTab.get(t).addAll(groupTable.get(t));
+					else
+						mi_.groupTab.put(t, groupTable.get(t));
+				}
+
+			}
+
+			mi_.name = groupName;
+			mi_.uPort = uPort;
+			mi_.id = id;
+			mi_.isOK = true;
+
+			//add this new group as a child 
+			if (groupMap.keySet().contains(mi.name)) {
+				//if this group already exists, update its information
+				groupMap.get(mi.name).uPort = mi.uPort;
+				groupMap.get(mi.name).rep.addr = mi.addr;
+				groupMap.get(mi.name).rep.id = mi.id;
+				groupMap.get(mi.name).rep.tPort = mi.tPort;
+
+			} else {
+				GroupUnit g = new GroupUnit();
+				g.rep.addr = mi.addr;
+				g.name = mi.name;
+				g.rep.tPort = mi.tPort;
+				g.uPort = mi.uPort;
+				g.rep.id = mi.id;
+				g.date = new Date();
+
+				groupMap.put(g.name, g);
+			}
+			children.add(mi.name);
+
+			//send heart to new child
+			dt.addTarget(mi.name);
+
+		} else {
+			//set one child for it to insert
+			mi_.isOK = false;
+
+			mi_.name = children.get(nextInsertChild);
+			mi_.next = groupMap.get(children.get(nextInsertChild)).rep.addr;
+			mi_.tPort = groupMap.get(children.get(nextInsertChild)).rep.tPort;
+			nextInsertChild = (nextInsertChild + 1) % childrenSize;
+		}
+
+		try {
+			oos.writeObject(mi_);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			log.warn(e);
+		}
+	}
+
+	private void processSpecificTcpMsg(ObjectInputStream ois, ObjectOutputStream oos, Socket s, MsgNewRep mnr) {
+		System.out.println("new representative message from:" + s.getInetAddress().getHostAddress());
+		System.out.println("group: " + mnr.name + " new rep");
+		log.info("new representative message from: " + s.getInetAddress().getHostAddress());
+		log.info("group: " + mnr.name + " new rep");
+		wait4Hrt.remove(mnr.name);
+
+		//find the group and update its information
+		groupMap.get(mnr.name).uPort = mnr.uPort;
+		groupMap.get(mnr.name).rep.addr = mnr.addr;
+		groupMap.get(mnr.name).rep.tPort = mnr.tPort;
+		groupMap.get(mnr.name).rep.id = mnr.id;
+
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		ObjectOutputStream doos = null;
+
+		try {
+			doos = new ObjectOutputStream(baos);
+			doos.writeObject(mnr);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+
+		byte[] buf = baos.toByteArray();
+
+		try {
+			DatagramPacket p = new DatagramPacket(buf, buf.length, InetAddress.getByName(multiAddr), uPort);
+			DatagramSocket ds = new DatagramSocket();
+			ds.send(p);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			log.warn(e);
+		}
+
+		ArrayList<String> li = new ArrayList<String>(children);
+		li.add(parent);
+
+		String from = mnr.sender;
+		mnr.sender = groupName;
+		Socket s1 = null;
+		ObjectOutputStream oos1 = null;
+		ObjectInputStream ois1 = null;
+
+		for (String n : li)
+			if (!n.equals(from) && groupMap.get(n) != null) {
+				try {
+					s1 = new Socket(groupMap.get(n).rep.addr, groupMap.get(n).rep.tPort);
+					oos1 = new ObjectOutputStream(s1.getOutputStream());
+					ois1 = new ObjectInputStream(s1.getInputStream());
+					oos1.writeObject(mnr);
+
+					ois1.close();
+					oos1.close();
+					s1.close();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					log.warn(e);
+				}
+			}
+	}
+
+	private void processSpecificTcpMsg(ObjectInputStream ois, ObjectOutputStream oos, Socket s, MsgSynSubs mss) {
+		System.out.println("syn subs message: " + mss.originator);
+		log.info("syn subs message: " + mss.originator);
+
+		//更新相关订阅信息
+		for (TreeSet<String> ss : groupTable.values())
+			if (ss.contains(mss.originator))
+				ss.remove(mss.originator);
+
+		for (String t : mss.topics) {
+			if (groupTable.keySet().contains(t))
+				groupTable.get(t).add(mss.originator);
+			else {
+				TreeSet<String> ss = new TreeSet<String>();
+				ss.add(mss.originator);
+				groupTable.put(t, ss);
+			}
+		}
+
+		//在本集群中组播
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		ObjectOutputStream doos = null;
+
+		try {
+			doos = new ObjectOutputStream(baos);
+			doos.writeObject(mss);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			log.warn(e);
+		}
+
+		byte[] buf = baos.toByteArray();
+
+		try {
+			DatagramPacket p = new DatagramPacket(buf, buf.length, InetAddress.getByName(multiAddr), uPort);
+			DatagramSocket ds = new DatagramSocket();
+			ds.send(p);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			log.warn(e);
+		}
+
+		//转发到其他集群
+		String sender = mss.sender;
+		mss.sender = groupName;
+		Socket s1 = null;
+		ObjectOutputStream oos1 = null;
+		ObjectInputStream ois1 = null;
+		ArrayList<String> li = new ArrayList<String>(children);
+		li.add(parent);
+		for (String n : li)
+			if (!n.equals(sender) && groupMap.get(n) != null) {
+				try {
+					s1 = new Socket(groupMap.get(n).rep.addr, groupMap.get(n).rep.tPort);
+					oos1 = new ObjectOutputStream(s1.getOutputStream());
+					ois1 = new ObjectInputStream(s1.getInputStream());
+					oos1.writeObject(mss);
+
+					oos1.close();
+					ois1.close();
+					s1.close();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					log.warn(e);
+				}
+
+			}
+
+	}
+
+	private void processSpecificTcpMsg(ObjectInputStream ois, ObjectOutputStream oos, Socket s, MsgSetAddr msa) {
+		System.out.println("set address message");
+		log.info("set address message");
+
+		if (!localAddr.equals(msa.addr) || tPort != msa.port) {
+			MsgInfoChange mic = new MsgInfoChange();
+			mic.addr = msa.addr;
+			mic.port = msa.port;
+
+			ObjectOutputStream oos1 = null;
+			Socket s1 = null;
+
+			//notify in this group
+			mic.originator = localAddr;
+			mic.sender = localAddr;
+			for (BrokerUnit b : neighbors.values()) {
+				try {
+					s1 = new Socket(b.addr, b.tPort);
+					oos1 = new ObjectOutputStream(s1.getOutputStream());
+					oos1.writeObject(mic);
+
+					oos1.close();
+					s1.close();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					log.warn(e);
+				}
+			}
+
+			//notify neighbor groups
+			mic.originator = groupName;
+			mic.sender = groupName;
+			ArrayList<String> li = new ArrayList<String>(children);
+			li.add(parent);
+			for (String n : li)
+				if (groupMap.get(n) != null) {
+					try {
+						s1 = new Socket(groupMap.get(n).rep.addr, groupMap.get(n).rep.tPort);
+						oos1 = new ObjectOutputStream(s1.getOutputStream());
+						oos1.writeObject(mic);
+
+						oos1.close();
+						s1.close();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+						log.warn(e);
+					}
+				}
+
+			localAddr = msa.addr;
+			tPort = msa.port;
+			mgr.updateUdpSkt();
+			mgr.updateTcpSkt();
+		}
+
+	}
+
+	private void processSpecificTcpMsg(ObjectInputStream ois, ObjectOutputStream oos, Socket s, MsgAdminChange mac) {
+		adminAddr = mac.NewAdminAddr;
+		System.out.println("AdminAddress change to:" + adminAddr);
+		log.info("AdminAddress change to：" + adminAddr);
+
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		DatagramSocket ds = null;
+		DatagramPacket p = null;
+		ObjectOutputStream doos = null;
+
+		try {
+			doos = new ObjectOutputStream(baos);
+			doos.writeObject(mac);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			log.warn(e);
+		}
+		byte[] buf = baos.toByteArray();
+
+		try {
+			ds = new DatagramSocket();
+			p = new DatagramPacket(buf, buf.length, InetAddress.getByName(multiAddr), uPort);
+			ds.send(p);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			log.warn(e);
+		}
+
+	}
+
+	private void processSpecificTcpMsg(ObjectInputStream ois, ObjectOutputStream oos, Socket s, MsgGroupLost mgl) {
+		System.out.println("group lost message: " + s.getInetAddress().getHostAddress());
+		log.info("group lost message: " + s.getInetAddress().getHostAddress());
+
+		//转发给邻居集群，除了发送此消息的集群
+		String sender = mgl.sender;
+		mgl.sender = groupName;
+
+		Socket s1 = null;
+		ObjectOutputStream oos1 = null;
+
+		ArrayList<String> li = new ArrayList<String>(children);
+		li.add(parent);
+		for (String n : li)
+			if (!n.equals(sender) && groupMap.get(n) != null) {
+				try {
+					s1 = new Socket(groupMap.get(n).rep.addr, groupMap.get(n).rep.tPort);
+					oos1 = new ObjectOutputStream(s1.getOutputStream());
+					oos1.writeObject(mgl);
+
+					oos1.close();
+					s1.close();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					log.warn(e);
+				}
+			}
+
+		//在本集群中转发
+		MsgLost ml = new MsgLost();
+		ml.indicator = mgl.name;
+		ml.inside = false;
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		DatagramSocket ds = null;
+		DatagramPacket p = null;
+		ObjectOutputStream doos = null;
+
+		try {
+			doos = new ObjectOutputStream(baos);
+			doos.writeObject(ml);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			log.warn(e);
+		}
+		byte[] buf = baos.toByteArray();
+
+		try {
+			ds = new DatagramSocket();
+			p = new DatagramPacket(buf, buf.length, InetAddress.getByName(multiAddr), uPort);
+			ds.send(p);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			log.warn(e);
+		}
+
+		for (String t : groupTable.keySet())
+			if (groupTable.get(t).contains(mgl.name)) {
+
+				groupTable.get(t).remove(mgl.name);
+				if (groupTable.get(t).isEmpty())
+					groupTable.remove(t);
+
+			}
+
+		//删除此集群的信息  
+		groupMap.remove(mgl.name);
+
+	}
+
+	private void processSpecificTcpMsg(ObjectInputStream ois, ObjectOutputStream oos, Socket s,
+			MsgLookupGroupMember mlgm) {
+		System.out.println("look up group memeber");
+		log.info("look up group memeber");
+
+		if (mlgm.name.equals(groupName)) {
+			MsgLookupGroupMember_ mlgm_ = new MsgLookupGroupMember_();
+			BrokerUnit tmp = new BrokerUnit();
+			tmp.addr = localAddr;
+			tmp.tPort = tPort;
+			tmp.id = id;
+			mlgm_.members.add(tmp);
+			mlgm_.members.addAll(neighbors.values());
+
+			try {
+				oos.writeObject(mlgm_);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				log.warn(e);
+			}
+		}
+
+	}
+
+	private void processSpecificTcpMsg(ObjectInputStream ois, ObjectOutputStream oos, Socket s, MsgInfoChange mic) {
+		System.out.println("some group info change");
+		log.info("some group info change");
+
+		if (neighbors.keySet().contains(mic.originator)) {
+			//inside the group
+			neighbors.get(mic.originator).addr = mic.addr;
+			neighbors.get(mic.originator).tPort = mic.port;
+
+		} else if (groupMap.containsKey(mic.originator)) {
+			groupMap.get(mic.originator).rep.addr = mic.addr;
+			groupMap.get(mic.originator).rep.tPort = mic.port;
+
+			//转发给其他集群
+			String sender = mic.sender;
+			mic.sender = groupName;
+			Socket s1 = null;
+			ObjectOutputStream oos1 = null;
+			ArrayList<String> li = new ArrayList<String>(children);
+			li.add(parent);
+			for (String n : li)
+				if (!n.equals(sender) && groupMap.containsKey(n)) {
+					try {
+						s1 = new Socket(groupMap.get(n).rep.addr, groupMap.get(n).rep.tPort);
+						oos1 = new ObjectOutputStream(s1.getOutputStream());
+						oos1.writeObject(mic);
+
+						oos1.close();
+						s1.close();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+						log.warn(e);
+					}
+				}
+
+			//集群内转发
+			ArrayList<BrokerUnit> b = new ArrayList<BrokerUnit>(neighbors.values());
+			for (BrokerUnit bu : b) {
+				try {
+					s1 = new Socket(bu.addr, bu.tPort);
+					oos1 = new ObjectOutputStream(s1.getOutputStream());
+					oos1.writeObject(mic);
+
+					oos1.close();
+					s1.close();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					log.warn(e);
+				}
+			}
+		}
+
+	}
+
+	private void processSpecificTcpMsg(ObjectInputStream ois, ObjectOutputStream oos, Socket s, MsgSetConf msc) {
+		System.out.println("set configurations");
+		log.info("set configurations");
+		Socket s1 = null;
+		ObjectOutputStream oos1 = null;
+		ObjectInputStream ois1 = null;
+
+		for (BrokerUnit b : neighbors.values()) {
+			try {
+				s1 = new Socket(b.addr, b.tPort);
+				oos1 = new ObjectOutputStream(s1.getOutputStream());
+				ois1 = new ObjectInputStream(s1.getInputStream());
+				oos1.writeObject(msc);
+
+				ois1.close();
+				oos1.close();
+				s1.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				log.warn(e);
+			}
+		}
+
+		childrenSize = msc.conf_.childrenSize;
+		joinTimes = msc.conf_.joinTimes;
+
+		if (threshold != msc.conf_.lostThreshold) {
+			threshold = msc.conf_.lostThreshold;
+			dt.setThreshold(threshold);
+		}
+		if (scanPeriod != msc.conf_.scanPeriod) {
+			scanPeriod = msc.conf_.scanPeriod;
+			dt.setScanPeriod(scanPeriod);
+		}
+		if (sendPeriod != msc.conf_.sendPeriod) {
+			sendPeriod = msc.conf_.sendPeriod;
+			dt.setSendPeriod(sendPeriod);
+		}
+		if (synPeriod != msc.conf_.synPeriod) {
+			synPeriod = msc.conf_.synPeriod;
+			dt.setSynPeriod(synPeriod);
+		}
+		if (uPort != msc.conf_.uPort || !multiAddr.equals(msc.conf_.multiAddr)) {
+			uPort = msc.conf_.uPort;
+			multiAddr = msc.conf_.multiAddr;
+			mgr.updateUdpSkt();
+		}
+
+		System.out.println("configuration updated");
+		log.info("configuration updated");
+
+	}
+
+	private void processSpecificTcpMsg(ObjectInputStream ois, ObjectOutputStream oos, Socket s, MsgAdReboot mar) {
+		MsgAdReboot_ mar_ = new MsgAdReboot_();
+
+		mar_.self.addr = localAddr;
+		mar_.self.name = groupName;
+		mar_.self.port = tPort;
+
+		mar_.c.addAll(groupMap.values());
+
+		try {
+			oos.writeObject(mar_);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			log.warn(e);
+		}
+	}
+
+	private void processSpecificTcpMsg(ObjectInputStream ois, ObjectOutputStream oos, Socket s,
+			MsgLookupGroupSubscriptions mlgs) {
+		System.out.println("look up group Subscriptions");
+		log.info("look up group Subscriptions");
+		if (mlgs.name.equals(groupName)) {
+			MsgLookupGroupSubscriptions_ mlgs_ = new MsgLookupGroupSubscriptions_();
+
+			for (String t : brokerTable.keySet()) {
+				mlgs_.topics.add(t);
+			}
+			//System.out.println(clientTable.get(key));
+			for (String t : clientTable) {
+				mlgs_.topics.add(t);
+			}//for
+
+			try {
+				oos.writeObject(mlgs_);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				log.warn(e);
+			}
+		}//if		
+
+	}
+
+	private void processSpecificTcpMsg(ObjectInputStream ois, ObjectOutputStream oos, Socket s,
+			MsgLookupMemberSubscriptions mlms) {
+		System.out.println("look up member Subscriptions");
+		log.info("look up member Subscriptions");
+		if (mlms.name.equals(groupName) && mlms.addr.equals(localAddr)) {
+			MsgLookupMemberSubscriptions_ mlms_ = new MsgLookupMemberSubscriptions_();
+
+			for (String t : clientTable) {
+				mlms_.topics.add(t);
+			}//for
+
+			try {
+				oos.writeObject(mlms_);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				log.warn(e);
+			}
+		}//if		
+	}
+
+	public void forwardQ0Msg(Object qmn) {
+		QueueMsgNotis qmn1 = (QueueMsgNotis) qmn;
+		MsgNotis mns = (MsgNotis) qmn1.msg;
+
+		Socket sTcp = null;
+		ObjectOutputStream oosTcp = null;
+		ObjectInputStream oisTcp = null;
+		log.info("before new tcpconnect");
+
+		if ((mgr.connectqueuepool.ss0.getSocket() != null) && (!mgr.connectqueuepool.ss0
+				.getSocket().isClosed())) {
+
+//			System.out.println("isclosed is " + mgr.connectqueuepool.ss0.getSocket().isClosed());
+//			System.out.println("isInputShutdown is " + mgr.connectqueuepool.ss0.getSocket()
+//					.isInputShutdown());
+//			System.out.println("isOutputShutdown is " + mgr.connectqueuepool.ss0.getSocket()
+//					.isOutputShutdown());
+			sTcp = mgr.connectqueuepool.ss0.getSocket();
+			oosTcp = mgr.connectqueuepool.ss0.getOutputStream();
+			oisTcp = mgr.connectqueuepool.ss0.getInputStream();
+
+			try {
+				oosTcp.writeObject(mns);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				try {
+					System.out.println("close socket");
+					oisTcp.close();
+					oosTcp.close();
+					sTcp.close();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+					log.warn(e);
+				}
+			}
+
+			log.info("theForward topic with q0");
+			System.out.println("theForward topic with q0");
+		}
+		else {
+			try {
+				sTcp = new Socket(qmn1.addr, qmn1.port);
+				log.info("new tcp connect" + qmn1.addr);
+				oosTcp = new ObjectOutputStream(sTcp.getOutputStream());
+				oisTcp = new ObjectInputStream(sTcp.getInputStream());
+
+				sTcp.setSendBufferSize(1024 * 1024);
+
+				oosTcp.writeObject(mns);
+			} catch (UnknownHostException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			mgr.connectqueuepool.ss0.setSocket(sTcp, oosTcp, oisTcp);
+
+			log.info("theForward topic with q0");
+			System.out.println("theForward topic with q0");
+
+		}
+
+//		log.info("Forward: topic" + mns.topicName + ":content" + mns.doc + ":startTime" + mns.sendDate);
+//		System.out.println("Forward:topic" + mns.topicName + ":content" + mns.doc + ":startTime" + mns.sendDate);
+		log.info("have same name ,not close");
+
+	}
+
+	public void forwardQ1Msg(Object qmn) {
+		QueueMsgNotis qmn1 = (QueueMsgNotis) qmn;
+		MsgNotis mns = (MsgNotis) qmn1.msg;
+
+		Socket sTcp = null;
+		ObjectOutputStream oosTcp = null;
+		ObjectInputStream oisTcp = null;
+		log.info("before new tcpconnect");
+
+		if ((mgr.connectqueuepool.ss1.getSocket() != null) && (!mgr.connectqueuepool.ss1
+				.getSocket().isClosed())) {
+			sTcp = mgr.connectqueuepool.ss1.getSocket();
+			oosTcp = mgr.connectqueuepool.ss1.getOutputStream();
+			oisTcp = mgr.connectqueuepool.ss1.getInputStream();
+
+			try {
+				oosTcp.writeObject(mns);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				try {
+					oisTcp.close();
+					oosTcp.close();
+					sTcp.close();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+					log.warn(e);
+				}
+			}
+
+			log.info("theForward topic  with q1");
+		}
+		else {
+			try {
+				sTcp = new Socket(qmn1.addr, qmn1.port);
+				log.info("new tcp connect" + qmn1.addr);
+				oosTcp = new ObjectOutputStream(sTcp.getOutputStream());
+				oisTcp = new ObjectInputStream(sTcp.getInputStream());
+
+				sTcp.setSendBufferSize(1024 * 1024);
+
+				oosTcp.writeObject(mns);
+			} catch (UnknownHostException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			mgr.connectqueuepool.ss1.setSocket(sTcp, oosTcp, oisTcp);
+
+			log.info("theForward topic  with q1");
+
+		}
+
+//		log.info("Forward: topic" + mns.topicName + ":content" + mns.doc + ":startTime" + mns.sendDate);
+//		System.out.println("Forward:topic" + mns.topicName + ":content" + mns.doc + ":startTime" + mns.sendDate);
+		log.info("have same name ,not close");
+
+	}
+
+	public void forwardQ2Msg(Object qmn) {
+		QueueMsgNotis qmn1 = (QueueMsgNotis) qmn;
+		MsgNotis mns = (MsgNotis) qmn1.msg;
+
+		Socket sTcp = null;
+		ObjectOutputStream oosTcp = null;
+		ObjectInputStream oisTcp = null;
+		log.info("before new tcpconnect");
+
+		if ((mgr.connectqueuepool.ss2.getSocket() != null) && (!mgr.connectqueuepool.ss2
+				.getSocket().isClosed())) {
+			sTcp = mgr.connectqueuepool.ss2.getSocket();
+			oosTcp = mgr.connectqueuepool.ss2.getOutputStream();
+			oisTcp = mgr.connectqueuepool.ss2.getInputStream();
+
+			try {
+				oosTcp.writeObject(mns);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				try {
+					oisTcp.close();
+					oosTcp.close();
+					sTcp.close();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+					log.warn(e);
+				}
+			}
+
+			log.info("theForward topic  with q2");
+		}
+		else {
+			try {
+				sTcp = new Socket(qmn1.addr, qmn1.port);
+				log.info("new tcp connect" + qmn1.addr);
+				oosTcp = new ObjectOutputStream(sTcp.getOutputStream());
+				oisTcp = new ObjectInputStream(sTcp.getInputStream());
+
+				sTcp.setSendBufferSize(1024 * 1024);
+
+				oosTcp.writeObject(mns);
+			} catch (UnknownHostException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			mgr.connectqueuepool.ss2.setSocket(sTcp, oosTcp, oisTcp);
+
+			log.info("theForward topic  with q2");
+
+		}
+
+//		log.info("Forward: topic" + mns.topicName + ":content" + mns.doc + ":startTime" + mns.sendDate);
+//		System.out.println("Forward:topic" + mns.topicName + ":content" + mns.doc + ":startTime" + mns.sendDate);
+		log.info("have same name ,not close");
+
+	}
+
+	public void forwardQ3Msg(Object qmn) {
+		QueueMsgNotis qmn1 = (QueueMsgNotis) qmn;
+		MsgNotis mns = (MsgNotis) qmn1.msg;
+
+		Socket sTcp = null;
+		ObjectOutputStream oosTcp = null;
+		ObjectInputStream oisTcp = null;
+		log.info("before new tcpconnect");
+
+		if ((mgr.connectqueuepool.ss3.getSocket() != null) && (!mgr.connectqueuepool.ss3
+				.getSocket().isClosed())) {
+			sTcp = mgr.connectqueuepool.ss3.getSocket();
+			oosTcp = mgr.connectqueuepool.ss3.getOutputStream();
+			oisTcp = mgr.connectqueuepool.ss3.getInputStream();
+
+			try {
+				oosTcp.writeObject(mns);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				try {
+					oisTcp.close();
+					oosTcp.close();
+					sTcp.close();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+					log.warn(e);
+				}
+			}
+
+			log.info("theForward topic  with q3");
+		}
+		else {
+			try {
+				sTcp = new Socket(qmn1.addr, qmn1.port);
+				log.info("new tcp connect" + qmn1.addr);
+				oosTcp = new ObjectOutputStream(sTcp.getOutputStream());
+				oisTcp = new ObjectInputStream(sTcp.getInputStream());
+
+				sTcp.setSendBufferSize(1024 * 1024);
+
+				oosTcp.writeObject(mns);
+			} catch (UnknownHostException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			mgr.connectqueuepool.ss3.setSocket(sTcp, oosTcp, oisTcp);
+
+			log.info("theForward topic  with q3");
+
+		}
+
+//		log.info("Forward: topic" + mns.topicName + ":content" + mns.doc + ":startTime" + mns.sendDate);
+//		System.out.println("Forward:topic" + mns.topicName + ":content" + mns.doc + ":startTime" + mns.sendDate);
+		log.info("have same name ,not close");
+
+	}
+
+	public void forwardQ4Msg(Object qmn) {
+		QueueMsgNotis qmn1 = (QueueMsgNotis) qmn;
+		MsgNotis mns = (MsgNotis) qmn1.msg;
+
+		Socket sTcp = null;
+		ObjectOutputStream oosTcp = null;
+		ObjectInputStream oisTcp = null;
+		log.info("before new tcpconnect");
+
+		if ((mgr.connectqueuepool.ss4.getSocket() != null) && (!mgr.connectqueuepool.ss4
+				.getSocket().isClosed())) {
+			sTcp = mgr.connectqueuepool.ss4.getSocket();
+			oosTcp = mgr.connectqueuepool.ss4.getOutputStream();
+			oisTcp = mgr.connectqueuepool.ss4.getInputStream();
+
+			try {
+				oosTcp.writeObject(mns);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				try {
+					oisTcp.close();
+					oosTcp.close();
+					sTcp.close();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+					log.warn(e);
+				}
+			}
+
+			log.info("theForward topic  with q4");
+		}
+		else {
+			try {
+				sTcp = new Socket(qmn1.addr, qmn1.port);
+				log.info("new tcp connect" + qmn1.addr);
+				oosTcp = new ObjectOutputStream(sTcp.getOutputStream());
+				oisTcp = new ObjectInputStream(sTcp.getInputStream());
+
+				sTcp.setSendBufferSize(1024 * 1024);
+
+				oosTcp.writeObject(mns);
+			} catch (UnknownHostException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			mgr.connectqueuepool.ss4.setSocket(sTcp, oosTcp, oisTcp);
+
+			log.info("theForward topic  with q4");
+
+		}
+
+//		log.info("Forward: topic" + mns.topicName + ":content" + mns.doc + ":startTime" + mns.sendDate);
+//		System.out.println("Forward:topic" + mns.topicName + ":content" + mns.doc + ":startTime" + mns.sendDate);
+		log.info("have same name ,not close");
+
+	}
+
+	public void forwardOtherMsg(Object qmn) {
+		QueueMsgNotis qmn1 = (QueueMsgNotis) qmn;
+		MsgNotis mns = (MsgNotis) qmn1.msg;
+
+		Socket sTcp = null;
+		ObjectOutputStream oosTcp = null;
+		ObjectInputStream oisTcp = null;
+
+		log.info("before new tcpconnect");
+
+		try {
+			sTcp = new Socket(qmn1.addr, qmn1.port);
+			log.info("new tcp connect" + qmn1.addr);
+			oosTcp = new ObjectOutputStream(sTcp.getOutputStream());
+			oisTcp = new ObjectInputStream(sTcp.getInputStream());
+		} catch (UnknownHostException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		try {
+			oosTcp.writeObject(mns);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		try {
+			oisTcp.close();
+			oosTcp.close();
+			sTcp.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			log.warn(e);
+		}
+
+		log.info("theForward topic  with q");
+
+//		log.info("Forward: topic" + mns.topicName + ":content" + mns.doc + ":startTime" + mns.sendDate);
+//		System.out.println("Forward:topic" + mns.topicName + ":content" + mns.doc + ":startTime" + mns.sendDate);
+
+		log.info("have same name ,not close");
+	}
+}

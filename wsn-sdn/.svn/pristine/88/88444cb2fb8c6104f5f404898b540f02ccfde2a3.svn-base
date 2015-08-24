@@ -1,0 +1,329 @@
+package org.apache.servicemix.wsn.router.mgr;
+
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.Socket;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
+import java.util.Vector;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.apache.servicemix.wsn.push.NotifyObserverMessage;
+import org.apache.servicemix.wsn.router.detection.DtMgr;
+import org.apache.servicemix.wsn.router.detection.HrtMsgHdlr;
+import org.apache.servicemix.wsn.router.detection.IDt;
+import org.apache.servicemix.wsn.router.mgr.base.AConfiguration;
+import org.apache.servicemix.wsn.router.mgr.base.AState;
+import org.apache.servicemix.wsn.router.mgr.base.SysInfo;
+import org.apache.servicemix.wsn.router.msg.udp.MsgSubs;
+import org.apache.servicemix.wsn.router.router.IRouter;
+import org.apache.servicemix.wsn.router.router.Router;
+
+public class RtMgr extends SysInfo implements HrtMsgHdlr, IRouter, Observer {
+	private static Log log = LogFactory.getLog(RtMgr.class);
+	private AConfiguration configuration;//配置系统
+
+	private AState regState;//普通代理状态
+	private AState repState;//代表状态
+	private AState state;//当前状态
+
+	private IDt dt;//心跳检测模块
+
+	private IRouter ir;//路由算法模块
+
+	private int count;//允许处理“上交WSN”的并发线程数目
+	protected ExecutorService pool;//处理wsn的线程池
+	private int poolLimit;//线程池容量//多次声明的问题//注意编码层次
+//	private int Ncount;//计数器，log用，以免多线程后，线程混淆
+
+	private ArrayBlockingQueue<MsgNotis> mq;//通知消息缓存队列
+
+//	protected ConnectPoolS sendpool;
+	protected ConnectPool connectpool;
+	protected ConnectQueuePool connectqueuepool;
+
+	private Thread tdt;//心跳线程
+	private Thread tmt;//监听tcp连接的线程
+	private Thread umt;//监听udp消息的线程
+	private Thread qlt;//监听消息队列的线程
+	private Thread mqlt;//监听消息队列的线程
+	private Thread mqlt0;//监听消息队列的线程
+	private Thread mqlt1;//监听消息队列的线程
+	private Thread mqlt2;//监听消息队列的线程
+	private Thread mqlt3;//监听消息队列的线程
+	private Thread mqlt4;//监听消息队列的线程
+
+	private static RtMgr INSTANCE = new RtMgr();
+
+	private RtMgr() {
+		dt = new DtMgr(this);
+
+		ir = new Router();
+
+		configuration = new Configuration(this);
+
+		regState = new RegState(this, dt);
+
+		repState = new RepState(this, dt);
+
+		boolean ManagerOn = configuration.configure();
+
+		count = 0;
+//		Ncount = 0;
+
+		poolLimit = poolCount;
+		pool = Executors.newFixedThreadPool(poolCount); //初始化线程池
+
+		mq = new ArrayBlockingQueue<MsgNotis>(queueSize);
+
+//		sendpool = new ConnectPoolS(connectCount);
+		connectpool = new ConnectPool();
+		connectqueuepool = new ConnectQueuePool();
+
+		if (!ManagerOn) {
+			return;
+		} else {
+			while (!joinOK) {
+				state.join();
+			}
+//			System.out.println("join finished!");
+			log.info("join finished!");
+
+			//start other threads
+			dt.setThreshold(threshold);
+			dt.setSendPeriod(sendPeriod);
+			dt.setScanPeriod(scanPeriod);
+			dt.setSynPeriod(synPeriod);
+			tdt = new Thread((Runnable) dt);
+			tdt.start();
+
+			tmt = new Thread(new TcpMsgThread(this));
+			umt = new Thread(new UdpMsgThread(this));
+			qlt = new Thread(new QueueListenThread(this));
+			mqlt = new Thread(new MsgqueueListenTread(this));
+			mqlt0 = new Thread(new MsgqueueListenTread0(this));
+			mqlt1 = new Thread(new MsgqueueListenTread1(this));
+			mqlt2 = new Thread(new MsgqueueListenTread2(this));
+			mqlt3 = new Thread(new MsgqueueListenTread3(this));
+			mqlt4 = new Thread(new MsgqueueListenTread4(this));
+			tmt.start();
+			umt.start();
+			qlt.start();
+			mqlt.start();
+			mqlt0.start();
+			mqlt1.start();
+			mqlt2.start();
+			mqlt3.start();
+			mqlt4.start();
+		}
+	}
+
+	public AState getRegState() {
+		return regState;
+	}
+
+	public AState getRepState() {
+		rep.addr = localAddr;
+		return repState;
+	}
+
+	public void setState(AState state) {
+		this.state = state;
+	}
+
+	public AState getState() {
+		return state;
+	}
+
+	public void updateUdpSkt() {
+		udpMsgThreadSwitch = false;
+		try {
+			umt.interrupt();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			log.warn(e);
+		}
+		umt = new Thread(new UdpMsgThread(this));
+		udpMsgThreadSwitch = true;
+		umt.start();
+	}
+
+	public void updateTcpSkt() {
+		tcpMsgThreadSwitch = false;
+		try {
+			tmt.join();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			log.warn(e);
+		}
+		tmt = new Thread(new TcpMsgThread(this));
+		tcpMsgThreadSwitch = true;
+		tmt.start();
+	}
+
+	public void destroy() {
+		tdt.interrupt();
+		tmt.interrupt();
+		umt.interrupt();
+	}
+
+	public void sendHrtMsg() {
+		// TODO Auto-generated method stub
+		state.sendHrt();
+	}
+
+	public void lost(String indicator) {
+		// TODO Auto-generated method stub
+		state.lost(indicator);
+	}
+
+//	public static void main(String[] args) {
+//		RtMgr.getInstance();
+//	}
+
+	public Vector<String> route(String topic, String sender, String originatorGroup) {
+		// TODO Auto-generated method stub
+		return ir.route(topic, sender, originatorGroup);
+	}
+
+	public static RtMgr getInstance() {
+		if (INSTANCE.equals(null))
+			INSTANCE = new RtMgr();
+		return INSTANCE;
+
+	}
+
+	public void update(Observable o, Object arg) {//被上层wsn调用的接口
+		// TODO Auto-generated method stub
+		NotifyObserverMessage nom = (NotifyObserverMessage) arg;
+		int msgKind = nom.getKind();
+		log.debug("Msg kind is " + msgKind);
+		if (msgKind == 1) {
+
+			if (clientTable.contains(nom.getTopicName()))
+				return;
+			else {
+				clientTable.add(nom.getTopicName());
+
+				//spread it
+				MsgSubs mss = new MsgSubs();
+				mss.topics.add(nom.getTopicName());
+				mss.type = 0;
+				log.debug("A new SubMsg**** Topic:" + nom.getTopicName() + "Content:" + nom.getDoc());
+
+				state.sendSbp(mss);
+			}
+
+		} else if (msgKind == 0) {//取消订阅
+
+			if (clientTable.contains(nom.getTopicName())) {
+
+				clientTable.remove(nom.getTopicName());
+
+				MsgSubs mss = new MsgSubs();
+				mss.topics.add(nom.getTopicName());
+				mss.type = 1;
+				log.debug("Cancel a SubMsg**** Topic:" + nom.getTopicName());
+				state.sendSbp(mss);
+			}
+
+		} else {
+			MsgNotis mns = new MsgNotis();
+//			Ncount++;
+			mns.sender = localAddr;
+			mns.topicName = nom.getTopicName();
+			mns.doc = nom.getDoc();
+			mns.originatorGroup = groupName;
+			mns.originatorAddr = localAddr;
+			mns.sendDate = new Date();
+//			mns.Ccount = Ncount;
+//			log.debug("A new NotifyMsg**** Topic:" + nom.getTopicName() + "Content:" + nom.getDoc());
+			state.provideNotisMsg(mns);
+		}
+
+	}
+
+	public void synSubs() {
+		// TODO Auto-generated method stub
+		state.synSubs();
+	}
+
+	public int getMqSize() {
+		return mq.size();
+	}
+
+	//向队列中添加消息，都放在队尾
+	public void addMqLast(MsgNotis msg)
+	{
+		try {
+			mq.put(msg);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	//获取排在队列首位的进程任务，并将其移除队列
+	public MsgNotis getMqFirst()
+	{
+		try {
+			return mq.take();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	protected synchronized void add() {
+		count++;
+	}
+
+	protected synchronized void subtract() {
+		count--;
+	}
+
+	protected synchronized boolean limitbool() {
+		if (count < poolLimit)
+			return true;
+		else
+			return false;
+	}
+
+	protected synchronized boolean countboolten() {
+		if (count < 1)
+			return true;
+		else
+			return false;
+	}
+
+	protected synchronized void addLimit() {
+		if (poolLimit < poolCount)
+			poolLimit++;
+	}
+
+//	protected synchronized void substractLimit(){
+//		poolLimit--;
+//	}
+
+	protected synchronized void limtTo1() {
+		poolLimit = 1;
+	}
+
+//	protected synchronized void limtToHalf() {
+//		poolLimit=poolLimit/2;
+//	}
+
+}
