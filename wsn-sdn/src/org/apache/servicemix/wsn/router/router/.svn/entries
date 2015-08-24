@@ -1,0 +1,88 @@
+8
+
+dir
+979
+svn://10.109.253.8/Wsn/wsn-core/src/org/apache/servicemix/wsn/router/router
+svn://10.109.253.8
+
+
+
+2014-04-04T06:11:02.672912Z
+979
+Wsn
+
+
+svn:special svn:externals svn:needs-lock
+
+Router.java
+file
+1008
+
+
+
+2014-04-09T06:38:02.811264Z
+05ce78c53b1901ca56b61bf3fff02785
+2014-04-09T14:33:47.493184Z
+1008
+Wsn
+
+MapBuilder.java
+file
+
+
+
+
+2014-04-04T00:48:22.384222Z
+de8460ab5a01bd33bd9a1be11ad15c27
+2014-04-04T06:11:02.672912Z
+979
+Wsn
+
+Node.java
+file
+
+
+
+
+2014-04-04T00:48:22.423225Z
+eb88d8deb0a1cae568e18d568131435a
+2014-04-04T06:11:02.672912Z
+979
+Wsn
+
+IRouter.java
+file
+
+
+
+
+2014-04-04T00:48:22.334219Z
+ea82f2327d845eed47f2ce583555a830
+2014-04-04T06:11:02.672912Z
+979
+Wsn
+
+Dijkstra.java
+file
+
+
+
+
+2014-04-04T00:48:22.332219Z
+409fa2e8d24df93b5e800930031793e8
+2014-04-04T06:11:02.672912Z
+979
+Wsn
+
+Neighbor.java
+file
+
+
+
+
+2014-04-04T00:48:22.385222Z
+14991a3d22628a92bcea1bd607989352
+2014-04-04T06:11:02.672912Z
+979
+Wsn
+

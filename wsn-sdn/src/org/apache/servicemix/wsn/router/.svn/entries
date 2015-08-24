@@ -1,0 +1,47 @@
+8
+
+dir
+979
+svn://10.109.253.8/Wsn/wsn-core/src/org/apache/servicemix/wsn/router
+svn://10.109.253.8
+
+
+
+2014-04-04T06:11:02.672912Z
+979
+Wsn
+
+
+svn:special svn:externals svn:needs-lock
+
+router
+dir
+
+router.rar
+file
+
+
+
+
+2014-04-04T00:48:22.161210Z
+8134d9226f875c3e5223b2ee0e398f45
+2014-04-04T06:11:02.672912Z
+979
+Wsn
+has-props
+
+mgr
+dir
+
+msg
+dir
+
+wsnPolicy
+dir
+
+admin
+dir
+
+detection
+dir
+

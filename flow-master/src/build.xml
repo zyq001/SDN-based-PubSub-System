@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- build.xml for jaxe - contributed by bdelacretaz@codeconsult.ch --> 
+
+<!--
+$Id: build.xml,v 1.29 2011/06/09 12:25:13 damieng Exp $
+$Log: build.xml,v $
+Revision 1.29  2011/06/09 12:25:13  damieng
+fixed reference to xercesImpl-2.9.0.jar in Jaxe.jar
+
+Revision 1.28  2010/10/28 13:24:50  damieng
+copy the font (ttf) files; also added the build.sysclasspath global property to avoid ant warnings
+
+Revision 1.27  2010/05/27 09:24:19  damieng
+added an automatic copy of the dictionaries
+
+Revision 1.26  2010/01/21 16:32:50  damieng
+Added a way to choose the XSLT processor via the preferences, and included the latest releases for Xalan, XSLTC and Saxon.
+
+Revision 1.24  2008/12/01 13:38:14  damieng
+added jing.jar to classpath for relax ng validation
+
+Revision 1.23  2008/05/14 13:04:07  damieng
+added spanish localization, converted deprecated lproj names
+
+Revision 1.20  2007/08/23 09:12:43  damieng
+added russian localization
+
+Revision 1.19  2007/04/11 12:52:31  damieng
+removed oro from the classpath, added checks for unchecked and deprecated, replaced hard-coded tabs by spaces.
+
+Revision 1.18  2006/10/20 12:49:32  psy666m
+Renamed directory of images, images loader added, generics added
+
+Revision 1.17  2006/10/19 17:08:56  damieng
+switching to Java 1.5...
+
+Revision 1.16  2006/10/06 14:24:54  damieng
+added log4j to the classpath
+
+Revision 1.15  2006/07/10 14:42:01  damieng
+added a manifest to Jaxe.jar in order to use launch4j
+
+Revision 1.14  2006/04/21 13:29:57  damieng
+added pt_BR localisation folder for MacOS
+
+Revision 1.13  2006/04/19 15:24:55  damieng
+added source attribute to javac in order to be able to compile with the JDK 1.5
+
+Revision 1.12  2005/08/22 12:03:33  damieng
+added a way to define element titles in properties files in the config folder, XHTML is given as an example
+
+Revision 1.11  2004/07/19 07:56:20  damieng
+fixed language bug (with about menu and open/save dialogs) with empty lproj folders
+
+Revision 1.10  2004/07/09 15:31:27  damieng
+fixed problem with MacOS (emptyeawt is needed for Java 1.3)
+
+Revision 1.9  2004/05/12 15:38:23  damieng
+added javac target="1.3"  to ensure 1.3 compatibility
+
+Revision 1.8  2004/03/29 16:51:05  damieng
+added warning for MacOS X apps
+
+Revision 1.7  2004/03/25 13:10:43  damieng
+fixed target run-mac (it was running another Jaxe.app)
+
+Revision 1.6  2004/03/23 14:18:02  damieng
+added tasks for compiling and running on MacOS, and creation of complete distribution folders
+
+Revision 1.5  2002/11/28 17:38:22  damieng
+fixed encoding problem and lowercase jaxe.jar file
+
+Revision 1.4  2002/09/24 13:50:43  damieng
+removed fix for adoptNode (now useless)
+
+Revision 1.4  2002/09/24 15:46:00  damieng
+removed fix for adoptNode problem (now useless)
+
+Revision 1.3  2002/08/05 08:39:31  damieng
+fixed adoptNode problem
+
+Revision 1.2  2002/06/17 08:39:05  bdelacretaz
+macjaxe package added, 'ant run' now works under linux/JDK 1.3.1
+
+Revision 1.1  2002/06/13 13:23:42  bdelacretaz
+build.xml added, does not work yet under linux (missing quicktime libs)
+
+-->
+
+<project name="jaxe" default="dist" basedir=".">
+
+    <!-- set global properties for this build -->
+    <property name="build.sysclasspath" value="ignore"/>
+    <property name="src" value="source"/>
+    <property name="build.root" value="build"/>
+    <property name="build.classes" value="build/classes"/>
+    <property name="build.javadocs" value="build/docs/api"/>
+    <property name="dist" value="dist"/>
+    <property name="resources" value="resources"/>
+    <property name="dist-mac" value="${dist}/MacJaxe"/>
+    <property name="dist-pc" value="${dist}/Jaxe"/>
+
+    <!-- Establish compilation classpath -->
+    <path id="compile.classpath">
+        <pathelement path="${classpath}"/>
+        <fileset dir="source/lib">
+            <include name="**/*.jar"/>
+        </fileset>
+    </path>
+    <path id="macos.classpath">
+        <path refid="compile.classpath"/>
+        <pathelement location="/System/Library/Java/Extensions/QTJava.zip"/>
+    </path>
+
+    <!-- initialize the build -->
+    <target name="init">
+        <tstamp/>
+    </target>
+
+    <target name="compile" depends="init" description="compile everyting but MacOS classes">
+        <!-- make sure we don't have MacOS-specific classes -->
+        <delete quiet="true" dir="${build.classes}/jaxe/macjaxe/macos"/>
+        
+        <mkdir dir="${build.classes}"/>
+        <javac source="1.5" target="1.5" encoding="ISO-8859-1" srcdir="${src}" destdir="${build.classes}">
+            <compilerarg line="-Xlint:unchecked -Xlint:deprecation"/>
+            <classpath refid="compile.classpath"/>
+            
+            <!-- exclude MacOS stuff -->
+            <exclude name="**/macos/*"/>
+        </javac>
+    </target>
+
+    <target name="compile-mac" depends="init" description="compile everyting">
+        <mkdir dir="${build.classes}"/>
+        <javac source="1.5" target="1.5" encoding="ISO-8859-1" srcdir="${src}" destdir="${build.classes}">
+            <compilerarg line="-Xlint:unchecked -Xlint:deprecation"/>
+            <classpath refid="macos.classpath"/>
+        </javac>
+    </target>
+
+    <target name="copy-resources" depends="" description="copy resource files ">
+        <copy todir="${build.classes}">
+            <fileset dir="${src}">
+                <patternset id="props">
+                    <include name="**/*.properties"/>
+            </patternset>
+            </fileset>
+            <fileset dir=".">
+                <include name="images/**"/>
+            </fileset>
+            <fileset dir="${src}">
+                <include name="**/*.ttf"/>
+            </fileset>
+        </copy>
+    </target>
+    
+    <target name="dist" depends="compile,copy-resources" description="build platform-neutral distribution files">
+        <mkdir dir="${dist-pc}/lib"/>
+        <jar destfile="${dist-pc}/lib/Jaxe.jar" basedir="${build.classes}">
+            <manifest>
+                <attribute name="Built-By" value="${user.name}"/>
+                <attribute name="Main-Class" value="jaxe.Jaxe"/>
+                <attribute name="Class-Path" value="Jaxe.jar avalon-framework-4.2.0.jar batik-all-1.7.jar commons-io-1.3.1.jar commons-logging-1.0.4.jar fop-0.95.jar jazzy.jar jing.jar log4j-1.2.14.jar resolver-1.2.jar saxon9he.jar serializer-2.7.1.jar xalan-2.7.1.jar xercesImpl-2.9.0.jar xml-apis-1.3.04.jar xml-apis-ext-1.3.04.jar xmlgraphics-commons-1.3.1.jar xsltc-2.7.1.jar ../config/"/>
+            </manifest>
+        </jar>
+        <copy todir="${dist-pc}/lib">
+            <fileset dir="source/lib"/>
+        </copy>
+        <copy todir="${dist-pc}">
+            <fileset dir="scripts"/>
+        </copy>
+        <chmod dir="${dist-pc}" perm="ugo+x" includes="**/*.sh, **/*.bat"/>
+        <antcall target="dist-resources">
+            <param name="dir" value="${dist-pc}"/>
+        </antcall>
+    </target>
+
+    <target name="dist-mac" depends="compile-mac,copy-resources" description="build distribution files for MacOS">
+    <!-- warning: the JavaApplicationStub files are not backward compatible, so an application created
+           on MacOS X 10.3 will not run under MacOS X 10.1 -->
+        <mkdir dir="${dist-mac}/Jaxe.app/Contents/MacOS"/>
+        <mkdir dir="${dist-mac}/Jaxe.app/Contents/Resources/en.lproj"/>
+        <mkdir dir="${dist-mac}/Jaxe.app/Contents/Resources/fr.lproj"/>
+        <mkdir dir="${dist-mac}/Jaxe.app/Contents/Resources/de.lproj"/>
+        <mkdir dir="${dist-mac}/Jaxe.app/Contents/Resources/pt_BR.lproj"/>
+        <mkdir dir="${dist-mac}/Jaxe.app/Contents/Resources/ru.lproj"/>
+        <mkdir dir="${dist-mac}/Jaxe.app/Contents/Resources/es.lproj"/>
+        <mkdir dir="${dist-mac}/Jaxe.app/Contents/Resources/Java"/>
+        <jar destfile="${dist-mac}/Jaxe.app/Contents/Resources/Java/Jaxe.jar" basedir="${build.classes}"/>
+        <copy todir="${dist-mac}/Jaxe.app/Contents/Resources/Java">
+            <fileset dir="source/lib"/>
+        </copy>
+        <copy file="source/macos/Info.plist" todir="${dist-mac}/Jaxe.app/Contents"/>
+        <copy file="source/macos/PkgInfo" todir="${dist-mac}/Jaxe.app/Contents"/>
+        <copy file="/System/Library/Frameworks/JavaVM.framework/Versions/Current/Resources/MacOS/JavaApplicationStub"
+            tofile="${dist-mac}/Jaxe.app/Contents/MacOS/Jaxe"/>
+        <chmod file="${dist-mac}/Jaxe.app/Contents/MacOS/Jaxe" perm="ugo+x"/>
+        <copy todir="${dist-mac}/Jaxe.app/Contents/Resources">
+            <fileset dir="source/macos" includes="**/*.icns"/>
+        </copy>
+        <antcall target="dist-resources">
+            <param name="dir" value="${dist-mac}"/>
+        </antcall>
+    </target>
+
+    <target name="dist-resources" description="copy application resources folders for distribution">
+    <!-- parameter: dir: where to put the folders -->
+        <copy todir="${dir}/symboles">
+            <fileset dir="symboles"/>
+        </copy>
+<!--        <copy todir="${dir}/images_Jaxe">
+            <fileset dir="images_Jaxe"/>
+        </copy>-->
+        <copy todir="${dir}/config">
+            <fileset dir="config"/>
+        </copy>
+        <copy todir="${dir}/plugins">
+            <fileset dir="plugins"/>
+        </copy>
+        <copy todir="${dir}/dicos">
+            <fileset dir="dicos"/>
+        </copy>
+    </target>
+
+    <target name="clean" description="delete build and distribution files">
+        <delete dir="${build.root}"/>
+        <delete dir="${dist}"/>
+    </target>
+
+    <target name="run" depends="dist" description="run jaxe for testing">
+        <java dir="${dist-pc}" classname="jaxe.Jaxe" fork="yes">
+            <classpath refid="compile.classpath"/>
+            <classpath location="${dist-pc}/config"/>
+            <classpath>
+                <fileset dir="${dist-pc}/lib">
+                    <include name="**/*.jar"/>
+                </fileset>
+            </classpath>
+        </java>
+    </target>
+
+    <target name="run-mac" depends="dist-mac" description="run jaxe on MacOS">
+        <exec dir="${dist-mac}" executable="open">
+            <arg line="./Jaxe.app"/>
+        </exec>
+    </target>
+
+    <!-- build javadoc -->
+    <target name="javadoc" description="build program documentation using javadoc">
+        <mkdir dir="${build.javadocs}"/>
+        <javadoc packagenames="jaxe.*"
+                sourcepath="${src}"
+                destdir="${build.javadocs}"
+                author="true"
+                version="true"
+                use="false"
+                noindex="true"
+                windowtitle="jaxe"
+                doctitle="jaxe"
+                package="true">
+            <classpath refid="macos.classpath"/>
+        </javadoc>
+    </target>
+</project>

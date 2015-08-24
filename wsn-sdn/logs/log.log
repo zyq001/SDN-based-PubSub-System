@@ -1,0 +1,2030 @@
+2014-09-12 10:08:55  [ main:0 ] - [ INFO ]  configuration finished! It's representative
+2014-09-12 10:08:59  [ main:3518 ] - [ INFO ]  ∑˛ŒÒ∂À∆Ù∂Ø≥…π¶... tcp∂Àø⁄∫≈Œ™£∫30008
+2014-09-12 10:08:59  [ main:3870 ] - [ INFO ]  ∑˛ŒÒ∂À∆Ù∂Ø≥…π¶... udp∂Àø⁄∫≈Œ™£∫30002
+2014-09-12 10:09:15  [ Thread-1:19298 ] - [ INFO ]  configuration finished! It's representative
+2014-09-12 10:09:15  [ Thread-1:19424 ] - [ INFO ]  local address: 10.108.167.193	port: 2001
+2014-09-12 10:09:15  [ Thread-1:19425 ] - [ INFO ]  multicast address: 230.0.10.39
+2014-09-12 10:09:15  [ Thread-1:19600 ] - [ INFO ]  org.apache.servicemix.wsn.router.msg.tcp.MsgNewGroup_@5aebd9
+2014-09-12 10:09:26  [ Thread-1:30606 ] - [ INFO ]  join finished!
+2014-09-15 21:04:12  [ main:0 ] - [ INFO ]  configuration finished! It's representative
+2014-09-15 21:04:13  [ main:404 ] - [ INFO ]  ∑˛ŒÒ∂À∆Ù∂Ø≥…π¶... tcp∂Àø⁄∫≈Œ™£∫30008
+2014-09-15 21:04:13  [ main:439 ] - [ INFO ]  ∑˛ŒÒ∂À∆Ù∂Ø≥…π¶... udp∂Àø⁄∫≈Œ™£∫30002
+2014-09-15 21:04:17  [ Thread-1:4328 ] - [ INFO ]  configuration finished! It's representative
+2014-09-15 21:04:17  [ Thread-1:4343 ] - [ INFO ]  local address: 10.108.167.193	port: 2001
+2014-09-15 21:04:17  [ Thread-1:4343 ] - [ INFO ]  multicast address: 230.0.10.39
+2014-09-15 21:04:17  [ Thread-1:4493 ] - [ INFO ]  org.apache.servicemix.wsn.router.msg.tcp.MsgNewGroup_@1d840cd
+2014-09-15 21:04:27  [ Thread-1:14794 ] - [ INFO ]  join finished!
+2014-09-15 21:39:55  [ main:0 ] - [ INFO ]  configuration finished! It's representative
+2014-09-15 21:39:56  [ main:520 ] - [ INFO ]  ∑˛ŒÒ∂À∆Ù∂Ø≥…π¶... tcp∂Àø⁄∫≈Œ™£∫30008
+2014-09-15 21:39:56  [ main:630 ] - [ INFO ]  ∑˛ŒÒ∂À∆Ù∂Ø≥…π¶... udp∂Àø⁄∫≈Œ™£∫30002
+2014-09-15 21:39:59  [ Thread-1:3394 ] - [ INFO ]  configuration finished! It's representative
+2014-09-15 21:39:59  [ Thread-1:3409 ] - [ INFO ]  local address: 10.108.167.193	port: 2001
+2014-09-15 21:39:59  [ Thread-1:3409 ] - [ INFO ]  multicast address: 230.0.10.39
+2014-09-15 21:39:59  [ Thread-1:3433 ] - [ INFO ]  org.apache.servicemix.wsn.router.msg.tcp.MsgNewGroup_@e0e515
+2014-09-15 21:40:06  [ Thread-1:10956 ] - [ INFO ]  join finished!
+2014-09-15 21:58:51  [ main:0 ] - [ INFO ]  configuration finished! It's representative
+2014-09-15 21:58:51  [ main:141 ] - [ INFO ]  ∑˛ŒÒ∂À∆Ù∂Ø≥…π¶... tcp∂Àø⁄∫≈Œ™£∫30008
+2014-09-15 21:58:51  [ main:171 ] - [ INFO ]  ∑˛ŒÒ∂À∆Ù∂Ø≥…π¶... udp∂Àø⁄∫≈Œ™£∫30002
+2014-09-15 21:58:51  [ main:765 ] - [ INFO ]  configuration finished! It's representative
+2014-09-15 21:58:51  [ main:768 ] - [ INFO ]  local address: 10.108.167.193	port: 2001
+2014-09-15 21:58:51  [ main:769 ] - [ INFO ]  multicast address: 230.0.10.39
+2014-09-15 21:58:51  [ main:776 ] - [ INFO ]  org.apache.servicemix.wsn.router.msg.tcp.MsgNewGroup_@9abc69
+2014-09-15 21:58:59  [ main:7836 ] - [ INFO ]  join finished!
+2014-09-16 08:46:42  [ main:0 ] - [ INFO ]  configuration finished! It's representative
+2014-09-16 08:46:43  [ main:970 ] - [ INFO ]  ∑˛ŒÒ∂À∆Ù∂Ø≥…π¶... tcp∂Àø⁄∫≈Œ™£∫30008
+2014-09-16 08:46:43  [ main:1038 ] - [ INFO ]  ∑˛ŒÒ∂À∆Ù∂Ø≥…π¶... udp∂Àø⁄∫≈Œ™£∫30002
+2014-09-16 08:46:48  [ main:5293 ] - [ INFO ]  configuration finished! It's representative
+2014-09-16 08:46:48  [ main:5309 ] - [ INFO ]  local address: 10.108.167.193	port: 2001
+2014-09-16 08:46:48  [ main:5310 ] - [ INFO ]  multicast address: 230.0.10.39
+2014-09-16 08:46:48  [ main:5408 ] - [ INFO ]  org.apache.servicemix.wsn.router.msg.tcp.MsgNewGroup_@103de90
+2014-09-16 08:46:55  [ main:12905 ] - [ INFO ]  join finished!
+2014-10-15 09:21:16  [ main:0 ] - [ INFO ]  configuration finished! It's representative
+2014-10-15 09:21:16  [ main:514 ] - [ INFO ]  ∑˛ŒÒ∂À∆Ù∂Ø≥…π¶... tcp∂Àø⁄∫≈Œ™£∫30008
+2014-10-15 09:21:16  [ main:549 ] - [ INFO ]  ∑˛ŒÒ∂À∆Ù∂Ø≥…π¶... udp∂Àø⁄∫≈Œ™£∫30002
+2014-10-15 09:21:24  [ main:8514 ] - [ INFO ]  configuration finished! It's representative
+2014-10-15 09:21:24  [ main:8532 ] - [ INFO ]  local address: 10.108.167.193	port: 2001
+2014-10-15 09:21:24  [ main:8532 ] - [ INFO ]  multicast address: 230.0.10.39
+2014-10-15 09:21:24  [ main:8639 ] - [ INFO ]  org.apache.servicemix.wsn.router.msg.tcp.MsgNewGroup_@d72200
+2014-10-15 09:21:32  [ main:16088 ] - [ INFO ]  join finished!
+2014-10-15 09:34:12  [ main:0 ] - [ INFO ]  configuration finished! It's representative
+2014-10-15 09:34:13  [ main:120 ] - [ INFO ]  ∑˛ŒÒ∂À∆Ù∂Ø≥…π¶... tcp∂Àø⁄∫≈Œ™£∫30008
+2014-10-15 09:34:13  [ main:150 ] - [ INFO ]  ∑˛ŒÒ∂À∆Ù∂Ø≥…π¶... udp∂Àø⁄∫≈Œ™£∫30002
+2014-10-15 09:34:13  [ main:654 ] - [ INFO ]  configuration finished! It's representative
+2014-10-15 09:34:13  [ main:657 ] - [ INFO ]  local address: 10.108.167.193	port: 2001
+2014-10-15 09:34:13  [ main:657 ] - [ INFO ]  multicast address: 230.0.10.39
+2014-10-15 09:34:13  [ main:665 ] - [ INFO ]  org.apache.servicemix.wsn.router.msg.tcp.MsgNewGroup_@272961
+2014-10-15 09:34:20  [ main:7881 ] - [ INFO ]  join finished!
+2014-10-15 10:08:43  [ Timer-1:2070733 ] - [ INFO ]  hello to 10.109.253.16 2001
+2014-10-15 10:08:44  [ Thread-6:2071363 ] - [ INFO ]  hello from G2
+2014-10-15 10:09:13  [ Timer-1:2100734 ] - [ INFO ]  hello to 10.109.253.16 2001
+2014-10-15 10:09:14  [ Thread-6:2101379 ] - [ INFO ]  hello from G2
+2014-10-15 10:09:43  [ Timer-1:2130735 ] - [ INFO ]  hello to 10.109.253.16 2001
+2014-10-15 10:09:44  [ Thread-6:2131393 ] - [ INFO ]  hello from G2
+2014-10-15 10:09:59  [ pool-5-thread-4:2146303 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-10-15 10:09:59  [ pool-5-thread-5:2146323 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-10-15 10:09:59  [ pool-5-thread-1:2146334 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-10-15 10:09:59  [ pool-5-thread-2:2146341 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-10-15 10:09:59  [ pool-5-thread-3:2146346 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-10-15 10:09:59  [ pool-5-thread-4:2146351 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-10-15 10:09:59  [ pool-5-thread-5:2146358 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-10-15 10:09:59  [ pool-5-thread-1:2146364 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-10-15 10:09:59  [ pool-5-thread-2:2146372 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-10-15 10:09:59  [ pool-5-thread-3:2146384 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-10-15 10:09:59  [ pool-5-thread-4:2146397 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-10-15 10:10:13  [ Timer-1:2160735 ] - [ INFO ]  hello to 10.109.253.16 2001
+2014-10-15 10:10:14  [ Thread-6:2161406 ] - [ INFO ]  hello from G2
+2014-10-15 10:10:43  [ Timer-1:2190736 ] - [ INFO ]  hello to 10.109.253.16 2001
+2014-10-15 10:10:44  [ Thread-6:2191422 ] - [ INFO ]  hello from G2
+2014-10-15 10:11:13  [ Timer-1:2220737 ] - [ INFO ]  hello to 10.109.253.16 2001
+2014-10-15 10:11:14  [ Thread-6:2221425 ] - [ INFO ]  hello from G2
+2014-10-15 10:11:43  [ Timer-1:2250737 ] - [ INFO ]  hello to 10.109.253.16 2001
+2014-10-15 10:11:44  [ Thread-6:2251439 ] - [ INFO ]  hello from G2
+2014-10-15 10:12:13  [ Timer-1:2280738 ] - [ INFO ]  hello to 10.109.253.16 2001
+2014-10-15 10:12:14  [ Thread-6:2281454 ] - [ INFO ]  hello from G2
+2014-10-15 10:12:43  [ Timer-1:2310739 ] - [ INFO ]  hello to 10.109.253.16 2001
+2014-10-15 10:12:44  [ Thread-6:2311471 ] - [ INFO ]  hello from G2
+2014-10-15 10:13:13  [ Timer-1:2340739 ] - [ INFO ]  hello to 10.109.253.16 2001
+2014-10-15 10:13:14  [ Thread-6:2341484 ] - [ INFO ]  hello from G2
+2014-10-15 10:13:43  [ Timer-1:2370740 ] - [ INFO ]  hello to 10.109.253.16 2001
+2014-10-15 10:13:44  [ Thread-6:2371498 ] - [ INFO ]  hello from G2
+2014-10-15 10:14:13  [ Timer-1:2400741 ] - [ INFO ]  hello to 10.109.253.16 2001
+2014-10-15 10:14:14  [ Thread-6:2401513 ] - [ INFO ]  hello from G2
+2014-10-15 10:14:43  [ Timer-1:2430742 ] - [ INFO ]  hello to 10.109.253.16 2001
+2014-10-15 10:14:44  [ Thread-6:2431517 ] - [ INFO ]  hello from G2
+2014-10-15 10:15:13  [ Timer-1:2460742 ] - [ INFO ]  hello to 10.109.253.16 2001
+2014-10-15 10:15:14  [ Thread-6:2461532 ] - [ INFO ]  hello from G2
+2014-10-15 10:15:43  [ Timer-1:2490743 ] - [ INFO ]  hello to 10.109.253.16 2001
+2014-10-15 10:15:44  [ Thread-6:2491545 ] - [ INFO ]  hello from G2
+2014-10-15 10:16:13  [ Timer-1:2520744 ] - [ INFO ]  hello to 10.109.253.16 2001
+2014-10-15 10:16:14  [ Thread-6:2521561 ] - [ INFO ]  hello from G2
+2014-10-15 10:16:43  [ Timer-1:2550745 ] - [ INFO ]  hello to 10.109.253.16 2001
+2014-10-15 10:16:44  [ Thread-6:2551575 ] - [ INFO ]  hello from G2
+2014-10-15 10:17:13  [ Timer-1:2580745 ] - [ INFO ]  hello to 10.109.253.16 2001
+2014-10-15 10:17:14  [ Thread-6:2581590 ] - [ INFO ]  hello from G2
+2014-10-15 10:17:43  [ Timer-1:2610746 ] - [ INFO ]  hello to 10.109.253.16 2001
+2014-10-15 10:17:44  [ Thread-6:2611604 ] - [ INFO ]  hello from G2
+2014-10-15 10:18:13  [ Timer-1:2640747 ] - [ INFO ]  hello to 10.109.253.16 2001
+2014-10-15 10:18:14  [ Thread-6:2641608 ] - [ INFO ]  hello from G2
+2014-10-15 10:18:43  [ Timer-1:2670747 ] - [ INFO ]  hello to 10.109.253.16 2001
+2014-10-15 10:18:44  [ Thread-6:2671623 ] - [ INFO ]  hello from G2
+2014-10-15 10:19:13  [ Timer-1:2700748 ] - [ INFO ]  hello to 10.109.253.16 2001
+2014-10-15 10:19:14  [ Thread-6:2701637 ] - [ INFO ]  hello from G2
+2014-10-15 10:19:43  [ Timer-1:2730749 ] - [ INFO ]  hello to 10.109.253.16 2001
+2014-10-15 10:19:44  [ Thread-6:2731652 ] - [ INFO ]  hello from G2
+2014-10-15 10:20:13  [ Timer-1:2760750 ] - [ INFO ]  hello to 10.109.253.16 2001
+2014-10-15 10:20:14  [ Thread-6:2761667 ] - [ INFO ]  hello from G2
+2014-10-15 10:20:43  [ Timer-1:2790750 ] - [ INFO ]  hello to 10.109.253.16 2001
+2014-10-15 10:20:44  [ Thread-6:2791680 ] - [ INFO ]  hello from G2
+2014-10-15 10:21:13  [ Timer-1:2820751 ] - [ INFO ]  hello to 10.109.253.16 2001
+2014-10-15 10:21:14  [ Thread-6:2821695 ] - [ INFO ]  hello from G2
+2014-10-15 10:21:43  [ Timer-1:2850752 ] - [ INFO ]  hello to 10.109.253.16 2001
+2014-10-15 10:21:44  [ Thread-6:2851700 ] - [ INFO ]  hello from G2
+2014-10-15 10:22:13  [ Timer-1:2880752 ] - [ INFO ]  hello to 10.109.253.16 2001
+2014-10-15 10:22:14  [ Thread-6:2881715 ] - [ INFO ]  hello from G2
+2014-10-15 10:22:43  [ Timer-1:2910753 ] - [ INFO ]  hello to 10.109.253.16 2001
+2014-10-15 10:22:44  [ Thread-6:2911728 ] - [ INFO ]  hello from G2
+2014-10-15 10:23:13  [ Timer-1:2940753 ] - [ INFO ]  hello to 10.109.253.16 2001
+2014-10-15 10:23:14  [ Thread-6:2941743 ] - [ INFO ]  hello from G2
+2014-10-15 10:23:43  [ Timer-1:2970755 ] - [ INFO ]  hello to 10.109.253.16 2001
+2014-10-15 10:23:44  [ Thread-6:2971758 ] - [ INFO ]  hello from G2
+2014-10-15 10:24:13  [ Timer-1:3000754 ] - [ INFO ]  hello to 10.109.253.16 2001
+2014-10-15 10:24:14  [ Thread-6:3001773 ] - [ INFO ]  hello from G2
+2014-10-15 10:24:43  [ Timer-1:3030756 ] - [ INFO ]  hello to 10.109.253.16 2001
+2014-10-15 10:24:44  [ Thread-6:3031787 ] - [ INFO ]  hello from G2
+2014-10-15 10:24:48  [ pool-5-thread-5:3035477 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-10-15 10:24:58  [ pool-5-thread-1:3045483 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-10-15 10:25:08  [ pool-5-thread-2:3055488 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-10-15 10:25:13  [ Timer-1:3060757 ] - [ INFO ]  hello to 10.109.253.16 2001
+2014-10-15 10:25:14  [ Thread-6:3061802 ] - [ INFO ]  hello from G2
+2014-10-15 10:25:18  [ pool-5-thread-3:3065495 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-10-15 10:25:28  [ pool-5-thread-4:3075501 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-10-15 10:25:38  [ pool-5-thread-5:3085506 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-10-15 10:25:43  [ Timer-1:3090757 ] - [ INFO ]  hello to 10.109.253.16 2001
+2014-10-15 10:25:44  [ Thread-6:3091817 ] - [ INFO ]  hello from G2
+2014-10-15 10:25:48  [ pool-5-thread-1:3095513 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-10-15 10:25:58  [ pool-5-thread-2:3105518 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-10-15 10:26:08  [ pool-5-thread-3:3115527 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-10-15 10:26:13  [ Timer-1:3120758 ] - [ INFO ]  hello to 10.109.253.16 2001
+2014-10-15 10:26:14  [ Thread-6:3121831 ] - [ INFO ]  hello from G2
+2014-10-15 10:26:18  [ pool-5-thread-4:3125534 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-10-15 10:26:28  [ pool-5-thread-5:3135542 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-10-15 10:26:38  [ pool-5-thread-1:3145552 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-10-15 10:26:43  [ Timer-1:3150759 ] - [ INFO ]  hello to 10.109.253.16 2001
+2014-10-15 10:26:44  [ Thread-6:3151846 ] - [ INFO ]  hello from G2
+2014-10-15 10:26:48  [ pool-5-thread-2:3155560 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-10-15 10:26:58  [ pool-5-thread-3:3165569 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-10-15 10:27:08  [ pool-5-thread-4:3175577 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-10-15 10:27:13  [ Timer-1:3180760 ] - [ INFO ]  hello to 10.109.253.16 2001
+2014-10-15 10:27:14  [ Thread-6:3181861 ] - [ INFO ]  hello from G2
+2014-10-15 10:27:43  [ Timer-1:3210760 ] - [ INFO ]  hello to 10.109.253.16 2001
+2014-10-15 10:27:44  [ Thread-6:3211874 ] - [ INFO ]  hello from G2
+2014-10-15 10:28:13  [ Timer-1:3240761 ] - [ INFO ]  hello to 10.109.253.16 2001
+2014-10-15 10:28:14  [ Thread-6:3241890 ] - [ INFO ]  hello from G2
+2014-10-15 10:29:33  [ main:0 ] - [ INFO ]  configuration finished! It's representative
+2014-10-15 10:29:34  [ main:117 ] - [ INFO ]  ∑˛ŒÒ∂À∆Ù∂Ø≥…π¶... tcp∂Àø⁄∫≈Œ™£∫30008
+2014-10-15 10:29:34  [ main:141 ] - [ INFO ]  ∑˛ŒÒ∂À∆Ù∂Ø≥…π¶... udp∂Àø⁄∫≈Œ™£∫30002
+2014-10-15 10:29:34  [ main:806 ] - [ INFO ]  configuration finished! It's representative
+2014-10-15 10:29:34  [ main:809 ] - [ INFO ]  local address: 10.108.167.193	port: 2001
+2014-10-15 10:29:34  [ main:809 ] - [ INFO ]  multicast address: 230.0.10.39
+2014-10-15 10:29:34  [ main:901 ] - [ INFO ]  org.apache.servicemix.wsn.router.msg.tcp.MsgNewGroup_@1584807
+2014-10-15 10:29:41  [ main:8048 ] - [ INFO ]  join finished!
+2014-10-15 10:29:44  [ Thread-6:10967 ] - [ INFO ]  Hello dropped because it's not a neighborG2
+2014-10-15 10:29:44  [ Thread-6:10967 ] - [ INFO ]  hello from G2
+2014-10-15 10:30:21  [ pool-5-thread-3:47748 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-10-15 10:30:21  [ pool-5-thread-4:47753 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-10-15 10:30:21  [ pool-5-thread-5:47759 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-10-15 10:30:21  [ pool-5-thread-1:47764 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-10-15 10:30:21  [ pool-5-thread-2:47769 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-10-15 10:30:21  [ pool-5-thread-3:47776 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-10-15 10:30:21  [ pool-5-thread-4:47781 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-10-15 10:30:21  [ pool-5-thread-5:47786 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-10-15 10:30:21  [ pool-5-thread-1:47791 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-10-15 10:30:21  [ pool-5-thread-2:47802 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-10-15 10:30:21  [ pool-5-thread-3:47818 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-10-15 10:30:21  [ pool-5-thread-3:47825 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-10-15 10:30:21  [ pool-5-thread-5:47830 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-10-15 10:30:21  [ pool-5-thread-1:47838 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-10-15 10:30:21  [ pool-5-thread-2:47844 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-10-15 15:23:59  [ main:0 ] - [ INFO ]  configuration finished! It's representative
+2014-10-15 15:23:59  [ main:596 ] - [ INFO ]  ∑˛ŒÒ∂À∆Ù∂Ø≥…π¶... tcp∂Àø⁄∫≈Œ™£∫30008
+2014-10-15 15:23:59  [ main:822 ] - [ INFO ]  ∑˛ŒÒ∂À∆Ù∂Ø≥…π¶... udp∂Àø⁄∫≈Œ™£∫30002
+2014-10-15 15:24:03  [ main:3888 ] - [ INFO ]  configuration finished! It's representative
+2014-10-15 15:24:03  [ main:3921 ] - [ INFO ]  local address: 10.108.167.193	port: 2001
+2014-10-15 15:24:03  [ main:3922 ] - [ INFO ]  multicast address: 230.0.10.39
+2014-10-15 15:24:03  [ main:4028 ] - [ INFO ]  org.apache.servicemix.wsn.router.msg.tcp.MsgNewGroup_@bef361
+2014-10-15 15:24:10  [ main:11519 ] - [ INFO ]  join finished!
+2014-10-15 15:24:21  [ pool-5-thread-2:21859 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-10-15 15:24:21  [ pool-5-thread-3:21865 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-10-15 15:24:21  [ pool-5-thread-4:21871 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-10-15 15:24:21  [ pool-5-thread-5:21877 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-10-15 15:24:21  [ pool-5-thread-1:21881 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-10-15 15:24:21  [ pool-5-thread-2:21887 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-10-15 15:24:21  [ pool-5-thread-3:21894 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-10-15 15:24:21  [ pool-5-thread-4:21899 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-10-15 15:24:21  [ pool-5-thread-5:21904 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-10-15 15:24:21  [ pool-5-thread-1:21980 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-10-15 15:24:21  [ pool-5-thread-2:21987 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-10-15 15:24:21  [ pool-5-thread-3:21997 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-10-15 15:24:21  [ pool-5-thread-4:22005 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-10-15 15:24:21  [ pool-5-thread-5:22014 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-10-15 15:24:21  [ pool-5-thread-1:22026 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-10-19 22:09:58  [ main:0 ] - [ INFO ]  configuration finished! It's representative
+2014-10-19 22:09:59  [ main:540 ] - [ INFO ]  ∑˛ŒÒ∂À∆Ù∂Ø≥…π¶... tcp∂Àø⁄∫≈Œ™£∫30008
+2014-10-19 22:09:59  [ main:583 ] - [ INFO ]  ∑˛ŒÒ∂À∆Ù∂Ø≥…π¶... udp∂Àø⁄∫≈Œ™£∫30002
+2014-10-19 22:10:02  [ main:3706 ] - [ INFO ]  configuration finished! It's representative
+2014-10-19 22:10:02  [ main:3724 ] - [ INFO ]  local address: 10.108.167.193	port: 2001
+2014-10-19 22:10:02  [ main:3725 ] - [ INFO ]  multicast address: 230.0.10.39
+2014-10-19 22:10:02  [ main:3815 ] - [ INFO ]  org.apache.servicemix.wsn.router.msg.tcp.MsgNewGroup_@3b4b1e
+2014-10-19 22:10:06  [ main:7198 ] - [ INFO ]  join finished!
+2014-10-20 14:21:07  [ main:0 ] - [ INFO ]  configuration finished! It's representative
+2014-10-20 14:21:08  [ main:431 ] - [ INFO ]  ∑˛ŒÒ∂À∆Ù∂Ø≥…π¶... tcp∂Àø⁄∫≈Œ™£∫30008
+2014-10-20 14:21:08  [ main:474 ] - [ INFO ]  ∑˛ŒÒ∂À∆Ù∂Ø≥…π¶... udp∂Àø⁄∫≈Œ™£∫30002
+2014-10-20 14:21:19  [ main:12351 ] - [ WARN ]  java.io.EOFException
+2014-10-20 14:21:23  [ main:16225 ] - [ WARN ]  java.net.SocketException: Connection reset
+2014-10-20 14:22:44  [ main:0 ] - [ INFO ]  configuration finished! It's representative
+2014-10-20 14:22:44  [ main:132 ] - [ INFO ]  ∑˛ŒÒ∂À∆Ù∂Ø≥…π¶... tcp∂Àø⁄∫≈Œ™£∫30008
+2014-10-20 14:22:44  [ main:156 ] - [ INFO ]  ∑˛ŒÒ∂À∆Ù∂Ø≥…π¶... udp∂Àø⁄∫≈Œ™£∫30002
+2014-10-20 14:22:45  [ Thread-1:678 ] - [ INFO ]  configuration finished! It's representative
+2014-10-20 14:22:45  [ Thread-1:699 ] - [ INFO ]  local address: 10.108.167.193	port: 2001
+2014-10-20 14:22:45  [ Thread-1:699 ] - [ INFO ]  multicast address: 230.0.10.39
+2014-10-20 14:22:45  [ Thread-1:763 ] - [ INFO ]  org.apache.servicemix.wsn.router.msg.tcp.MsgNewGroup_@9abc69
+2014-10-20 14:22:52  [ Thread-1:8085 ] - [ INFO ]  join finished!
+2014-10-20 14:41:37  [ main:0 ] - [ INFO ]  configuration finished! It's representative
+2014-10-20 14:41:37  [ main:320 ] - [ INFO ]  ∑˛ŒÒ∂À∆Ù∂Ø≥…π¶... tcp∂Àø⁄∫≈Œ™£∫30008
+2014-10-20 14:41:37  [ main:364 ] - [ INFO ]  ∑˛ŒÒ∂À∆Ù∂Ø≥…π¶... udp∂Àø⁄∫≈Œ™£∫30002
+2014-10-20 14:41:40  [ main:3239 ] - [ INFO ]  configuration finished! It's representative
+2014-10-20 14:41:40  [ main:3257 ] - [ INFO ]  local address: 10.108.167.193	port: 2001
+2014-10-20 14:41:40  [ main:3257 ] - [ INFO ]  multicast address: 230.0.10.39
+2014-10-20 14:41:40  [ main:3322 ] - [ INFO ]  org.apache.servicemix.wsn.router.msg.tcp.MsgNewGroup_@1584807
+2014-10-20 14:41:47  [ main:10630 ] - [ INFO ]  join finished!
+2014-10-20 14:50:07  [ main:0 ] - [ INFO ]  configuration finished! It's representative
+2014-10-20 14:50:07  [ main:138 ] - [ INFO ]  ∑˛ŒÒ∂À∆Ù∂Ø≥…π¶... tcp∂Àø⁄∫≈Œ™£∫30008
+2014-10-20 14:50:07  [ main:162 ] - [ INFO ]  ∑˛ŒÒ∂À∆Ù∂Ø≥…π¶... udp∂Àø⁄∫≈Œ™£∫30002
+2014-10-20 14:50:07  [ Thread-1:664 ] - [ INFO ]  configuration finished! It's representative
+2014-10-20 14:50:07  [ Thread-1:667 ] - [ INFO ]  local address: 10.108.167.193	port: 2001
+2014-10-20 14:50:07  [ Thread-1:667 ] - [ INFO ]  multicast address: 230.0.10.39
+2014-10-20 14:50:07  [ Thread-1:702 ] - [ INFO ]  org.apache.servicemix.wsn.router.msg.tcp.MsgNewGroup_@10dc656
+2014-10-20 14:50:14  [ Thread-1:7829 ] - [ INFO ]  join finished!
+2014-10-20 14:52:04  [ main:0 ] - [ INFO ]  configuration finished! It's representative
+2014-10-20 14:52:04  [ main:154 ] - [ INFO ]  ∑˛ŒÒ∂À∆Ù∂Ø≥…π¶... tcp∂Àø⁄∫≈Œ™£∫30008
+2014-10-20 14:52:04  [ main:178 ] - [ INFO ]  ∑˛ŒÒ∂À∆Ù∂Ø≥…π¶... udp∂Àø⁄∫≈Œ™£∫30002
+2014-10-20 14:52:05  [ Thread-1:682 ] - [ INFO ]  configuration finished! It's representative
+2014-10-20 14:52:05  [ Thread-1:685 ] - [ INFO ]  local address: 10.108.167.193	port: 2001
+2014-10-20 14:52:05  [ Thread-1:685 ] - [ INFO ]  multicast address: 230.0.10.39
+2014-10-20 14:52:05  [ Thread-1:692 ] - [ INFO ]  org.apache.servicemix.wsn.router.msg.tcp.MsgNewGroup_@dfcb47
+2014-10-20 14:52:12  [ Thread-1:7773 ] - [ INFO ]  join finished!
+2014-10-20 15:01:23  [ pool-5-thread-3:558929 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-10-20 15:01:23  [ pool-5-thread-4:558934 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-10-20 15:01:23  [ pool-5-thread-5:558939 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-10-20 15:01:23  [ pool-5-thread-1:558946 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-10-20 15:01:23  [ pool-5-thread-2:558951 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-10-20 15:01:23  [ pool-5-thread-3:558955 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-10-20 15:01:23  [ pool-5-thread-4:558961 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-10-20 15:01:23  [ pool-5-thread-5:558967 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-10-20 15:01:23  [ pool-5-thread-1:558973 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-10-20 15:01:23  [ pool-5-thread-2:558982 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-10-20 15:01:23  [ pool-5-thread-3:558994 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-10-20 15:01:23  [ pool-5-thread-4:559005 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-10-20 15:01:23  [ pool-5-thread-5:559018 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-10-20 15:01:23  [ pool-5-thread-1:559029 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-10-20 15:01:23  [ pool-5-thread-2:559037 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 15:38:27  [ main:0 ] - [ INFO ]  configuration finished! It's representative
+2014-12-02 15:38:27  [ main:405 ] - [ INFO ]  ∑˛ŒÒ∂À∆Ù∂Ø≥…π¶... tcp∂Àø⁄∫≈Œ™£∫30008
+2014-12-02 15:38:27  [ main:442 ] - [ INFO ]  ∑˛ŒÒ∂À∆Ù∂Ø≥…π¶... udp∂Àø⁄∫≈Œ™£∫30002
+2014-12-02 15:38:33  [ Thread-1:6010 ] - [ INFO ]  configuration finished! It's representative
+2014-12-02 15:38:33  [ Thread-1:6048 ] - [ INFO ]  local address: 10.108.167.193	port: 2001
+2014-12-02 15:38:33  [ Thread-1:6049 ] - [ INFO ]  multicast address: 230.0.10.39
+2014-12-02 15:38:33  [ Thread-1:6298 ] - [ INFO ]  org.apache.servicemix.wsn.router.msg.tcp.MsgNewGroup_@21d23b
+2014-12-02 15:38:41  [ Thread-1:14064 ] - [ INFO ]  join finished!
+2014-12-02 15:39:37  [ pool-5-thread-2:70004 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 15:39:38  [ pool-5-thread-3:70942 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 15:39:38  [ pool-5-thread-4:70954 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 15:39:38  [ pool-5-thread-5:70965 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 15:39:38  [ pool-5-thread-1:70973 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 15:39:38  [ pool-5-thread-2:70985 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 15:39:38  [ pool-5-thread-3:70991 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 15:39:38  [ pool-5-thread-4:70999 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 15:39:38  [ pool-5-thread-5:71007 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 15:39:38  [ pool-5-thread-1:71172 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 15:39:38  [ pool-5-thread-2:71181 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 15:39:38  [ pool-5-thread-3:71190 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 15:39:38  [ pool-5-thread-4:71201 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 15:39:38  [ pool-5-thread-5:71209 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 15:39:38  [ pool-5-thread-1:71218 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 15:40:34  [ pool-5-thread-3:127158 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 15:40:34  [ pool-5-thread-4:127165 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 15:40:34  [ pool-5-thread-5:127172 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 15:40:34  [ pool-5-thread-1:127179 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 15:40:34  [ pool-5-thread-2:127185 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 15:40:34  [ pool-5-thread-3:127193 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 15:40:34  [ pool-5-thread-4:127198 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 15:40:34  [ pool-5-thread-5:127206 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 15:40:34  [ pool-5-thread-1:127212 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 15:40:34  [ pool-5-thread-2:127225 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 15:40:34  [ pool-5-thread-3:127238 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 15:40:34  [ pool-5-thread-4:127250 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 15:40:34  [ pool-5-thread-5:127268 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 15:40:34  [ pool-5-thread-1:127277 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 15:40:34  [ pool-5-thread-2:127285 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 15:41:18  [ pool-5-thread-4:170863 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 15:41:18  [ pool-5-thread-5:170871 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 15:41:18  [ pool-5-thread-1:170876 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 15:41:18  [ pool-5-thread-2:170883 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 15:41:18  [ pool-5-thread-3:170890 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 15:41:18  [ pool-5-thread-4:170895 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 15:41:18  [ pool-5-thread-5:170900 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 15:41:18  [ pool-5-thread-1:170906 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 15:41:18  [ pool-5-thread-2:170912 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 15:41:18  [ pool-5-thread-3:170920 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 15:41:18  [ pool-5-thread-4:170930 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 15:41:18  [ pool-5-thread-5:170937 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 15:41:18  [ pool-5-thread-1:170948 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 15:41:18  [ pool-5-thread-2:170956 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 15:41:18  [ pool-5-thread-3:170971 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 15:41:30  [ pool-5-thread-5:183500 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 15:41:30  [ pool-5-thread-1:183508 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 15:41:31  [ pool-5-thread-2:183518 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 15:41:31  [ pool-5-thread-3:183527 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 15:41:31  [ pool-5-thread-4:183543 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 15:41:31  [ pool-5-thread-5:183554 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 15:41:31  [ pool-5-thread-1:183568 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 15:41:31  [ pool-5-thread-2:183577 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 15:41:31  [ pool-5-thread-3:183602 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 15:41:31  [ pool-5-thread-4:183613 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 15:41:31  [ pool-5-thread-5:183626 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 15:41:31  [ pool-5-thread-1:183640 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 15:41:31  [ pool-5-thread-2:183652 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 15:41:31  [ pool-5-thread-3:183663 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 15:41:31  [ pool-5-thread-4:183674 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 16:49:35  [ main:1 ] - [ INFO ]  configuration finished! It's representative
+2014-12-02 16:49:36  [ main:483 ] - [ INFO ]  ∑˛ŒÒ∂À∆Ù∂Ø≥…π¶... tcp∂Àø⁄∫≈Œ™£∫30008
+2014-12-02 16:49:36  [ main:541 ] - [ INFO ]  ∑˛ŒÒ∂À∆Ù∂Ø≥…π¶... udp∂Àø⁄∫≈Œ™£∫30002
+2014-12-02 16:49:38  [ Thread-1:2826 ] - [ INFO ]  configuration finished! It's regular
+2014-12-02 16:49:38  [ Thread-1:2890 ] - [ INFO ]  local address: 10.108.167.193	port: 2001
+2014-12-02 16:49:38  [ Thread-1:2890 ] - [ INFO ]  multicast address: 230.0.10.39
+2014-12-02 16:49:38  [ Thread-7:2945 ] - [ INFO ]  No this TCP msg!
+2014-12-02 16:49:38  [ Thread-8:2952 ] - [ INFO ]  No this TCP msg!
+2014-12-02 16:49:38  [ Thread-9:2954 ] - [ INFO ]  No this TCP msg!
+2014-12-02 16:49:38  [ Thread-1:2955 ] - [ INFO ]  rep of group G9 no longer exist
+2014-12-02 16:49:38  [ Thread-1:2958 ] - [ INFO ]  switch to rep state
+2014-12-02 16:49:40  [ Thread-1:5039 ] - [ INFO ]  org.apache.servicemix.wsn.router.msg.tcp.MsgNewGroup_@17e4dee
+2014-12-02 16:49:48  [ Thread-1:12663 ] - [ INFO ]  join finished!
+2014-12-02 16:50:31  [ pool-5-thread-3:55759 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 16:50:31  [ pool-5-thread-4:55768 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 16:50:31  [ pool-5-thread-5:55776 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 16:50:31  [ pool-5-thread-1:55784 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 16:50:31  [ pool-5-thread-2:55791 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 16:50:31  [ pool-5-thread-3:55798 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 16:50:31  [ pool-5-thread-4:55805 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 16:50:31  [ pool-5-thread-5:55811 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 16:50:31  [ pool-5-thread-1:55818 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 16:50:31  [ pool-5-thread-2:55825 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 16:50:31  [ pool-5-thread-3:55834 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 16:50:31  [ pool-5-thread-4:55848 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 16:50:31  [ pool-5-thread-5:55857 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 16:50:31  [ pool-5-thread-1:55867 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 16:50:31  [ pool-5-thread-2:55876 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 16:50:58  [ pool-5-thread-4:82435 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 16:50:58  [ pool-5-thread-5:82441 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 16:50:58  [ pool-5-thread-1:82450 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 16:50:58  [ pool-5-thread-2:82457 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 16:50:58  [ pool-5-thread-3:82463 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 16:50:58  [ pool-5-thread-4:82468 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 16:50:58  [ pool-5-thread-5:82473 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 16:50:58  [ pool-5-thread-1:82479 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 16:50:58  [ pool-5-thread-2:82485 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 16:50:58  [ pool-5-thread-3:82496 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 16:50:58  [ pool-5-thread-4:82503 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 16:50:58  [ pool-5-thread-5:82513 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 16:50:58  [ pool-5-thread-1:82525 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 16:50:58  [ pool-5-thread-2:82534 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 16:50:58  [ pool-5-thread-3:82549 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 16:51:21  [ pool-5-thread-5:106148 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 16:51:21  [ pool-5-thread-1:106157 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 16:51:21  [ pool-5-thread-2:106170 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 16:51:21  [ pool-5-thread-3:106180 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 16:51:21  [ pool-5-thread-4:106191 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 16:51:21  [ pool-5-thread-5:106198 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 16:51:22  [ pool-5-thread-1:106205 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 16:51:22  [ pool-5-thread-2:106215 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 16:51:22  [ pool-5-thread-3:106222 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 16:51:22  [ pool-5-thread-4:106240 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 16:51:22  [ pool-5-thread-5:106250 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 16:51:22  [ pool-5-thread-1:106260 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 16:51:22  [ pool-5-thread-2:106274 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 16:51:22  [ pool-5-thread-3:106284 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 16:51:22  [ pool-5-thread-4:106293 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 16:53:28  [ main:0 ] - [ INFO ]  configuration finished! It's representative
+2014-12-02 16:53:29  [ main:151 ] - [ INFO ]  ∑˛ŒÒ∂À∆Ù∂Ø≥…π¶... tcp∂Àø⁄∫≈Œ™£∫30008
+2014-12-02 16:53:29  [ main:178 ] - [ INFO ]  ∑˛ŒÒ∂À∆Ù∂Ø≥…π¶... udp∂Àø⁄∫≈Œ™£∫30002
+2014-12-02 16:53:29  [ main:808 ] - [ INFO ]  configuration finished! It's regular
+2014-12-02 16:53:29  [ main:812 ] - [ INFO ]  local address: 10.108.167.193	port: 2001
+2014-12-02 16:53:29  [ main:812 ] - [ INFO ]  multicast address: 230.0.10.39
+2014-12-02 16:53:29  [ Thread-7:822 ] - [ INFO ]  No this TCP msg!
+2014-12-02 16:53:29  [ Thread-8:832 ] - [ INFO ]  No this TCP msg!
+2014-12-02 16:53:29  [ Thread-9:835 ] - [ INFO ]  No this TCP msg!
+2014-12-02 16:53:29  [ main:836 ] - [ INFO ]  rep of group G9 no longer exist
+2014-12-02 16:53:29  [ main:839 ] - [ INFO ]  switch to rep state
+2014-12-02 16:53:31  [ main:2848 ] - [ INFO ]  org.apache.servicemix.wsn.router.msg.tcp.MsgNewGroup_@1c1c92b
+2014-12-02 16:53:38  [ main:10065 ] - [ INFO ]  join finished!
+2014-12-02 19:46:32  [ pool-5-thread-1:10383183 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 19:46:32  [ pool-5-thread-2:10383189 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 19:46:32  [ pool-5-thread-3:10383194 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 19:46:32  [ pool-5-thread-4:10383201 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 19:46:32  [ pool-5-thread-5:10383205 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 19:46:32  [ pool-5-thread-1:10383232 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 19:46:32  [ pool-5-thread-2:10383241 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 19:46:32  [ pool-5-thread-3:10383249 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 19:46:32  [ pool-5-thread-4:10383259 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 19:46:32  [ pool-5-thread-5:10383265 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 19:46:32  [ pool-5-thread-1:10383273 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 19:46:32  [ pool-5-thread-2:10383289 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 19:46:32  [ pool-5-thread-3:10383299 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 19:46:32  [ pool-5-thread-4:10383308 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 19:46:32  [ pool-5-thread-5:10383319 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 19:52:37  [ main:0 ] - [ INFO ]  configuration finished! It's representative
+2014-12-02 19:52:37  [ main:296 ] - [ INFO ]  ∑˛ŒÒ∂À∆Ù∂Ø≥…π¶... tcp∂Àø⁄∫≈Œ™£∫30008
+2014-12-02 19:52:37  [ main:346 ] - [ INFO ]  ∑˛ŒÒ∂À∆Ù∂Ø≥…π¶... udp∂Àø⁄∫≈Œ™£∫30002
+2014-12-02 19:52:40  [ main:2826 ] - [ INFO ]  configuration finished! It's regular
+2014-12-02 19:52:40  [ main:2847 ] - [ INFO ]  local address: 10.108.167.193	port: 2001
+2014-12-02 19:52:40  [ main:2847 ] - [ INFO ]  multicast address: 230.0.10.39
+2014-12-02 19:52:40  [ Thread-7:2931 ] - [ INFO ]  No this TCP msg!
+2014-12-02 19:52:40  [ Thread-8:2935 ] - [ INFO ]  No this TCP msg!
+2014-12-02 19:52:40  [ Thread-9:2941 ] - [ INFO ]  No this TCP msg!
+2014-12-02 19:52:40  [ main:2942 ] - [ INFO ]  rep of group G9 no longer exist
+2014-12-02 19:52:40  [ main:2945 ] - [ INFO ]  switch to rep state
+2014-12-02 19:52:42  [ main:4997 ] - [ INFO ]  org.apache.servicemix.wsn.router.msg.tcp.MsgNewGroup_@bc5596
+2014-12-02 19:52:50  [ main:12897 ] - [ INFO ]  join finished!
+2014-12-02 19:54:29  [ pool-5-thread-5:111664 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 19:54:29  [ pool-5-thread-1:111670 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 19:54:29  [ pool-5-thread-2:111676 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 19:54:29  [ pool-5-thread-3:111686 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 19:54:29  [ pool-5-thread-4:111696 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 19:54:29  [ pool-5-thread-5:111707 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 19:54:29  [ pool-5-thread-1:111715 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 19:54:29  [ pool-5-thread-2:111721 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 19:54:29  [ pool-5-thread-3:111726 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 19:54:29  [ pool-5-thread-4:111735 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 19:54:29  [ pool-5-thread-5:111745 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 19:54:29  [ pool-5-thread-1:111755 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 19:54:29  [ pool-5-thread-2:111763 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 19:54:29  [ pool-5-thread-3:111777 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 19:54:29  [ pool-5-thread-4:111788 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 19:54:39  [ pool-5-thread-1:122284 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 19:54:39  [ pool-5-thread-2:122294 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 19:54:39  [ pool-5-thread-3:122300 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 19:54:39  [ pool-5-thread-4:122311 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 19:54:39  [ pool-5-thread-5:122317 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 19:54:39  [ pool-5-thread-1:122325 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 19:54:39  [ pool-5-thread-2:122330 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 19:54:39  [ pool-5-thread-3:122338 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 19:54:39  [ pool-5-thread-4:122348 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 19:54:39  [ pool-5-thread-5:122372 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 19:54:39  [ pool-5-thread-1:122382 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 19:54:39  [ pool-5-thread-2:122391 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 19:54:40  [ pool-5-thread-3:122529 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 19:54:40  [ pool-5-thread-4:122538 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 19:54:40  [ pool-5-thread-5:122546 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 19:55:03  [ pool-5-thread-2:146435 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 19:55:03  [ pool-5-thread-3:146443 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 19:55:03  [ pool-5-thread-4:146451 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 19:55:03  [ pool-5-thread-5:146458 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 19:55:03  [ pool-5-thread-1:146463 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 19:55:03  [ pool-5-thread-2:146469 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 19:55:03  [ pool-5-thread-3:146474 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 19:55:03  [ pool-5-thread-4:146481 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 19:55:03  [ pool-5-thread-5:146487 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 19:55:03  [ pool-5-thread-1:146494 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 19:55:03  [ pool-5-thread-2:146501 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 19:55:04  [ pool-5-thread-3:146518 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 19:55:04  [ pool-5-thread-4:146527 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 19:55:04  [ pool-5-thread-5:146537 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 19:55:04  [ pool-5-thread-1:146545 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 20:13:31  [ main:0 ] - [ INFO ]  configuration finished! It's representative
+2014-12-02 20:13:31  [ main:135 ] - [ INFO ]  ∑˛ŒÒ∂À∆Ù∂Ø≥…π¶... tcp∂Àø⁄∫≈Œ™£∫30008
+2014-12-02 20:13:31  [ main:162 ] - [ INFO ]  ∑˛ŒÒ∂À∆Ù∂Ø≥…π¶... udp∂Àø⁄∫≈Œ™£∫30002
+2014-12-02 20:13:32  [ main:726 ] - [ INFO ]  configuration finished! It's regular
+2014-12-02 20:13:32  [ main:730 ] - [ INFO ]  local address: 10.108.167.193	port: 2001
+2014-12-02 20:13:32  [ main:730 ] - [ INFO ]  multicast address: 230.0.10.39
+2014-12-02 20:13:32  [ Thread-7:735 ] - [ INFO ]  No this TCP msg!
+2014-12-02 20:13:32  [ Thread-8:739 ] - [ INFO ]  No this TCP msg!
+2014-12-02 20:13:32  [ Thread-9:741 ] - [ INFO ]  No this TCP msg!
+2014-12-02 20:13:32  [ main:742 ] - [ INFO ]  rep of group G9 no longer exist
+2014-12-02 20:13:32  [ main:1016 ] - [ INFO ]  switch to rep state
+2014-12-02 20:13:34  [ main:3025 ] - [ INFO ]  org.apache.servicemix.wsn.router.msg.tcp.MsgNewGroup_@1dafbaf
+2014-12-02 20:13:42  [ main:10951 ] - [ INFO ]  join finished!
+2014-12-02 20:23:57  [ main:0 ] - [ INFO ]  configuration finished! It's representative
+2014-12-02 20:23:57  [ main:137 ] - [ INFO ]  ∑˛ŒÒ∂À∆Ù∂Ø≥…π¶... tcp∂Àø⁄∫≈Œ™£∫30008
+2014-12-02 20:23:57  [ main:165 ] - [ INFO ]  ∑˛ŒÒ∂À∆Ù∂Ø≥…π¶... udp∂Àø⁄∫≈Œ™£∫30002
+2014-12-02 20:23:58  [ main:1667 ] - [ WARN ]  java.io.EOFException
+2014-12-02 20:23:58  [ main:1713 ] - [ INFO ]  configuration finished! It's representative
+2014-12-02 20:23:58  [ main:1717 ] - [ INFO ]  local address: 10.108.167.193	port: 2001
+2014-12-02 20:23:58  [ main:1717 ] - [ INFO ]  multicast address: 230.0.10.39
+2014-12-02 20:23:58  [ main:1814 ] - [ INFO ]  org.apache.servicemix.wsn.router.msg.tcp.MsgNewGroup_@13d9460
+2014-12-02 20:24:06  [ main:9030 ] - [ INFO ]  join finished!
+2014-12-02 20:26:13  [ main:0 ] - [ INFO ]  configuration finished! It's representative
+2014-12-02 20:26:13  [ main:134 ] - [ INFO ]  ∑˛ŒÒ∂À∆Ù∂Ø≥…π¶... tcp∂Àø⁄∫≈Œ™£∫30008
+2014-12-02 20:26:13  [ main:162 ] - [ INFO ]  ∑˛ŒÒ∂À∆Ù∂Ø≥…π¶... udp∂Àø⁄∫≈Œ™£∫30002
+2014-12-02 20:26:14  [ main:711 ] - [ INFO ]  configuration finished! It's regular
+2014-12-02 20:26:14  [ main:716 ] - [ INFO ]  local address: 10.108.167.193	port: 2001
+2014-12-02 20:26:14  [ main:717 ] - [ INFO ]  multicast address: 230.0.10.39
+2014-12-02 20:26:14  [ Thread-7:724 ] - [ INFO ]  No this TCP msg!
+2014-12-02 20:26:14  [ Thread-8:727 ] - [ INFO ]  No this TCP msg!
+2014-12-02 20:26:14  [ Thread-9:730 ] - [ INFO ]  No this TCP msg!
+2014-12-02 20:26:14  [ main:730 ] - [ INFO ]  rep of group G9 no longer exist
+2014-12-02 20:26:14  [ main:734 ] - [ INFO ]  switch to rep state
+2014-12-02 20:26:16  [ main:2744 ] - [ INFO ]  org.apache.servicemix.wsn.router.msg.tcp.MsgNewGroup_@1dafbaf
+2014-12-02 20:26:23  [ main:9820 ] - [ INFO ]  join finished!
+2014-12-02 20:28:13  [ pool-5-thread-5:119406 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 20:28:13  [ pool-5-thread-1:119414 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 20:28:13  [ pool-5-thread-2:119419 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 20:28:13  [ pool-5-thread-3:119426 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 20:28:13  [ pool-5-thread-4:119431 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 20:28:13  [ pool-5-thread-5:119437 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 20:28:13  [ pool-5-thread-1:119443 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 20:28:13  [ pool-5-thread-2:119448 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 20:28:13  [ pool-5-thread-3:119453 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 20:28:13  [ pool-5-thread-4:119460 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 20:28:13  [ pool-5-thread-5:119468 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 20:28:13  [ pool-5-thread-1:119478 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 20:28:13  [ pool-5-thread-2:119489 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 20:28:13  [ pool-5-thread-3:119508 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 20:28:13  [ pool-5-thread-4:119522 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 20:28:31  [ pool-5-thread-1:137808 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 20:28:31  [ pool-5-thread-2:137814 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 20:28:31  [ pool-5-thread-3:137820 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 20:28:31  [ pool-5-thread-4:137826 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 20:28:31  [ pool-5-thread-5:137831 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 20:28:31  [ pool-5-thread-1:137836 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 20:28:31  [ pool-5-thread-2:137844 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 20:28:31  [ pool-5-thread-3:137852 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 20:28:31  [ pool-5-thread-4:137858 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 20:28:31  [ pool-5-thread-5:137866 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 20:28:31  [ pool-5-thread-1:137877 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 20:28:31  [ pool-5-thread-2:137889 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 20:28:31  [ pool-5-thread-3:137903 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 20:28:31  [ pool-5-thread-4:137915 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 20:28:31  [ pool-5-thread-5:137924 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 20:48:03  [ main:0 ] - [ INFO ]  configuration finished! It's representative
+2014-12-02 20:48:03  [ main:135 ] - [ INFO ]  ∑˛ŒÒ∂À∆Ù∂Ø≥…π¶... tcp∂Àø⁄∫≈Œ™£∫30008
+2014-12-02 20:48:03  [ main:164 ] - [ INFO ]  ∑˛ŒÒ∂À∆Ù∂Ø≥…π¶... udp∂Àø⁄∫≈Œ™£∫30002
+2014-12-02 20:48:03  [ main:754 ] - [ INFO ]  configuration finished! It's regular
+2014-12-02 20:48:03  [ main:758 ] - [ INFO ]  local address: 10.108.167.193	port: 2001
+2014-12-02 20:48:03  [ main:759 ] - [ INFO ]  multicast address: 230.0.10.39
+2014-12-02 20:48:03  [ Thread-7:764 ] - [ INFO ]  No this TCP msg!
+2014-12-02 20:48:03  [ Thread-8:766 ] - [ INFO ]  No this TCP msg!
+2014-12-02 20:48:03  [ Thread-9:768 ] - [ INFO ]  No this TCP msg!
+2014-12-02 20:48:03  [ main:769 ] - [ INFO ]  rep of group G9 no longer exist
+2014-12-02 20:48:03  [ main:774 ] - [ INFO ]  switch to rep state
+2014-12-02 20:48:06  [ main:2803 ] - [ INFO ]  org.apache.servicemix.wsn.router.msg.tcp.MsgNewGroup_@12e7c6a
+2014-12-02 20:48:13  [ main:9876 ] - [ INFO ]  join finished!
+2014-12-02 20:49:31  [ main:0 ] - [ INFO ]  configuration finished! It's representative
+2014-12-02 20:49:31  [ main:132 ] - [ INFO ]  ∑˛ŒÒ∂À∆Ù∂Ø≥…π¶... tcp∂Àø⁄∫≈Œ™£∫30008
+2014-12-02 20:49:31  [ main:159 ] - [ INFO ]  ∑˛ŒÒ∂À∆Ù∂Ø≥…π¶... udp∂Àø⁄∫≈Œ™£∫30002
+2014-12-02 20:49:32  [ Thread-1:712 ] - [ INFO ]  configuration finished! It's regular
+2014-12-02 20:49:32  [ Thread-1:716 ] - [ INFO ]  local address: 10.108.167.193	port: 2001
+2014-12-02 20:49:32  [ Thread-1:716 ] - [ INFO ]  multicast address: 230.0.10.39
+2014-12-02 20:49:32  [ Thread-7:722 ] - [ INFO ]  No this TCP msg!
+2014-12-02 20:49:32  [ Thread-8:725 ] - [ INFO ]  No this TCP msg!
+2014-12-02 20:49:32  [ Thread-9:726 ] - [ INFO ]  No this TCP msg!
+2014-12-02 20:49:32  [ Thread-1:727 ] - [ INFO ]  rep of group G9 no longer exist
+2014-12-02 20:49:32  [ Thread-1:729 ] - [ INFO ]  switch to rep state
+2014-12-02 20:49:34  [ Thread-1:2737 ] - [ INFO ]  org.apache.servicemix.wsn.router.msg.tcp.MsgNewGroup_@12e7c6a
+2014-12-02 20:49:41  [ Thread-1:9829 ] - [ INFO ]  join finished!
+2014-12-02 20:50:25  [ pool-5-thread-4:53461 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 20:50:25  [ pool-5-thread-5:53471 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 20:50:25  [ pool-5-thread-1:53478 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 20:50:25  [ pool-5-thread-2:53484 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 20:50:25  [ pool-5-thread-3:53489 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 20:50:25  [ pool-5-thread-4:53497 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 20:50:25  [ pool-5-thread-5:53503 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 20:50:25  [ pool-5-thread-1:53509 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 20:50:25  [ pool-5-thread-2:53515 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 20:50:25  [ pool-5-thread-3:53520 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 20:50:25  [ pool-5-thread-4:53607 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 20:50:25  [ pool-5-thread-5:53617 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 20:50:25  [ pool-5-thread-1:53626 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 20:50:25  [ pool-5-thread-2:53634 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 20:50:25  [ pool-5-thread-3:53645 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 21:05:50  [ main:1 ] - [ INFO ]  configuration finished! It's representative
+2014-12-02 21:05:50  [ main:138 ] - [ INFO ]  ∑˛ŒÒ∂À∆Ù∂Ø≥…π¶... tcp∂Àø⁄∫≈Œ™£∫30008
+2014-12-02 21:05:50  [ main:166 ] - [ INFO ]  ∑˛ŒÒ∂À∆Ù∂Ø≥…π¶... udp∂Àø⁄∫≈Œ™£∫30002
+2014-12-02 21:05:55  [ main:5259 ] - [ WARN ]  java.io.EOFException
+2014-12-02 21:05:55  [ main:5291 ] - [ INFO ]  configuration finished! It's representative
+2014-12-02 21:05:55  [ main:5295 ] - [ INFO ]  local address: 10.108.167.193	port: 2001
+2014-12-02 21:05:55  [ main:5295 ] - [ INFO ]  multicast address: 230.0.10.39
+2014-12-02 21:05:55  [ main:5319 ] - [ INFO ]  org.apache.servicemix.wsn.router.msg.tcp.MsgNewGroup_@5c98f3
+2014-12-02 21:06:02  [ main:12423 ] - [ INFO ]  join finished!
+2014-12-02 21:07:04  [ pool-5-thread-5:74232 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 21:07:04  [ pool-5-thread-1:74238 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 21:07:04  [ pool-5-thread-2:74244 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 21:07:04  [ pool-5-thread-3:74250 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 21:07:04  [ pool-5-thread-4:74257 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 21:07:04  [ pool-5-thread-5:74262 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 21:07:04  [ pool-5-thread-1:74266 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 21:07:04  [ pool-5-thread-2:74273 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 21:07:04  [ pool-5-thread-3:74279 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 21:07:04  [ pool-5-thread-4:74285 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 21:07:04  [ pool-5-thread-5:74373 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 21:07:04  [ pool-5-thread-1:74383 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 21:07:04  [ pool-5-thread-2:74391 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 21:07:04  [ pool-5-thread-3:74399 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2014-12-02 21:07:04  [ pool-5-thread-4:74407 ] - [ ERROR ]  subscribe exists in the sysytem already,there is no need to do it again!
+2015-06-16 17:04:02  [ main:0 ] - [ INFO ]  configuration finished! It's representative
+2015-06-16 17:04:02  [ main:275 ] - [ ERROR ]  ÊúçÂä°Á´ØtcpÂêØÂä®ÂºÇÂ∏∏....
+java.net.BindException: Cannot assign requested address
+	at sun.nio.ch.Net.bind0(Native Method)
+	at sun.nio.ch.Net.bind(Net.java:444)
+	at sun.nio.ch.Net.bind(Net.java:436)
+	at sun.nio.ch.ServerSocketChannelImpl.bind(ServerSocketChannelImpl.java:214)
+	at sun.nio.ch.ServerSocketAdaptor.bind(ServerSocketAdaptor.java:74)
+	at org.apache.mina.transport.socket.nio.NioSocketAcceptor.open(NioSocketAcceptor.java:198)
+	at org.apache.mina.transport.socket.nio.NioSocketAcceptor.open(NioSocketAcceptor.java:51)
+	at org.apache.mina.core.polling.AbstractPollingIoAcceptor.registerHandles(AbstractPollingIoAcceptor.java:547)
+	at org.apache.mina.core.polling.AbstractPollingIoAcceptor.access$400(AbstractPollingIoAcceptor.java:68)
+	at org.apache.mina.core.polling.AbstractPollingIoAcceptor$Acceptor.run(AbstractPollingIoAcceptor.java:422)
+	at org.apache.mina.util.NamePreservingRunnable.run(NamePreservingRunnable.java:64)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:745)
+2015-06-16 17:04:02  [ main:317 ] - [ ERROR ]  ÊúçÂä°Á´ØudpÂêØÂä®ÂºÇÂ∏∏....
+java.net.BindException: Cannot assign requested address
+	at sun.nio.ch.Net.bind0(Native Method)
+	at sun.nio.ch.Net.bind(Net.java:444)
+	at sun.nio.ch.DatagramChannelImpl.bind(DatagramChannelImpl.java:702)
+	at sun.nio.ch.DatagramSocketAdaptor.bind(DatagramSocketAdaptor.java:91)
+	at org.apache.mina.transport.socket.nio.NioDatagramAcceptor.open(NioDatagramAcceptor.java:109)
+	at org.apache.mina.transport.socket.nio.NioDatagramAcceptor.open(NioDatagramAcceptor.java:48)
+	at org.apache.mina.core.polling.AbstractPollingConnectionlessIoAcceptor.registerHandles(AbstractPollingConnectionlessIoAcceptor.java:830)
+	at org.apache.mina.core.polling.AbstractPollingConnectionlessIoAcceptor.access$400(AbstractPollingConnectionlessIoAcceptor.java:61)
+	at org.apache.mina.core.polling.AbstractPollingConnectionlessIoAcceptor$Acceptor.run(AbstractPollingConnectionlessIoAcceptor.java:585)
+	at org.apache.mina.util.NamePreservingRunnable.run(NamePreservingRunnable.java:64)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:745)
+2015-06-16 17:05:25  [ main:0 ] - [ INFO ]  configuration finished! It's representative
+2015-06-16 17:05:26  [ main:152 ] - [ ERROR ]  ÊúçÂä°Á´ØtcpÂêØÂä®ÂºÇÂ∏∏....
+java.net.BindException: Cannot assign requested address
+	at sun.nio.ch.Net.bind0(Native Method)
+	at sun.nio.ch.Net.bind(Net.java:444)
+	at sun.nio.ch.Net.bind(Net.java:436)
+	at sun.nio.ch.ServerSocketChannelImpl.bind(ServerSocketChannelImpl.java:214)
+	at sun.nio.ch.ServerSocketAdaptor.bind(ServerSocketAdaptor.java:74)
+	at org.apache.mina.transport.socket.nio.NioSocketAcceptor.open(NioSocketAcceptor.java:198)
+	at org.apache.mina.transport.socket.nio.NioSocketAcceptor.open(NioSocketAcceptor.java:51)
+	at org.apache.mina.core.polling.AbstractPollingIoAcceptor.registerHandles(AbstractPollingIoAcceptor.java:547)
+	at org.apache.mina.core.polling.AbstractPollingIoAcceptor.access$400(AbstractPollingIoAcceptor.java:68)
+	at org.apache.mina.core.polling.AbstractPollingIoAcceptor$Acceptor.run(AbstractPollingIoAcceptor.java:422)
+	at org.apache.mina.util.NamePreservingRunnable.run(NamePreservingRunnable.java:64)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:745)
+2015-06-16 17:05:26  [ main:202 ] - [ ERROR ]  ÊúçÂä°Á´ØudpÂêØÂä®ÂºÇÂ∏∏....
+java.net.BindException: Cannot assign requested address
+	at sun.nio.ch.Net.bind0(Native Method)
+	at sun.nio.ch.Net.bind(Net.java:444)
+	at sun.nio.ch.DatagramChannelImpl.bind(DatagramChannelImpl.java:702)
+	at sun.nio.ch.DatagramSocketAdaptor.bind(DatagramSocketAdaptor.java:91)
+	at org.apache.mina.transport.socket.nio.NioDatagramAcceptor.open(NioDatagramAcceptor.java:109)
+	at org.apache.mina.transport.socket.nio.NioDatagramAcceptor.open(NioDatagramAcceptor.java:48)
+	at org.apache.mina.core.polling.AbstractPollingConnectionlessIoAcceptor.registerHandles(AbstractPollingConnectionlessIoAcceptor.java:830)
+	at org.apache.mina.core.polling.AbstractPollingConnectionlessIoAcceptor.access$400(AbstractPollingConnectionlessIoAcceptor.java:61)
+	at org.apache.mina.core.polling.AbstractPollingConnectionlessIoAcceptor$Acceptor.run(AbstractPollingConnectionlessIoAcceptor.java:585)
+	at org.apache.mina.util.NamePreservingRunnable.run(NamePreservingRunnable.java:64)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:745)
+2015-06-16 17:06:47  [ main:0 ] - [ INFO ]  configuration finished! It's representative
+2015-06-16 17:06:47  [ main:160 ] - [ ERROR ]  ÊúçÂä°Á´ØtcpÂêØÂä®ÂºÇÂ∏∏....
+java.net.BindException: Cannot assign requested address
+	at sun.nio.ch.Net.bind0(Native Method)
+	at sun.nio.ch.Net.bind(Net.java:444)
+	at sun.nio.ch.Net.bind(Net.java:436)
+	at sun.nio.ch.ServerSocketChannelImpl.bind(ServerSocketChannelImpl.java:214)
+	at sun.nio.ch.ServerSocketAdaptor.bind(ServerSocketAdaptor.java:74)
+	at org.apache.mina.transport.socket.nio.NioSocketAcceptor.open(NioSocketAcceptor.java:198)
+	at org.apache.mina.transport.socket.nio.NioSocketAcceptor.open(NioSocketAcceptor.java:51)
+	at org.apache.mina.core.polling.AbstractPollingIoAcceptor.registerHandles(AbstractPollingIoAcceptor.java:547)
+	at org.apache.mina.core.polling.AbstractPollingIoAcceptor.access$400(AbstractPollingIoAcceptor.java:68)
+	at org.apache.mina.core.polling.AbstractPollingIoAcceptor$Acceptor.run(AbstractPollingIoAcceptor.java:422)
+	at org.apache.mina.util.NamePreservingRunnable.run(NamePreservingRunnable.java:64)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:745)
+2015-06-16 17:06:47  [ main:207 ] - [ ERROR ]  ÊúçÂä°Á´ØudpÂêØÂä®ÂºÇÂ∏∏....
+java.net.BindException: Cannot assign requested address
+	at sun.nio.ch.Net.bind0(Native Method)
+	at sun.nio.ch.Net.bind(Net.java:444)
+	at sun.nio.ch.DatagramChannelImpl.bind(DatagramChannelImpl.java:702)
+	at sun.nio.ch.DatagramSocketAdaptor.bind(DatagramSocketAdaptor.java:91)
+	at org.apache.mina.transport.socket.nio.NioDatagramAcceptor.open(NioDatagramAcceptor.java:109)
+	at org.apache.mina.transport.socket.nio.NioDatagramAcceptor.open(NioDatagramAcceptor.java:48)
+	at org.apache.mina.core.polling.AbstractPollingConnectionlessIoAcceptor.registerHandles(AbstractPollingConnectionlessIoAcceptor.java:830)
+	at org.apache.mina.core.polling.AbstractPollingConnectionlessIoAcceptor.access$400(AbstractPollingConnectionlessIoAcceptor.java:61)
+	at org.apache.mina.core.polling.AbstractPollingConnectionlessIoAcceptor$Acceptor.run(AbstractPollingConnectionlessIoAcceptor.java:585)
+	at org.apache.mina.util.NamePreservingRunnable.run(NamePreservingRunnable.java:64)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:745)
+2015-06-16 17:10:13  [ Thread-1:205951 ] - [ INFO ]  configuration finished! It's representative
+2015-06-16 17:10:13  [ Thread-1:205956 ] - [ INFO ]  local address: 192.168.1.30	port: 2001
+2015-06-16 17:10:13  [ Thread-1:205957 ] - [ INFO ]  multicast address: 230.0.10.109
+2015-06-16 17:10:13  [ Thread-1:206024 ] - [ INFO ]  org.apache.servicemix.wsn.router.msg.tcp.MsgNewGroup_@e6993c
+2015-06-16 17:10:18  [ Thread-1:211543 ] - [ INFO ]  join finished!
+2015-06-16 17:11:41  [ main:0 ] - [ INFO ]  configuration finished! It's representative
+2015-06-16 17:11:41  [ main:131 ] - [ ERROR ]  ÊúçÂä°Á´ØtcpÂêØÂä®ÂºÇÂ∏∏....
+java.net.BindException: Cannot assign requested address
+	at sun.nio.ch.Net.bind0(Native Method)
+	at sun.nio.ch.Net.bind(Net.java:444)
+	at sun.nio.ch.Net.bind(Net.java:436)
+	at sun.nio.ch.ServerSocketChannelImpl.bind(ServerSocketChannelImpl.java:214)
+	at sun.nio.ch.ServerSocketAdaptor.bind(ServerSocketAdaptor.java:74)
+	at org.apache.mina.transport.socket.nio.NioSocketAcceptor.open(NioSocketAcceptor.java:198)
+	at org.apache.mina.transport.socket.nio.NioSocketAcceptor.open(NioSocketAcceptor.java:51)
+	at org.apache.mina.core.polling.AbstractPollingIoAcceptor.registerHandles(AbstractPollingIoAcceptor.java:547)
+	at org.apache.mina.core.polling.AbstractPollingIoAcceptor.access$400(AbstractPollingIoAcceptor.java:68)
+	at org.apache.mina.core.polling.AbstractPollingIoAcceptor$Acceptor.run(AbstractPollingIoAcceptor.java:422)
+	at org.apache.mina.util.NamePreservingRunnable.run(NamePreservingRunnable.java:64)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:745)
+2015-06-16 17:11:41  [ main:168 ] - [ ERROR ]  ÊúçÂä°Á´ØudpÂêØÂä®ÂºÇÂ∏∏....
+java.net.BindException: Cannot assign requested address
+	at sun.nio.ch.Net.bind0(Native Method)
+	at sun.nio.ch.Net.bind(Net.java:444)
+	at sun.nio.ch.DatagramChannelImpl.bind(DatagramChannelImpl.java:702)
+	at sun.nio.ch.DatagramSocketAdaptor.bind(DatagramSocketAdaptor.java:91)
+	at org.apache.mina.transport.socket.nio.NioDatagramAcceptor.open(NioDatagramAcceptor.java:109)
+	at org.apache.mina.transport.socket.nio.NioDatagramAcceptor.open(NioDatagramAcceptor.java:48)
+	at org.apache.mina.core.polling.AbstractPollingConnectionlessIoAcceptor.registerHandles(AbstractPollingConnectionlessIoAcceptor.java:830)
+	at org.apache.mina.core.polling.AbstractPollingConnectionlessIoAcceptor.access$400(AbstractPollingConnectionlessIoAcceptor.java:61)
+	at org.apache.mina.core.polling.AbstractPollingConnectionlessIoAcceptor$Acceptor.run(AbstractPollingConnectionlessIoAcceptor.java:585)
+	at org.apache.mina.util.NamePreservingRunnable.run(NamePreservingRunnable.java:64)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:745)
+2015-06-16 17:11:42  [ Thread-1:929 ] - [ INFO ]  configuration finished! It's regular
+2015-06-16 17:11:42  [ Thread-1:930 ] - [ WARN ]  java.net.BindException: Address already in use
+2015-06-16 17:11:42  [ Thread-1:933 ] - [ INFO ]  local address: 192.168.1.30	port: 2001
+2015-06-16 17:11:42  [ Thread-1:933 ] - [ INFO ]  multicast address: 230.0.10.109
+2015-06-16 17:11:42  [ Thread-1:1035 ] - [ INFO ]  successfully join into group:G9
+2015-06-16 17:11:44  [ Thread-1:3140 ] - [ INFO ]  join finished!
+2015-06-16 17:12:01  [ main:1 ] - [ INFO ]  configuration finished! It's representative
+2015-06-16 17:12:01  [ main:136 ] - [ ERROR ]  ÊúçÂä°Á´ØtcpÂêØÂä®ÂºÇÂ∏∏....
+java.net.BindException: Cannot assign requested address
+	at sun.nio.ch.Net.bind0(Native Method)
+	at sun.nio.ch.Net.bind(Net.java:444)
+	at sun.nio.ch.Net.bind(Net.java:436)
+	at sun.nio.ch.ServerSocketChannelImpl.bind(ServerSocketChannelImpl.java:214)
+	at sun.nio.ch.ServerSocketAdaptor.bind(ServerSocketAdaptor.java:74)
+	at org.apache.mina.transport.socket.nio.NioSocketAcceptor.open(NioSocketAcceptor.java:198)
+	at org.apache.mina.transport.socket.nio.NioSocketAcceptor.open(NioSocketAcceptor.java:51)
+	at org.apache.mina.core.polling.AbstractPollingIoAcceptor.registerHandles(AbstractPollingIoAcceptor.java:547)
+	at org.apache.mina.core.polling.AbstractPollingIoAcceptor.access$400(AbstractPollingIoAcceptor.java:68)
+	at org.apache.mina.core.polling.AbstractPollingIoAcceptor$Acceptor.run(AbstractPollingIoAcceptor.java:422)
+	at org.apache.mina.util.NamePreservingRunnable.run(NamePreservingRunnable.java:64)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:745)
+2015-06-16 17:12:01  [ main:185 ] - [ ERROR ]  ÊúçÂä°Á´ØudpÂêØÂä®ÂºÇÂ∏∏....
+java.net.BindException: Cannot assign requested address
+	at sun.nio.ch.Net.bind0(Native Method)
+	at sun.nio.ch.Net.bind(Net.java:444)
+	at sun.nio.ch.DatagramChannelImpl.bind(DatagramChannelImpl.java:702)
+	at sun.nio.ch.DatagramSocketAdaptor.bind(DatagramSocketAdaptor.java:91)
+	at org.apache.mina.transport.socket.nio.NioDatagramAcceptor.open(NioDatagramAcceptor.java:109)
+	at org.apache.mina.transport.socket.nio.NioDatagramAcceptor.open(NioDatagramAcceptor.java:48)
+	at org.apache.mina.core.polling.AbstractPollingConnectionlessIoAcceptor.registerHandles(AbstractPollingConnectionlessIoAcceptor.java:830)
+	at org.apache.mina.core.polling.AbstractPollingConnectionlessIoAcceptor.access$400(AbstractPollingConnectionlessIoAcceptor.java:61)
+	at org.apache.mina.core.polling.AbstractPollingConnectionlessIoAcceptor$Acceptor.run(AbstractPollingConnectionlessIoAcceptor.java:585)
+	at org.apache.mina.util.NamePreservingRunnable.run(NamePreservingRunnable.java:64)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:745)
+2015-06-16 17:12:02  [ Thread-1:909 ] - [ INFO ]  configuration finished! It's regular
+2015-06-16 17:12:02  [ Thread-1:913 ] - [ INFO ]  local address: 192.168.1.30	port: 2001
+2015-06-16 17:12:02  [ Thread-1:914 ] - [ INFO ]  multicast address: 230.0.10.109
+2015-06-16 17:12:02  [ Thread-7:959 ] - [ INFO ]  No this TCP msg!
+2015-06-16 17:12:02  [ Thread-8:999 ] - [ INFO ]  No this TCP msg!
+2015-06-16 17:12:02  [ Thread-9:1038 ] - [ INFO ]  No this TCP msg!
+2015-06-16 17:12:02  [ Thread-1:1039 ] - [ INFO ]  rep of group G9 no longer exist
+2015-06-16 17:12:02  [ Thread-1:1042 ] - [ INFO ]  switch to rep state
+2015-06-16 17:12:04  [ Thread-1:3092 ] - [ INFO ]  org.apache.servicemix.wsn.router.msg.tcp.MsgNewGroup_@13743ac
+2015-06-16 17:12:07  [ Thread-1:6212 ] - [ INFO ]  join finished!
+2015-06-16 17:12:31  [ main:0 ] - [ INFO ]  configuration finished! It's representative
+2015-06-16 17:12:31  [ main:128 ] - [ ERROR ]  ÊúçÂä°Á´ØtcpÂêØÂä®ÂºÇÂ∏∏....
+java.net.BindException: Cannot assign requested address
+	at sun.nio.ch.Net.bind0(Native Method)
+	at sun.nio.ch.Net.bind(Net.java:444)
+	at sun.nio.ch.Net.bind(Net.java:436)
+	at sun.nio.ch.ServerSocketChannelImpl.bind(ServerSocketChannelImpl.java:214)
+	at sun.nio.ch.ServerSocketAdaptor.bind(ServerSocketAdaptor.java:74)
+	at org.apache.mina.transport.socket.nio.NioSocketAcceptor.open(NioSocketAcceptor.java:198)
+	at org.apache.mina.transport.socket.nio.NioSocketAcceptor.open(NioSocketAcceptor.java:51)
+	at org.apache.mina.core.polling.AbstractPollingIoAcceptor.registerHandles(AbstractPollingIoAcceptor.java:547)
+	at org.apache.mina.core.polling.AbstractPollingIoAcceptor.access$400(AbstractPollingIoAcceptor.java:68)
+	at org.apache.mina.core.polling.AbstractPollingIoAcceptor$Acceptor.run(AbstractPollingIoAcceptor.java:422)
+	at org.apache.mina.util.NamePreservingRunnable.run(NamePreservingRunnable.java:64)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:745)
+2015-06-16 17:12:31  [ main:170 ] - [ ERROR ]  ÊúçÂä°Á´ØudpÂêØÂä®ÂºÇÂ∏∏....
+java.net.BindException: Cannot assign requested address
+	at sun.nio.ch.Net.bind0(Native Method)
+	at sun.nio.ch.Net.bind(Net.java:444)
+	at sun.nio.ch.DatagramChannelImpl.bind(DatagramChannelImpl.java:702)
+	at sun.nio.ch.DatagramSocketAdaptor.bind(DatagramSocketAdaptor.java:91)
+	at org.apache.mina.transport.socket.nio.NioDatagramAcceptor.open(NioDatagramAcceptor.java:109)
+	at org.apache.mina.transport.socket.nio.NioDatagramAcceptor.open(NioDatagramAcceptor.java:48)
+	at org.apache.mina.core.polling.AbstractPollingConnectionlessIoAcceptor.registerHandles(AbstractPollingConnectionlessIoAcceptor.java:830)
+	at org.apache.mina.core.polling.AbstractPollingConnectionlessIoAcceptor.access$400(AbstractPollingConnectionlessIoAcceptor.java:61)
+	at org.apache.mina.core.polling.AbstractPollingConnectionlessIoAcceptor$Acceptor.run(AbstractPollingConnectionlessIoAcceptor.java:585)
+	at org.apache.mina.util.NamePreservingRunnable.run(NamePreservingRunnable.java:64)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:745)
+2015-06-16 17:12:41  [ main:0 ] - [ INFO ]  configuration finished! It's representative
+2015-06-16 17:12:41  [ main:132 ] - [ ERROR ]  ÊúçÂä°Á´ØtcpÂêØÂä®ÂºÇÂ∏∏....
+java.net.BindException: Cannot assign requested address
+	at sun.nio.ch.Net.bind0(Native Method)
+	at sun.nio.ch.Net.bind(Net.java:444)
+	at sun.nio.ch.Net.bind(Net.java:436)
+	at sun.nio.ch.ServerSocketChannelImpl.bind(ServerSocketChannelImpl.java:214)
+	at sun.nio.ch.ServerSocketAdaptor.bind(ServerSocketAdaptor.java:74)
+	at org.apache.mina.transport.socket.nio.NioSocketAcceptor.open(NioSocketAcceptor.java:198)
+	at org.apache.mina.transport.socket.nio.NioSocketAcceptor.open(NioSocketAcceptor.java:51)
+	at org.apache.mina.core.polling.AbstractPollingIoAcceptor.registerHandles(AbstractPollingIoAcceptor.java:547)
+	at org.apache.mina.core.polling.AbstractPollingIoAcceptor.access$400(AbstractPollingIoAcceptor.java:68)
+	at org.apache.mina.core.polling.AbstractPollingIoAcceptor$Acceptor.run(AbstractPollingIoAcceptor.java:422)
+	at org.apache.mina.util.NamePreservingRunnable.run(NamePreservingRunnable.java:64)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:745)
+2015-06-16 17:12:41  [ main:170 ] - [ ERROR ]  ÊúçÂä°Á´ØudpÂêØÂä®ÂºÇÂ∏∏....
+java.net.BindException: Cannot assign requested address
+	at sun.nio.ch.Net.bind0(Native Method)
+	at sun.nio.ch.Net.bind(Net.java:444)
+	at sun.nio.ch.DatagramChannelImpl.bind(DatagramChannelImpl.java:702)
+	at sun.nio.ch.DatagramSocketAdaptor.bind(DatagramSocketAdaptor.java:91)
+	at org.apache.mina.transport.socket.nio.NioDatagramAcceptor.open(NioDatagramAcceptor.java:109)
+	at org.apache.mina.transport.socket.nio.NioDatagramAcceptor.open(NioDatagramAcceptor.java:48)
+	at org.apache.mina.core.polling.AbstractPollingConnectionlessIoAcceptor.registerHandles(AbstractPollingConnectionlessIoAcceptor.java:830)
+	at org.apache.mina.core.polling.AbstractPollingConnectionlessIoAcceptor.access$400(AbstractPollingConnectionlessIoAcceptor.java:61)
+	at org.apache.mina.core.polling.AbstractPollingConnectionlessIoAcceptor$Acceptor.run(AbstractPollingConnectionlessIoAcceptor.java:585)
+	at org.apache.mina.util.NamePreservingRunnable.run(NamePreservingRunnable.java:64)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:745)
+2015-06-16 17:12:42  [ Thread-1:904 ] - [ INFO ]  configuration finished! It's regular
+2015-06-16 17:12:42  [ Thread-1:909 ] - [ INFO ]  local address: 192.168.1.30	port: 2001
+2015-06-16 17:12:42  [ Thread-1:909 ] - [ INFO ]  multicast address: 230.0.10.109
+2015-06-16 17:12:42  [ Thread-7:954 ] - [ INFO ]  No this TCP msg!
+2015-06-16 17:12:42  [ Thread-8:995 ] - [ INFO ]  No this TCP msg!
+2015-06-16 17:12:42  [ Thread-9:1035 ] - [ INFO ]  No this TCP msg!
+2015-06-16 17:12:42  [ Thread-1:1035 ] - [ INFO ]  rep of group G9 no longer exist
+2015-06-16 17:12:42  [ Thread-1:1039 ] - [ INFO ]  switch to rep state
+2015-06-16 17:12:44  [ Thread-1:3091 ] - [ INFO ]  org.apache.servicemix.wsn.router.msg.tcp.MsgNewGroup_@1e57f16
+2015-06-16 17:12:47  [ Thread-1:6165 ] - [ INFO ]  join finished!
+2015-06-16 17:14:06  [ main:0 ] - [ INFO ]  configuration finished! It's representative
+2015-06-16 17:14:06  [ main:137 ] - [ INFO ]  ÊúçÂä°Á´ØÂêØÂä®ÊàêÂäü... tcpÁ´ØÂè£Âè∑‰∏∫Ôºö30008
+2015-06-16 17:14:06  [ main:173 ] - [ INFO ]  ÊúçÂä°Á´ØÂêØÂä®ÊàêÂäü... udpÁ´ØÂè£Âè∑‰∏∫Ôºö30002
+2015-06-16 17:14:07  [ Thread-1:911 ] - [ INFO ]  configuration finished! It's regular
+2015-06-16 17:14:07  [ Thread-1:918 ] - [ INFO ]  local address: 192.168.1.30	port: 2001
+2015-06-16 17:14:07  [ Thread-1:919 ] - [ INFO ]  multicast address: 230.0.10.109
+2015-06-16 17:14:07  [ Thread-7:966 ] - [ INFO ]  No this TCP msg!
+2015-06-16 17:14:07  [ Thread-8:1007 ] - [ INFO ]  No this TCP msg!
+2015-06-16 17:14:07  [ Thread-9:1047 ] - [ INFO ]  No this TCP msg!
+2015-06-16 17:14:07  [ Thread-1:1048 ] - [ INFO ]  rep of group G9 no longer exist
+2015-06-16 17:14:07  [ Thread-1:1051 ] - [ INFO ]  switch to rep state
+2015-06-16 17:14:09  [ Thread-1:3101 ] - [ INFO ]  org.apache.servicemix.wsn.router.msg.tcp.MsgNewGroup_@1e1e86e
+2015-06-16 17:14:12  [ Thread-1:6173 ] - [ INFO ]  join finished!
+2015-06-16 17:17:27  [ main:0 ] - [ INFO ]  configuration finished! It's representative
+2015-06-16 17:17:27  [ main:134 ] - [ INFO ]  ÊúçÂä°Á´ØÂêØÂä®ÊàêÂäü... tcpÁ´ØÂè£Âè∑‰∏∫Ôºö30008
+2015-06-16 17:17:27  [ main:175 ] - [ INFO ]  ÊúçÂä°Á´ØÂêØÂä®ÊàêÂäü... udpÁ´ØÂè£Âè∑‰∏∫Ôºö30002
+2015-06-16 17:17:28  [ Thread-1:893 ] - [ INFO ]  configuration finished! It's regular
+2015-06-16 17:17:28  [ Thread-1:900 ] - [ INFO ]  local address: 192.168.1.30	port: 2001
+2015-06-16 17:17:28  [ Thread-1:900 ] - [ INFO ]  multicast address: 230.0.10.109
+2015-06-16 17:17:28  [ Thread-7:946 ] - [ INFO ]  No this TCP msg!
+2015-06-16 17:17:28  [ Thread-8:987 ] - [ INFO ]  No this TCP msg!
+2015-06-16 17:17:28  [ Thread-9:1028 ] - [ INFO ]  No this TCP msg!
+2015-06-16 17:17:28  [ Thread-1:1028 ] - [ INFO ]  rep of group G9 no longer exist
+2015-06-16 17:17:28  [ Thread-1:1032 ] - [ INFO ]  switch to rep state
+2015-06-16 17:17:30  [ Thread-1:3084 ] - [ INFO ]  org.apache.servicemix.wsn.router.msg.tcp.MsgNewGroup_@1445fbe
+2015-06-16 17:17:33  [ Thread-1:6153 ] - [ INFO ]  join finished!
+2015-06-16 17:26:53  [ main:0 ] - [ INFO ]  configuration finished! It's representative
+2015-06-16 17:26:53  [ main:145 ] - [ INFO ]  ÊúçÂä°Á´ØÂêØÂä®ÊàêÂäü... tcpÁ´ØÂè£Âè∑‰∏∫Ôºö30008
+2015-06-16 17:26:53  [ main:182 ] - [ INFO ]  ÊúçÂä°Á´ØÂêØÂä®ÊàêÂäü... udpÁ´ØÂè£Âè∑‰∏∫Ôºö30002
+2015-06-16 17:26:54  [ Thread-1:918 ] - [ INFO ]  configuration finished! It's representative
+2015-06-16 17:26:54  [ Thread-1:922 ] - [ INFO ]  local address: 192.168.1.30	port: 2001
+2015-06-16 17:26:54  [ Thread-1:922 ] - [ INFO ]  multicast address: 230.0.10.109
+2015-06-16 17:26:54  [ Thread-1:983 ] - [ INFO ]  org.apache.servicemix.wsn.router.msg.tcp.MsgNewGroup_@ac93db
+2015-06-16 17:26:59  [ Thread-1:6177 ] - [ INFO ]  join finished!
+2015-06-16 17:33:54  [ Timer-1:420919 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 17:34:24  [ Timer-1:450919 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 17:34:42  [ Thread-6:469136 ] - [ INFO ]  hello from G11
+2015-06-16 17:34:54  [ Timer-1:480919 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 17:35:12  [ Thread-6:499135 ] - [ INFO ]  hello from G11
+2015-06-16 17:35:24  [ Timer-1:510919 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 17:35:42  [ Thread-6:529137 ] - [ INFO ]  hello from G11
+2015-06-16 17:35:54  [ Timer-1:540918 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 17:36:12  [ Thread-6:559137 ] - [ INFO ]  hello from G11
+2015-06-16 17:36:24  [ Timer-1:570918 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 17:36:42  [ Thread-6:589138 ] - [ INFO ]  hello from G11
+2015-06-16 17:36:54  [ Timer-1:600918 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 17:37:12  [ Thread-6:619138 ] - [ INFO ]  hello from G11
+2015-06-16 17:37:24  [ Timer-1:630918 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 17:37:42  [ Thread-6:649138 ] - [ INFO ]  hello from G11
+2015-06-16 17:37:54  [ Timer-1:660919 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 17:38:12  [ Thread-6:679140 ] - [ INFO ]  hello from G11
+2015-06-16 17:38:24  [ Timer-1:690919 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 17:38:42  [ Thread-6:709141 ] - [ INFO ]  hello from G11
+2015-06-16 17:38:54  [ Timer-1:720920 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 17:39:12  [ Thread-6:739140 ] - [ INFO ]  hello from G11
+2015-06-16 17:39:24  [ Timer-1:750921 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 17:39:42  [ Thread-6:769142 ] - [ INFO ]  hello from G11
+2015-06-16 17:39:54  [ Timer-1:780922 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 17:40:12  [ Thread-6:799143 ] - [ INFO ]  hello from G11
+2015-06-16 17:40:24  [ Timer-1:810922 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 17:40:42  [ Thread-6:829143 ] - [ INFO ]  hello from G11
+2015-06-16 17:40:54  [ Timer-1:840922 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 17:41:24  [ Timer-1:870922 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 17:41:54  [ Timer-1:900922 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 17:42:24  [ Timer-1:930922 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 17:42:42  [ Timer-0:949144 ] - [ INFO ]   can't reach G11
+2015-06-16 17:43:42  [ Timer-5:1009145 ] - [ INFO ]  The neighbor G11 is invalid!
+2015-06-16 17:46:24  [ Timer-1:1170922 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 17:46:44  [ Thread-6:1191750 ] - [ INFO ]  hello from G11
+2015-06-16 17:46:54  [ Timer-1:1200922 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 17:47:14  [ Thread-6:1221750 ] - [ INFO ]  hello from G11
+2015-06-16 17:47:24  [ Timer-1:1230923 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 17:47:44  [ Thread-6:1251751 ] - [ INFO ]  hello from G11
+2015-06-16 17:47:54  [ Timer-1:1260924 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 17:48:14  [ Thread-6:1281751 ] - [ INFO ]  hello from G11
+2015-06-16 17:48:24  [ Timer-1:1290924 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 17:48:44  [ Thread-6:1311752 ] - [ INFO ]  hello from G11
+2015-06-16 17:48:54  [ Timer-1:1320923 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 17:49:14  [ Thread-6:1341753 ] - [ INFO ]  hello from G11
+2015-06-16 17:49:24  [ Timer-1:1350923 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 17:49:44  [ Thread-6:1371753 ] - [ INFO ]  hello from G11
+2015-06-16 17:49:54  [ Timer-1:1380924 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 17:50:14  [ Thread-6:1401754 ] - [ INFO ]  hello from G11
+2015-06-16 17:50:24  [ Timer-1:1410925 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 17:50:44  [ Thread-6:1431755 ] - [ INFO ]  hello from G11
+2015-06-16 17:50:54  [ Timer-1:1440925 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 17:51:14  [ Thread-6:1461757 ] - [ INFO ]  hello from G11
+2015-06-16 17:51:24  [ Timer-1:1470924 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 17:51:44  [ Thread-6:1491757 ] - [ INFO ]  hello from G11
+2015-06-16 17:51:54  [ Timer-1:1500924 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 17:52:14  [ Thread-6:1521758 ] - [ INFO ]  hello from G11
+2015-06-16 17:52:24  [ Timer-1:1530925 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 17:52:44  [ Thread-6:1551759 ] - [ INFO ]  hello from G11
+2015-06-16 17:52:54  [ Timer-1:1560926 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 17:53:14  [ Thread-6:1581759 ] - [ INFO ]  hello from G11
+2015-06-16 17:53:24  [ Timer-1:1590926 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 17:53:44  [ Thread-6:1611761 ] - [ INFO ]  hello from G11
+2015-06-16 17:53:54  [ Timer-1:1620926 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 17:54:14  [ Thread-6:1641762 ] - [ INFO ]  hello from G11
+2015-06-16 17:54:24  [ Timer-1:1650926 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 17:54:44  [ Thread-6:1671762 ] - [ INFO ]  hello from G11
+2015-06-16 17:54:54  [ Timer-1:1680926 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 17:55:14  [ Thread-6:1701762 ] - [ INFO ]  hello from G11
+2015-06-16 17:55:24  [ Timer-1:1710926 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 17:55:44  [ Thread-6:1731764 ] - [ INFO ]  hello from G11
+2015-06-16 17:55:54  [ Timer-1:1740925 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 17:56:14  [ Thread-6:1761764 ] - [ INFO ]  hello from G11
+2015-06-16 17:56:24  [ Timer-1:1770925 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 17:56:44  [ Thread-6:1791765 ] - [ INFO ]  hello from G11
+2015-06-16 17:56:54  [ Timer-1:1800925 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 17:57:14  [ Thread-6:1821766 ] - [ INFO ]  hello from G11
+2015-06-16 17:57:24  [ Timer-1:1830926 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 17:57:44  [ Thread-6:1851766 ] - [ INFO ]  hello from G11
+2015-06-16 17:57:54  [ Timer-1:1860926 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 17:58:14  [ Thread-6:1881767 ] - [ INFO ]  hello from G11
+2015-06-16 17:58:24  [ Timer-1:1890926 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 17:58:44  [ Thread-6:1911768 ] - [ INFO ]  hello from G11
+2015-06-16 17:58:54  [ Timer-1:1920925 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 17:59:14  [ Thread-6:1941769 ] - [ INFO ]  hello from G11
+2015-06-16 17:59:24  [ Timer-1:1950925 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 17:59:44  [ Thread-6:1971769 ] - [ INFO ]  hello from G11
+2015-06-16 17:59:54  [ Timer-1:1980926 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 18:00:14  [ Thread-6:2001769 ] - [ INFO ]  hello from G11
+2015-06-16 18:00:24  [ Timer-1:2010927 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 18:00:44  [ Thread-6:2031771 ] - [ INFO ]  hello from G11
+2015-06-16 18:00:54  [ Timer-1:2040927 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 18:01:14  [ Thread-6:2061772 ] - [ INFO ]  hello from G11
+2015-06-16 18:01:24  [ Timer-1:2070926 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 18:01:44  [ Thread-6:2091773 ] - [ INFO ]  hello from G11
+2015-06-16 18:01:54  [ Timer-1:2100926 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 18:02:14  [ Thread-6:2121773 ] - [ INFO ]  hello from G11
+2015-06-16 18:02:24  [ Timer-1:2130927 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 18:02:44  [ Thread-6:2151774 ] - [ INFO ]  hello from G11
+2015-06-16 18:02:54  [ Timer-1:2160927 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 18:02:57  [ Timer-3:2164182 ] - [ INFO ]   can't reach G11
+2015-06-16 18:03:14  [ Thread-6:2181775 ] - [ INFO ]  hello from G11
+2015-06-16 18:03:44  [ Thread-6:2211775 ] - [ INFO ]  hello from G11
+2015-06-16 18:04:14  [ Thread-6:2241776 ] - [ INFO ]  hello from G11
+2015-06-16 18:04:44  [ Thread-6:2271777 ] - [ INFO ]  hello from G11
+2015-06-16 18:06:44  [ Timer-0:2391777 ] - [ INFO ]   can't reach G11
+2015-06-16 18:07:44  [ Timer-9:2451777 ] - [ INFO ]  The neighbor G11 is invalid!
+2015-06-16 19:27:24  [ Timer-1:7230947 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 19:27:53  [ Thread-6:7260572 ] - [ INFO ]  hello from G11
+2015-06-16 19:27:54  [ Timer-1:7260946 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 19:28:24  [ Timer-1:7290946 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 19:28:54  [ Timer-1:7320947 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 19:29:12  [ Thread-6:7339098 ] - [ INFO ]  hello from G11
+2015-06-16 19:29:24  [ Timer-1:7350947 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 19:29:42  [ Thread-6:7369098 ] - [ INFO ]  hello from G11
+2015-06-16 19:29:54  [ Timer-1:7380946 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 19:30:12  [ Thread-6:7399100 ] - [ INFO ]  hello from G11
+2015-06-16 19:30:24  [ Timer-1:7410946 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 19:30:42  [ Thread-6:7429100 ] - [ INFO ]  hello from G11
+2015-06-16 19:30:54  [ Timer-1:7440947 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 19:31:12  [ Thread-6:7459100 ] - [ INFO ]  hello from G11
+2015-06-16 19:31:33  [ main:0 ] - [ INFO ]  configuration finished! It's representative
+2015-06-16 19:31:33  [ main:209 ] - [ INFO ]  ÊúçÂä°Á´ØÂêØÂä®ÊàêÂäü... tcpÁ´ØÂè£Âè∑‰∏∫Ôºö30008
+2015-06-16 19:31:33  [ main:266 ] - [ INFO ]  ÊúçÂä°Á´ØÂêØÂä®ÊàêÂäü... udpÁ´ØÂè£Âè∑‰∏∫Ôºö30002
+2015-06-16 19:31:34  [ Thread-1:1312 ] - [ INFO ]  configuration finished! It's regular
+2015-06-16 19:31:34  [ Thread-1:1321 ] - [ INFO ]  local address: 192.168.1.30	port: 2001
+2015-06-16 19:31:34  [ Thread-1:1321 ] - [ INFO ]  multicast address: 230.0.10.109
+2015-06-16 19:31:34  [ Thread-7:1408 ] - [ INFO ]  No this TCP msg!
+2015-06-16 19:31:34  [ Thread-8:1448 ] - [ INFO ]  No this TCP msg!
+2015-06-16 19:31:34  [ Thread-9:1487 ] - [ INFO ]  No this TCP msg!
+2015-06-16 19:31:34  [ Thread-1:1488 ] - [ INFO ]  rep of group G9 no longer exist
+2015-06-16 19:31:34  [ Thread-1:1496 ] - [ INFO ]  switch to rep state
+2015-06-16 19:31:36  [ Thread-1:3550 ] - [ INFO ]  org.apache.servicemix.wsn.router.msg.tcp.MsgNewGroup_@de1fb5
+2015-06-16 19:31:40  [ Thread-1:6752 ] - [ INFO ]  join finished!
+2015-06-16 19:31:42  [ Thread-6:8866 ] - [ INFO ]  hello from G11
+2015-06-16 19:32:04  [ Timer-1:31314 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 19:32:12  [ Thread-6:38838 ] - [ INFO ]  hello from G11
+2015-06-16 19:32:34  [ Timer-1:61314 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 19:32:42  [ Thread-6:68839 ] - [ INFO ]  hello from G11
+2015-06-16 19:33:04  [ Timer-1:91313 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 19:33:12  [ Thread-6:98841 ] - [ INFO ]  hello from G11
+2015-06-16 19:33:34  [ Timer-1:121313 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 19:33:42  [ Thread-6:128840 ] - [ INFO ]  hello from G11
+2015-06-16 19:34:04  [ Timer-1:151314 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 19:34:12  [ Thread-6:158841 ] - [ INFO ]  hello from G11
+2015-06-16 19:34:34  [ Timer-1:181315 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 19:34:42  [ Thread-6:188841 ] - [ INFO ]  hello from G11
+2015-06-16 19:35:04  [ Timer-1:211316 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 19:35:12  [ Thread-6:218842 ] - [ INFO ]  hello from G11
+2015-06-16 19:35:34  [ Timer-1:241316 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 19:35:42  [ Thread-6:248843 ] - [ INFO ]  hello from G11
+2015-06-16 19:36:04  [ Timer-1:271316 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 19:36:12  [ Thread-6:278844 ] - [ INFO ]  hello from G11
+2015-06-16 19:36:34  [ Timer-1:301316 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 19:36:42  [ Thread-6:308845 ] - [ INFO ]  hello from G11
+2015-06-16 19:37:04  [ Timer-1:331316 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 19:37:12  [ Thread-6:338845 ] - [ INFO ]  hello from G11
+2015-06-16 19:37:34  [ Timer-1:361316 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 19:37:42  [ Thread-6:368845 ] - [ INFO ]  hello from G11
+2015-06-16 19:38:04  [ Timer-1:391315 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 19:38:12  [ Thread-6:398846 ] - [ INFO ]  hello from G11
+2015-06-16 19:38:34  [ Timer-1:421315 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 19:38:42  [ Thread-6:428847 ] - [ INFO ]  hello from G11
+2015-06-16 19:39:04  [ Timer-1:451316 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 19:39:12  [ Thread-6:458847 ] - [ INFO ]  hello from G11
+2015-06-16 19:39:34  [ Timer-1:481317 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 19:39:42  [ Thread-6:488849 ] - [ INFO ]  hello from G11
+2015-06-16 19:40:04  [ Timer-1:511317 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 19:40:12  [ Thread-6:518851 ] - [ INFO ]  hello from G11
+2015-06-16 19:40:34  [ Timer-1:541316 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 19:40:42  [ Thread-6:548852 ] - [ INFO ]  hello from G11
+2015-06-16 19:41:04  [ Timer-1:571317 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 19:41:12  [ Thread-6:578854 ] - [ INFO ]  hello from G11
+2015-06-16 19:41:34  [ Timer-1:601318 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 19:41:42  [ Thread-6:608853 ] - [ INFO ]  hello from G11
+2015-06-16 19:42:04  [ Timer-1:631317 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 19:42:12  [ Thread-6:638855 ] - [ INFO ]  hello from G11
+2015-06-16 19:42:34  [ Timer-1:661317 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 19:42:42  [ Thread-6:668855 ] - [ INFO ]  hello from G11
+2015-06-16 19:43:04  [ Timer-1:691318 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 19:43:12  [ Thread-6:698856 ] - [ INFO ]  hello from G11
+2015-06-16 19:43:34  [ Timer-1:721318 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 19:43:42  [ Thread-6:728856 ] - [ INFO ]  hello from G11
+2015-06-16 19:44:04  [ Timer-1:751318 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 19:44:12  [ Thread-6:758858 ] - [ INFO ]  hello from G11
+2015-06-16 19:44:34  [ Timer-1:781317 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 19:44:42  [ Thread-6:788858 ] - [ INFO ]  hello from G11
+2015-06-16 19:45:04  [ Timer-1:811318 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 19:45:12  [ Thread-6:818859 ] - [ INFO ]  hello from G11
+2015-06-16 19:45:34  [ Timer-1:841319 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 19:45:42  [ Thread-6:848860 ] - [ INFO ]  hello from G11
+2015-06-16 19:46:04  [ Timer-1:871319 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 19:46:12  [ Thread-6:878862 ] - [ INFO ]  hello from G11
+2015-06-16 19:46:34  [ Timer-1:901319 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 19:46:42  [ Thread-6:908863 ] - [ INFO ]  hello from G11
+2015-06-16 19:47:04  [ Timer-1:931318 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 19:47:12  [ Thread-6:938865 ] - [ INFO ]  hello from G11
+2015-06-16 19:47:34  [ Timer-1:961319 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 19:47:38  [ Timer-4:964751 ] - [ INFO ]   can't reach G11
+2015-06-16 19:47:42  [ Thread-6:968864 ] - [ INFO ]  hello from G11
+2015-06-16 19:48:12  [ Thread-6:998867 ] - [ INFO ]  hello from G11
+2015-06-16 19:48:42  [ Thread-6:1028868 ] - [ INFO ]  hello from G11
+2015-06-16 19:49:12  [ Thread-6:1058868 ] - [ INFO ]  hello from G11
+2015-06-16 19:51:12  [ Timer-0:1178868 ] - [ INFO ]   can't reach G11
+2015-06-16 19:52:12  [ Timer-6:1238870 ] - [ INFO ]  The neighbor G11 is invalid!
+2015-06-16 19:59:17  [ main:0 ] - [ INFO ]  configuration finished! It's representative
+2015-06-16 19:59:17  [ main:147 ] - [ INFO ]  ÊúçÂä°Á´ØÂêØÂä®ÊàêÂäü... tcpÁ´ØÂè£Âè∑‰∏∫Ôºö30008
+2015-06-16 19:59:17  [ main:188 ] - [ INFO ]  ÊúçÂä°Á´ØÂêØÂä®ÊàêÂäü... udpÁ´ØÂè£Âè∑‰∏∫Ôºö30002
+2015-06-16 19:59:24  [ Thread-1:7653 ] - [ INFO ]  configuration finished! It's regular
+2015-06-16 19:59:24  [ Thread-1:7661 ] - [ INFO ]  local address: 192.168.1.30	port: 2001
+2015-06-16 19:59:24  [ Thread-1:7662 ] - [ INFO ]  multicast address: 230.0.10.109
+2015-06-16 19:59:24  [ Thread-7:7713 ] - [ INFO ]  No this TCP msg!
+2015-06-16 19:59:25  [ Thread-8:7756 ] - [ INFO ]  No this TCP msg!
+2015-06-16 19:59:25  [ Thread-9:7797 ] - [ INFO ]  No this TCP msg!
+2015-06-16 19:59:25  [ Thread-1:7798 ] - [ INFO ]  rep of group G9 no longer exist
+2015-06-16 19:59:25  [ Thread-1:7802 ] - [ INFO ]  switch to rep state
+2015-06-16 19:59:27  [ Thread-1:9854 ] - [ INFO ]  org.apache.servicemix.wsn.router.msg.tcp.MsgNewGroup_@ab3a93
+2015-06-16 19:59:30  [ Thread-1:12940 ] - [ INFO ]  join finished!
+2015-06-16 20:07:54  [ Timer-1:517658 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 20:07:59  [ Thread-6:521747 ] - [ INFO ]  hello from G11
+2015-06-16 20:08:24  [ Timer-1:547657 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 20:08:29  [ Thread-6:551748 ] - [ INFO ]  hello from G11
+2015-06-16 20:08:54  [ Timer-1:577657 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 20:08:59  [ Thread-6:581748 ] - [ INFO ]  hello from G11
+2015-06-16 20:09:24  [ Timer-1:607658 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 20:09:29  [ Thread-6:611749 ] - [ INFO ]  hello from G11
+2015-06-16 20:09:54  [ Timer-1:637658 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 20:09:59  [ Thread-6:641750 ] - [ INFO ]  hello from G11
+2015-06-16 20:10:24  [ Timer-1:667658 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 20:10:29  [ Thread-6:671750 ] - [ INFO ]  hello from G11
+2015-06-16 20:10:54  [ Timer-1:697658 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 20:10:59  [ Thread-6:701751 ] - [ INFO ]  hello from G11
+2015-06-16 20:11:24  [ Timer-1:727657 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 20:11:29  [ Thread-6:731751 ] - [ INFO ]  hello from G11
+2015-06-16 20:11:54  [ Timer-1:757657 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 20:11:59  [ Thread-6:761752 ] - [ INFO ]  hello from G11
+2015-06-16 20:12:24  [ Timer-1:787657 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 20:12:29  [ Thread-6:791753 ] - [ INFO ]  hello from G11
+2015-06-16 20:12:54  [ Timer-1:817657 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 20:12:59  [ Thread-6:821754 ] - [ INFO ]  hello from G11
+2015-06-16 20:13:24  [ Timer-1:847658 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 20:13:29  [ Thread-6:851755 ] - [ INFO ]  hello from G11
+2015-06-16 20:13:54  [ Timer-1:877658 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 20:13:59  [ Thread-6:881755 ] - [ INFO ]  hello from G11
+2015-06-16 20:14:24  [ Timer-1:907658 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 20:14:29  [ Thread-6:911757 ] - [ INFO ]  hello from G11
+2015-06-16 20:14:54  [ Timer-1:937658 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 20:14:59  [ Thread-6:941758 ] - [ INFO ]  hello from G11
+2015-06-16 20:15:22  [ main:0 ] - [ INFO ]  configuration finished! It's representative
+2015-06-16 20:15:22  [ main:161 ] - [ INFO ]  ÊúçÂä°Á´ØÂêØÂä®ÊàêÂäü... tcpÁ´ØÂè£Âè∑‰∏∫Ôºö30008
+2015-06-16 20:15:22  [ main:204 ] - [ INFO ]  ÊúçÂä°Á´ØÂêØÂä®ÊàêÂäü... udpÁ´ØÂè£Âè∑‰∏∫Ôºö30002
+2015-06-16 20:15:29  [ main:6494 ] - [ INFO ]  configuration finished! It's regular
+2015-06-16 20:15:29  [ main:6503 ] - [ INFO ]  local address: 192.168.1.30	port: 2001
+2015-06-16 20:15:29  [ main:6503 ] - [ INFO ]  multicast address: 230.0.10.109
+2015-06-16 20:15:29  [ Thread-6:6510 ] - [ INFO ]  Hello dropped because it's not a neighborG11
+2015-06-16 20:15:29  [ Thread-6:6510 ] - [ INFO ]  hello from G11
+2015-06-16 20:15:29  [ Thread-7:6556 ] - [ INFO ]  No this TCP msg!
+2015-06-16 20:15:29  [ Thread-8:6597 ] - [ INFO ]  No this TCP msg!
+2015-06-16 20:15:29  [ Thread-9:6636 ] - [ INFO ]  No this TCP msg!
+2015-06-16 20:15:29  [ main:6638 ] - [ INFO ]  rep of group G9 no longer exist
+2015-06-16 20:15:29  [ main:6644 ] - [ INFO ]  switch to rep state
+2015-06-16 20:15:31  [ main:8701 ] - [ INFO ]  org.apache.servicemix.wsn.router.msg.tcp.MsgNewGroup_@616593
+2015-06-16 20:15:34  [ main:11847 ] - [ INFO ]  join finished!
+2015-06-16 20:15:59  [ Timer-1:36495 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 20:15:59  [ Thread-6:36507 ] - [ INFO ]  hello from G11
+2015-06-16 20:16:29  [ Timer-1:66495 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 20:16:29  [ Thread-6:66507 ] - [ INFO ]  hello from G11
+2015-06-16 20:16:59  [ Timer-1:96495 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 20:16:59  [ Thread-6:96509 ] - [ INFO ]  hello from G11
+2015-06-16 20:17:29  [ Timer-1:126495 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 20:17:29  [ Thread-6:126509 ] - [ INFO ]  hello from G11
+2015-06-16 20:17:59  [ Timer-1:156495 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 20:17:59  [ Thread-6:156511 ] - [ INFO ]  hello from G11
+2015-06-16 20:18:29  [ Timer-1:186495 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 20:18:29  [ Thread-6:186512 ] - [ INFO ]  hello from G11
+2015-06-16 20:18:59  [ Timer-1:216495 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 20:18:59  [ Thread-6:216513 ] - [ INFO ]  hello from G11
+2015-06-16 20:19:29  [ Timer-1:246495 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 20:19:29  [ Thread-6:246513 ] - [ INFO ]  hello from G11
+2015-06-16 20:19:59  [ Timer-1:276495 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 20:19:59  [ Thread-6:276513 ] - [ INFO ]  hello from G11
+2015-06-16 20:20:29  [ Timer-1:306495 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 20:20:29  [ Thread-6:306514 ] - [ INFO ]  hello from G11
+2015-06-16 20:20:59  [ Timer-1:336496 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 20:20:59  [ Thread-6:336515 ] - [ INFO ]  hello from G11
+2015-06-16 20:21:29  [ Timer-1:366496 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 20:21:29  [ Thread-6:366516 ] - [ INFO ]  hello from G11
+2015-06-16 20:21:59  [ Timer-1:396496 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 20:21:59  [ Thread-6:396518 ] - [ INFO ]  hello from G11
+2015-06-16 20:22:29  [ Timer-1:426496 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 20:22:29  [ Thread-6:426518 ] - [ INFO ]  hello from G11
+2015-06-16 20:22:59  [ Timer-1:456496 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 20:22:59  [ Thread-6:456519 ] - [ INFO ]  hello from G11
+2015-06-16 20:23:29  [ Timer-1:486497 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 20:23:29  [ Thread-6:486519 ] - [ INFO ]  hello from G11
+2015-06-16 20:23:59  [ Timer-1:516497 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 20:23:59  [ Thread-6:516519 ] - [ INFO ]  hello from G11
+2015-06-16 20:24:29  [ Timer-1:546497 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 20:24:29  [ Thread-6:546520 ] - [ INFO ]  hello from G11
+2015-06-16 20:24:59  [ Timer-1:576497 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 20:24:59  [ Thread-6:576522 ] - [ INFO ]  hello from G11
+2015-06-16 20:25:29  [ Timer-1:606497 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 20:25:29  [ Thread-6:606523 ] - [ INFO ]  hello from G11
+2015-06-16 20:25:59  [ Timer-1:636497 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 20:25:59  [ Thread-6:636524 ] - [ INFO ]  hello from G11
+2015-06-16 20:32:27  [ main:0 ] - [ INFO ]  configuration finished! It's representative
+2015-06-16 20:32:27  [ main:141 ] - [ INFO ]  ÊúçÂä°Á´ØÂêØÂä®ÊàêÂäü... tcpÁ´ØÂè£Âè∑‰∏∫Ôºö30008
+2015-06-16 20:32:27  [ main:187 ] - [ INFO ]  ÊúçÂä°Á´ØÂêØÂä®ÊàêÂäü... udpÁ´ØÂè£Âè∑‰∏∫Ôºö30002
+2015-06-16 20:32:28  [ Thread-1:958 ] - [ INFO ]  configuration finished! It's representative
+2015-06-16 20:32:28  [ Thread-1:965 ] - [ INFO ]  local address: 192.168.1.30	port: 2001
+2015-06-16 20:32:28  [ Thread-1:966 ] - [ INFO ]  multicast address: 230.0.10.109
+2015-06-16 20:32:28  [ Thread-1:1020 ] - [ INFO ]  org.apache.servicemix.wsn.router.msg.tcp.MsgNewGroup_@113e259
+2015-06-16 20:32:29  [ Thread-6:1765 ] - [ INFO ]  hello from G11
+2015-06-16 20:32:33  [ Thread-1:6311 ] - [ INFO ]  join finished!
+2015-06-16 20:32:58  [ Timer-1:30959 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 20:32:59  [ Thread-6:31764 ] - [ INFO ]  hello from G11
+2015-06-16 20:33:28  [ Timer-1:60959 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 20:33:29  [ Thread-6:61763 ] - [ INFO ]  hello from G11
+2015-06-16 20:33:58  [ Timer-1:90959 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 20:33:59  [ Thread-6:91765 ] - [ INFO ]  hello from G11
+2015-06-16 20:34:28  [ Timer-1:120959 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 20:34:29  [ Thread-6:121767 ] - [ INFO ]  hello from G11
+2015-06-16 20:34:58  [ Timer-1:150959 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 20:34:59  [ Thread-6:151766 ] - [ INFO ]  hello from G11
+2015-06-16 20:35:28  [ Timer-1:180959 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 20:35:29  [ Thread-6:181767 ] - [ INFO ]  hello from G11
+2015-06-16 20:35:58  [ Timer-1:210959 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 20:35:59  [ Thread-6:211767 ] - [ INFO ]  hello from G11
+2015-06-16 20:36:28  [ Timer-1:240959 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 20:36:29  [ Thread-6:241768 ] - [ INFO ]  hello from G11
+2015-06-16 20:36:58  [ Timer-1:270959 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 20:36:59  [ Thread-6:271769 ] - [ INFO ]  hello from G11
+2015-06-16 20:37:28  [ Timer-1:300959 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 20:37:29  [ Thread-6:301770 ] - [ INFO ]  hello from G11
+2015-06-16 20:37:58  [ Timer-1:330959 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 20:37:59  [ Thread-6:331770 ] - [ INFO ]  hello from G11
+2015-06-16 20:38:28  [ Timer-1:360958 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 20:38:29  [ Thread-6:361771 ] - [ INFO ]  hello from G11
+2015-06-16 20:38:58  [ Timer-1:390958 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 20:38:59  [ Thread-6:391771 ] - [ INFO ]  hello from G11
+2015-06-16 20:39:28  [ Timer-1:420958 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 20:39:29  [ Thread-6:421773 ] - [ INFO ]  hello from G11
+2015-06-16 20:42:09  [ main:0 ] - [ INFO ]  configuration finished! It's representative
+2015-06-16 20:42:09  [ main:135 ] - [ INFO ]  ÊúçÂä°Á´ØÂêØÂä®ÊàêÂäü... tcpÁ´ØÂè£Âè∑‰∏∫Ôºö30008
+2015-06-16 20:42:09  [ main:168 ] - [ INFO ]  ÊúçÂä°Á´ØÂêØÂä®ÊàêÂäü... udpÁ´ØÂè£Âè∑‰∏∫Ôºö30002
+2015-06-16 20:42:10  [ Thread-1:931 ] - [ INFO ]  configuration finished! It's regular
+2015-06-16 20:42:10  [ Thread-1:936 ] - [ INFO ]  local address: 192.168.1.30	port: 2001
+2015-06-16 20:42:10  [ Thread-1:937 ] - [ INFO ]  multicast address: 230.0.10.109
+2015-06-16 20:42:10  [ Thread-7:982 ] - [ INFO ]  No this TCP msg!
+2015-06-16 20:42:10  [ Thread-8:1022 ] - [ INFO ]  No this TCP msg!
+2015-06-16 20:42:10  [ Thread-9:1063 ] - [ INFO ]  No this TCP msg!
+2015-06-16 20:42:10  [ Thread-1:1063 ] - [ INFO ]  rep of group G9 no longer exist
+2015-06-16 20:42:10  [ Thread-1:1065 ] - [ INFO ]  switch to rep state
+2015-06-16 20:42:12  [ Thread-1:3119 ] - [ INFO ]  org.apache.servicemix.wsn.router.msg.tcp.MsgNewGroup_@16e0c6c
+2015-06-16 20:42:15  [ Thread-1:6192 ] - [ INFO ]  join finished!
+2015-06-16 20:42:40  [ Timer-1:30935 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 20:42:58  [ Thread-22:48539 ] - [ WARN ]  java.lang.ClassNotFoundException: org.apache.servicemix.wsn.router.msg.tcp.MsgHeartCheck
+2015-06-16 20:43:10  [ Timer-1:60932 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 20:43:40  [ Timer-1:90932 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 20:44:10  [ Timer-1:120932 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 20:44:13  [ Timer-0:123242 ] - [ INFO ]   can't reach G11
+2015-06-16 20:45:13  [ Timer-5:183244 ] - [ INFO ]  The neighbor G11 is invalid!
+2015-06-16 21:16:01  [ main:0 ] - [ INFO ]  configuration finished! It's representative
+2015-06-16 21:16:01  [ main:131 ] - [ INFO ]  ÊúçÂä°Á´ØÂêØÂä®ÊàêÂäü... tcpÁ´ØÂè£Âè∑‰∏∫Ôºö30008
+2015-06-16 21:16:01  [ main:176 ] - [ INFO ]  ÊúçÂä°Á´ØÂêØÂä®ÊàêÂäü... udpÁ´ØÂè£Âè∑‰∏∫Ôºö30002
+2015-06-16 21:16:02  [ Thread-1:915 ] - [ INFO ]  configuration finished! It's representative
+2015-06-16 21:16:02  [ Thread-1:922 ] - [ INFO ]  local address: 192.168.1.30	port: 2001
+2015-06-16 21:16:02  [ Thread-1:922 ] - [ INFO ]  multicast address: 230.0.10.109
+2015-06-16 21:16:02  [ Thread-1:976 ] - [ INFO ]  org.apache.servicemix.wsn.router.msg.tcp.MsgNewGroup_@46ca65
+2015-06-16 21:16:06  [ Thread-6:4851 ] - [ INFO ]  hello from G11
+2015-06-16 21:16:07  [ Thread-1:6265 ] - [ INFO ]  join finished!
+2015-06-16 21:16:32  [ Timer-1:30916 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 21:16:36  [ Thread-6:34847 ] - [ INFO ]  hello from G11
+2015-06-16 21:17:02  [ Timer-1:60915 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 21:17:06  [ Thread-6:64846 ] - [ INFO ]  hello from G11
+2015-06-16 21:17:32  [ Timer-1:90915 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 21:17:36  [ Thread-6:94847 ] - [ INFO ]  hello from G11
+2015-06-16 21:18:02  [ Timer-1:120916 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 21:18:06  [ Thread-6:124849 ] - [ INFO ]  hello from G11
+2015-06-16 21:18:32  [ Timer-1:150916 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 21:18:36  [ Thread-6:154849 ] - [ INFO ]  hello from G11
+2015-06-16 21:19:02  [ Timer-1:180915 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 21:19:06  [ Thread-6:184851 ] - [ INFO ]  hello from G11
+2015-06-16 21:19:32  [ Timer-1:210915 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 21:19:36  [ Thread-6:214851 ] - [ INFO ]  hello from G11
+2015-06-16 21:20:02  [ Timer-1:240915 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 21:20:06  [ Thread-6:244852 ] - [ INFO ]  hello from G11
+2015-06-16 21:20:32  [ Timer-1:270916 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 21:20:36  [ Thread-6:274853 ] - [ INFO ]  hello from G11
+2015-06-16 21:21:02  [ Timer-1:300917 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 21:21:06  [ Thread-6:304855 ] - [ INFO ]  hello from G11
+2015-06-16 21:21:32  [ Timer-1:330918 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 21:21:36  [ Thread-6:334856 ] - [ INFO ]  hello from G11
+2015-06-16 21:22:02  [ Timer-1:360918 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 21:22:06  [ Thread-6:364856 ] - [ INFO ]  hello from G11
+2015-06-16 21:22:32  [ Timer-1:390918 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 21:22:36  [ Thread-6:394857 ] - [ INFO ]  hello from G11
+2015-06-16 21:23:02  [ Timer-1:420917 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 21:23:06  [ Thread-6:424857 ] - [ INFO ]  hello from G11
+2015-06-16 21:23:32  [ Timer-1:450917 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 21:23:36  [ Thread-6:454858 ] - [ INFO ]  hello from G11
+2015-06-16 21:24:02  [ Timer-1:480918 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 21:24:06  [ Thread-6:484858 ] - [ INFO ]  hello from G11
+2015-06-16 21:24:32  [ Timer-1:510919 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 21:24:36  [ Thread-6:514859 ] - [ INFO ]  hello from G11
+2015-06-16 21:25:02  [ Timer-1:540919 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 21:25:06  [ Thread-6:544860 ] - [ INFO ]  hello from G11
+2015-06-16 21:25:32  [ Timer-1:570919 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 21:25:36  [ Thread-6:574861 ] - [ INFO ]  hello from G11
+2015-06-16 21:26:02  [ Timer-1:600919 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 21:26:06  [ Thread-6:604862 ] - [ INFO ]  hello from G11
+2015-06-16 21:26:32  [ Timer-1:630919 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 21:26:36  [ Thread-6:634863 ] - [ INFO ]  hello from G11
+2015-06-16 21:27:02  [ Timer-1:660919 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 21:27:06  [ Thread-6:664863 ] - [ INFO ]  hello from G11
+2015-06-16 21:27:32  [ Timer-1:690919 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 21:27:36  [ Thread-6:694864 ] - [ INFO ]  hello from G11
+2015-06-16 21:28:02  [ Timer-1:720919 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 21:28:06  [ Thread-6:724866 ] - [ INFO ]  hello from G11
+2015-06-16 21:28:32  [ Timer-1:750918 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 21:28:36  [ Thread-6:754867 ] - [ INFO ]  hello from G11
+2015-06-16 21:29:02  [ Timer-1:780918 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 21:29:06  [ Thread-6:784868 ] - [ INFO ]  hello from G11
+2015-06-16 21:29:32  [ Timer-1:810918 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 21:29:36  [ Thread-6:814869 ] - [ INFO ]  hello from G11
+2015-06-16 21:30:02  [ Timer-1:840919 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 21:30:06  [ Thread-6:844870 ] - [ INFO ]  hello from G11
+2015-06-16 21:30:32  [ Timer-1:870919 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 21:30:36  [ Thread-6:874870 ] - [ INFO ]  hello from G11
+2015-06-16 21:31:02  [ Timer-1:900919 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 21:31:06  [ Thread-6:904872 ] - [ INFO ]  hello from G11
+2015-06-16 21:31:32  [ Timer-1:930920 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 21:31:36  [ Thread-6:934874 ] - [ INFO ]  hello from G11
+2015-06-16 21:32:02  [ Timer-1:960920 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 21:32:05  [ Timer-4:964264 ] - [ INFO ]   can't reach G11
+2015-06-16 21:32:06  [ Thread-6:964874 ] - [ INFO ]  hello from G11
+2015-06-16 21:32:36  [ Thread-6:994877 ] - [ INFO ]  hello from G11
+2015-06-16 21:33:06  [ Thread-6:1024879 ] - [ INFO ]  hello from G11
+2015-06-16 21:33:36  [ Thread-6:1054879 ] - [ INFO ]  hello from G11
+2015-06-16 21:35:36  [ Timer-0:1174880 ] - [ INFO ]   can't reach G11
+2015-06-16 21:36:36  [ Timer-6:1234881 ] - [ INFO ]  The neighbor G11 is invalid!
+2015-06-16 23:58:14  [ main:0 ] - [ INFO ]  configuration finished! It's representative
+2015-06-16 23:58:14  [ main:245 ] - [ INFO ]  ÊúçÂä°Á´ØÂêØÂä®ÊàêÂäü... tcpÁ´ØÂè£Âè∑‰∏∫Ôºö30008
+2015-06-16 23:58:14  [ main:284 ] - [ INFO ]  ÊúçÂä°Á´ØÂêØÂä®ÊàêÂäü... udpÁ´ØÂè£Âè∑‰∏∫Ôºö30002
+2015-06-16 23:58:15  [ Thread-1:1147 ] - [ INFO ]  configuration finished! It's representative
+2015-06-16 23:58:15  [ Thread-1:1155 ] - [ INFO ]  local address: 192.168.1.30	port: 2001
+2015-06-16 23:58:15  [ Thread-1:1156 ] - [ INFO ]  multicast address: 230.0.10.109
+2015-06-16 23:58:15  [ Thread-1:1206 ] - [ INFO ]  org.apache.servicemix.wsn.router.msg.tcp.MsgNewGroup_@17869d9
+2015-06-16 23:58:21  [ Thread-1:6795 ] - [ INFO ]  join finished!
+2015-06-16 23:58:30  [ Thread-6:15973 ] - [ INFO ]  hello from G11
+2015-06-16 23:58:45  [ Timer-1:31147 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 23:59:00  [ Thread-6:45968 ] - [ INFO ]  hello from G11
+2015-06-16 23:59:15  [ Timer-1:61147 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-16 23:59:30  [ Thread-6:75969 ] - [ INFO ]  hello from G11
+2015-06-16 23:59:45  [ Timer-1:91148 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-17 00:00:00  [ Thread-6:105971 ] - [ INFO ]  hello from G11
+2015-06-17 00:00:15  [ Timer-1:121149 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-17 00:00:30  [ Thread-6:135970 ] - [ INFO ]  hello from G11
+2015-06-17 00:00:45  [ Timer-1:151148 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-17 00:01:00  [ Thread-6:165971 ] - [ INFO ]  hello from G11
+2015-06-17 00:01:15  [ Timer-1:181148 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-17 00:01:30  [ Thread-6:195972 ] - [ INFO ]  hello from G11
+2015-06-17 00:01:45  [ Timer-1:211148 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-17 00:02:00  [ Thread-6:225972 ] - [ INFO ]  hello from G11
+2015-06-17 00:02:15  [ Timer-1:241149 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-17 00:02:30  [ Thread-6:255973 ] - [ INFO ]  hello from G11
+2015-06-17 00:02:45  [ Timer-1:271150 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-17 00:03:00  [ Thread-6:285974 ] - [ INFO ]  hello from G11
+2015-06-17 00:03:15  [ Timer-1:301150 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-17 00:03:30  [ Thread-6:315975 ] - [ INFO ]  hello from G11
+2015-06-17 00:03:45  [ Timer-1:331150 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-17 00:04:00  [ Thread-6:345976 ] - [ INFO ]  hello from G11
+2015-06-17 00:04:15  [ Timer-1:361150 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-17 00:04:30  [ Thread-6:375976 ] - [ INFO ]  hello from G11
+2015-06-17 00:04:45  [ Timer-1:391150 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-17 00:05:00  [ Thread-6:405977 ] - [ INFO ]  hello from G11
+2015-06-17 00:05:15  [ Timer-1:421149 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-17 00:05:30  [ Thread-6:435978 ] - [ INFO ]  hello from G11
+2015-06-17 00:05:45  [ Timer-1:451149 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-17 00:06:00  [ Thread-6:465979 ] - [ INFO ]  hello from G11
+2015-06-17 00:06:15  [ Timer-1:481150 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-17 00:06:30  [ Thread-6:495980 ] - [ INFO ]  hello from G11
+2015-06-17 00:06:45  [ Timer-1:511151 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-17 00:07:00  [ Thread-6:525980 ] - [ INFO ]  hello from G11
+2015-06-17 00:07:15  [ Timer-1:541152 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-17 00:07:30  [ Thread-6:555981 ] - [ INFO ]  hello from G11
+2015-06-17 00:07:45  [ Timer-1:571152 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-17 00:08:00  [ Thread-6:585982 ] - [ INFO ]  hello from G11
+2015-06-17 00:08:15  [ Timer-1:601151 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-17 00:08:30  [ Thread-6:615983 ] - [ INFO ]  hello from G11
+2015-06-17 00:08:45  [ Timer-1:631151 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-17 00:09:00  [ Thread-6:645984 ] - [ INFO ]  hello from G11
+2015-06-17 00:09:15  [ Timer-1:661151 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-17 00:09:30  [ Thread-6:675985 ] - [ INFO ]  hello from G11
+2015-06-17 00:09:45  [ Timer-1:691152 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-17 00:10:00  [ Thread-6:705985 ] - [ INFO ]  hello from G11
+2015-06-17 00:10:15  [ Timer-1:721152 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-17 00:10:30  [ Thread-6:735986 ] - [ INFO ]  hello from G11
+2015-06-17 00:10:45  [ Timer-1:751151 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-17 00:11:00  [ Thread-6:765987 ] - [ INFO ]  hello from G11
+2015-06-17 00:11:15  [ Timer-1:781151 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-17 00:11:30  [ Thread-6:795988 ] - [ INFO ]  hello from G11
+2015-06-17 00:11:45  [ Timer-1:811152 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-17 00:11:54  [ Thread-23:819609 ] - [ INFO ]  comes group: G22
+2015-06-17 00:12:00  [ Thread-6:825988 ] - [ INFO ]  hello from G11
+2015-06-17 00:12:15  [ Timer-1:841153 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-17 00:12:15  [ Timer-1:841153 ] - [ INFO ]  hello to 192.168.1.22 2001
+2015-06-17 00:12:23  [ Thread-6:849244 ] - [ INFO ]  hello from G22
+2015-06-17 00:12:30  [ Thread-6:855989 ] - [ INFO ]  hello from G11
+2015-06-17 00:12:45  [ Timer-1:871153 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-17 00:12:45  [ Timer-1:871154 ] - [ INFO ]  hello to 192.168.1.22 2001
+2015-06-17 00:12:53  [ Thread-6:879240 ] - [ INFO ]  hello from G22
+2015-06-17 00:13:00  [ Thread-6:885990 ] - [ INFO ]  hello from G11
+2015-06-17 00:13:15  [ Timer-1:901154 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-17 00:13:15  [ Timer-1:901154 ] - [ INFO ]  hello to 192.168.1.22 2001
+2015-06-17 00:13:23  [ Thread-6:909247 ] - [ INFO ]  hello from G22
+2015-06-17 00:13:30  [ Thread-6:915990 ] - [ INFO ]  hello from G11
+2015-06-17 00:13:45  [ Timer-1:931153 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-17 00:13:45  [ Timer-1:931154 ] - [ INFO ]  hello to 192.168.1.22 2001
+2015-06-17 00:13:53  [ Thread-6:939246 ] - [ INFO ]  hello from G22
+2015-06-17 00:14:00  [ Thread-6:945991 ] - [ INFO ]  hello from G11
+2015-06-17 00:14:15  [ Timer-1:961153 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-17 00:14:15  [ Timer-1:961154 ] - [ INFO ]  hello to 192.168.1.22 2001
+2015-06-17 00:14:23  [ Thread-6:969247 ] - [ INFO ]  hello from G22
+2015-06-17 00:14:30  [ Thread-6:975992 ] - [ INFO ]  hello from G11
+2015-06-17 00:14:45  [ Timer-1:991153 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-17 00:14:45  [ Timer-1:991154 ] - [ INFO ]  hello to 192.168.1.22 2001
+2015-06-17 00:14:53  [ Thread-6:999248 ] - [ INFO ]  hello from G22
+2015-06-17 00:15:00  [ Thread-6:1005992 ] - [ INFO ]  hello from G11
+2015-06-17 00:15:15  [ Timer-1:1021154 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-17 00:15:15  [ Timer-1:1021154 ] - [ INFO ]  hello to 192.168.1.22 2001
+2015-06-17 00:15:23  [ Thread-6:1029249 ] - [ INFO ]  hello from G22
+2015-06-17 00:15:30  [ Thread-6:1035993 ] - [ INFO ]  hello from G11
+2015-06-17 00:15:45  [ Timer-1:1051154 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-17 00:15:45  [ Timer-1:1051155 ] - [ INFO ]  hello to 192.168.1.22 2001
+2015-06-17 00:15:53  [ Thread-6:1059248 ] - [ INFO ]  hello from G22
+2015-06-17 00:16:00  [ Thread-6:1065993 ] - [ INFO ]  hello from G11
+2015-06-17 00:16:15  [ Timer-1:1081153 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-17 00:16:15  [ Timer-1:1081154 ] - [ INFO ]  hello to 192.168.1.22 2001
+2015-06-17 00:16:23  [ Thread-6:1089250 ] - [ INFO ]  hello from G22
+2015-06-17 00:16:30  [ Thread-6:1095994 ] - [ INFO ]  hello from G11
+2015-06-17 00:16:45  [ Timer-1:1111154 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-17 00:16:45  [ Timer-1:1111154 ] - [ INFO ]  hello to 192.168.1.22 2001
+2015-06-17 00:16:53  [ Thread-6:1119251 ] - [ INFO ]  hello from G22
+2015-06-17 00:17:00  [ Thread-6:1125994 ] - [ INFO ]  hello from G11
+2015-06-17 00:17:15  [ Timer-1:1141154 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-17 00:17:15  [ Timer-1:1141154 ] - [ INFO ]  hello to 192.168.1.22 2001
+2015-06-17 00:17:30  [ Thread-6:1155996 ] - [ INFO ]  hello from G11
+2015-06-17 00:17:45  [ Timer-1:1171154 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-17 00:17:45  [ Timer-1:1171155 ] - [ INFO ]  hello to 192.168.1.22 2001
+2015-06-17 00:17:53  [ Thread-6:1179248 ] - [ INFO ]  hello from G22
+2015-06-17 00:18:00  [ Thread-6:1185996 ] - [ INFO ]  hello from G11
+2015-06-17 00:18:15  [ Timer-1:1201153 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-17 00:18:15  [ Timer-1:1201154 ] - [ INFO ]  hello to 192.168.1.22 2001
+2015-06-17 00:18:23  [ Thread-6:1209246 ] - [ INFO ]  hello from G22
+2015-06-17 00:18:30  [ Thread-6:1215998 ] - [ INFO ]  hello from G11
+2015-06-17 00:18:45  [ Timer-1:1231153 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-17 00:18:45  [ Timer-1:1231154 ] - [ INFO ]  hello to 192.168.1.22 2001
+2015-06-17 00:18:53  [ Thread-6:1239249 ] - [ INFO ]  hello from G22
+2015-06-17 00:19:00  [ Thread-6:1245998 ] - [ INFO ]  hello from G11
+2015-06-17 00:19:15  [ Timer-1:1261153 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-17 00:19:15  [ Timer-1:1261154 ] - [ INFO ]  hello to 192.168.1.22 2001
+2015-06-17 00:19:23  [ Thread-6:1269253 ] - [ INFO ]  hello from G22
+2015-06-17 00:19:30  [ Thread-6:1275999 ] - [ INFO ]  hello from G11
+2015-06-17 00:19:45  [ Timer-1:1291153 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-17 00:19:45  [ Timer-1:1291154 ] - [ INFO ]  hello to 192.168.1.22 2001
+2015-06-17 00:19:53  [ Thread-6:1299253 ] - [ INFO ]  hello from G22
+2015-06-17 00:20:00  [ Thread-6:1306000 ] - [ INFO ]  hello from G11
+2015-06-17 00:20:15  [ Timer-1:1321154 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-17 00:20:15  [ Timer-1:1321154 ] - [ INFO ]  hello to 192.168.1.22 2001
+2015-06-17 00:20:23  [ Thread-6:1329254 ] - [ INFO ]  hello from G22
+2015-06-17 00:20:30  [ Thread-6:1336001 ] - [ INFO ]  hello from G11
+2015-06-17 00:20:45  [ Timer-1:1351153 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-17 00:20:45  [ Timer-1:1351154 ] - [ INFO ]  hello to 192.168.1.22 2001
+2015-06-17 00:20:53  [ Thread-6:1359257 ] - [ INFO ]  hello from G22
+2015-06-17 00:21:00  [ Thread-6:1366002 ] - [ INFO ]  hello from G11
+2015-06-17 00:21:15  [ Timer-1:1381153 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-17 00:21:15  [ Timer-1:1381154 ] - [ INFO ]  hello to 192.168.1.22 2001
+2015-06-17 00:21:23  [ Thread-6:1389255 ] - [ INFO ]  hello from G22
+2015-06-17 00:21:30  [ Thread-6:1396003 ] - [ INFO ]  hello from G11
+2015-06-17 00:21:45  [ Timer-1:1411153 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-17 00:21:45  [ Timer-1:1411154 ] - [ INFO ]  hello to 192.168.1.22 2001
+2015-06-17 00:21:53  [ Thread-6:1419252 ] - [ INFO ]  hello from G22
+2015-06-17 00:22:00  [ Thread-6:1426003 ] - [ INFO ]  hello from G11
+2015-06-17 00:22:15  [ Timer-1:1441153 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-17 00:22:15  [ Timer-1:1441154 ] - [ INFO ]  hello to 192.168.1.22 2001
+2015-06-17 00:22:23  [ Thread-6:1449257 ] - [ INFO ]  hello from G22
+2015-06-17 00:22:30  [ Thread-6:1456004 ] - [ INFO ]  hello from G11
+2015-06-17 00:22:45  [ Timer-1:1471154 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-17 00:22:45  [ Timer-1:1471154 ] - [ INFO ]  hello to 192.168.1.22 2001
+2015-06-17 00:22:53  [ Thread-6:1479258 ] - [ INFO ]  hello from G22
+2015-06-17 00:23:00  [ Thread-6:1486004 ] - [ INFO ]  hello from G11
+2015-06-17 00:23:15  [ Timer-1:1501153 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-17 00:23:15  [ Timer-1:1501154 ] - [ INFO ]  hello to 192.168.1.22 2001
+2015-06-17 00:23:23  [ Thread-6:1509259 ] - [ INFO ]  hello from G22
+2015-06-17 00:23:30  [ Thread-6:1516005 ] - [ INFO ]  hello from G11
+2015-06-17 00:23:45  [ Timer-1:1531153 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-17 00:23:45  [ Timer-1:1531154 ] - [ INFO ]  hello to 192.168.1.22 2001
+2015-06-17 00:23:53  [ Thread-6:1539259 ] - [ INFO ]  hello from G22
+2015-06-17 00:24:00  [ Thread-6:1546006 ] - [ INFO ]  hello from G11
+2015-06-17 00:24:15  [ Timer-1:1561153 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-17 00:24:15  [ Timer-1:1561154 ] - [ INFO ]  hello to 192.168.1.22 2001
+2015-06-17 00:24:23  [ Thread-6:1569259 ] - [ INFO ]  hello from G22
+2015-06-17 00:24:30  [ Thread-6:1576006 ] - [ INFO ]  hello from G11
+2015-06-17 00:24:45  [ Timer-1:1591154 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-17 00:24:45  [ Timer-1:1591154 ] - [ INFO ]  hello to 192.168.1.22 2001
+2015-06-17 00:24:53  [ Thread-6:1599258 ] - [ INFO ]  hello from G22
+2015-06-17 00:25:00  [ Thread-6:1606007 ] - [ INFO ]  hello from G11
+2015-06-17 00:25:15  [ Timer-1:1621154 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-17 00:25:15  [ Timer-1:1621154 ] - [ INFO ]  hello to 192.168.1.22 2001
+2015-06-17 00:25:23  [ Thread-6:1629255 ] - [ INFO ]  hello from G22
+2015-06-17 00:25:30  [ Thread-6:1636008 ] - [ INFO ]  hello from G11
+2015-06-17 00:25:45  [ Timer-1:1651154 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-17 00:25:45  [ Timer-1:1651154 ] - [ INFO ]  hello to 192.168.1.22 2001
+2015-06-17 00:25:53  [ Thread-6:1659258 ] - [ INFO ]  hello from G22
+2015-06-17 00:26:00  [ Thread-6:1666009 ] - [ INFO ]  hello from G11
+2015-06-17 00:26:15  [ Timer-1:1681154 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-17 00:26:15  [ Timer-1:1681154 ] - [ INFO ]  hello to 192.168.1.22 2001
+2015-06-17 00:26:23  [ Thread-6:1689259 ] - [ INFO ]  hello from G22
+2015-06-17 00:26:30  [ Thread-6:1696009 ] - [ INFO ]  hello from G11
+2015-06-17 00:26:45  [ Timer-1:1711154 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-17 00:26:45  [ Timer-1:1711154 ] - [ INFO ]  hello to 192.168.1.22 2001
+2015-06-17 00:26:53  [ Thread-6:1719261 ] - [ INFO ]  hello from G22
+2015-06-17 00:27:00  [ Thread-6:1726010 ] - [ INFO ]  hello from G11
+2015-06-17 00:27:15  [ Timer-1:1741154 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-17 00:27:15  [ Timer-1:1741154 ] - [ INFO ]  hello to 192.168.1.22 2001
+2015-06-17 00:27:23  [ Thread-6:1749262 ] - [ INFO ]  hello from G22
+2015-06-17 00:27:30  [ Thread-6:1756010 ] - [ INFO ]  hello from G11
+2015-06-17 00:27:45  [ Timer-1:1771154 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-17 00:27:45  [ Timer-1:1771154 ] - [ INFO ]  hello to 192.168.1.22 2001
+2015-06-17 00:27:53  [ Thread-6:1779263 ] - [ INFO ]  hello from G22
+2015-06-17 00:28:00  [ Thread-6:1786012 ] - [ INFO ]  hello from G11
+2015-06-17 00:28:15  [ Timer-1:1801154 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-17 00:28:15  [ Timer-1:1801154 ] - [ INFO ]  hello to 192.168.1.22 2001
+2015-06-17 00:28:23  [ Thread-6:1809258 ] - [ INFO ]  hello from G22
+2015-06-17 00:28:30  [ Thread-6:1816012 ] - [ INFO ]  hello from G11
+2015-06-17 00:28:45  [ Timer-1:1831154 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-17 00:28:45  [ Timer-1:1831154 ] - [ INFO ]  hello to 192.168.1.22 2001
+2015-06-17 00:28:53  [ Thread-6:1839260 ] - [ INFO ]  hello from G22
+2015-06-17 00:29:00  [ Thread-6:1846012 ] - [ INFO ]  hello from G11
+2015-06-17 00:29:15  [ Timer-1:1861154 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-17 00:29:15  [ Timer-1:1861154 ] - [ INFO ]  hello to 192.168.1.22 2001
+2015-06-17 00:29:23  [ Thread-6:1869262 ] - [ INFO ]  hello from G22
+2015-06-17 00:29:30  [ Thread-6:1876013 ] - [ INFO ]  hello from G11
+2015-06-17 00:29:45  [ Timer-1:1891154 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-17 00:29:45  [ Timer-1:1891154 ] - [ INFO ]  hello to 192.168.1.22 2001
+2015-06-17 00:29:53  [ Thread-6:1899262 ] - [ INFO ]  hello from G22
+2015-06-17 00:30:00  [ Thread-6:1906014 ] - [ INFO ]  hello from G11
+2015-06-17 00:30:15  [ Timer-1:1921154 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-17 00:30:15  [ Timer-1:1921154 ] - [ INFO ]  hello to 192.168.1.22 2001
+2015-06-17 00:30:45  [ Timer-1:1951154 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-17 00:30:45  [ Timer-1:1951154 ] - [ INFO ]  hello to 192.168.1.22 2001
+2015-06-17 00:31:15  [ Timer-1:1981155 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-17 00:31:15  [ Timer-1:1981155 ] - [ INFO ]  hello to 192.168.1.22 2001
+2015-06-17 00:31:45  [ Timer-1:2011156 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-17 00:31:45  [ Timer-1:2011156 ] - [ INFO ]  hello to 192.168.1.22 2001
+2015-06-17 00:31:53  [ Timer-0:2019262 ] - [ INFO ]   can't reach G22
+2015-06-17 00:32:00  [ Timer-0:2026014 ] - [ INFO ]   can't reach G11
+2015-06-17 00:32:53  [ Timer-6:2079264 ] - [ INFO ]  The neighbor G22 is invalid!
+2015-06-17 00:33:23  [ Timer-7:2109263 ] - [ INFO ]  The neighbor G11 is invalid!
+2015-06-17 08:56:53  [ main:0 ] - [ INFO ]  configuration finished! It's representative
+2015-06-17 08:56:53  [ main:134 ] - [ INFO ]  ÊúçÂä°Á´ØÂêØÂä®ÊàêÂäü... tcpÁ´ØÂè£Âè∑‰∏∫Ôºö30008
+2015-06-17 08:56:53  [ main:184 ] - [ ERROR ]  ÊúçÂä°Á´ØudpÂêØÂä®ÂºÇÂ∏∏....
+java.net.BindException: Cannot assign requested address
+	at sun.nio.ch.Net.bind0(Native Method)
+	at sun.nio.ch.Net.bind(Net.java:444)
+	at sun.nio.ch.DatagramChannelImpl.bind(DatagramChannelImpl.java:702)
+	at sun.nio.ch.DatagramSocketAdaptor.bind(DatagramSocketAdaptor.java:91)
+	at org.apache.mina.transport.socket.nio.NioDatagramAcceptor.open(NioDatagramAcceptor.java:109)
+	at org.apache.mina.transport.socket.nio.NioDatagramAcceptor.open(NioDatagramAcceptor.java:48)
+	at org.apache.mina.core.polling.AbstractPollingConnectionlessIoAcceptor.registerHandles(AbstractPollingConnectionlessIoAcceptor.java:830)
+	at org.apache.mina.core.polling.AbstractPollingConnectionlessIoAcceptor.access$400(AbstractPollingConnectionlessIoAcceptor.java:61)
+	at org.apache.mina.core.polling.AbstractPollingConnectionlessIoAcceptor$Acceptor.run(AbstractPollingConnectionlessIoAcceptor.java:585)
+	at org.apache.mina.util.NamePreservingRunnable.run(NamePreservingRunnable.java:64)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:745)
+2015-06-17 08:56:54  [ Thread-1:945 ] - [ INFO ]  configuration finished! It's representative
+2015-06-17 08:56:54  [ Thread-1:953 ] - [ INFO ]  local address: 192.168.1.30	port: 2001
+2015-06-17 08:56:54  [ Thread-1:953 ] - [ INFO ]  multicast address: 230.0.10.109
+2015-06-17 08:56:54  [ Thread-1:1016 ] - [ INFO ]  org.apache.servicemix.wsn.router.msg.tcp.MsgNewGroup_@f37bb8
+2015-06-17 08:56:59  [ Thread-1:6195 ] - [ INFO ]  join finished!
+2015-06-17 08:57:52  [ main:0 ] - [ INFO ]  configuration finished! It's representative
+2015-06-17 08:57:52  [ main:139 ] - [ INFO ]  ÊúçÂä°Á´ØÂêØÂä®ÊàêÂäü... tcpÁ´ØÂè£Âè∑‰∏∫Ôºö30008
+2015-06-17 08:57:52  [ main:179 ] - [ INFO ]  ÊúçÂä°Á´ØÂêØÂä®ÊàêÂäü... udpÁ´ØÂè£Âè∑‰∏∫Ôºö30002
+2015-06-17 08:57:53  [ Thread-1:885 ] - [ INFO ]  configuration finished! It's regular
+2015-06-17 08:57:53  [ Thread-1:889 ] - [ INFO ]  local address: 192.168.1.30	port: 2001
+2015-06-17 08:57:53  [ Thread-1:889 ] - [ INFO ]  multicast address: 230.0.10.109
+2015-06-17 08:57:53  [ Thread-7:937 ] - [ INFO ]  No this TCP msg!
+2015-06-17 08:57:53  [ Thread-8:977 ] - [ INFO ]  No this TCP msg!
+2015-06-17 08:57:53  [ Thread-9:1017 ] - [ INFO ]  No this TCP msg!
+2015-06-17 08:57:53  [ Thread-1:1018 ] - [ INFO ]  rep of group G9 no longer exist
+2015-06-17 08:57:53  [ Thread-1:1021 ] - [ INFO ]  switch to rep state
+2015-06-17 08:57:55  [ Thread-1:3071 ] - [ INFO ]  org.apache.servicemix.wsn.router.msg.tcp.MsgNewGroup_@16e0c6c
+2015-06-17 08:57:58  [ Thread-1:6145 ] - [ INFO ]  join finished!
+2015-06-17 08:58:53  [ Timer-1:60886 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-17 08:59:17  [ Thread-6:85640 ] - [ INFO ]  hello from G11
+2015-06-17 08:59:23  [ Timer-1:90885 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-17 08:59:32  [ Thread-26:100144 ] - [ INFO ]  comes group: G22
+2015-06-17 08:59:47  [ Thread-6:115639 ] - [ INFO ]  hello from G11
+2015-06-17 08:59:53  [ Timer-1:120885 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-17 08:59:53  [ Timer-1:120886 ] - [ INFO ]  hello to 192.168.1.22 2001
+2015-06-17 09:00:02  [ Thread-6:129941 ] - [ INFO ]  hello from G22
+2015-06-17 09:02:27  [ main:0 ] - [ INFO ]  configuration finished! It's representative
+2015-06-17 09:02:27  [ main:129 ] - [ INFO ]  ÊúçÂä°Á´ØÂêØÂä®ÊàêÂäü... tcpÁ´ØÂè£Âè∑‰∏∫Ôºö30008
+2015-06-17 09:02:27  [ main:174 ] - [ INFO ]  ÊúçÂä°Á´ØÂêØÂä®ÊàêÂäü... udpÁ´ØÂè£Âè∑‰∏∫Ôºö30002
+2015-06-17 09:02:28  [ Thread-1:866 ] - [ INFO ]  configuration finished! It's regular
+2015-06-17 09:02:28  [ Thread-1:872 ] - [ INFO ]  local address: 192.168.1.30	port: 2001
+2015-06-17 09:02:28  [ Thread-1:873 ] - [ INFO ]  multicast address: 230.0.10.109
+2015-06-17 09:02:28  [ Thread-7:920 ] - [ INFO ]  No this TCP msg!
+2015-06-17 09:02:28  [ Thread-8:960 ] - [ INFO ]  No this TCP msg!
+2015-06-17 09:02:28  [ Thread-9:1000 ] - [ INFO ]  No this TCP msg!
+2015-06-17 09:02:28  [ Thread-1:1001 ] - [ INFO ]  rep of group G9 no longer exist
+2015-06-17 09:02:28  [ Thread-1:1004 ] - [ INFO ]  switch to rep state
+2015-06-17 09:02:30  [ Thread-1:3055 ] - [ INFO ]  org.apache.servicemix.wsn.router.msg.tcp.MsgNewGroup_@1713513
+2015-06-17 09:02:36  [ Thread-1:9128 ] - [ INFO ]  join finished!
+2015-06-17 09:02:58  [ Timer-1:30869 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-17 09:02:58  [ Timer-1:30869 ] - [ INFO ]  hello to 192.168.1.22 2001
+2015-06-17 09:03:23  [ Thread-23:55884 ] - [ WARN ]  java.lang.ClassNotFoundException: org.apache.servicemix.wsn.router.msg.tcp.MsgHeartCheck
+2015-06-17 09:03:23  [ Thread-22:55902 ] - [ WARN ]  java.lang.ClassNotFoundException: org.apache.servicemix.wsn.router.msg.tcp.MsgHeartCheck
+2015-06-17 09:03:28  [ Timer-1:60868 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-17 09:03:28  [ Timer-1:60868 ] - [ INFO ]  hello to 192.168.1.22 2001
+2015-06-17 09:03:58  [ Timer-1:90868 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-17 09:03:58  [ Timer-1:90868 ] - [ INFO ]  hello to 192.168.1.22 2001
+2015-06-17 09:04:28  [ Timer-1:120868 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-17 09:04:28  [ Timer-1:120868 ] - [ INFO ]  hello to 192.168.1.22 2001
+2015-06-17 09:04:31  [ Timer-0:124205 ] - [ INFO ]   can't reach G11
+2015-06-17 09:04:31  [ Timer-0:124254 ] - [ INFO ]   can't reach G22
+2015-06-17 09:05:31  [ Timer-5:184207 ] - [ INFO ]  The neighbor G11 is invalid!
+2015-06-17 09:06:01  [ Timer-6:214206 ] - [ INFO ]  The neighbor G22 is invalid!
+2015-06-19 15:43:26  [ main:0 ] - [ INFO ]  configuration finished! It's representative
+2015-06-19 15:43:26  [ main:309 ] - [ INFO ]  ÊúçÂä°Á´ØÂêØÂä®ÊàêÂäü... tcpÁ´ØÂè£Âè∑‰∏∫Ôºö30008
+2015-06-19 15:43:26  [ main:351 ] - [ INFO ]  ÊúçÂä°Á´ØÂêØÂä®ÊàêÂäü... udpÁ´ØÂè£Âè∑‰∏∫Ôºö30002
+2015-06-19 15:43:28  [ Thread-1:1515 ] - [ INFO ]  configuration finished! It's representative
+2015-06-19 15:43:28  [ Thread-1:1520 ] - [ INFO ]  local address: 192.168.1.30	port: 2001
+2015-06-19 15:43:28  [ Thread-1:1521 ] - [ INFO ]  multicast address: 230.0.10.109
+2015-06-19 15:43:28  [ Thread-1:1579 ] - [ INFO ]  org.apache.servicemix.wsn.router.msg.tcp.MsgNewGroup_@715413
+2015-06-19 15:43:33  [ Thread-1:6808 ] - [ INFO ]  join finished!
+2015-06-19 15:44:28  [ Timer-1:61516 ] - [ INFO ]  hello to 192.168.1.22 2001
+2015-06-19 15:44:38  [ Thread-6:71998 ] - [ INFO ]  hello from G22
+2015-06-19 15:44:58  [ Timer-1:91516 ] - [ INFO ]  hello to 192.168.1.22 2001
+2015-06-19 15:45:08  [ Thread-6:101996 ] - [ INFO ]  hello from G22
+2015-06-19 15:45:28  [ Timer-1:121516 ] - [ INFO ]  hello to 192.168.1.22 2001
+2015-06-19 15:45:38  [ Thread-6:131997 ] - [ INFO ]  hello from G22
+2015-06-19 15:45:56  [ Thread-23:149539 ] - [ INFO ]  comes group: G11
+2015-06-19 15:45:58  [ Timer-1:151516 ] - [ INFO ]  hello to 192.168.1.22 2001
+2015-06-19 15:45:58  [ Timer-1:151516 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-19 15:46:08  [ Thread-6:161999 ] - [ INFO ]  hello from G22
+2015-06-19 15:46:25  [ Thread-6:179324 ] - [ INFO ]  hello from G11
+2015-06-19 15:46:28  [ Timer-1:181516 ] - [ INFO ]  hello to 192.168.1.22 2001
+2015-06-19 15:46:28  [ Timer-1:181516 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-19 15:46:38  [ Thread-6:192000 ] - [ INFO ]  hello from G22
+2015-06-19 15:46:57  [ main:0 ] - [ INFO ]  configuration finished! It's representative
+2015-06-19 15:46:57  [ main:132 ] - [ INFO ]  ÊúçÂä°Á´ØÂêØÂä®ÊàêÂäü... tcpÁ´ØÂè£Âè∑‰∏∫Ôºö30008
+2015-06-19 15:46:57  [ main:167 ] - [ INFO ]  ÊúçÂä°Á´ØÂêØÂä®ÊàêÂäü... udpÁ´ØÂè£Âè∑‰∏∫Ôºö30002
+2015-06-19 15:46:58  [ Thread-1:905 ] - [ INFO ]  configuration finished! It's regular
+2015-06-19 15:46:58  [ Thread-1:909 ] - [ INFO ]  local address: 192.168.1.30	port: 2001
+2015-06-19 15:46:58  [ Thread-1:910 ] - [ INFO ]  multicast address: 230.0.10.109
+2015-06-19 15:46:58  [ Thread-7:953 ] - [ INFO ]  No this TCP msg!
+2015-06-19 15:46:58  [ Thread-8:994 ] - [ INFO ]  No this TCP msg!
+2015-06-19 15:46:58  [ Thread-9:1034 ] - [ INFO ]  No this TCP msg!
+2015-06-19 15:46:58  [ Thread-1:1035 ] - [ INFO ]  rep of group G9 no longer exist
+2015-06-19 15:46:58  [ Thread-1:1038 ] - [ INFO ]  switch to rep state
+2015-06-19 15:47:00  [ Thread-1:3091 ] - [ INFO ]  org.apache.servicemix.wsn.router.msg.tcp.MsgNewGroup_@1713513
+2015-06-19 15:47:03  [ Thread-1:6214 ] - [ INFO ]  join finished!
+2015-06-19 15:47:08  [ Thread-6:11340 ] - [ INFO ]  hello from G22
+2015-06-19 15:47:25  [ Thread-6:28663 ] - [ INFO ]  hello from G11
+2015-06-19 15:47:28  [ Timer-1:30907 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-19 15:47:28  [ Timer-1:30907 ] - [ INFO ]  hello to 192.168.1.22 2001
+2015-06-19 15:47:38  [ Thread-6:41340 ] - [ INFO ]  hello from G22
+2015-06-19 15:47:55  [ Thread-6:58664 ] - [ INFO ]  hello from G11
+2015-06-19 15:47:58  [ Timer-1:60906 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-19 15:47:58  [ Timer-1:60906 ] - [ INFO ]  hello to 192.168.1.22 2001
+2015-06-19 15:48:08  [ Thread-6:71338 ] - [ INFO ]  hello from G22
+2015-06-19 15:48:25  [ Thread-6:88665 ] - [ INFO ]  hello from G11
+2015-06-19 15:48:28  [ Timer-1:90907 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-19 15:48:28  [ Timer-1:90907 ] - [ INFO ]  hello to 192.168.1.22 2001
+2015-06-19 15:48:38  [ Thread-6:101339 ] - [ INFO ]  hello from G22
+2015-06-19 15:48:55  [ Thread-6:118666 ] - [ INFO ]  hello from G11
+2015-06-19 15:48:58  [ Timer-1:120908 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-19 15:48:58  [ Timer-1:120908 ] - [ INFO ]  hello to 192.168.1.22 2001
+2015-06-19 15:49:08  [ Thread-6:131341 ] - [ INFO ]  hello from G22
+2015-06-19 15:49:25  [ Thread-6:148667 ] - [ INFO ]  hello from G11
+2015-06-19 15:49:28  [ Timer-1:150909 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-19 15:49:28  [ Timer-1:150909 ] - [ INFO ]  hello to 192.168.1.22 2001
+2015-06-19 15:49:38  [ Thread-6:161343 ] - [ INFO ]  hello from G22
+2015-06-19 15:49:55  [ Thread-6:178668 ] - [ INFO ]  hello from G11
+2015-06-19 15:49:58  [ Timer-1:180910 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-19 15:49:58  [ Timer-1:180910 ] - [ INFO ]  hello to 192.168.1.22 2001
+2015-06-19 15:50:08  [ Thread-6:191341 ] - [ INFO ]  hello from G22
+2015-06-19 15:50:25  [ Thread-6:208668 ] - [ INFO ]  hello from G11
+2015-06-19 15:50:28  [ Timer-1:210911 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-19 15:50:28  [ Timer-1:210911 ] - [ INFO ]  hello to 192.168.1.22 2001
+2015-06-19 15:50:38  [ Thread-6:221342 ] - [ INFO ]  hello from G22
+2015-06-19 15:50:55  [ Thread-6:238670 ] - [ INFO ]  hello from G11
+2015-06-19 15:50:58  [ Timer-1:240912 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-19 15:50:58  [ Timer-1:240912 ] - [ INFO ]  hello to 192.168.1.22 2001
+2015-06-19 15:51:08  [ Thread-6:251343 ] - [ INFO ]  hello from G22
+2015-06-19 15:51:25  [ Thread-6:268670 ] - [ INFO ]  hello from G11
+2015-06-19 15:51:28  [ Timer-1:270913 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-19 15:51:28  [ Timer-1:270913 ] - [ INFO ]  hello to 192.168.1.22 2001
+2015-06-19 15:51:38  [ Thread-6:281343 ] - [ INFO ]  hello from G22
+2015-06-19 15:51:55  [ Thread-6:298673 ] - [ INFO ]  hello from G11
+2015-06-19 15:51:58  [ Timer-1:300914 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-19 15:51:58  [ Timer-1:300914 ] - [ INFO ]  hello to 192.168.1.22 2001
+2015-06-19 15:52:08  [ Thread-6:311344 ] - [ INFO ]  hello from G22
+2015-06-19 15:52:25  [ Thread-6:328671 ] - [ INFO ]  hello from G11
+2015-06-19 15:52:28  [ Timer-1:330914 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-19 15:52:28  [ Timer-1:330915 ] - [ INFO ]  hello to 192.168.1.22 2001
+2015-06-19 15:52:38  [ Thread-6:341342 ] - [ INFO ]  hello from G22
+2015-06-19 15:52:55  [ Thread-6:358672 ] - [ INFO ]  hello from G11
+2015-06-19 15:52:58  [ Timer-1:360915 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-19 15:52:58  [ Timer-1:360915 ] - [ INFO ]  hello to 192.168.1.22 2001
+2015-06-19 15:53:08  [ Thread-6:371344 ] - [ INFO ]  hello from G22
+2015-06-19 15:53:25  [ Thread-6:388672 ] - [ INFO ]  hello from G11
+2015-06-19 15:53:28  [ Timer-1:390915 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-19 15:53:28  [ Timer-1:390915 ] - [ INFO ]  hello to 192.168.1.22 2001
+2015-06-19 15:53:38  [ Thread-6:401344 ] - [ INFO ]  hello from G22
+2015-06-19 15:53:55  [ Thread-6:418673 ] - [ INFO ]  hello from G11
+2015-06-19 15:53:58  [ Timer-1:420914 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-19 15:53:58  [ Timer-1:420915 ] - [ INFO ]  hello to 192.168.1.22 2001
+2015-06-19 15:54:08  [ Thread-6:431346 ] - [ INFO ]  hello from G22
+2015-06-19 15:54:25  [ Thread-6:448674 ] - [ INFO ]  hello from G11
+2015-06-19 15:54:28  [ Timer-1:450914 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-19 15:54:28  [ Timer-1:450915 ] - [ INFO ]  hello to 192.168.1.22 2001
+2015-06-19 15:54:38  [ Thread-6:461344 ] - [ INFO ]  hello from G22
+2015-06-19 15:54:55  [ Thread-6:478674 ] - [ INFO ]  hello from G11
+2015-06-19 15:54:58  [ Timer-1:480915 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-19 15:54:58  [ Timer-1:480915 ] - [ INFO ]  hello to 192.168.1.22 2001
+2015-06-19 15:55:08  [ Thread-6:491348 ] - [ INFO ]  hello from G22
+2015-06-19 15:55:25  [ Thread-6:508675 ] - [ INFO ]  hello from G11
+2015-06-19 15:55:28  [ Timer-1:510915 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-19 15:55:28  [ Timer-1:510915 ] - [ INFO ]  hello to 192.168.1.22 2001
+2015-06-19 15:55:38  [ Thread-6:521349 ] - [ INFO ]  hello from G22
+2015-06-19 15:55:55  [ Thread-6:538676 ] - [ INFO ]  hello from G11
+2015-06-19 15:55:58  [ Timer-1:540916 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-19 15:55:58  [ Timer-1:540916 ] - [ INFO ]  hello to 192.168.1.22 2001
+2015-06-19 15:56:08  [ Thread-6:551350 ] - [ INFO ]  hello from G22
+2015-06-19 15:56:25  [ Thread-6:568677 ] - [ INFO ]  hello from G11
+2015-06-19 15:56:28  [ Timer-1:570917 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-19 15:56:28  [ Timer-1:570917 ] - [ INFO ]  hello to 192.168.1.22 2001
+2015-06-19 15:56:38  [ Thread-6:581349 ] - [ INFO ]  hello from G22
+2015-06-19 15:56:55  [ Thread-6:598679 ] - [ INFO ]  hello from G11
+2015-06-19 15:56:58  [ Timer-1:600918 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-19 15:56:58  [ Timer-1:600918 ] - [ INFO ]  hello to 192.168.1.22 2001
+2015-06-19 15:57:08  [ Thread-6:611352 ] - [ INFO ]  hello from G22
+2015-06-19 15:57:25  [ Thread-6:628679 ] - [ INFO ]  hello from G11
+2015-06-19 15:57:28  [ Timer-1:630918 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-19 15:57:28  [ Timer-1:630919 ] - [ INFO ]  hello to 192.168.1.22 2001
+2015-06-19 15:57:38  [ Thread-6:641354 ] - [ INFO ]  hello from G22
+2015-06-19 15:57:55  [ Thread-6:658680 ] - [ INFO ]  hello from G11
+2015-06-19 15:57:58  [ Timer-1:660918 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-19 15:57:58  [ Timer-1:660919 ] - [ INFO ]  hello to 192.168.1.22 2001
+2015-06-19 15:58:08  [ Thread-6:671354 ] - [ INFO ]  hello from G22
+2015-06-19 15:58:25  [ Thread-6:688681 ] - [ INFO ]  hello from G11
+2015-06-19 15:58:28  [ Timer-1:690918 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-19 15:58:28  [ Timer-1:690919 ] - [ INFO ]  hello to 192.168.1.22 2001
+2015-06-19 15:58:38  [ Thread-6:701354 ] - [ INFO ]  hello from G22
+2015-06-19 15:58:55  [ Thread-6:718681 ] - [ INFO ]  hello from G11
+2015-06-19 15:58:58  [ Timer-1:720919 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-19 15:58:58  [ Timer-1:720919 ] - [ INFO ]  hello to 192.168.1.22 2001
+2015-06-19 15:59:08  [ Thread-6:731353 ] - [ INFO ]  hello from G22
+2015-06-19 15:59:25  [ Thread-6:748682 ] - [ INFO ]  hello from G11
+2015-06-19 15:59:28  [ Timer-1:750919 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-19 15:59:28  [ Timer-1:750919 ] - [ INFO ]  hello to 192.168.1.22 2001
+2015-06-19 15:59:38  [ Thread-6:761357 ] - [ INFO ]  hello from G22
+2015-06-19 15:59:55  [ Thread-6:778682 ] - [ INFO ]  hello from G11
+2015-06-19 15:59:58  [ Timer-1:780919 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-19 15:59:58  [ Timer-1:780919 ] - [ INFO ]  hello to 192.168.1.22 2001
+2015-06-19 16:00:08  [ Thread-6:791357 ] - [ INFO ]  hello from G22
+2015-06-19 16:00:25  [ Thread-6:808684 ] - [ INFO ]  hello from G11
+2015-06-19 16:00:28  [ Timer-1:810919 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-19 16:00:28  [ Timer-1:810919 ] - [ INFO ]  hello to 192.168.1.22 2001
+2015-06-19 16:00:38  [ Thread-6:821358 ] - [ INFO ]  hello from G22
+2015-06-19 16:00:55  [ Thread-6:838685 ] - [ INFO ]  hello from G11
+2015-06-19 16:00:58  [ Timer-1:840918 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-19 16:00:58  [ Timer-1:840919 ] - [ INFO ]  hello to 192.168.1.22 2001
+2015-06-19 16:01:08  [ Thread-6:851358 ] - [ INFO ]  hello from G22
+2015-06-19 16:01:25  [ Thread-6:868686 ] - [ INFO ]  hello from G11
+2015-06-19 16:01:28  [ Timer-1:870919 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-19 16:01:28  [ Timer-1:870919 ] - [ INFO ]  hello to 192.168.1.22 2001
+2015-06-19 16:01:38  [ Thread-6:881356 ] - [ INFO ]  hello from G22
+2015-06-19 16:01:55  [ Thread-6:898687 ] - [ INFO ]  hello from G11
+2015-06-19 16:01:58  [ Timer-1:900919 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-19 16:01:58  [ Timer-1:900919 ] - [ INFO ]  hello to 192.168.1.22 2001
+2015-06-19 16:02:08  [ Thread-6:911359 ] - [ INFO ]  hello from G22
+2015-06-19 16:02:25  [ Thread-6:928688 ] - [ INFO ]  hello from G11
+2015-06-19 16:02:28  [ Timer-1:930919 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-19 16:02:28  [ Timer-1:930920 ] - [ INFO ]  hello to 192.168.1.22 2001
+2015-06-19 16:02:38  [ Thread-6:941360 ] - [ INFO ]  hello from G22
+2015-06-19 16:02:55  [ Thread-6:958689 ] - [ INFO ]  hello from G11
+2015-06-19 16:02:58  [ Timer-1:960920 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-19 16:02:58  [ Timer-1:960920 ] - [ INFO ]  hello to 192.168.1.22 2001
+2015-06-19 16:03:01  [ Timer-4:964214 ] - [ INFO ]   can't reach G11
+2015-06-19 16:03:08  [ Thread-6:971358 ] - [ INFO ]  hello from G22
+2015-06-19 16:03:25  [ Thread-6:988688 ] - [ INFO ]  hello from G11
+2015-06-19 16:03:28  [ Timer-1:990920 ] - [ INFO ]  hello to 192.168.1.22 2001
+2015-06-19 16:03:38  [ Thread-6:1001360 ] - [ INFO ]  hello from G22
+2015-06-19 16:03:55  [ Thread-6:1018689 ] - [ INFO ]  hello from G11
+2015-06-19 16:03:58  [ Timer-1:1020920 ] - [ INFO ]  hello to 192.168.1.22 2001
+2015-06-19 16:04:08  [ Thread-6:1031362 ] - [ INFO ]  hello from G22
+2015-06-19 16:04:25  [ Thread-6:1048691 ] - [ INFO ]  hello from G11
+2015-06-19 16:04:28  [ Timer-1:1050919 ] - [ INFO ]  hello to 192.168.1.22 2001
+2015-06-19 16:04:38  [ Thread-6:1061362 ] - [ INFO ]  hello from G22
+2015-06-19 16:04:55  [ Thread-6:1078691 ] - [ INFO ]  hello from G11
+2015-06-19 16:04:58  [ Timer-1:1080919 ] - [ INFO ]  hello to 192.168.1.22 2001
+2015-06-19 16:05:08  [ Thread-6:1091360 ] - [ INFO ]  hello from G22
+2015-06-19 16:05:28  [ Timer-1:1110919 ] - [ INFO ]  hello to 192.168.1.22 2001
+2015-06-19 16:05:38  [ Thread-6:1121363 ] - [ INFO ]  hello from G22
+2015-06-19 16:05:58  [ Timer-1:1140920 ] - [ INFO ]  hello to 192.168.1.22 2001
+2015-06-19 16:06:08  [ Thread-6:1151363 ] - [ INFO ]  hello from G22
+2015-06-19 16:06:28  [ Timer-1:1170920 ] - [ INFO ]  hello to 192.168.1.22 2001
+2015-06-19 16:06:38  [ Thread-6:1181364 ] - [ INFO ]  hello from G22
+2015-06-19 16:06:55  [ Timer-0:1198691 ] - [ INFO ]   can't reach G11
+2015-06-19 16:06:58  [ Timer-1:1200920 ] - [ INFO ]  hello to 192.168.1.22 2001
+2015-06-19 16:07:08  [ Thread-6:1211362 ] - [ INFO ]  hello from G22
+2015-06-19 16:07:28  [ Timer-1:1230920 ] - [ INFO ]  hello to 192.168.1.22 2001
+2015-06-19 16:07:38  [ Thread-6:1241366 ] - [ INFO ]  hello from G22
+2015-06-19 16:07:55  [ Timer-6:1258693 ] - [ INFO ]  The neighbor G11 is invalid!
+2015-06-19 16:07:58  [ Timer-1:1260919 ] - [ INFO ]  hello to 192.168.1.22 2001
+2015-06-19 16:08:08  [ Thread-6:1271367 ] - [ INFO ]  hello from G22
+2015-06-19 16:08:28  [ Timer-1:1290919 ] - [ INFO ]  hello to 192.168.1.22 2001
+2015-06-19 16:08:38  [ Thread-6:1301368 ] - [ INFO ]  hello from G22
+2015-06-19 16:08:58  [ Timer-1:1320920 ] - [ INFO ]  hello to 192.168.1.22 2001
+2015-06-19 16:09:08  [ Thread-6:1331369 ] - [ INFO ]  hello from G22
+2015-06-19 16:09:28  [ Timer-1:1350921 ] - [ INFO ]  hello to 192.168.1.22 2001
+2015-06-19 16:09:58  [ Timer-1:1380920 ] - [ INFO ]  hello to 192.168.1.22 2001
+2015-06-19 16:10:08  [ Thread-6:1391372 ] - [ INFO ]  hello from G22
+2015-06-19 16:10:28  [ Timer-1:1410920 ] - [ INFO ]  hello to 192.168.1.22 2001
+2015-06-19 16:10:38  [ Thread-6:1421368 ] - [ INFO ]  hello from G22
+2015-06-19 16:10:58  [ Timer-1:1440920 ] - [ INFO ]  hello to 192.168.1.22 2001
+2015-06-19 16:11:08  [ Thread-6:1451371 ] - [ INFO ]  hello from G22
+2015-06-19 16:11:28  [ Timer-1:1470920 ] - [ INFO ]  hello to 192.168.1.22 2001
+2015-06-19 16:11:38  [ Thread-6:1481370 ] - [ INFO ]  hello from G22
+2015-06-19 16:11:58  [ Timer-1:1500920 ] - [ INFO ]  hello to 192.168.1.22 2001
+2015-06-19 16:12:08  [ Thread-6:1511372 ] - [ INFO ]  hello from G22
+2015-06-19 16:12:28  [ Timer-1:1530920 ] - [ INFO ]  hello to 192.168.1.22 2001
+2015-06-19 16:12:58  [ Timer-1:1560921 ] - [ INFO ]  hello to 192.168.1.22 2001
+2015-06-19 16:13:28  [ Timer-1:1590922 ] - [ INFO ]  hello to 192.168.1.22 2001
+2015-06-19 16:13:58  [ Timer-1:1620923 ] - [ INFO ]  hello to 192.168.1.22 2001
+2015-06-19 16:14:08  [ Timer-0:1631372 ] - [ INFO ]   can't reach G22
+2015-06-19 16:15:08  [ Timer-8:1691373 ] - [ INFO ]  The neighbor G22 is invalid!
+2015-06-19 16:26:28  [ Timer-1:2370926 ] - [ INFO ]  hello to 192.168.1.22 2001
+2015-06-19 16:26:58  [ Timer-1:2400926 ] - [ INFO ]  hello to 192.168.1.22 2001
+2015-06-19 16:27:28  [ Timer-1:2430926 ] - [ INFO ]  hello to 192.168.1.22 2001
+2015-06-19 16:27:58  [ Timer-1:2460926 ] - [ INFO ]  hello to 192.168.1.22 2001
+2015-06-19 16:28:18  [ Timer-0:2481585 ] - [ INFO ]   can't reach G22
+2015-06-19 16:29:18  [ Timer-11:2541586 ] - [ INFO ]  The neighbor G22 is invalid!
+2015-06-19 16:29:28  [ Timer-1:2550925 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-19 16:29:30  [ Thread-6:2552863 ] - [ INFO ]  hello from G11
+2015-06-19 16:29:58  [ Timer-1:2580925 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-19 16:30:00  [ Thread-6:2582864 ] - [ INFO ]  hello from G11
+2015-06-19 16:30:28  [ Timer-1:2610925 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-19 16:30:30  [ Thread-6:2612864 ] - [ INFO ]  hello from G11
+2015-06-19 16:30:58  [ Timer-1:2640926 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-19 16:31:00  [ Thread-6:2642865 ] - [ INFO ]  hello from G11
+2015-06-19 16:31:28  [ Timer-1:2670927 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-19 16:31:30  [ Thread-6:2672866 ] - [ INFO ]  hello from G11
+2015-06-19 16:31:58  [ Timer-1:2700926 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-19 16:32:00  [ Thread-6:2702867 ] - [ INFO ]  hello from G11
+2015-06-19 16:32:28  [ Timer-1:2730927 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-19 16:32:30  [ Thread-6:2732870 ] - [ INFO ]  hello from G11
+2015-06-19 16:32:58  [ Timer-1:2760927 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-19 16:33:00  [ Thread-6:2762871 ] - [ INFO ]  hello from G11
+2015-06-19 16:33:28  [ Timer-1:2790927 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-19 16:33:30  [ Thread-6:2792872 ] - [ INFO ]  hello from G11
+2015-06-19 16:33:58  [ Timer-1:2820927 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-19 16:34:00  [ Thread-6:2822873 ] - [ INFO ]  hello from G11
+2015-06-19 16:34:28  [ Timer-1:2850926 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-19 16:34:30  [ Thread-6:2852874 ] - [ INFO ]  hello from G11
+2015-06-19 16:34:58  [ Timer-1:2880926 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-19 16:35:00  [ Thread-6:2882874 ] - [ INFO ]  hello from G11
+2015-06-19 16:35:28  [ Timer-1:2910927 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-19 16:35:30  [ Thread-6:2912875 ] - [ INFO ]  hello from G11
+2015-06-19 16:35:58  [ Timer-1:2940928 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-19 16:39:29  [ main:0 ] - [ INFO ]  configuration finished! It's representative
+2015-06-19 16:39:29  [ main:122 ] - [ INFO ]  ÊúçÂä°Á´ØÂêØÂä®ÊàêÂäü... tcpÁ´ØÂè£Âè∑‰∏∫Ôºö30008
+2015-06-19 16:39:29  [ main:158 ] - [ INFO ]  ÊúçÂä°Á´ØÂêØÂä®ÊàêÂäü... udpÁ´ØÂè£Âè∑‰∏∫Ôºö30002
+2015-06-19 16:39:30  [ Thread-1:847 ] - [ INFO ]  configuration finished! It's representative
+2015-06-19 16:39:30  [ Thread-1:852 ] - [ INFO ]  local address: 192.168.1.30	port: 2001
+2015-06-19 16:39:30  [ Thread-1:853 ] - [ INFO ]  multicast address: 230.0.10.109
+2015-06-19 16:39:30  [ Thread-1:908 ] - [ INFO ]  org.apache.servicemix.wsn.router.msg.tcp.MsgNewGroup_@3aca
+2015-06-19 16:39:36  [ Thread-1:6236 ] - [ INFO ]  join finished!
+2015-06-19 16:39:45  [ Thread-6:16015 ] - [ INFO ]  hello from G22
+2015-06-19 16:39:52  [ Thread-22:22371 ] - [ INFO ]  comes group: G11
+2015-06-19 16:40:00  [ Timer-1:30849 ] - [ INFO ]  hello to 192.168.1.22 2001
+2015-06-19 16:40:00  [ Timer-1:30849 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-19 16:40:15  [ Thread-6:46010 ] - [ INFO ]  hello from G22
+2015-06-19 16:40:22  [ Thread-6:52191 ] - [ INFO ]  hello from G11
+2015-06-19 16:40:30  [ Timer-1:60849 ] - [ INFO ]  hello to 192.168.1.22 2001
+2015-06-19 16:40:30  [ Timer-1:60849 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-19 16:40:45  [ Thread-6:76010 ] - [ INFO ]  hello from G22
+2015-06-19 16:40:52  [ Thread-6:82191 ] - [ INFO ]  hello from G11
+2015-06-19 16:41:00  [ Timer-1:90849 ] - [ INFO ]  hello to 192.168.1.22 2001
+2015-06-19 16:41:00  [ Timer-1:90849 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-19 16:41:30  [ Timer-1:120849 ] - [ INFO ]  hello to 192.168.1.22 2001
+2015-06-19 16:41:30  [ Timer-1:120850 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-19 16:42:00  [ Timer-1:150850 ] - [ INFO ]  hello to 192.168.1.22 2001
+2015-06-19 16:42:00  [ Timer-1:150850 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-19 16:42:22  [ Thread-6:172193 ] - [ INFO ]  hello from G11
+2015-06-19 16:42:30  [ Timer-1:180850 ] - [ INFO ]  hello to 192.168.1.22 2001
+2015-06-19 16:42:30  [ Timer-1:180851 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-19 16:42:45  [ Timer-0:196009 ] - [ INFO ]   can't reach G22
+2015-06-19 16:42:45  [ Thread-6:196011 ] - [ INFO ]  hello from G22
+2015-06-19 16:42:52  [ Thread-6:202195 ] - [ INFO ]  hello from G11
+2015-06-19 16:43:00  [ Timer-1:210850 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-19 16:43:00  [ Timer-1:210850 ] - [ INFO ]  hello to 192.168.1.22 2001
+2015-06-19 16:43:15  [ Thread-6:226009 ] - [ INFO ]  hello from G22
+2015-06-19 16:43:22  [ Thread-6:232195 ] - [ INFO ]  hello from G11
+2015-06-19 16:43:30  [ Timer-1:240850 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-19 16:43:30  [ Timer-1:240850 ] - [ INFO ]  hello to 192.168.1.22 2001
+2015-06-19 16:43:52  [ Thread-6:262197 ] - [ INFO ]  hello from G11
+2015-06-19 16:43:59  [ Thread-6:269677 ] - [ INFO ]  hello from G22
+2015-06-19 16:44:00  [ Timer-1:270850 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-19 16:44:00  [ Timer-1:270850 ] - [ INFO ]  hello to 192.168.1.22 2001
+2015-06-19 16:44:22  [ Thread-6:292198 ] - [ INFO ]  hello from G11
+2015-06-19 16:44:30  [ Timer-1:300849 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-19 16:44:30  [ Timer-1:300850 ] - [ INFO ]  hello to 192.168.1.22 2001
+2015-06-19 16:45:00  [ Timer-1:330849 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-19 16:45:00  [ Timer-1:330850 ] - [ INFO ]  hello to 192.168.1.22 2001
+2015-06-19 16:45:30  [ Timer-1:360849 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-19 16:45:30  [ Timer-1:360850 ] - [ INFO ]  hello to 192.168.1.22 2001
+2015-06-19 16:45:59  [ Timer-0:389677 ] - [ INFO ]   can't reach G22
+2015-06-19 16:46:00  [ Timer-1:390849 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-19 16:46:22  [ Timer-0:412198 ] - [ INFO ]   can't reach G11
+2015-06-19 16:46:22  [ Thread-6:412202 ] - [ INFO ]  hello from G11
+2015-06-19 16:46:30  [ Timer-1:420850 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-19 16:46:52  [ Thread-6:442202 ] - [ INFO ]  hello from G11
+2015-06-19 16:46:59  [ Timer-7:449679 ] - [ INFO ]  The neighbor G22 is invalid!
+2015-06-19 16:47:00  [ Timer-1:450850 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-19 16:47:22  [ Thread-6:472202 ] - [ INFO ]  hello from G11
+2015-06-19 16:47:30  [ Timer-1:480850 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-19 16:47:52  [ Thread-6:502204 ] - [ INFO ]  hello from G11
+2015-06-19 16:48:00  [ Timer-1:510849 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-19 16:48:22  [ Thread-6:532205 ] - [ INFO ]  hello from G11
+2015-06-19 16:48:30  [ Timer-1:540849 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-19 16:48:52  [ Thread-6:562205 ] - [ INFO ]  hello from G11
+2015-06-19 16:49:00  [ Timer-1:570850 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-19 16:49:22  [ Thread-6:592205 ] - [ INFO ]  hello from G11
+2015-06-19 16:49:30  [ Timer-1:600851 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-19 16:49:52  [ Thread-6:622207 ] - [ INFO ]  hello from G11
+2015-06-19 16:50:00  [ Timer-1:630851 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-19 16:50:22  [ Thread-6:652208 ] - [ INFO ]  hello from G11
+2015-06-19 16:50:30  [ Timer-1:660851 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-19 16:50:52  [ Thread-6:682209 ] - [ INFO ]  hello from G11
+2015-06-19 16:51:00  [ Timer-1:690850 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-19 16:51:30  [ Timer-1:720851 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-19 16:52:00  [ Timer-1:750851 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-19 16:52:30  [ Timer-1:780851 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-19 16:52:52  [ Timer-0:802209 ] - [ INFO ]   can't reach G11
+2015-06-19 16:53:52  [ Timer-10:862210 ] - [ INFO ]  The neighbor G11 is invalid!
+2015-06-19 16:53:52  [ Thread-6:862214 ] - [ INFO ]  Hello dropped because it's not a neighborG11
+2015-06-19 16:53:52  [ Thread-6:862214 ] - [ INFO ]  hello from G11
+2015-06-19 16:54:22  [ Thread-6:892214 ] - [ INFO ]  Hello dropped because it's not a neighborG11
+2015-06-19 16:54:22  [ Thread-6:892215 ] - [ INFO ]  hello from G11
+2015-06-19 17:01:00  [ Timer-1:1290855 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-19 17:01:14  [ Thread-6:1304258 ] - [ INFO ]  hello from G11
+2015-06-19 17:01:30  [ Timer-1:1320855 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-19 17:01:44  [ Thread-6:1334259 ] - [ INFO ]  hello from G11
+2015-06-19 17:02:00  [ Timer-1:1350856 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-19 17:02:14  [ Thread-6:1364260 ] - [ INFO ]  hello from G11
+2015-06-19 17:02:30  [ Timer-1:1380857 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-19 17:02:44  [ Thread-6:1394262 ] - [ INFO ]  hello from G11
+2015-06-19 17:03:00  [ Timer-1:1410857 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-19 17:03:14  [ Thread-6:1424262 ] - [ INFO ]  hello from G11
+2015-06-19 17:03:30  [ Timer-1:1440857 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-19 17:03:44  [ Thread-6:1454263 ] - [ INFO ]  hello from G11
+2015-06-19 17:04:00  [ Timer-1:1470857 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-19 17:04:14  [ Thread-6:1484264 ] - [ INFO ]  hello from G11
+2015-06-19 17:04:30  [ Timer-1:1500857 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-19 17:04:44  [ Thread-6:1514265 ] - [ INFO ]  hello from G11
+2015-06-19 17:05:00  [ Timer-1:1530857 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-19 17:05:14  [ Thread-6:1544267 ] - [ INFO ]  hello from G11
+2015-06-19 17:05:30  [ Timer-1:1560856 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-19 17:05:44  [ Thread-6:1574269 ] - [ INFO ]  hello from G11
+2015-06-19 17:06:00  [ Timer-1:1590856 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-19 17:06:14  [ Thread-6:1604270 ] - [ INFO ]  hello from G11
+2015-06-19 17:06:30  [ Timer-1:1620857 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-19 17:06:44  [ Thread-6:1634271 ] - [ INFO ]  hello from G11
+2015-06-19 17:07:00  [ Timer-1:1650858 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-19 17:07:14  [ Thread-6:1664272 ] - [ INFO ]  hello from G11
+2015-06-19 17:07:30  [ Timer-1:1680858 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-19 17:07:44  [ Thread-6:1694272 ] - [ INFO ]  hello from G11
+2015-06-19 17:08:00  [ Timer-1:1710857 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-19 17:08:14  [ Thread-6:1724273 ] - [ INFO ]  hello from G11
+2015-06-19 17:08:30  [ Timer-1:1740857 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-19 17:08:44  [ Thread-6:1754274 ] - [ INFO ]  hello from G11
+2015-06-19 17:09:00  [ Timer-1:1770858 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-19 17:09:14  [ Thread-6:1784275 ] - [ INFO ]  hello from G11
+2015-06-19 17:09:30  [ Timer-1:1800859 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-19 17:09:44  [ Thread-6:1814275 ] - [ INFO ]  hello from G11
+2015-06-19 17:10:00  [ Timer-1:1830860 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-19 17:10:14  [ Thread-6:1844276 ] - [ INFO ]  hello from G11
+2015-06-19 17:10:30  [ Timer-1:1860860 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-19 17:10:44  [ Thread-6:1874277 ] - [ INFO ]  hello from G11
+2015-06-19 17:11:00  [ Timer-1:1890860 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-19 17:11:14  [ Thread-6:1904277 ] - [ INFO ]  hello from G11
+2015-06-19 17:11:30  [ Timer-1:1920860 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-19 17:11:44  [ Thread-6:1934278 ] - [ INFO ]  hello from G11
+2015-06-19 17:12:00  [ Timer-1:1950860 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-19 17:12:14  [ Thread-6:1964281 ] - [ INFO ]  hello from G11
+2015-06-19 17:12:30  [ Timer-1:1980861 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-19 17:12:44  [ Thread-6:1994279 ] - [ INFO ]  hello from G11
+2015-06-19 17:13:00  [ Timer-1:2010861 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-19 17:13:14  [ Thread-6:2024281 ] - [ INFO ]  hello from G11
+2015-06-19 17:13:30  [ Timer-1:2040861 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-19 17:13:44  [ Thread-6:2054282 ] - [ INFO ]  hello from G11
+2015-06-19 17:14:00  [ Timer-1:2070861 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-19 17:14:14  [ Thread-6:2084284 ] - [ INFO ]  hello from G11
+2015-06-19 17:14:30  [ Timer-1:2100861 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-19 17:14:44  [ Thread-6:2114285 ] - [ INFO ]  hello from G11
+2015-06-19 17:15:00  [ Timer-1:2130860 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-19 17:15:14  [ Thread-6:2144286 ] - [ INFO ]  hello from G11
+2015-06-19 17:15:30  [ Timer-1:2160860 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-19 17:15:44  [ Thread-6:2174286 ] - [ INFO ]  hello from G11
+2015-06-19 17:16:00  [ Timer-1:2190860 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-19 17:16:14  [ Thread-6:2204287 ] - [ INFO ]  hello from G11
+2015-06-19 17:16:30  [ Timer-1:2220860 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-19 17:16:44  [ Thread-6:2234288 ] - [ INFO ]  hello from G11
+2015-06-19 17:17:00  [ Timer-1:2250861 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-19 17:17:14  [ Thread-6:2264290 ] - [ INFO ]  hello from G11
+2015-06-19 17:17:30  [ Timer-1:2280862 ] - [ INFO ]  hello to 192.168.1.11 2001
+2015-06-19 17:17:34  [ Timer-4:2284244 ] - [ INFO ]   can't reach G11
+2015-06-19 17:17:44  [ Thread-6:2294290 ] - [ INFO ]  hello from G11
+2015-06-19 17:18:14  [ Thread-6:2324291 ] - [ INFO ]  hello from G11
+2015-06-19 17:18:44  [ Thread-6:2354291 ] - [ INFO ]  hello from G11
+2015-06-19 17:19:14  [ Thread-6:2384292 ] - [ INFO ]  hello from G11
+2015-06-19 17:21:14  [ Timer-0:2504293 ] - [ INFO ]   can't reach G11
+2015-06-19 17:22:14  [ Timer-14:2564294 ] - [ INFO ]  The neighbor G11 is invalid!

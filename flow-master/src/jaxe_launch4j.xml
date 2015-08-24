@@ -1,0 +1,34 @@
+<launch4jConfig>
+  <dontWrapJar>true</dontWrapJar>
+  <headerType>gui</headerType>
+  <jar>lib/Jaxe.jar</jar>
+  <outfile>/Users/damien/Java/Jaxe/launch4j/Jaxe.exe</outfile>
+  <errTitle></errTitle>
+  <cmdLine></cmdLine>
+  <chdir>.</chdir>
+  <priority>normal</priority>
+  <downloadUrl>http://java.com/download</downloadUrl>
+  <supportUrl></supportUrl>
+  <customProcName>false</customProcName>
+  <stayAlive>false</stayAlive>
+  <manifest></manifest>
+  <icon>/Users/damien/Java/Jaxe/launch4j/Jaxe.ico</icon>
+  <jre>
+    <path></path>
+    <minVersion>1.5.0</minVersion>
+    <maxVersion></maxVersion>
+    <jdkPreference>preferJre</jdkPreference>
+  </jre>
+  <versionInfo>
+    <fileVersion>3.5.0.0</fileVersion>
+    <txtFileVersion>3.5</txtFileVersion>
+    <fileDescription>Jaxe - Java XML Editor</fileDescription>
+    <copyright>GPL</copyright>
+    <productVersion>3.5.0.0</productVersion>
+    <txtProductVersion>3.5</txtProductVersion>
+    <productName>Jaxe</productName>
+    <companyName></companyName>
+    <internalName>Jaxe</internalName>
+    <originalFilename>Jaxe.exe</originalFilename>
+  </versionInfo>
+</launch4jConfig>

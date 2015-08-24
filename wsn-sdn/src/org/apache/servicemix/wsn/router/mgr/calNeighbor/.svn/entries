@@ -1,0 +1,76 @@
+8
+
+dir
+979
+svn://10.109.253.8/Wsn/wsn-core/src/org/apache/servicemix/wsn/router/mgr/calNeighbor
+svn://10.109.253.8
+
+
+
+2014-04-04T06:11:02.672912Z
+979
+Wsn
+
+
+svn:special svn:externals svn:needs-lock
+
+NeigSelect.java
+file
+
+
+
+
+2014-04-04T00:48:23.692297Z
+b53c1d9849841a42ff60322c031ef68c
+2014-04-04T06:11:02.672912Z
+979
+Wsn
+
+NeigBuild.java
+file
+
+
+
+
+2014-04-04T00:48:23.671296Z
+00ea669bf8a11bdc85fe7c292c14f0ce
+2014-04-04T06:11:02.672912Z
+979
+Wsn
+
+Node.java
+file
+
+
+
+
+2014-04-04T00:48:23.693297Z
+64604cae860bd5a24ee8c7e9d11d6878
+2014-04-04T06:11:02.672912Z
+979
+Wsn
+
+UDN.java
+file
+
+
+
+
+2014-04-04T00:48:23.697297Z
+ea8ef171a459bbb4fd30bc57a935184f
+2014-04-04T06:11:02.672912Z
+979
+Wsn
+
+RNG.java
+file
+
+
+
+
+2014-04-04T00:48:23.695297Z
+4a1e0df5630ce8bfce226b92b7589355
+2014-04-04T06:11:02.672912Z
+979
+Wsn
+
