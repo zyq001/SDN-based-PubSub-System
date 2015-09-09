@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="cortado">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/flow-master/config/XPAGES_interface/applications/cortado.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
