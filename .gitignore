@@ -1,8 +1,5 @@
-*.jar
 *.class
 flow-master/bin
-flow-master/lib
 .idea
 .idea/*
-wsn-sdn/lib
 wsn-sdn/bin
