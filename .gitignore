@@ -1,5 +1,7 @@
 *.class
 flow-master/bin
+flow-master/.idea
 .idea
 .idea/*
 wsn-sdn/bin
+wsn-sdn/.idea
