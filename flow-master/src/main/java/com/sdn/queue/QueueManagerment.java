@@ -19,8 +19,6 @@ public class QueueManagerment {
 			result = RestProcess.AddFlow(new JSONObject(flow));
 		} catch (IOException e) {
 			e.printStackTrace();
-		} catch (ParseException e) {
-			e.printStackTrace();
 		}
 		return result.contains("pushed");
 	}

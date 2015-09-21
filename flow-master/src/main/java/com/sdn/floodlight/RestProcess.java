@@ -94,8 +94,7 @@ public class RestProcess {///wm/device/
 
 		String topoString = doClientGet(REST_URL + "/wm/topology/links/json");
 		JSONArray topoArray = null;
-		try {
-			topoArray = new JSONArray(topoString);
+		topoArray = new JSONArray(topoString);
 
 		for(int i = 0; i < topoArray.length(); i = i + 2){
 			JSONObject link = new JSONObject(topoArray.get(i).toString());
@@ -104,10 +103,6 @@ public class RestProcess {///wm/device/
 			String dstSW = link.getString("dst-switch");
 			String dstPort = link.getString("dst-port");
 			DevInfo.getINSTANCE().getTopology().get(srcSW).add(DevInfo.getINSTANCE().getSwitchs().get(dstSW));
-		}
-
-		}catch (ParseException e) {
-			e.printStackTrace();
 		}
 
 	}

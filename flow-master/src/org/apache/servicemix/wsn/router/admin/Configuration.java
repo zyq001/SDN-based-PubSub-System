@@ -16,7 +16,7 @@ public class Configuration {
 	public void configure() {
 		// TODO Auto-generated method stub
 
-		File file = new File("Aconfigure.txt");
+		File file = new File("org/apache/servicemix/wsn/router/admin/Aconfigure.txt");
 
 		BufferedReader reader = null;
 
