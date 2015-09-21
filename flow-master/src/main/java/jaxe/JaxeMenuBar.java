@@ -3,11 +3,11 @@ Jaxe - Editeur XML en Java
 
 Copyright (C) 2003 Observatoire de Paris
 
-Ce programme est un logiciel libre ; vous pouvez le redistribuer et/ou le modifier conformément aux dispositions de la Licence Publique Générale GNU, telle que publiée par la Free Software Foundation ; version 2 de la licence, ou encore (à votre choix) toute version ultérieure.
+Ce programme est un logiciel libre ; vous pouvez le redistribuer et/ou le modifier conform?ment aux dispositions de la Licence Publique G?n?rale GNU, telle que publi?e par la Free Software Foundation ; version 2 de la licence, ou encore (? votre choix) toute version ult?rieure.
 
-Ce programme est distribué dans l'espoir qu'il sera utile, mais SANS AUCUNE GARANTIE ; sans même la garantie implicite de COMMERCIALISATION ou D'ADAPTATION A UN OBJET PARTICULIER. Pour plus de détail, voir la Licence Publique Générale GNU .
+Ce programme est distribu? dans l'espoir qu'il sera utile, mais SANS AUCUNE GARANTIE ; sans m?me la garantie implicite de COMMERCIALISATION ou D'ADAPTATION A UN OBJET PARTICULIER. Pour plus de d?tail, voir la Licence Publique G?n?rale GNU .
 
-Vous devez avoir reçu un exemplaire de la Licence Publique Générale GNU en même temps que ce programme ; si ce n'est pas le cas, écrivez à la Free Software Foundation Inc., 675 Mass Ave, Cambridge, MA 02139, Etats-Unis.
+Vous devez avoir re?u un exemplaire de la Licence Publique G?n?rale GNU en m?me temps que ce programme ; si ce n'est pas le cas, ?crivez ? la Free Software Foundation Inc., 675 Mass Ave, Cambridge, MA 02139, Etats-Unis.
 */
 
 package jaxe;
@@ -53,7 +53,7 @@ import org.w3c.dom.Element;
 
 
 /**
- * Barre de menus de Jaxe et actions associées
+ * Barre de menus de Jaxe et actions associ?es
  */
 public class JaxeMenuBar extends JMenuBar implements ActionListener, EcouteurMAJ {
     /**
@@ -243,8 +243,8 @@ public class JaxeMenuBar extends JMenuBar implements ActionListener, EcouteurMAJ
         miSpelling = editMenu.add(new ActionOrthographe());
         
         /*
-        // ne marche pas avec un clavier AZERTY alors que ça devrait marcher, cf Java bug 4199399
-        // bizarrement ça marche si on met VK_PERIOD au lieu de VK_COLON, mais l'affichage est incorrect
+        // ne marche pas avec un clavier AZERTY alors que ?a devrait marcher, cf Java bug 4199399
+        // bizarrement ?a marche si on met VK_PERIOD au lieu de VK_COLON, mais l'affichage est incorrect
         if (System.getProperty("os.name").startsWith("Mac OS"))
             miSpelling.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_PERIOD, cmdMenu));
         */
@@ -347,8 +347,8 @@ public class JaxeMenuBar extends JMenuBar implements ActionListener, EcouteurMAJ
     }
     
     /**
-     * Filtre pour JFileChooser sélectionnant les fichiers avec l'extension .xml.
-     * javax.swing.filechooser.FileNameExtensionFilter pourra remplacer ça, mais c'est du Java 1.6
+     * Filtre pour JFileChooser s?lectionnant les fichiers avec l'extension .xml.
+     * javax.swing.filechooser.FileNameExtensionFilter pourra remplacer ?a, mais c'est du Java 1.6
      */
     class XMLFileFilter extends FileFilter {
         public boolean accept(File f) {
@@ -365,7 +365,7 @@ public class JaxeMenuBar extends JMenuBar implements ActionListener, EcouteurMAJ
     
     public void doOpen() {
         /* JFileChooser: avantage: choix affichage fichiers XML/tous les fichiers sur Windows (pas de pb sur Mac)
-           FileDialog: avantage: dialogue standard du système mais très moche sur Linux avant Java 7
+           FileDialog: avantage: dialogue standard du syst?me mais tr?s moche sur Linux avant Java 7
            => utilisation de JFileChooser sur Linux avant la version 1.7, FileDialog dans tous les autres cas
         */
         if (System.getProperty("os.name").indexOf("Linux") != -1 && System.getProperty("java.version").compareTo("1.7") < 0) {
@@ -473,7 +473,7 @@ public class JaxeMenuBar extends JMenuBar implements ActionListener, EcouteurMAJ
                 final String exportdoc = doc.cfg.documentationExport(refExport);
                 if (exportdoc != null)
                     item.setToolTipText(exportdoc);
-                // on pourrait utiliser Config.formatageDoc, sauf que le HTML n'est pas géré sur MacOS X pour la barre de menus de l'appli
+                // on pourrait utiliser Config.formatageDoc, sauf que le HTML n'est pas g?r? sur MacOS X pour la barre de menus de l'appli
                 menusExport[pos-7] = fileMenu.getItem(pos);
                 pos++;
             }
@@ -493,7 +493,7 @@ public class JaxeMenuBar extends JMenuBar implements ActionListener, EcouteurMAJ
         if (listeExportsHTML == null || listeExportsHTML.size() == 0)
             return;
         final Export exp = new Export(jaxeframe.doc, listeExportsHTML.get(0));
-        exp.transformation(Export.fichierHTML(jaxeframe.doc.fsave), true); // ouvre le navigateur à la fin
+        exp.transformation(Export.fichierHTML(jaxeframe.doc.fsave), true); // ouvre le navigateur ? la fin
     }
     
     
@@ -537,7 +537,7 @@ public class JaxeMenuBar extends JMenuBar implements ActionListener, EcouteurMAJ
         prefs.setVisible(true);
     }
     
-    // inspiré de DefaultEditorKit.CutAction, mais avec la localisation du titre
+    // inspir? de DefaultEditorKit.CutAction, mais avec la localisation du titre
     protected static class ActionCouper extends TextAction {
         public ActionCouper() {
             super(rb.getString("menus.Couper"));

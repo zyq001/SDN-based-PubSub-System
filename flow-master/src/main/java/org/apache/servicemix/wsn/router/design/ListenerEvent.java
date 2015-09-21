@@ -774,11 +774,10 @@ class MyValidator implements IInputValidator{
 	public String isValid(String newText) {
 		// TODO Auto-generated method stub
 		if (newText==null){
-			return "��������ֵ";
+			return "??";
 		}
 		
 		return null;
-		//return "���ݵ�ǰ����Ϣ���������";
 	}
 	
 }

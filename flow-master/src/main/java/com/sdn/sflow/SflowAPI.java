@@ -6,6 +6,8 @@ import jaxe.Config;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
+
 /**
  * Created by root on 15-7-14.
  */
@@ -17,7 +19,7 @@ public class SflowAPI {
         String result = RestProcess.doClientGet(url);
         try {
             speed = Double.valueOf(new JSONObject(result).get("metricValue").toString());
-        } catch (JSONException e) {
+        } catch (ParseException e) {
             e.printStackTrace();
         }
         return speed;

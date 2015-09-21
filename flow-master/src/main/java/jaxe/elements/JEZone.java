@@ -1,14 +1,4 @@
-/*
-Jaxe - Editeur XML en Java
 
-Copyright (C) 2002 Observatoire de Paris-Meudon
-
-Ce programme est un logiciel libre ; vous pouvez le redistribuer et/ou le modifier conformément aux dispositions de la Licence Publique Générale GNU, telle que publiée par la Free Software Foundation ; version 2 de la licence, ou encore (à votre choix) toute version ultérieure.
-
-Ce programme est distribué dans l'espoir qu'il sera utile, mais SANS AUCUNE GARANTIE ; sans même la garantie implicite de COMMERCIALISATION ou D'ADAPTATION A UN OBJET PARTICULIER. Pour plus de détail, voir la Licence Publique Générale GNU .
-
-Vous devez avoir reçu un exemplaire de la Licence Publique Générale GNU en même temps que ce programme ; si ce n'est pas le cas, écrivez à la Free Software Foundation Inc., 675 Mass Ave, Cambridge, MA 02139, Etats-Unis.
-*/
 
 package jaxe.elements;
 
@@ -35,10 +25,10 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
 /**
- * Zone de texte. Le texte à l'intérieur est indenté.
- * Type d'élément Jaxe: 'zone'
- * paramètre: titreAtt: un attribut pouvant servir de titre
- * paramètre: style: comme dans JEStyle
+ * Zone de texte. Le texte ? l'int?rieur est indent?.
+ * Type d'?l?ment Jaxe: 'zone'
+ * param?tre: titreAtt: un attribut pouvant servir de titre
+ * param?tre: style: comme dans JEStyle
  */
 public class JEZone extends JaxeElement {
     /**
@@ -58,8 +48,8 @@ public class JEZone extends JaxeElement {
     }
     
     /**
-     * Renvoit le titre qui sera affiché pour les dialogues sur l'élément :
-     * nom de l'élément ou titre, en fonction des options d'affichage.
+     * Renvoit le titre qui sera affich? pour les dialogues sur l'?l?ment :
+     * nom de l'?l?ment ou titre, en fonction des options d'affichage.
      */
     public String titreElement() {
         if (refElement != null)
@@ -89,7 +79,7 @@ public class JEZone extends JaxeElement {
         else
             ensCouleur = doc.cfg.numeroEspace(ns);
         if (ensCouleur == -1)
-            // espace non géré
+            // espace non g?r?
             ensCouleur = 0;
         lstart.setEnsembleCouleurs(ensCouleur);
         lstart.setValidite(valide);
@@ -97,7 +87,7 @@ public class JEZone extends JaxeElement {
         
         Style s = null;
         final Properties prefs = Preferences.getPref();
-        // prefs peut être null dans le cas où JaxeTextPane est inclus
+        // prefs peut ?tre null dans le cas o? JaxeTextPane est inclus
         // dans une autre application que Jaxe
         if (prefs == null || !"true".equals(prefs.getProperty("consIndent"))) {
             s = doc.textPane.addStyle(null, null);

@@ -1,10 +1,10 @@
 package com.sdn.queue;
 
 import com.sdn.floodlight.RestProcess;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +19,7 @@ public class QueueManagerment {
 			result = RestProcess.AddFlow(new JSONObject(flow));
 		} catch (IOException e) {
 			e.printStackTrace();
-		} catch (JSONException e) {
+		} catch (ParseException e) {
 			e.printStackTrace();
 		}
 		return result.contains("pushed");

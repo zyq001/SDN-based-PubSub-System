@@ -1,26 +1,28 @@
 package com.sdn.floodlight;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
-import java.lang.*;
-import java.util.ArrayList;
-import java.util.List;
-
 import com.sdn.info.DevInfo;
 import com.sdn.info.FlowInfo;
 import com.sdn.info.MemoryInfo;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.GetMethod;
+//import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class RestProcess {///wm/device/
 	public static String REST_URL = "http://192.168.1.30:8080";//"http://10.108.164.211:8080/wm/core/controller/switches/json";//"http://10.108.164.211:8080/wm/core/switch/1/flow/json";
@@ -28,17 +30,17 @@ public class RestProcess {///wm/device/
 	private static String SECRET_KEY = "your secret key";
 	private static int index = 2;
 	private static CloseableHttpClient client = HttpClients.createDefault();
-	
-	
-	
+
+
+
 	public static void main(String args[]){
 
 		MemoryInfo result = getMemory();
 		System.out.println(result);
-		
+
 //		ArrayList<ArrayList<String>> result2 = getDevInfo();
 //		System.out.println(result2);
-		
+
 	}
 
 
@@ -104,7 +106,7 @@ public class RestProcess {///wm/device/
 			DevInfo.getINSTANCE().getTopology().get(srcSW).add(DevInfo.getINSTANCE().getSwitchs().get(dstSW));
 		}
 
-		}catch (JSONException e) {
+		}catch (ParseException e) {
 			e.printStackTrace();
 		}
 
@@ -277,8 +279,8 @@ public class RestProcess {///wm/device/
 
 		return	result;
 	}
-	
-	
+
+
 
 
 }
