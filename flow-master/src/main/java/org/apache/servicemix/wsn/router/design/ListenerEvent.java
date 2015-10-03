@@ -91,13 +91,13 @@ class ReConfigEvent extends SelectionAdapter{
 		int selection=table.getSelectionIndex();
 
 		if(selection==-1){
-			MessageDialog.openInformation(shell, "", "���ڱ����ѡ��һ���¼");
+			MessageDialog.openInformation(shell, "", "????????????????");
 		}
 		else{ 
 			TableItem tmpItem=table.getItem(selection);
 			String grpName=tmpItem.getText(0);
 			if(grpName.equals("")){
-				MessageDialog.openInformation(shell, "", "��ѡ��һ������Ʋ�Ϊ�յļ�¼");
+				MessageDialog.openInformation(shell, "", "????????????????????");
 			}
 			else{
 				shell.setEnabled(false);
@@ -105,15 +105,15 @@ class ReConfigEvent extends SelectionAdapter{
 				shell.setEnabled(true);
 				shell.setActive();
 				
-				//��ʾ״̬��
-				win.label_operate.setText("���ü�Ⱥ"+grpName );
-				//�л�������̨
+				//???????
+				win.label_operate.setText("???��??"+grpName );
+				//?��????????
 				win.tabFolder.setSelection(win.tabItem);
 				
 				
 				SimpleDateFormat sdf = new SimpleDateFormat("H:mm yyyy-M-dd");
 				Date date = new Date();
-				text.append("\n"+sdf.format(date)+":��"+grpName+"��������\n");
+				text.append("\n"+sdf.format(date)+":??"+grpName+"????????\n");
 			}
 		}
 	}
@@ -127,8 +127,8 @@ class AboutMeEvent extends SelectionAdapter{
    }	
 	public void widgetSelected(final SelectionEvent e){
 		MessageBox msg = new MessageBox(shell);
-		msg.setText("���ڱ����±�");
-		msg.setMessage("�汾:Version1.2\n������:��˼��\t\n\n2011.5.20");
+		msg.setText("????????��?");
+		msg.setMessage("?��:Version1.2\n??????:?????\t\n\n2011.5.20");
 		msg.open();
 	}
 }
@@ -141,7 +141,7 @@ class TimeDateEvent extends SelectionAdapter{
 	public void widgetSelected(final SelectionEvent e){
 		SimpleDateFormat sdf = new SimpleDateFormat("H:mm yyyy-M-dd\n");
 		Date date = new Date();
-		text.append("\n"+sdf.format(date)+"����ѯ��ǰʱ�䣺"+sdf.format(date)+"\n");
+		text.append("\n"+sdf.format(date)+"???????????"+sdf.format(date)+"\n");
 	}
 }
 
@@ -191,13 +191,13 @@ class ShowGroupInfo extends SelectionAdapter{
 		this.win=win;
 	}
 	public void widgetSelected(final SelectionEvent e) {
-		//״̬��
-		win.label_event.setText("��ѯ��Ⱥע����Ϣ");
-		//ͻ��������ؿ���̨
+		//????
+		win.label_event.setText("????????????");
+		//??????????????
 		win.tabFolder.setSelection(win.tabItem);
 		
 		List<GroupInfo> GroupList=new ArrayList<GroupInfo>();
-		//ɾ��ԭ�еı���¼�ͱ����
+		//?????��???????????
 		table.removeAll();
 		TableColumn[] allColumns=table.getColumns();
 		
@@ -205,22 +205,22 @@ class ShowGroupInfo extends SelectionAdapter{
 			allColumns[i].dispose();
 		}
 		
-		//��ʼ���µ���
+		//??????????
 		TableColumn tblclmnNewColumn = new TableColumn(table, SWT.NONE);
 		tblclmnNewColumn.setWidth(100);
-		tblclmnNewColumn.setText("��Ⱥ���");
+		tblclmnNewColumn.setText("??????");
 		
 		TableColumn tblclmnNewColumn_1 = new TableColumn(table, SWT.NONE);
 		tblclmnNewColumn_1.setWidth(100);
-		tblclmnNewColumn_1.setText("��Ⱥ����ַ");
+		tblclmnNewColumn_1.setText("????????");
 		
 		TableColumn tblclmnNewColumn_2 = new TableColumn(table, SWT.NONE);
 		tblclmnNewColumn_2.setWidth(100);
-		tblclmnNewColumn_2.setText("ע��ʱ��");
+		tblclmnNewColumn_2.setText("??????");
 		
 		
 		
-		text.append("�鿴��Ⱥ��Ϣ\n");
+		text.append("????????\n");
 		GroupList=data.getAllGroup();
 		Iterator<GroupInfo> itr=GroupList.iterator();
 		SimpleDateFormat sdf = new SimpleDateFormat("H:mm yyyy-M-dd\n");
@@ -239,7 +239,7 @@ class ShowGroupInfo extends SelectionAdapter{
 			}
 		}
 		
-		//-----------------------------������¼�--------------------------------------------//
+		//-----------------------------????????--------------------------------------------//
 		table.addMouseListener(new MouseListener(){
 			public void mouseDoubleClick(MouseEvent e){
 				int sellndex=table.getSelectionIndex();
@@ -248,33 +248,33 @@ class ShowGroupInfo extends SelectionAdapter{
 				String grpName=item.getText(0);
 				String grpReAddr=item.getText(1);
 				
-				//˫��ĳ��Ⱥ����ʾѡ�м�Ⱥ�ĳ�Ա��Ϣ
+				//??????????????��?????????
 				table.removeAll();
-				//ɾ��ԭ����Ϣ
+				//?????????
 				TableColumn[] allColumns=table.getColumns();
 				for(int i=0;i<allColumns.length;i++){
 					allColumns[i].dispose();
 				}
 				
-				//�����µ���
+				//?????????
 				TableColumn tblclmnNewColumn = new TableColumn(table, SWT.NONE);
 				tblclmnNewColumn.setWidth(100);
-				tblclmnNewColumn.setText("��Ⱥ���");
+				tblclmnNewColumn.setText("??????");
 			
 				TableColumn tblclmnNewColumn_1 = new TableColumn(table, SWT.NONE);
 				tblclmnNewColumn_1.setWidth(100);
-				tblclmnNewColumn_1.setText("��Ա��ַ");
+				tblclmnNewColumn_1.setText("??????");
 				
 				TableColumn tblclmnNewColumn_2 = new TableColumn(table, SWT.NONE);
 				tblclmnNewColumn_2.setWidth(100);
-				tblclmnNewColumn_2.setText("��Ⱥid");
+				tblclmnNewColumn_2.setText("???id");
 				
 				TableColumn tblclmnNewColumn_3 = new TableColumn(table, SWT.NONE);
 				tblclmnNewColumn_3.setWidth(100);
-				tblclmnNewColumn_3.setText("tcp�˿ں�");
+				tblclmnNewColumn_3.setText("tcp????");
 				
 				
-				//�����ô���
+				//?????????
 				/*
 			  	TableItem item=new TableItem(table,0);
 			  	item.setText(new String[]{grpName,"118.229.134.140"});
@@ -282,39 +282,39 @@ class ShowGroupInfo extends SelectionAdapter{
 			  	item2.setText(new String[]{"","118.229.134.250"});
 				 */ 
 			
-				//���ýӿڹ��ܣ�ʵ�ּ�Ⱥ��Ա��ѯ
+				//?????????????????????
 				MsgLookupGroupMember_ GroupMember=Interface.lookupGroupMember(grpName);
 				Iterator<BrokerUnit> itr=GroupMember.members.iterator();
 				
 				BrokerUnit b1 = itr.next();
 				TableItem ti1 = new TableItem(table, 0);
-				ti1.setText(new String[]{grpName, b1.addr + "(���)", "" + b1.id, "" + b1.tPort});
+				ti1.setText(new String[]{grpName, b1.addr + "(???)", "" + b1.id, "" + b1.tPort});
 
-				//����صĳ�Ա�б�,���±��
+				//?????????��?,???��??
 				while(itr.hasNext()){
 					TableItem member=new TableItem(table,0);
 					BrokerUnit aMember=itr.next();
 					member.setText(new String[]{"",aMember.addr,""+aMember.id,""+aMember.tPort});
 				}
-			  //���¿���̨
-				/*//���ýӿڹ��ܣ�ʵ�ּ�Ⱥ��Ա��ѯ
+			  //????????
+				/*//?????????????????????
 				MsgLookupGroupMember_ GroupMember=Interface.lookupGroupMember(grpName);
 				Iterator<BrokerUnit> itr=GroupMember.members.iterator();
 				int count=0;
-				//����صĳ�Ա�б�,���±��
+				//?????????��?,???��??
 				while(itr.hasNext()){
 					TableItem member=new TableItem(table,0);
 					BrokerUnit aMember=itr.next();
 					String addr;
-					//����Ƿ��Ǵ���ַ
+					//????????????
 					if(aMember.addr.equals(grpReAddr)){
-						addr=aMember.addr+"(����ַ)";
+						addr=aMember.addr+"(?????)";
 					}
 					else{
 						addr=aMember.addr;
 					}
 					
-					//����Ƿ��ǵ�һ��
+					//????????????
 					if(count==0){
 						
 						member.setText(new String[]{grpName,addr,""+aMember.id,""+aMember.tPort});
@@ -337,10 +337,10 @@ class ShowGroupInfo extends SelectionAdapter{
 			}
 		});
 		
-		//-------------------------------��Ӧ������¼�����--------------------------------------------//
-		//���±��
+		//-------------------------------???????????????--------------------------------------------//
+		//???��??
 		Date date = new Date();
-		text.append("\n"+sdf.format(date)+"����ѯ�˼�Ⱥ��ע����Ϣ"+"\n");
+		text.append("\n"+sdf.format(date)+"?????????????????"+"\n");
 	}
 }
 //---------------------------------------------------------------------//
@@ -363,18 +363,18 @@ class LookUpSub extends SelectionAdapter{
 		// TODO Auto-generated constructor stub
 	}
 	public void widgetSelected(final SelectionEvent e) {
-		InputDialog dialog = new InputDialog(shell,"��ѯ���Ա","�����������","",new MyValidator());
+		InputDialog dialog = new InputDialog(shell,"???????","???????????","",new MyValidator());
 		
 		if(dialog.open()==InputDialog.OK){
 			grpName=dialog.getValue();
 		
 			if(data.getGroupIndex(grpName)==-1){
-				MessageDialog.openInformation(shell, "��ʾ", "�����ڸ���");
+				MessageDialog.openInformation(shell, "???", "?????????");
 			}
 			else{
-				//״̬��
-				win.label_operate.setText("��ѯ��Ⱥ������Ϣ");
-				//ͻ��������ؿ���̨
+				//????
+				win.label_operate.setText("?????????????");
+				//??????????????
 				win.tabFolder.setSelection(win.tabItem);
 				
 				List<GroupInfo> GroupList=new ArrayList<GroupInfo>();
@@ -388,34 +388,34 @@ class LookUpSub extends SelectionAdapter{
 				
 				TableColumn tblclmnNewColumn = new TableColumn(table, SWT.NONE);
 				tblclmnNewColumn.setWidth(100);
-				tblclmnNewColumn.setText("��Ⱥ���");
+				tblclmnNewColumn.setText("??????");
 				
 				TableColumn tblclmnNewColumn_1 = new TableColumn(table, SWT.NONE);
 				tblclmnNewColumn_1.setWidth(100);
-				tblclmnNewColumn_1.setText("��Ⱥ������Ϣ");
+				tblclmnNewColumn_1.setText("??????????");
 				
 				/*
-				//������
+				//??????
 				  TableItem item=new TableItem(table,0);
-				  item.setText(new String[]{grpName,"����Ԥ��"});
+				  item.setText(new String[]{grpName,"???????"});
 				  TableItem item2=new TableItem(table,0);
-				  item2.setText(new String[]{"","����״��"});
-				//����END
+				  item2.setText(new String[]{"","???????"});
+				//????END
 				*/
 				
 				SimpleDateFormat sdf = new SimpleDateFormat("H:mm yyyy-M-dd");
 				Date date = new Date();
-				text.append("\n"+sdf.format(date)+"����ѯ�˼�Ⱥ"+grpName+"�Ķ�����Ϣ\n");
-				//���ýӿ�
+				text.append("\n"+sdf.format(date)+"?????????"+grpName+"????????\n");
+				//??????
 					
 //				String[] GroupMember=Interface.lookupGroupSubscriptions(grpName);
 //				if(GroupMember==null){
 //					data.removeGroup(grpName);
 //					Interface.groups.remove(grpName);
 //					Interface.GroupsChangeNtfyBkp();
-//					MessageDialog.openInformation(shell, "��ʾ", "�����ڸü�Ⱥ");
+//					MessageDialog.openInformation(shell, "???", "??????��??");
 //				}else{
-//					//����table
+//					//????table
 //					for(int i=0;i<GroupMember.length;i++){
 //						TableItem member=new TableItem(table,0);
 //						if(i==0){
@@ -467,13 +467,13 @@ class GetGroupConfig extends SelectionAdapter{
 			int selection=table.getSelectionIndex();
 
 			if(selection==-1){
-				MessageDialog.openInformation(shell, "", "���ڱ����ѡ��һ���¼");
+				MessageDialog.openInformation(shell, "", "????????????????");
 			}
 			else{ 
 				TableItem tmpItem=table.getItem(selection);
 				String grpName=tmpItem.getText(0);
 				if(grpName.equals("")){
-					MessageDialog.openInformation(shell, "", "��ѡ��һ������Ʋ�Ϊ�յļ�¼");
+					MessageDialog.openInformation(shell, "", "????????????????????");
 				}
 				else{
 					GroupConfiguration initInfo=new GroupConfiguration();
@@ -483,29 +483,29 @@ class GetGroupConfig extends SelectionAdapter{
 					else{
 						initInfo=configFile.ReadGroupConfiguration(grpName);
 					}
-					String configInfo = new String("��Ⱥ��ƣ�"+initInfo.GroupName+"\n"
-							+"����ַ��"+initInfo.repAddr+"\n"
-							+"TCP�˿ںţ�"+initInfo.tPort+"\n"
-							+"�鲥�˿ںţ�"+initInfo.uPort+"\n"
-							+"�ӽڵ���Ŀ��"+initInfo.childrenSize+"\n"
-							+"���볬ʱʱ�䣺"+initInfo.joinTimes+"\n"
-							+"�������С��"+initInfo.synPeriod+"\n"
-							+"�ж�ʧЧ��ֵ��"+initInfo.lostThreshold+"\n"
-							+"ɨ�����ڣ�"+initInfo.scanPeriod+"\n"
-							+"�������ڣ�"+initInfo.sendPeriod+"\n");
+					String configInfo = new String("???????"+initInfo.GroupName+"\n"
+							+"???????"+initInfo.repAddr+"\n"
+							+"TCP?????"+initInfo.tPort+"\n"
+							+"?��?????"+initInfo.uPort+"\n"
+							+"?????????"+initInfo.childrenSize+"\n"
+							+"????????"+initInfo.joinTimes+"\n"
+							+"???????��??"+initInfo.synPeriod+"\n"
+							+"?��??��?????"+initInfo.lostThreshold+"\n"
+							+"????????"+initInfo.scanPeriod+"\n"
+							+"?????????"+initInfo.sendPeriod+"\n");
 					
-					//״̬����ʾ
-					win.label_operate.setText("�鿴��Ⱥ"+grpName+"��������Ϣ");
-					//�л�������̨
+					//???????
+					win.label_operate.setText("?????"+grpName+"?????????");
+					//?��????????
 					win.tabFolder.setSelection(win.tabItem);
 					
-					//text.append("��"+grpName+"���������ò�ѯ,�������£�\n"+configInfo);
-					//�öԻ�����ʾ������Ϣ
-					MessageDialog.openInformation(shell, "��Ⱥ"+grpName+"��������Ϣ", configInfo);
+					//text.append("??"+grpName+"?????????��??,?????????\n"+configInfo);
+					//????????????????
+					MessageDialog.openInformation(shell, "???"+grpName+"?????????", configInfo);
 					
 					SimpleDateFormat sdf = new SimpleDateFormat("H:mm yyyy-M-dd");
 					Date date = new Date();
-					text.append("\n"+sdf.format(date)+"����ѯ�˼�Ⱥ"+grpName+"��������Ϣ\n");
+					text.append("\n"+sdf.format(date)+"?????????"+grpName+"?????????\n");
 				}
 			}
 	}
@@ -556,49 +556,49 @@ class LookUpMem extends SelectionAdapter{
 		this.Interface=interactIF;
 	}
 	public void widgetSelected(final SelectionEvent e) {
-		InputDialog dialog = new InputDialog(shell,"��ѯ���Ա","�����������","",new MyValidator());
+		InputDialog dialog = new InputDialog(shell,"???????","???????????","",new MyValidator());
 		if(dialog.open()==InputDialog.OK){
 			grpName=dialog.getValue();
 		    int index=data.getGroupIndex(grpName);
 			if(index==-1&&grpName!=null){
-				MessageDialog.openInformation(shell, "��ʾ", "�����ڸ���");
+				MessageDialog.openInformation(shell, "???", "?????????");
 			}
 			else{
-				//��ʾ״̬��
-				win.label_operate.setText("��ѯ��Ⱥ��Ա");
-				//���л������
+				//???????
+				win.label_operate.setText("?????????");
+				//???��??????
 				win.tabFolder.setSelection(win.tabItem);
-				//���ԭ����¼
+				//?????????
 				table.removeAll();
-				//ɾ��ԭ����Ϣ
+				//?????????
 				TableColumn[] allColumns=table.getColumns();
 				for(int i=0;i<allColumns.length;i++){
 					allColumns[i].dispose();
 				}
 				
-				//�����µ���
+				//?????????
 				TableColumn tblclmnNewColumn = new TableColumn(table, SWT.NONE);
 				tblclmnNewColumn.setWidth(100);
-				tblclmnNewColumn.setText("��Ⱥ���");
+				tblclmnNewColumn.setText("??????");
 			
 				TableColumn tblclmnNewColumn_1 = new TableColumn(table, SWT.NONE);
 				tblclmnNewColumn_1.setWidth(100);
-				tblclmnNewColumn_1.setText("��Ա��ַ");
+				tblclmnNewColumn_1.setText("??????");
 				
 				TableColumn tblclmnNewColumn_2 = new TableColumn(table, SWT.NONE);
 				tblclmnNewColumn_2.setWidth(100);
-				tblclmnNewColumn_2.setText("��Ⱥid");
+				tblclmnNewColumn_2.setText("???id");
 				
 				TableColumn tblclmnNewColumn_3 = new TableColumn(table, SWT.NONE);
 				tblclmnNewColumn_3.setWidth(100);
-				tblclmnNewColumn_3.setText("tcp�˿ں�");
+				tblclmnNewColumn_3.setText("tcp????");
 				
-				//��ȡ���뼯Ⱥ�Ĵ���ַ
+				//??????????????
 //				List<GroupInfo> GroupList=data.getAllGroup();
 //				GroupInfo theGroup=GroupList.get(index);
 //				String grpReAddr=theGroup.GroupAddress;
 				
-				//�����ô���
+				//?????????
 				/*
 			  	TableItem item=new TableItem(table,0);
 			  	item.setText(new String[]{grpName,"118.229.134.140"});
@@ -607,31 +607,31 @@ class LookUpMem extends SelectionAdapter{
 				 */ 
 			
 				
-				//���ýӿڹ��ܣ�ʵ�ּ�Ⱥ��Ա��ѯ
+				//?????????????????????
 				MsgLookupGroupMember_ GroupMember=Interface.lookupGroupMember(grpName);
 				if(GroupMember==null){
 					data.removeGroup(grpName);
 					Interface.groups.remove(grpName);
 					Interface.GroupsChangeNtfyBkp();
-					MessageDialog.openInformation(shell, "��ʾ", "�����ڸü�Ⱥ");
+					MessageDialog.openInformation(shell, "???", "??????��??");
 				}else{
 					Iterator<BrokerUnit> itr=GroupMember.members.iterator();
 					
 					BrokerUnit b1 = itr.next();
 					TableItem ti1 = new TableItem(table, 0);
-					ti1.setText(new String[]{grpName, b1.addr + "(���)", "" + b1.id, "" + b1.tPort});
+					ti1.setText(new String[]{grpName, b1.addr + "(???)", "" + b1.id, "" + b1.tPort});
 
-					//����صĳ�Ա�б�,���±��
+					//?????????��?,???��??
 					while(itr.hasNext()){
 						TableItem member=new TableItem(table,0);
 						BrokerUnit aMember=itr.next();
 						member.setText(new String[]{"",aMember.addr,""+aMember.id,""+aMember.tPort});
 					}
-				  //���¿���̨
+				  //????????
 				
 					SimpleDateFormat sdf = new SimpleDateFormat("H:mm yyyy-M-dd");
 					Date date = new Date();
-					text.append("\n"+sdf.format(date)+"����ѯ�˼�Ⱥ"+grpName+"�ĳ�Ա��Ϣ\n");
+					text.append("\n"+sdf.format(date)+"?????????"+grpName+"???????\n");
 				}
 				
 			}
@@ -659,7 +659,7 @@ class LookUpMemSub extends SelectionAdapter{
 	}
 	
 	public void widgetSelected(final SelectionEvent e) {
-		InputDialog dialog = new InputDialog(shell,"��ѯ�ض����Ա������Ϣ","�����뼯Ⱥ���","",new MyValidator());
+		InputDialog dialog = new InputDialog(shell,"?????????????????","??????????","",new MyValidator());
 		
 		if(dialog.open()==InputDialog.OK){
 			grpName=dialog.getValue();
@@ -671,20 +671,20 @@ class LookUpMemSub extends SelectionAdapter{
 			hstAddr=infoScan.next();
 		*/
 			if(data.getGroupIndex(grpName)==-1){
-				MessageDialog.openInformation(shell, "��ʾ", "�����ڸ���");
+				MessageDialog.openInformation(shell, "???", "?????????");
 			}
 			else{
 				
 				
-				InputDialog dialog1 = new InputDialog(shell,"��ѯ�ض����Ա������Ϣ","�����뼯Ⱥ�ڳ�Ա��ַ","",new MyValidator());
+				InputDialog dialog1 = new InputDialog(shell,"?????????????????","??????????????","",new MyValidator());
 				
 				if(dialog1.open()==InputDialog.OK){
 					
 					hstAddr=dialog1.getValue();
 					
-					//��ʾ״̬��
-					win.label_operate.setText("��ѯ��Ⱥ��Ա������Ϣ");
-					//ͻ��������ؿ���̨
+					//???????
+					win.label_operate.setText("????????????????");
+					//??????????????
 					win.tabFolder.setSelection(win.tabItem);
 					
 					List<GroupInfo> GroupList=new ArrayList<GroupInfo>();
@@ -698,27 +698,27 @@ class LookUpMemSub extends SelectionAdapter{
 					
 					TableColumn tblclmnNewColumn = new TableColumn(table, SWT.NONE);
 					tblclmnNewColumn.setWidth(100);
-					tblclmnNewColumn.setText("��Ⱥ���");
+					tblclmnNewColumn.setText("??????");
 					
 					TableColumn tblclmnNewColumn_1 = new TableColumn(table, SWT.NONE);
 					tblclmnNewColumn_1.setWidth(100);
-					tblclmnNewColumn_1.setText("��Ⱥ��Ա��ַ");
+					tblclmnNewColumn_1.setText("?????????");
 					
 					TableColumn tblclmnNewColumn_2 = new TableColumn(table, SWT.NONE);
 					tblclmnNewColumn_2.setWidth(100);
-					tblclmnNewColumn_2.setText("������Ϣ");
+					tblclmnNewColumn_2.setText("???????");
 					
-					//��ʾ����̨
-					//���±��
+					//????????
+					//???��??
 					SimpleDateFormat sdf = new SimpleDateFormat("H:mm yyyy-M-dd");
 					Date date = new Date();
-					text.append("\n"+sdf.format(date)+"����ѯ�˼�Ⱥ"+grpName+"�г�Ա"+hstAddr+"�Ķ�����Ϣ"+"\n");
-					//���ýӿ�
+					text.append("\n"+sdf.format(date)+"?????????"+grpName+"?��??"+hstAddr+"????????"+"\n");
+					//??????
 					
 						
 //					String[] GroupMember=Interface.lookupMemberSubscriptions(grpName,hstAddr);
 //					if(GroupMember==null){
-//						MessageDialog.openInformation(shell, "��ʾ", "�ü�Ⱥ�ڲ����������Ա��ַ");
+//						MessageDialog.openInformation(shell, "???", "?��??????????????????");
 //					}else{
 //						for(int i=0;i<GroupMember.length;i++){
 //							TableItem member=new TableItem(table,0);
@@ -753,12 +753,12 @@ class ShowHistory extends SelectionAdapter{
 		
 		win.tabFolder.setSelection(win.tabItem);
 		
-		win.label_operate.setText("�鿴��ʷ��¼");
+		win.label_operate.setText("????????");
 		
 		Iterator<String> itr=HistoryList.iterator();
 		SimpleDateFormat sdf = new SimpleDateFormat("H:mm yyyy-M-dd");
 		Date date = new Date();
-		text.append("\n"+sdf.format(date)+":�鿴��ʷ��¼\n");
+		text.append("\n"+sdf.format(date)+":????????\n");
 		while(itr.hasNext()){
 			String history=itr.next();
 			text.append("\n"+history+"\n");

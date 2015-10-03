@@ -1,3 +1,10 @@
+/wsn-sdn/target
+/wsn-sdn/.settings
+/wsn-sdn/bin
+/MessageProcess/target
+/flow-master/.settings
+/flow-master/.idea
+/flow-master/target
 /MessageProcess/.settings
 /MessageProcess/.classpath
 /MessageProcess/.project
@@ -9,3 +16,5 @@ flow-master/.idea
 .idea/*
 wsn-sdn/bin
 wsn-sdn/.idea
+/wsn-sdn/wsn-sdn.iml
+out

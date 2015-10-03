@@ -1,14 +1,3 @@
-/*
-Jaxe - Editeur XML en Java
-
-Copyright (C) 2003 Observatoire de Paris-Meudon
-
-Ce programme est un logiciel libre ; vous pouvez le redistribuer et/ou le modifier conformément aux dispositions de la Licence Publique Générale GNU, telle que publiée par la Free Software Foundation ; version 2 de la licence, ou encore (à votre choix) toute version ultérieure.
-
-Ce programme est distribué dans l'espoir qu'il sera utile, mais SANS AUCUNE GARANTIE ; sans même la garantie implicite de COMMERCIALISATION ou D'ADAPTATION A UN OBJET PARTICULIER. Pour plus de détail, voir la Licence Publique Générale GNU .
-
-Vous devez avoir reçu un exemplaire de la Licence Publique Générale GNU en même temps que ce programme ; si ce n'est pas le cas, écrivez à la Free Software Foundation Inc., 675 Mass Ave, Cambridge, MA 02139, Etats-Unis.
-*/
 
 package jaxe;
 
@@ -45,10 +34,6 @@ import javax.swing.ScrollPaneConstants;
 
 import org.w3c.dom.Element;
 
-/**
- * Un dialogue pour afficher une aide en ligne sur un élément XML et ses attributs.
- * Utilise les éléments documentation du schéma XML quand un schéma est utilisé.
- */
 public class DialogueAideElement extends JDialog implements ActionListener {
     /**
      * Logger for this class
@@ -75,9 +60,7 @@ public class DialogueAideElement extends JDialog implements ActionListener {
     private JPanel ongletAttributs;
     
     
-    /**
-     * Dialogue d'aide pour un élément dont on passe la référence en paramètre.
-     */
+
     public DialogueAideElement(final Element refElement, final Config cfg, final JFrame frame) {
         super(frame, rb.getString("aide.element") + " " + cfg.nomElement(refElement), true);
         this.cfg = cfg;
@@ -87,9 +70,7 @@ public class DialogueAideElement extends JDialog implements ActionListener {
         remplissage(refElement);
     }
     
-    /**
-     * Dialogue d'aide pour un attribut dont on passe la référence et celle de l'élément parent en paramètre.
-     */
+
     public DialogueAideElement(final Element refAttribut, final Element refElementParent, final Config cfg, final JFrame frame) {
         super(frame, rb.getString("aide.attribut") + " " + cfg.nomAttribut(refAttribut), true);
         this.cfg = cfg;
@@ -129,7 +110,7 @@ public class DialogueAideElement extends JDialog implements ActionListener {
         onglets.setAlignmentX(Component.LEFT_ALIGNMENT);
         cpane.add(onglets);
         
-        // cellules avec plus d'espace que par défaut
+        // cellules avec plus d'espace que par d?faut
         final DefaultListCellRenderer myCellRenderer = new DefaultListCellRenderer() {
             @Override
             public Component getListCellRendererComponent(final JList list, final Object value, final int index,
@@ -242,7 +223,7 @@ public class DialogueAideElement extends JDialog implements ActionListener {
         if (aideAttribut)
             ongletAttributs.setVisible(false);
         
-        onglets.setSelectedIndex(1); // par défaut, on affiche les enfants
+        onglets.setSelectedIndex(1); // par d?faut, on affiche les enfants
         
         // actions
         final JPanel actpane = new JPanel(new FlowLayout());
@@ -328,10 +309,7 @@ public class DialogueAideElement extends JDialog implements ActionListener {
         
         pack();
     }
-    
-    /**
-     * tranformation en HTML (découpage en lignes pour expression régulière)
-     */
+
     protected String versHTML(String s) {
         if (s != null) {
             s = s.trim();

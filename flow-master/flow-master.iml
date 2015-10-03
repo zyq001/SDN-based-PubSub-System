@@ -11,7 +11,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" exported="" name="lib" level="project" />
+    <orderEntry type="library" name="lib" level="project" />
     <orderEntry type="module-library">
       <library>
         <CLASSES>
@@ -40,6 +40,35 @@
       </library>
     </orderEntry>
     <orderEntry type="library" name="avalon-framework-4.2.0" level="project" />
+    <orderEntry type="library" name="Maven: net.sf.jazzy:jazzy:0.5.2-rtext-1.4.1" level="project" />
+    <orderEntry type="library" name="Maven: net.sf.jazzy:jazzy-swing:0.5.2" level="project" />
+    <orderEntry type="library" name="Maven: com.tupilabs:jazzy:0.6" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.servicemix.bundles:org.apache.servicemix.bundles.jing:20030619_6" level="project" />
+    <orderEntry type="library" name="Maven: org.eclipse:jface:3.3.0-I20070606-0010" level="project" />
+    <orderEntry type="library" name="Maven: org.eclipse:swt:3.3.0-v3346" level="project" />
+    <orderEntry type="library" name="Maven: org.eclipse.core:commands:3.3.0-I20070605-0010" level="project" />
+    <orderEntry type="library" name="Maven: org.eclipse.equinox:common:3.6.200-v20130402-1505" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.xmlgraphics:fop:0.94" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.xmlgraphics:xmlgraphics-commons:1.2" level="project" />
+    <orderEntry type="library" name="Maven: batik:batik-svg-dom:1.6-1" level="project" />
+    <orderEntry type="library" name="Maven: batik:batik-dom:1.6-1" level="project" />
+    <orderEntry type="library" name="Maven: batik:batik-css:1.6-1" level="project" />
+    <orderEntry type="library" name="Maven: batik:batik-xml:1.6-1" level="project" />
+    <orderEntry type="library" name="Maven: xerces:xercesImpl:2.5.0" level="project" />
+    <orderEntry type="library" name="Maven: batik:batik-parser:1.6-1" level="project" />
+    <orderEntry type="library" name="Maven: batik:batik-bridge:1.6-1" level="project" />
+    <orderEntry type="library" name="Maven: batik:batik-script:1.6-1" level="project" />
+    <orderEntry type="library" name="Maven: rhino:js:1.5R4.1" level="project" />
+    <orderEntry type="library" name="Maven: batik:batik-awt-util:1.6-1" level="project" />
+    <orderEntry type="library" name="Maven: batik:batik-util:1.6-1" level="project" />
+    <orderEntry type="library" name="Maven: batik:batik-gui-util:1.6-1" level="project" />
+    <orderEntry type="library" name="Maven: batik:batik-gvt:1.6-1" level="project" />
+    <orderEntry type="library" name="Maven: batik:batik-transcoder:1.6-1" level="project" />
+    <orderEntry type="library" name="Maven: batik:batik-extension:1.6-1" level="project" />
+    <orderEntry type="library" name="Maven: batik:batik-ext:1.6-1" level="project" />
+    <orderEntry type="library" name="Maven: xml-apis:xmlParserAPIs:2.0.2" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.avalon.framework:avalon-framework-api:4.3.1" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.avalon.framework:avalon-framework-impl:4.3.1" level="project" />
     <orderEntry type="module" module-name="MessageProcess" />
     <orderEntry type="library" name="Maven: commons-httpclient:commons-httpclient:3.1" level="project" />
     <orderEntry type="library" name="Maven: commons-io:commons-io:1.4" level="project" />
@@ -59,7 +88,7 @@
     <orderEntry type="library" name="Maven: commons-logging:commons-logging:1.2" level="project" />
     <orderEntry type="library" name="Maven: org.apache.httpcomponents:httpcore:4.4.1" level="project" />
     <orderEntry type="library" name="Maven: org.apache.httpcomponents:httpclient:4.4.1" level="project" />
-    <orderEntry type="library" name="Maven: org.apache.httpcomponents:httpasyncclient:4.1" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.httpcomponents:httpasyncclient:4.0-beta1" level="project" />
     <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.2" level="project" />
     <orderEntry type="library" name="Maven: org.apache.httpcomponents:httpcore-nio:4.4.1" level="project" />
     <orderEntry type="library" name="Maven: org.json:json:20141113" level="project" />

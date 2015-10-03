@@ -3,11 +3,11 @@ Jaxe - Editeur XML en Java
 
 Copyright (C) 2010 Observatoire de Paris-Meudon
 
-Ce programme est un logiciel libre ; vous pouvez le redistribuer et/ou le modifier conformément aux dispositions de la Licence Publique Générale GNU, telle que publiée par la Free Software Foundation ; version 2 de la licence, ou encore (à votre choix) toute version ultérieure.
+Ce programme est un logiciel libre ; vous pouvez le redistribuer et/ou le modifier conform?ment aux dispositions de la Licence Publique G?n?rale GNU, telle que publi?e par la Free Software Foundation ; version 2 de la licence, ou encore (? votre choix) toute version ult?rieure.
 
-Ce programme est distribué dans l'espoir qu'il sera utile, mais SANS AUCUNE GARANTIE ; sans même la garantie implicite de COMMERCIALISATION ou D'ADAPTATION A UN OBJET PARTICULIER. Pour plus de détail, voir la Licence Publique Générale GNU .
+Ce programme est distribu? dans l'espoir qu'il sera utile, mais SANS AUCUNE GARANTIE ; sans m?me la garantie implicite de COMMERCIALISATION ou D'ADAPTATION A UN OBJET PARTICULIER. Pour plus de d?tail, voir la Licence Publique G?n?rale GNU .
 
-Vous devez avoir reçu un exemplaire de la Licence Publique Générale GNU en même temps que ce programme ; si ce n'est pas le cas, écrivez à la Free Software Foundation Inc., 675 Mass Ave, Cambridge, MA 02139, Etats-Unis.
+Vous devez avoir re?u un exemplaire de la Licence Publique G?n?rale GNU en m?me temps que ce programme ; si ce n'est pas le cas, ?crivez ? la Free Software Foundation Inc., 675 Mass Ave, Cambridge, MA 02139, Etats-Unis.
 */
 
 package jaxe.wxs;
@@ -50,8 +50,8 @@ public class WXSElement extends WXSAnnotated implements ToutElement, AvecSousEle
     protected WXSSchema schema;
     protected List<WXSThing> references; // WXSElement | WXSAny
     protected List<WXSElement> substitutions;
-    protected List<WXSElement> correspondant; // cache des éléments correspondant
-    protected ArrayList<ToutElement> sousElements; // cache des sous-éléments
+    protected List<WXSElement> correspondant; // cache des ?l?ments correspondant
+    protected ArrayList<ToutElement> sousElements; // cache des sous-?l?ments
     
     
     public WXSElement(final Element el, final Parent parent, final WXSSchema schema) {
@@ -164,7 +164,7 @@ public class WXSElement extends WXSAnnotated implements ToutElement, AvecSousEle
             if (wxsRef != null)
                 wxsRef.ajouterReference(this);
             else
-                LOG.error("Référence d'élément introuvable : " + ref);
+                LOG.error("R?f?rence d'?l?ment introuvable : " + ref);
         }
         if (complexType == null && simpleType == null && type != null) {
             final String tns = domElement.lookupNamespaceURI(JaxeWXS.prefixeNom(type));
@@ -207,7 +207,7 @@ public class WXSElement extends WXSAnnotated implements ToutElement, AvecSousEle
     }
     
     /**
-     * Eléments nommés non abstraits correspondants (cet élément s'il est nommé, élément nommé si celui-ci est une référence, et substitutions).
+     * El?ments nomm?s non abstraits correspondants (cet ?l?ment s'il est nomm?, ?l?ment nomm? si celui-ci est une r?f?rence, et substitutions).
      */
     public List<WXSElement> listeElementsCorrespondant() {
         if (correspondant != null)
@@ -255,10 +255,10 @@ public class WXSElement extends WXSAnnotated implements ToutElement, AvecSousEle
     }
     
     /**
-     * Expression régulière pour l'interface utilisateur (avec les titres des éléments: ne peut pas être utilisée pour la validation)
+     * Expression r?guli?re pour l'interface utilisateur (avec les titres des ?l?ments: ne peut pas ?tre utilis?e pour la validation)
      */
     public String expressionReguliereElement() {
-        // on suppose que cet élément est nommé
+        // on suppose que cet ?l?ment est nomm?
         if (complexType == null && simpleType == null && type == null && wxsSubstitutionGroup != null)
             return(wxsSubstitutionGroup.expressionReguliereElement());
         if (complexType == null)
@@ -267,8 +267,8 @@ public class WXSElement extends WXSAnnotated implements ToutElement, AvecSousEle
     }
     
     /**
-     * E.R. pour cet élément comme sous-élément d'un modèle.
-     * Renvoie null s'il n'y a pas d'élément non-abstrait correspondant à cet élément.
+     * E.R. pour cet ?l?ment comme sous-?l?ment d'un mod?le.
+     * Renvoie null s'il n'y a pas d'?l?ment non-abstrait correspondant ? cet ?l?ment.
      */
     public String expressionReguliere() {
         final List<WXSElement> liste = listeElementsCorrespondant();
@@ -294,7 +294,7 @@ public class WXSElement extends WXSAnnotated implements ToutElement, AvecSousEle
     }
     
     public Boolean enfantObligatoire(final WXSElement enfant) {
-        // on suppose que cet élément est nommé
+        // on suppose que cet ?l?ment est nomm?
         if (complexType == null && simpleType == null && type == null && wxsSubstitutionGroup != null)
             return(wxsSubstitutionGroup.enfantObligatoire(enfant));
         if (complexType == null)
@@ -303,7 +303,7 @@ public class WXSElement extends WXSAnnotated implements ToutElement, AvecSousEle
     }
     
     public Boolean enfantsMultiples(final WXSElement enfant) {
-        // on suppose que cet élément est nommé
+        // on suppose que cet ?l?ment est nomm?
         if (complexType == null && simpleType == null && type == null && wxsSubstitutionGroup != null)
             return(wxsSubstitutionGroup.enfantsMultiples(enfant));
         if (complexType == null)
@@ -342,8 +342,8 @@ public class WXSElement extends WXSAnnotated implements ToutElement, AvecSousEle
         if (type != null) {
             final String tns = domElement.lookupNamespaceURI(JaxeWXS.prefixeNom(type));
             final String schemaNamespace = domElement.getNamespaceURI();
-            // si le type fait partie des schémas XML (comme "string" ou "anyURI")
-            // on considère que c'est du texte (sauf si le schéma est le schéma des schémas)
+            // si le type fait partie des sch?mas XML (comme "string" ou "anyURI")
+            // on consid?re que c'est du texte (sauf si le sch?ma est le sch?ma des sch?mas)
             if (!schemaNamespace.equals(schema.getTargetNamespace()) && schemaNamespace.equals(tns))
                 return(true);
         }
@@ -361,9 +361,9 @@ public class WXSElement extends WXSAnnotated implements ToutElement, AvecSousEle
     }
     
     /**
-     * Validation d'un élément nommé.
-     * Renvoie true si la liste de sous-éléments passée en paramètre est un ensemble de sous-éléments valide.
-     * Si insertion est true, tous les sous-éléments sont optionnels.
+     * Validation d'un ?l?ment nomm?.
+     * Renvoie true si la liste de sous-?l?ments pass?e en param?tre est un ensemble de sous-?l?ments valide.
+     * Si insertion est true, tous les sous-?l?ments sont optionnels.
      */
     public boolean validerSousElements(final List<WXSElement> sousElements, final boolean insertion) {
         if (complexType == null) {
@@ -382,8 +382,8 @@ public class WXSElement extends WXSAnnotated implements ToutElement, AvecSousEle
     }
     
     /**
-     * validation d'un sous-élément
-     * renvoie la position dans la liste jusqu'où la validation est possible (start si aucune validation possible, sousElements().size() si tout est validé)
+     * validation d'un sous-?l?ment
+     * renvoie la position dans la liste jusqu'o? la validation est possible (start si aucune validation possible, sousElements().size() si tout est valid?)
      */
     public int valider(final List<WXSElement> sousElements, final int start, final boolean insertion) {
         int nb = 0;

@@ -1,11 +1,4 @@
-/*	
- * author:goucanran date:2013-6-20
- * 主题树管理器中所有树的拖拽都使用本handler
- * 实现拖拽行为及动作逻辑
- * 拖拽放开鼠标时，进入importData函数，所以重写此函数
- * 并且填充入自己的逻辑可以实现所需功能
- * 
- * */
+
 package org.apache.servicemix.wsn.router.topictree;
 import java.awt.datatransfer.DataFlavor;  
 import java.awt.datatransfer.Transferable;  

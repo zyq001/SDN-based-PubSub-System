@@ -3,11 +3,11 @@ Jaxe - Editeur XML en Java
 
 Copyright (C) 2003 Observatoire de Paris-Meudon
 
-Ce programme est un logiciel libre ; vous pouvez le redistribuer et/ou le modifier conform閙ent aux dispositions de la Licence Publique G閚閞ale GNU, telle que publi閑 par la Free Software Foundation ; version 2 de la licence, ou encore (�votre choix) toute version ult閞ieure.
+Ce programme est un logiciel libre ; vous pouvez le redistribuer et/ou le modifier conform?ent aux dispositions de la Licence Publique G??ale GNU, telle que publi? par la Free Software Foundation ; version 2 de la licence, ou encore (?votre choix) toute version ult?ieure.
 
-Ce programme est distribu�dans l'espoir qu'il sera utile, mais SANS AUCUNE GARANTIE ; sans m阭e la garantie implicite de COMMERCIALISATION ou D'ADAPTATION A UN OBJET PARTICULIER. Pour plus de d閠ail, voir la Licence Publique G閚閞ale GNU .
+Ce programme est distribu?dans l'espoir qu'il sera utile, mais SANS AUCUNE GARANTIE ; sans m?e la garantie implicite de COMMERCIALISATION ou D'ADAPTATION A UN OBJET PARTICULIER. Pour plus de d?ail, voir la Licence Publique G??ale GNU .
 
-Vous devez avoir re鐄 un exemplaire de la Licence Publique G閚閞ale GNU en m阭e temps que ce programme ; si ce n'est pas le cas, 閏rivez �la Free Software Foundation Inc., 675 Mass Ave, Cambridge, MA 02139, Etats-Unis.
+Vous devez avoir re? un exemplaire de la Licence Publique G??ale GNU en m?e temps que ce programme ; si ce n'est pas le cas, ?rivez ?la Free Software Foundation Inc., 675 Mass Ave, Cambridge, MA 02139, Etats-Unis.
 */
 
 package jaxe;
@@ -172,7 +172,7 @@ public class DialogueXpath extends JFrame implements ActionListener, ItemListene
             rb.getString("xpath.TitleAtt") + " \" " + conf.nomElement(refElementCourant) + " \"", 1, 2));
         
         //final ArrayList<Element> latt = conf.listeAttributs(refElementCourant);
-        // il peut y avoir plusieurs 閘閙ents avec le m阭e nom mais d閒inis avec des attributs diff閞ents: on veut obtenir tous les attributs possibles
+        // il peut y avoir plusieurs ??ents avec le m?e nom mais d?inis avec des attributs diff?ents: on veut obtenir tous les attributs possibles
         final ArrayList<Element> latt = new ArrayList<Element>();
         for (final Element ref : listeTousElements) {
             if (nomElementCourant != null && nomElementCourant.equals(conf.nomElement(ref))) {
@@ -423,7 +423,7 @@ public class DialogueXpath extends JFrame implements ActionListener, ItemListene
     }
     
     class ComparateurDeTitres implements Comparator<Element> {
-        final String maj1 = "韵卫滤嗜�";
+        final String maj1 = "?????";
         final String maj2 = "OIIAAEEEE";
         public int compare(Element e1, Element e2) {
             final String titremaj1 = convertir(doc.cfg.titreElement(e1).toUpperCase().trim());

@@ -17,11 +17,11 @@ public class SflowAPI {
         double speed = 0;
         String url = "http://" + Configure.sflowServer + ":8008/metric/" + agent + "/" + metric + "/json";
         String result = RestProcess.doClientGet(url);
-//        try {
+        try {
             speed = Double.valueOf(new JSONObject(result).get("metricValue").toString());
-//        } catch (ParseException e) {
-//            e.printStackTrace();
-//        }
+        }  catch (JSONException e) {
+            e.printStackTrace();
+        }
         return speed;
     }
 

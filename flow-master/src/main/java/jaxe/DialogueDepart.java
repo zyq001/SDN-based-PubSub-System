@@ -1,14 +1,3 @@
-/*
-Jaxe - Editeur XML en Java
-
-Copyright (C) 2004 Observatoire de Paris
-
-Ce programme est un logiciel libre ; vous pouvez le redistribuer et/ou le modifier conform�ment aux dispositions de la Licence Publique G�n�rale GNU, telle que publi�e par la Free Software Foundation ; version 2 de la licence, ou encore (� votre choix) toute version ult�rieure.
-
-Ce programme est distribu� dans l'espoir qu'il sera utile, mais SANS AUCUNE GARANTIE ; sans m�me la garantie implicite de COMMERCIALISATION ou D'ADAPTATION A UN OBJET PARTICULIER. Pour plus de d�tail, voir la Licence Publique G�n�rale GNU .
-
-Vous devez avoir re�u un exemplaire de la Licence Publique G�n�rale GNU en m�me temps que ce programme ; si ce n'est pas le cas, �crivez � la Free Software Foundation Inc., 675 Mass Ave, Cambridge, MA 02139, Etats-Unis.
-*/
 
 package jaxe;
 
@@ -30,9 +19,6 @@ import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JPanel;
 
-/**
- * Dialogue affich� au lancement de l'application, quand aucun document n'est ouvert directement.
- */
 public class DialogueDepart extends JDialog implements ActionListener {
     /**
      * Logger for this class
@@ -82,7 +68,7 @@ public class DialogueDepart extends JDialog implements ActionListener {
             nouveau();
         else if ("ouvrir".equals(cmd))
             ouvrir();
-        else if ("退出".equals(cmd))
+        else if ("  ".equals(cmd))
             quitter();
     }
     

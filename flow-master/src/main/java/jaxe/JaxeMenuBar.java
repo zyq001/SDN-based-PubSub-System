@@ -12,6 +12,7 @@ Vous devez avoir re?u un exemplaire de la Licence Publique G?n?rale GNU en m?me 
 
 package jaxe;
 
+import com.swabunga.spell.swing.JTextComponentSpellChecker;
 import org.apache.log4j.Logger;
 
 import java.awt.FileDialog;
@@ -47,7 +48,7 @@ import com.swabunga.spell.engine.SpellDictionary;
 import com.swabunga.spell.engine.SpellDictionaryDichoDisk;
 import com.swabunga.spell.engine.SpellDictionaryHashMap;
 import com.swabunga.spell.event.SpellChecker;
-import com.swabunga.spell.swing.JTextComponentSpellChecker;
+//import com.swabunga.spell.swing.JTextComponentSpellChecker;
 
 import org.w3c.dom.Element;
 

@@ -38,16 +38,16 @@ public class GenerateMsg {
 		forwardIp.add("10.109.253.15");
 		System.out.println(forwardIp);
 		IoSession session = null;
-		//策略库的位置，由策略库来过滤ip
+		//????????????????????????????ip
 		ForwardMsg forwardMsg = new TCPForwardMsg(forwardIp, 30008, msg);
 		//MsgQueueMgr.addTCPMsgInQueue(forwardMsg);
 		
 		for(int i=0;i<forwardIp.size();i++){
 			System.out.println(forwardIp.size());
 			NioSocketConnector connector = MinaUtil.createSocketConnector();
-			//ConnectFuture cf = connector.connect(new InetSocketAddress(forwardIp.get(i), SysInfo.gettPort()));//建立连接   
-			ConnectFuture cf = connector.connect(new InetSocketAddress(forwardIp.get(i), 30008));//建立连接   
-			cf.awaitUninterruptibly();//等待连接创建完成   
+			//ConnectFuture cf = connector.connect(new InetSocketAddress(forwardIp.get(i), SysInfo.gettPort()));//????????   
+			ConnectFuture cf = connector.connect(new InetSocketAddress(forwardIp.get(i), 30008));//????????   
+			cf.awaitUninterruptibly();//????????????????   
 				
 		    try {
 			    session = cf.getSession();
@@ -60,7 +60,7 @@ public class GenerateMsg {
 			    
 			    /*final org.Mina.shorenMinaTest.msg.tcp.MsgNotis mns = 
 					(org.Mina.shorenMinaTest.msg.tcp.MsgNotis) msg;
-			    SendNotification SN = new SendNotification();// 调用上层wsn的接口
+			    SendNotification SN = new SendNotification();// ????????wsn??????
 				try {
 					SN.send(mns.doc);
 					org.apache.servicemix.wsn.router.mgr.RtMgr.subtract();
@@ -70,7 +70,7 @@ public class GenerateMsg {
 				}*/
 			    
 		    }catch (Exception e) {
-			    //System.out.println("建立连接失败！请检查"+ip+"节点！");
+			    //System.out.println("????????????????????"+ip+"??????");
 			    return;
 			    // TODO: handle exception
 		    }
@@ -82,9 +82,9 @@ public class GenerateMsg {
 		IoSession session = null;
 		
 		NioSocketConnector connector = MinaUtil.createSocketConnector();
-		//ConnectFuture cf = connector.connect(new InetSocketAddress(forwardIp.get(i), SysInfo.gettPort()));//建立连接   
-		ConnectFuture cf = connector.connect(new InetSocketAddress("10.109.253.40", 30008));//建立连接   
-		cf.awaitUninterruptibly();//等待连接创建完成   
+		//ConnectFuture cf = connector.connect(new InetSocketAddress(forwardIp.get(i), SysInfo.gettPort()));//????????   
+		ConnectFuture cf = connector.connect(new InetSocketAddress("10.109.253.40", 30008));//????????   
+		cf.awaitUninterruptibly();//????????????????   
 		
 		 try {
 			    session = cf.getSession();
@@ -94,7 +94,7 @@ public class GenerateMsg {
 			   
 
 		    }catch (Exception e) {
-			    //System.out.println("建立连接失败！请检查"+ip+"节点！");
+			    //System.out.println("????????????????????"+ip+"??????");
 			    return;
 			    // TODO: handle exception
 		    }

@@ -6,7 +6,7 @@ import com.sdn.info.DevInfo;
 import com.sdn.info.FlowInfo;
 import com.sdn.info.MemoryInfo;
 //import demo.network.miscellaneous.office.*;
-import demo.network.miscellaneous.office.OfficeDemo;
+//import demo.network.miscellaneous.office.OfficeDemo;
 import jaxe.Jaxe;
 import jaxe.JaxeFrame;
 import jaxe.JaxeResourceBundle;
@@ -1528,9 +1528,9 @@ public class PSManagerUI implements IAdminUI {
 		sysInfo.setText("                \u7F51\u670D\u4E2D\u5FC3\u51FA\u54C1\uFF01\r\n\r\n\u8DEF\u7531\u62D3\u6251\uFF1A\u738B\u53CC\u9526  \u670D\u52A1\u63A5\u53E3\uFF1A\u90ED\u6210  \u6570\u636E\u8F6C\u53D1\uFF1A\u9648\u5929\u5B87\r\n\r\n   \u7BA1\u7406\u5458\uFF1A\u5434\u601D\u9F50\uFF08\u7B2C\u4E00\u7248\uFF09\uFF0C\u81E7\u4E9A\u5F3A\uFF08\u7B2C\u4E8C\u7248\uFF09\r\n\r\n          \u7F51\u7EDC\u6280\u672F\u7814\u7A76\u9662  \u5317\u4EAC\u90AE\u7535\u5927\u5B66");
 		tabbedPane_1.addTab("系统Info", null, sys, null);
 
-		JPanel graph = new OfficeDemo();
-		tabbedPane_1.addTab("拓扑图", null, graph, null);
-		graph.setLayout(new GridLayout(0, 1, 0, 0));
+//		JPanel graph = new OfficeDemo();
+//		tabbedPane_1.addTab("拓扑图", null, graph, null);
+//		graph.setLayout(new GridLayout(0, 1, 0, 0));
 
 		// text = new JTextArea();
 		// text.setOpaque(false);

@@ -15,6 +15,39 @@
 
 	<dependencies>
 		<dependency>
+			<groupId>net.sf.jazzy</groupId>
+			<artifactId>jazzy</artifactId>
+			<version>0.5.2-rtext-1.4.1</version>
+		</dependency>
+		<dependency>
+			<groupId>net.sf.jazzy</groupId>
+			<artifactId>jazzy-swing</artifactId>
+			<version>0.5.2</version>
+		</dependency>
+
+
+
+		<dependency>
+			<groupId>com.tupilabs</groupId>
+			<artifactId>jazzy</artifactId>
+			<version>0.6</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.servicemix.bundles</groupId>
+			<artifactId>org.apache.servicemix.bundles.jing</artifactId>
+			<version>20030619_6</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse</groupId>
+			<artifactId>jface</artifactId>
+			<version>3.3.0-I20070606-0010</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.xmlgraphics</groupId>
+			<artifactId>fop</artifactId>
+			<version>0.94</version>
+		</dependency>
+		<dependency>
 			<groupId>edu.bupt.wangfu</groupId>
 			<artifactId>MessageProcess</artifactId>
 			<version>${project.version}</version>
