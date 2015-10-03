@@ -11,9 +11,11 @@
     <modules>
         <module>flow-master</module>
         <module>wsn-sdn</module>
+        <module>MessageProcess</module>
     </modules>
 
     <dependencies>
+
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>

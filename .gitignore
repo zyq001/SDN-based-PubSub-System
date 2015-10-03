@@ -1,3 +1,7 @@
+/MessageProcess/.settings
+/MessageProcess/.classpath
+/MessageProcess/.project
+/MessageProcess/lib
 *.class
 flow-master/bin
 flow-master/.idea

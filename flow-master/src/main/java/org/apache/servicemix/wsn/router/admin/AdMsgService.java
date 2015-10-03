@@ -37,11 +37,7 @@ import com.bupt.wangfu.ldap.MsgTopicModify_;
 import com.bupt.wangfu.ldap.TopicEntry;
 
 
-class cacheLostReportInfo {
-	public String name;
-	public Long lastTime;
-	boolean whetherDelete;
-}
+
 public class AdMsgService extends AdminBase implements Runnable {
 
 	private Socket s;
@@ -324,4 +320,11 @@ public class AdMsgService extends AdminBase implements Runnable {
 		}
 
 	}
+
+	class cacheLostReportInfo {
+		public String name;
+		public Long lastTime;
+		boolean whetherDelete;
+	}
+
 }
