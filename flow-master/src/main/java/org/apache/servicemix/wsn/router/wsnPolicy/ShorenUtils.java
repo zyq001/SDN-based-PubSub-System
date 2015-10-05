@@ -566,7 +566,32 @@ public class ShorenUtils{
 		}
 		return null;
 	}
-	
+	public static WsnPolicyMsg decodePolicyMsg(String topic)
+	{
+		WsnPolicyMsg policy = null;
+		Document doc = null;
+		String fileName = POLICYMSG;
+		try {
+			doc = parse(readFile(fileName));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		if(doc == null)
+		{
+			JOptionPane.showMessageDialog(null, "��ȡ"+fileName+"�ļ�����");
+			return null;
+		}
+
+		Node root = doc.getDocumentElement();
+		Node node = getPolicyMsg(root, topic);
+		if(node != null)
+		{
+			WsnPolicyMsgCodec codec = new WsnPolicyMsgCodec(doc);
+			policy = new WsnPolicyMsg();
+			codec.decodePolicyMsg(node, policy);
+		}
+		return policy;
+	}
 	//
 	public static WsnPolicyMsg decodePolicyMsg(TopicEntry topic)
 	{	

@@ -29,6 +29,7 @@ import com.bupt.wangfu.ldap.MsgTopicModify;
 
 import org.apache.servicemix.wsn.router.msg.tcp.PolicyDB;
 import org.apache.servicemix.wsn.router.msg.tcp.UpdateTree;
+import org.apache.servicemix.wsn.router.router.Controller;
 import org.apache.servicemix.wsn.router.topictree.TopicTreeManager;
 import org.apache.servicemix.wsn.router.wsnPolicy.ShorenUtils;
 
@@ -127,6 +128,8 @@ public class AdMsgService extends AdminBase implements Runnable {
 					mng_.groups.putAll(groups);
 				}
 
+				String controllerAddr = mng.controllerAddr;
+				if(!this.Amgr.controllers.containsKey(controllerAddr)) this.Amgr.addController(controllerAddr);
 				oos.writeObject(mng_);
 
 			} else if (msg instanceof GroupUnit) {

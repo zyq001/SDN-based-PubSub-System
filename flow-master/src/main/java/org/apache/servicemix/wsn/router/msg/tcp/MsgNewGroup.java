@@ -11,5 +11,7 @@ public class MsgNewGroup implements Serializable {
 	public int tPort;
 	
 	public String addr;
+
+	public String controllerAddr;
 	
 }

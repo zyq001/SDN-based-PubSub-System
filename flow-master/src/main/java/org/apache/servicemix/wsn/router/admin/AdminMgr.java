@@ -34,6 +34,7 @@ import org.apache.servicemix.wsn.router.admin.detection.DtAdmin;
 import org.apache.servicemix.wsn.router.admin.detection.HrtMsgHdlr;
 import org.apache.servicemix.wsn.router.admin.detection.IDt;
 import org.apache.servicemix.wsn.router.design.PSManagerUI;
+import org.apache.servicemix.wsn.router.router.Controller;
 import org.apache.servicemix.wsn.router.wsnPolicy.ShorenUtils;
 
 public class AdminMgr extends AdminBase implements HrtMsgHdlr, Runnable, IAdmin {
@@ -74,6 +75,8 @@ public class AdminMgr extends AdminBase implements HrtMsgHdlr, Runnable, IAdmin 
 	private Thread umt;//监听udp消息的线程
 
 	public static int port2;//负责监听tcp的端口，暂存配置文件中的端口
+
+	public static Map<String, Controller> controllers = new ConcurrentHashMap<String, Controller>();
 
 	public AdminMgr() {
 
@@ -187,7 +190,13 @@ public class AdminMgr extends AdminBase implements HrtMsgHdlr, Runnable, IAdmin 
 		
 		
 	}
-	
+
+	public static void addController(String controllerAddr){
+
+		Controller newController = new Controller(controllerAddr);
+		controllers.put(controllerAddr, newController);
+
+	}
 	public void askGroupBase(){
 		
 		Socket s = null;

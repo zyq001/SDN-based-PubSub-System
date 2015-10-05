@@ -90,6 +90,7 @@ public class RepState extends AState {
 			MsgNewGroup mng = new MsgNewGroup();
 			mng.name = groupName;
 			mng.tPort = tPort;
+			mng.controllerAddr = groupController;
 			oos.writeObject(mng);
 			Object obj = ois.readObject();
 			mng_ = (MsgNewGroup_) obj;
