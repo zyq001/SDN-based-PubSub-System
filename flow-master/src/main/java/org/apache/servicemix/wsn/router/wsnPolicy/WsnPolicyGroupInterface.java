@@ -32,8 +32,8 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
 
-import com.bupt.wangfu.ldap.*;
-
+import edu.bupt.wangfu.ldap.Ldap;
+import edu.bupt.wangfu.ldap.TopicEntry;
 import org.apache.servicemix.wsn.router.admin.AdminBase;
 import org.apache.servicemix.wsn.router.wsnPolicy.msgs.ComplexGroup;
 import org.apache.servicemix.wsn.router.wsnPolicy.msgs.TargetGroup;
@@ -51,12 +51,12 @@ public class WsnPolicyGroupInterface extends JFrame implements ActionListener{
 	private static Dimension screenSize;
 	private static String RESULT = "result";
 	private static String CHOOSE = "choose";
-	private JButton okayBtn = createBtn("确定");
-	private JButton cancelBtn = createBtn("取消");
-	private JButton addBtn = createBtn("添加");
-	private JButton deleteBtn = createBtn("删除");
-	private JButton newGroupBtn = createBtn("新建复合集群");
-	private JButton deleGroupBtn = createBtn("删除复合集群");
+	private JButton okayBtn = createBtn("????");
+	private JButton cancelBtn = createBtn("????");
+	private JButton addBtn = createBtn("????");
+	private JButton deleteBtn = createBtn("????");
+	private JButton newGroupBtn = createBtn("????????????");
+	private JButton deleGroupBtn = createBtn("????????????");
 	public TopicEntry currentTopic = null;
 	private TopicEntry complexGroupEntry = new TopicEntry();
 	
@@ -83,12 +83,12 @@ public class WsnPolicyGroupInterface extends JFrame implements ActionListener{
 	
 	public WsnPolicyGroupInterface(TopicEntry targetTopic, boolean isAdd)
 	{
-		super("策略集群操作");
+		super("????????????");
 		this.isAdd = isAdd;
 		if(targetTopic == null || targetTopic.getTopicName() == null || targetTopic.getTopicName().length() == 1) {
 			return;
 		}
-		//添加各Panel
+		//??????Panel
 		add(createMsgPanel(), BorderLayout.CENTER);
 		add(createButtonPanel(), BorderLayout.SOUTH);
 		
@@ -98,7 +98,7 @@ public class WsnPolicyGroupInterface extends JFrame implements ActionListener{
 		complexGroupEntry.setTopicName("complexGroup");
 		complexGroupEntry.setTopicPath("ou=complexGroup,dc=wsn,dc=com");
 		
-		//如果是新建策略信息，得到的是整个网络的集群信息，这是才可以新建、删除复合群。
+		//????????????????????????????????????????????????????????????????????????????
 		if(!ShorenUtils.isWholeMsg())
 		{
 			newGroupBtn.setEnabled(false);
@@ -122,15 +122,15 @@ public class WsnPolicyGroupInterface extends JFrame implements ActionListener{
 		WsnPolicyMsg wpm = new WsnPolicyMsg();
 //		if(ShorenUtils.isWholeMsg())
 //		{
-//			//从complexGroupsMsgs.xml读取信息
+//			//??complexGroupsMsgs.xml????????
 //			wpm = ShorenUtils.decodeAllComplexGroups();   //.decodePolicyMsg();  ;
 //		}else
 //		{
-//			//从policyMsg.xml读取相应信息
+//			//??policyMsg.xml????????????
 //			wpm = ShorenUtils.decodePolicyMsg(currentTopic);
 //		}
 		
-		//遍历当前连入管理员的集群信息，其集群名
+		//??????????????????????????????????????
 		if(isAdd) {
 			Set groupSet = AdminBase.groups.keySet();
 			Iterator iterator=groupSet.iterator();
@@ -159,11 +159,11 @@ public class WsnPolicyGroupInterface extends JFrame implements ActionListener{
 	{
 		JPanel msgPanel = new JPanel();
 		JSplitPane inner = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,
-				createGroupTree(CHOOSE,"选择范围"),createMidPanel());
+				createGroupTree(CHOOSE,"????????"),createMidPanel());
 		JSplitPane outer = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,
-				inner,createGroupTree(RESULT,"已选结果"));
+				inner,createGroupTree(RESULT,"????????"));
 		msgPanel.add(outer, BorderLayout.CENTER);
-		Border border = BorderFactory.createTitledBorder("集群信息");
+		Border border = BorderFactory.createTitledBorder("????????");
 		msgPanel.setBorder(border);
 		return msgPanel;
 	}
@@ -186,12 +186,12 @@ public class WsnPolicyGroupInterface extends JFrame implements ActionListener{
 	
 	protected JScrollPane createGroupTree(String name, String title)
 	{
-		//记得要设置root哈
+		//??????????root??
 		JTree groupTree = new JTree(new DefaultTreeModel(new DefaultMutableTreeNode()));		
 		ShorenNodeRenderer ren = new ShorenNodeRenderer();
 		groupTree.setCellRenderer(ren);
-		groupTree.setShowsRootHandles(true);  //显示前面的分支线
-		groupTree.setRootVisible(false);		 //不显示根节点
+		groupTree.setShowsRootHandles(true);  //????????????????
+		groupTree.setRootVisible(false);		 //????????????
 		name_Tree.put(name, groupTree);		
 		
 		JScrollPane listScrollPane = new JScrollPane(groupTree);
@@ -239,7 +239,7 @@ public class WsnPolicyGroupInterface extends JFrame implements ActionListener{
 			if(resultTree != null && getParentFrame() != null)
 			{
 				JTree gtree = getParentFrame().getGroupTree();
-				//需要逐点赋值，不能直接赋值整棵树.
+				//????????????????????????????????.
 				DefaultMutableTreeNode root1 = (DefaultMutableTreeNode) resultTree.getModel().getRoot();
 				DefaultMutableTreeNode root = (DefaultMutableTreeNode) gtree.getModel().getRoot();
 				if(root1.getChildCount() == 0) {
@@ -253,7 +253,7 @@ public class WsnPolicyGroupInterface extends JFrame implements ActionListener{
 					DefaultMutableTreeNode child = (DefaultMutableTreeNode)root1.getChildAt(i);
 					TargetMsg msg = (TargetMsg)child.getUserObject();
 					
-					//这边需要过滤一下，如果之前已经添加了，就不要再加进来。
+					//??????????????????????????????????????????????????????
 					if(!ShorenUtils.isInNode(root, msg))
 						root.add(ShorenUtils.showTargetMsg(msg));
 				}
@@ -271,7 +271,7 @@ public class WsnPolicyGroupInterface extends JFrame implements ActionListener{
 			this.dispose();
 		}else if(e.getSource() == addBtn)
 		{
-			//获取选取的节点，并添加到resultTree中。
+			//????????????????????????resultTree????
 			TreePath[] tp = chooseTree.getSelectionPaths();
 			if(tp == null) return;
 			
@@ -279,10 +279,10 @@ public class WsnPolicyGroupInterface extends JFrame implements ActionListener{
 			DefaultMutableTreeNode root = (DefaultMutableTreeNode) resultTree.getModel().getRoot();		
 			for(int i =0; i<len; i++)
 			{
-				//遍历选取的集群，并添加在resultTree
+				//????????????????????????resultTree
 				TargetMsg msg = (TargetMsg)((ShorenTreeNode)tp[i].getLastPathComponent()).getUserObject();
 				
-				//这边需要过滤一下，如果之前已经添加了，就不要再加进来。
+				//??????????????????????????????????????????????????????
 				if(!ShorenUtils.isInNode(root, msg))
 					root.add(ShorenUtils.showTargetMsg(msg));
 			}
@@ -309,14 +309,14 @@ public class WsnPolicyGroupInterface extends JFrame implements ActionListener{
 			if(tp != null)
 			{
 				int len = tp.length;
-				String name = JOptionPane.showInputDialog("请输入复合集群的名字：");
+				String name = JOptionPane.showInputDialog("??????????????????????");
 				if( (name == null) || name.equals(""))
 					return;
-				//这个名字应该唯一
+				//????????????????
 				DefaultMutableTreeNode root = (DefaultMutableTreeNode) chooseTree.getModel().getRoot();
 				if(ShorenUtils.hasNameExisted(root, name))
 				{
-					JOptionPane.showMessageDialog(this , "这个名字已经存在了！^_^");
+					JOptionPane.showMessageDialog(this , "????????????????????^_^");
 					return;
 				}
 				
@@ -324,7 +324,7 @@ public class WsnPolicyGroupInterface extends JFrame implements ActionListener{
 				List<TargetGroup> targetGroups = new ArrayList<TargetGroup>();
 				for(int i =0; i<len; i++)
 				{
-					//将选取的集群组成复合集群
+					//????????????????????????
 					TargetMsg msg = (TargetMsg)((ShorenTreeNode)tp[i].getLastPathComponent()).getUserObject();
 					if(msg instanceof ComplexGroup)
 						complexGroups.add((ComplexGroup)msg);
@@ -336,16 +336,16 @@ public class WsnPolicyGroupInterface extends JFrame implements ActionListener{
 				WsnPolicyMsg policy = (WsnPolicyMsg)croot.getUserObject();
 				policy.getComplexGroups().add(cgroup);
 				complexGroupEntry.setWsnpolicymsg(policy);
-				//新建复合集群时，必是展示系统所有复合集群，保存。
+				//????????????????????????????????????????????????
 				ShorenUtils.encodeAllComplexGroups(complexGroupEntry);
 				
-				//更新chooseTree内容
+				//????chooseTree????
 				ShorenUtils.showPolicyMsg(croot,policy);
 				chooseTree.updateUI();
 				
 				
 			}else{
-				JOptionPane.showMessageDialog(null , "要选择集群的撒！^_^");
+				JOptionPane.showMessageDialog(null , "????????????????^_^");
 			}
 	
 		}else if(e.getSource() == deleGroupBtn)
@@ -359,7 +359,7 @@ public class WsnPolicyGroupInterface extends JFrame implements ActionListener{
 
 				for(int i =0; i<len; i++)
 				{
-					//delete选取的复合集群，只能删除复合集群
+					//delete????????????????????????????????
 					ShorenTreeNode node = (ShorenTreeNode)tp[i].getLastPathComponent();
 					TargetMsg group = (TargetMsg)node.getUserObject();
 					if(group instanceof ComplexGroup)
@@ -372,16 +372,16 @@ public class WsnPolicyGroupInterface extends JFrame implements ActionListener{
 					}
 				}				
 				
-				//delete复合集群时，必是展示系统所有复合集群，保存。
+				//delete????????????????????????????????????????????
 				complexGroupEntry.setWsnpolicymsg(policy);
 				ShorenUtils.encodeAllComplexGroups(complexGroupEntry);
 				
-				//更新chooseTree内容
+				//????chooseTree????
 				ShorenUtils.showPolicyMsg(croot,policy);
 				chooseTree.updateUI();
 				
 			}else{
-				JOptionPane.showMessageDialog(null , "要选择集群的撒！^_^");
+				JOptionPane.showMessageDialog(null , "????????????????^_^");
 			}
 		}
 		

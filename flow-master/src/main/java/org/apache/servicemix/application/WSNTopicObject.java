@@ -4,22 +4,22 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.bupt.wangfu.ldap.TopicEntry;
+import edu.bupt.wangfu.ldap.TopicEntry;
 
 public class WSNTopicObject implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 
-	//存储当前节点
+	//????????????
 	private TopicEntry topicentry;
-	//存储当前节点的父亲
+	//??????????????????
 	private WSNTopicObject parent;
-	//存储当前节点的孩子
+	//??????????????????
 	private List<WSNTopicObject> childrens;
-	//存储订阅该主题的地址列表
+	//????????????????????????
 	private List<String> subscribeAddress;
 	
-	//构造器
+	//??????
 	public WSNTopicObject(){}
 	public WSNTopicObject(TopicEntry _topicentry, WSNTopicObject _parent){
 		this.topicentry = _topicentry;
@@ -28,7 +28,7 @@ public class WSNTopicObject implements Serializable {
 		this.subscribeAddress = new ArrayList<String>();
 	}
 	
-	//set方法和get方法
+	//set??????get????
 	public void setTopicentry(TopicEntry topicentry) {
 		this.topicentry = topicentry;
 	}

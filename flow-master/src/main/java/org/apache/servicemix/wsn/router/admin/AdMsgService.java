@@ -25,7 +25,7 @@ import org.apache.servicemix.wsn.router.msg.tcp.MsgNewGroup_;
 import org.apache.servicemix.wsn.router.msg.tcp.MsgNewRep;
 import org.apache.servicemix.wsn.router.msg.tcp.GroupUnit;
 
-import com.bupt.wangfu.ldap.MsgTopicModify;
+import edu.bupt.wangfu.ldap.MsgTopicModify;
 
 import org.apache.servicemix.wsn.router.msg.tcp.PolicyDB;
 import org.apache.servicemix.wsn.router.msg.tcp.UpdateTree;
@@ -33,9 +33,9 @@ import org.apache.servicemix.wsn.router.router.Controller;
 import org.apache.servicemix.wsn.router.topictree.TopicTreeManager;
 import org.apache.servicemix.wsn.router.wsnPolicy.ShorenUtils;
 
-import com.bupt.wangfu.ldap.Ldap;
-import com.bupt.wangfu.ldap.MsgTopicModify_;
-import com.bupt.wangfu.ldap.TopicEntry;
+import edu.bupt.wangfu.ldap.Ldap;
+import edu.bupt.wangfu.ldap.MsgTopicModify_;
+import edu.bupt.wangfu.ldap.TopicEntry;
 
 
 

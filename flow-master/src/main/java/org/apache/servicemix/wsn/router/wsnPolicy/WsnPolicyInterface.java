@@ -42,6 +42,8 @@ import javax.swing.border.Border;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 
+import edu.bupt.wangfu.ldap.Ldap;
+import edu.bupt.wangfu.ldap.TopicEntry;
 import org.apache.servicemix.wsn.router.wsnPolicy.msgs.ComplexGroup;
 import org.apache.servicemix.wsn.router.wsnPolicy.msgs.TargetGroup;
 import org.apache.servicemix.wsn.router.wsnPolicy.msgs.TargetHost;
@@ -49,7 +51,6 @@ import org.apache.servicemix.wsn.router.wsnPolicy.msgs.TargetMsg;
 import org.apache.servicemix.wsn.router.wsnPolicy.msgs.TargetRep;
 import org.apache.servicemix.wsn.router.wsnPolicy.msgs.WsnPolicyMsg;
 
-import com.bupt.wangfu.ldap.*;
 /**
  *
  */
@@ -60,18 +61,18 @@ public class WsnPolicyInterface extends JFrame implements ActionListener {
 	private static Dimension screenSize;
 	
 	private static String fileName = "wsnPolicy";
-	//若需要全局（整个网络）的信息，即从rtMsg处获得，则为true；
-	//若需要本地存储的策略文件信息，即局部信息，则为false。默认是从全局获得。
+	//??????????????????????????????????rtMsg????????????true??
+	//??????????????????????????????????????????????false????????????????????
 
-	private JButton okayBtn = createBtn("确定");
-	private JButton cancelBtn = createBtn("取消");
+	private JButton okayBtn = createBtn("????");
+	private JButton cancelBtn = createBtn("????");
 	
-	private JButton bt1 = createBtn1();   //受限群组
-	private JButton bt2 = createBtn1();   //受限代理
-	private JButton bt3 = createBtn1();   //受限主机
+	private JButton bt1 = createBtn1();   //????????
+	private JButton bt2 = createBtn1();   //????????
+	private JButton bt3 = createBtn1();   //????????
 
-	private List<String> msgStyle;  //信息类型,第一个是空格
-	private List<String> topics;   //主题，第一个是空格
+	private List<String> msgStyle;  //????????,????????????
+	private List<String> topics;   //??????????????????
 	private JComboBox msgStyleList = new JComboBox();
 	private JComboBox topicList = new JComboBox();
 	public TopicEntry currentTopic = null;
@@ -100,9 +101,9 @@ public class WsnPolicyInterface extends JFrame implements ActionListener {
 
 	public WsnPolicyInterface(JPanel panel,Ldap lu)
 	{
-		super("WSN策略操作");
-		Border title1 = BorderFactory.createTitledBorder("策略信息");
-		Border title2 = BorderFactory.createTitledBorder("操作选择");
+		super("WSN????????");
+		Border title1 = BorderFactory.createTitledBorder("????????");
+		Border title2 = BorderFactory.createTitledBorder("????????");
 		JPanel msgPanel = createMsgPanel();
 		msgPanel.setBorder(title1);
 		
@@ -132,9 +133,9 @@ public class WsnPolicyInterface extends JFrame implements ActionListener {
 	
 	protected void initialMsg()
 	{
-		//查询当前保存的信息类型及其主题
+		//??????????????????????????????
 		msgStyle = new ArrayList<String>();
-		//将所有的信息类插入msgStyle
+		//??????????????????msgStyle
 		updateMsgStyle();
 
 		topics = new ArrayList<String>();
@@ -148,27 +149,27 @@ public class WsnPolicyInterface extends JFrame implements ActionListener {
 		initialMsg();
 		
 		JPanel msgStylePanel = new JPanel();
-		msgStylePanel.add(new JLabel("信息类型"), BorderLayout.WEST);		
+		msgStylePanel.add(new JLabel("????????"), BorderLayout.WEST);		
 		msgStyleList.setPreferredSize(new Dimension(150, 30));
 		msgStylePanel.add(msgStyleList,BorderLayout.EAST);
 		
 		JPanel topicPanel = new JPanel();
-		topicPanel.add(new JLabel("目标主题"), BorderLayout.WEST);		
+		topicPanel.add(new JLabel("????????"), BorderLayout.WEST);		
 		topicList.setPreferredSize(new Dimension(150, 30));
 		topicPanel.add(topicList,BorderLayout.EAST);		
 		
 		JPanel limitedPanel1 = new JPanel();
-		limitedPanel1.add(new JLabel("受限群组"));
+		limitedPanel1.add(new JLabel("????????"));
 		limitedPanel1.add(createGroupTree());
 		limitedPanel1.add(bt1);		
 		
 		JPanel limitedPanel2 = new JPanel();
-		limitedPanel2.add(new JLabel("受限代理"), BorderLayout.WEST);
+		limitedPanel2.add(new JLabel("????????"), BorderLayout.WEST);
 		limitedPanel2.add(createList("regs"), BorderLayout.CENTER);   //key = "regs"
 		limitedPanel2.add(bt2, BorderLayout.EAST);
 		
 		JPanel limitedPanel3 = new JPanel();
-		limitedPanel3.add(new JLabel("受限主机"), BorderLayout.WEST);
+		limitedPanel3.add(new JLabel("????????"), BorderLayout.WEST);
 		limitedPanel3.add(createList("hosts"), BorderLayout.CENTER);   //key = hosts 
 		limitedPanel3.add(bt3, BorderLayout.EAST);
 		
@@ -196,12 +197,12 @@ public class WsnPolicyInterface extends JFrame implements ActionListener {
 	
 	protected JScrollPane createGroupTree()
 	{
-		//记得要设置root哈
+		//??????????root??
 		groupTree = new JTree(new DefaultTreeModel(new DefaultMutableTreeNode()));
 		ShorenNodeRenderer ren = new ShorenNodeRenderer();
 		groupTree.setCellRenderer(ren);
-		groupTree.setShowsRootHandles(true);  //显示前面的分支线
-		groupTree.setRootVisible(false);		 //不显示根节点
+		groupTree.setShowsRootHandles(true);  //????????????????
+		groupTree.setRootVisible(false);		 //????????????
 		
 		JScrollPane listScrollPane = new JScrollPane(groupTree);
         listScrollPane.setPreferredSize(new Dimension(200, 100));
@@ -221,7 +222,7 @@ public class WsnPolicyInterface extends JFrame implements ActionListener {
 			listModel.addElement("aaaa" + i);
 		}*/
 		
-		nameList.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION); //多选
+		nameList.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION); //????
 		name_List.put(name, nameList);
 		name_Array.put(name, new ArrayList<TargetMsg>());
         JScrollPane listScrollPane = new JScrollPane(nameList);
@@ -236,13 +237,13 @@ public class WsnPolicyInterface extends JFrame implements ActionListener {
 		JPanel radioPanel = new JPanel();		
 		radioButtons = new JRadioButton[3];
         bg = new ButtonGroup();
-		radioButtons[0]=new JRadioButton("添加",true);
+		radioButtons[0]=new JRadioButton("????",true);
 		bg.add(radioButtons[0]);
 		radioPanel.add(radioButtons[0]);
-		radioButtons[1]=new JRadioButton("修改",false);
+		radioButtons[1]=new JRadioButton("????",false);
 		bg.add(radioButtons[1]);
 		radioPanel.add(radioButtons[1]);		  
-		radioButtons[2]=new JRadioButton("删除",false);
+		radioButtons[2]=new JRadioButton("????",false);
 		bg.add(radioButtons[2]);
 		radioPanel.add(radioButtons[2]);  
 		
@@ -283,21 +284,21 @@ public class WsnPolicyInterface extends JFrame implements ActionListener {
 			TargetRep rep = policy.getTargetGroups().get(0).getTargetList().get(0);
 			rep.getTargetClients().clear();
 			for(int i=0; i<listModel.getSize(); i++){
-				//加入host
+				//????host
 				rep.getTargetClients().add(new TargetHost(listModel.getElementAt(i).toString()));//??????????
 			}
 		}
 		if(policy.getComplexGroups().isEmpty() && !policy.getTargetGroups().isEmpty()
 				 && (policy.getTargetGroups().size() == 1)){
 			TargetGroup tg = policy.getTargetGroups().get(0);
-			//如果没有选择代理，说明整个集群受限
+			//??????????????????????????????????
 			if(tg.getTargetList().isEmpty()){
 				tg.setAllMsg(true);
 			}
 				
 		}
 		
-		//如果选择多个集群，则默认所有集群内部主机均受限
+		//??????????????????????????????????????????????
 		Set<TargetGroup> allGroups = policy.getAllGroups();
 		if(!allGroups.isEmpty() && (allGroups.size()>1)){
 			Iterator it = allGroups.iterator();
@@ -309,11 +310,11 @@ public class WsnPolicyInterface extends JFrame implements ActionListener {
 		return policy;
 	}
 	
-	//添加策略信息，并保存在文件中
+	//????????????????????????????
 	public void addPolicyMsg()
 	{
 		if(!ShorenUtils.isWholeMsg()){
-			ShorenUtils.setWholeMsg(true); //新建策略时，从全局获得信息
+			ShorenUtils.setWholeMsg(true); //??????????????????????????
 		}
 		WsnPolicyMsg newPolicy = getCreatedPolicyMsg();
 		WsnPolicyMsg policy = ShorenUtils.decodePolicyMsg(currentTopic);
@@ -329,7 +330,7 @@ public class WsnPolicyInterface extends JFrame implements ActionListener {
 	public void updateMsg()
 	{
 		if(ShorenUtils.isWholeMsg()){
-			ShorenUtils.setWholeMsg(false);  //修改策略信息时，从策略文件获得信息
+			ShorenUtils.setWholeMsg(false);  //??????????????????????????????????
 		}
 		//delete the same topic nodes before add new ones
 		WsnPolicyMsg policy = getCreatedPolicyMsg();
@@ -340,7 +341,7 @@ public class WsnPolicyInterface extends JFrame implements ActionListener {
 	public void deleteMsg()
 	{
 		if(ShorenUtils.isWholeMsg()){
-			ShorenUtils.setWholeMsg(false);  //修改策略信息时，从策略文件获得信息
+			ShorenUtils.setWholeMsg(false);  //??????????????????????????????????
 		}
 		WsnPolicyMsg newPolicy = getCreatedPolicyMsg();
 		WsnPolicyMsg policy = ShorenUtils.decodePolicyMsg(currentTopic);
@@ -349,7 +350,7 @@ public class WsnPolicyInterface extends JFrame implements ActionListener {
 		ShorenUtils.encodePolicyMsg(currentTopic);  //write
 	}
 
-	//将五个信息框都置为空
+	//????????????????????
 	public void setMsgNull()
 	{
 		msgStyleList.setSelectedIndex(0);
@@ -372,18 +373,18 @@ public class WsnPolicyInterface extends JFrame implements ActionListener {
 	{
 		msgStyle.clear();
 		msgStyleList.removeAllItems();
-	//	msgStyle.add("        ");  //第一个是8个空格
+	//	msgStyle.add("        ");  //????????8??????
 		msgStyle.add("MsgNotis");
 /*		
 		if(ShorenUtils.isWholeMsg())
 		{
-			//从全局RtMgr处得到信息,存入msgStyle中
+			//??????RtMgr??????????,????msgStyle??
 			msgStyle.add("aaaa");
 			msgStyle.add("cccca");
 			msgStyle.add("bbbb");
 		}
 		else{
-			//从策略文件处得到信息，存入msgStyle中
+			//??????????????????????????msgStyle??
 			
 		}*/
 		for(int i=0; i<msgStyle.size(); i++)
@@ -392,14 +393,14 @@ public class WsnPolicyInterface extends JFrame implements ActionListener {
 		}
 	}
 	
-	//以后要扩展的，根据msgStyle读取相应的topic,或者弃用.
+	//??????????????????msgStyle??????????topic,????????.
 	@SuppressWarnings("unchecked")
 	public void updateTopics(String msgStyle)
 	{
 		topics.clear();
 		topicList.removeAllItems();
 		
-//		topics.add("        "); //第一个是8个空格
+//		topics.add("        "); //????????8??????
 		if(currentTopic != null)
 		{
 			topicList.addItem(currentTopic.getTopicName());
@@ -411,11 +412,11 @@ public class WsnPolicyInterface extends JFrame implements ActionListener {
 		
 //		if(ShorenUtils.isWholeMsg())
 //		{
-//			//从全局RtMgr处得到信息,存入topics中
+//			//??????RtMgr??????????,????topics??
 //			
 //		}
 //		else{
-//			//从策略文件处得到信息，存入topics中
+//			//??????????????????????????topics??
 //			topics = ShorenUtils.getPolicyTopics();
 //			for(int i=0; i<topics.size(); i++)
 //			{
@@ -431,17 +432,17 @@ public class WsnPolicyInterface extends JFrame implements ActionListener {
 		if(e.getSource() == okayBtn)
 		{
 		//	System.out.println((String)msgStyleList.getSelectedItem());
-			//添加
+			//????
 			if(radioButtons[0].isSelected())
 			{
 				addPolicyMsg();
 			}else if(radioButtons[1].isSelected())
 			{
-				//修改
+				//????
 				updateMsg();
 			}else if(radioButtons[2].isSelected())
 			{
-				//删除
+				//????
 				deleteMsg();
 			}
 			this.dispose();
@@ -449,10 +450,10 @@ public class WsnPolicyInterface extends JFrame implements ActionListener {
 		{
 			this.dispose();
 		}else if(e.getSource() == radioButtons[0] || e.getSource() == radioButtons[1] 
-		          ||  e.getSource() == radioButtons[2])  //更换模式，所有选项置空
+		          ||  e.getSource() == radioButtons[2])  //??????????????????????
 		{
 			setMsgNull();
-			//添加的时候，使用
+			//????????????????
 			if(e.getSource() == radioButtons[0])
 				ShorenUtils.setWholeMsg(true);
 			else
@@ -462,7 +463,7 @@ public class WsnPolicyInterface extends JFrame implements ActionListener {
 			updateTopics(null);
 		}else if(e.getSource() == bt1)
 		{
-			//传入所选择的topic 
+			//????????????topic 
 			WsnPolicyGroupInterface inter = null;
 			if(radioButtons[0].isSelected() || radioButtons[1].isSelected()) {
 				inter = new WsnPolicyGroupInterface(currentTopic, true);
@@ -473,13 +474,13 @@ public class WsnPolicyInterface extends JFrame implements ActionListener {
 			
 		}else if(e.getSource() == bt2)
 		{
-			//根据bt1的选择作响应,若root只有一个节点且封装TargetGroup，则继续
+			//????bt1????????????,??root??????????????????TargetGroup????????
 			DefaultMutableTreeNode root = (DefaultMutableTreeNode) groupTree.getModel().getRoot();
 			if(root.isLeaf()){
-				JOptionPane.showMessageDialog(this , "请选择一个且仅一个集群！^_^");
+				JOptionPane.showMessageDialog(this , "????????????????????????^_^");
 				return;
 			}
-			//弹出列表供选择
+			//??????????????
 			Object group = ((DefaultMutableTreeNode)root.getChildAt(0)).getUserObject();
 			if(group instanceof TargetGroup){
 				getRegMsg((TargetGroup)group);
@@ -488,10 +489,10 @@ public class WsnPolicyInterface extends JFrame implements ActionListener {
 		}else if(e.getSource() == bt3)
 		{
 			if(name_List.get("regs").getModel().getSize() < 1){
-				JOptionPane.showMessageDialog(this , "请选择一个且仅一个代理！^_^");
+				JOptionPane.showMessageDialog(this , "????????????????????????^_^");
 				return;
 			}
-			//弹出列表供选择
+			//??????????????
 			Object reg = name_Array.get("regs").get(0);
 			if(reg instanceof TargetRep){
 				getHostMsg((TargetRep)reg);
@@ -565,7 +566,7 @@ public class WsnPolicyInterface extends JFrame implements ActionListener {
 		return btn;
 	}
 	
-	//方形按钮
+	//????????
 	protected JButton createBtn1()
 	{
 		JButton btn = new JButton();
@@ -606,10 +607,10 @@ public class WsnPolicyInterface extends JFrame implements ActionListener {
 		    System.out.println(tem.getTopicPath());
 		    System.out.println(tem.getWsnpolicymsg());
 		    if (tem.getWsnpolicymsg()!= null){
-		    System.out.println("策略信息TargetTopic："+tem.getWsnpolicymsg().getTargetTopic());
-			System.out.println("策略信息AllGroups："+tem.getWsnpolicymsg().getAllGroups());
-			System.out.println("策略信息ComplexGroups："+tem.getWsnpolicymsg().getComplexGroups());
-			System.out.println("策略信息TargetGroups："+tem.getWsnpolicymsg().getTargetGroups());
+		    System.out.println("????????TargetTopic??"+tem.getWsnpolicymsg().getTargetTopic());
+			System.out.println("????????AllGroups??"+tem.getWsnpolicymsg().getAllGroups());
+			System.out.println("????????ComplexGroups??"+tem.getWsnpolicymsg().getComplexGroups());
+			System.out.println("????????TargetGroups??"+tem.getWsnpolicymsg().getTargetGroups());
 		    }
 		}
 		

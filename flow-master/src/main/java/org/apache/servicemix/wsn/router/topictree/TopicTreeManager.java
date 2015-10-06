@@ -54,6 +54,8 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
+import edu.bupt.wangfu.ldap.Ldap;
+import edu.bupt.wangfu.ldap.TopicEntry;
 import jaxe.Jaxe;
 
 import org.apache.servicemix.application.WSNTopicObject;
@@ -64,8 +66,6 @@ import org.apache.servicemix.wsn.router.msg.tcp.UpdateTree;
 import org.apache.servicemix.wsn.router.wsnPolicy.ShorenUtils;
 import org.apache.servicemix.wsn.router.wsnPolicy.WsnPolicyInterface;
 import org.w3c.dom.Document;
-
-import com.bupt.wangfu.ldap.*;
 
 public class TopicTreeManager {
 	private JPanel TTFrame = null;

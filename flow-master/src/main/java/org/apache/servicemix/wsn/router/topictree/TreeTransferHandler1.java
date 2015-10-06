@@ -13,12 +13,12 @@ import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;  
 import javax.swing.tree.DefaultTreeModel;  
 import javax.swing.tree.TreeModel;
-import javax.swing.tree.TreePath;  
+import javax.swing.tree.TreePath;
 
+import edu.bupt.wangfu.ldap.Ldap;
+import edu.bupt.wangfu.ldap.TopicEntry;
 import org.apache.servicemix.wsn.router.design.Data;
 import org.apache.servicemix.wsn.router.msg.tcp.UpdateTree;
-
-import com.bupt.wangfu.ldap.*;
 
 
 public class TreeTransferHandler1 extends TransferHandler {  

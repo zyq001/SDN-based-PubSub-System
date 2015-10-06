@@ -83,8 +83,8 @@ import org.oasis_open.docs.wsn.b_2.CreatePullPointResponse;
 import org.oasis_open.docs.wsn.b_2.SubscribeResponse;
 import org.oasis_open.docs.wsn.bw_2.UnableToDestroySubscriptionFault;
 
-import com.bupt.wangfu.ldap.Ldap;
-import com.bupt.wangfu.ldap.TopicEntry;
+import edu.bupt.wangfu.ldap.Ldap;
+import edu.bupt.wangfu.ldap.TopicEntry;
 
 @WebService(endpointInterface = "org.apache.servicemix.application.IWsnProcess", serviceName = "IWsnProcess")
 public class WsnProcessImpl implements IWsnProcess {

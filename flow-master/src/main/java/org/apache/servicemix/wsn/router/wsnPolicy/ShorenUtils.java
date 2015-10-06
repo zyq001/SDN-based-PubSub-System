@@ -37,6 +37,8 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
+import edu.bupt.wangfu.ldap.Ldap;
+import edu.bupt.wangfu.ldap.TopicEntry;
 import org.apache.servicemix.application.WSNTopicObject;
 import org.apache.servicemix.wsn.router.admin.AdminBase;
 import org.apache.servicemix.wsn.router.admin.AdminMgr;
@@ -53,8 +55,6 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
-
-import com.bupt.wangfu.ldap.*;
 
 import org.apache.servicemix.wsn.router.topictree.*;
 
