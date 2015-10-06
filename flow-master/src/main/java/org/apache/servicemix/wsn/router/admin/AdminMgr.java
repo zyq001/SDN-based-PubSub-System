@@ -97,6 +97,8 @@ public class AdminMgr extends AdminBase implements HrtMsgHdlr, Runnable, IAdmin 
 		tmt = new Thread(new TcpMsgThread(this));//开tcp监听端口tPort
 		umt = new Thread(new UdpMsgThread(this));//开udp监听端口uPort
 
+		GlobleUtil.getInstance().init();
+
 		tmt.start();
 		umt.start();
 		int BackupIsPrimary = BackupIsPrimary();//与备份服务器建立连接，探知对方是否是主管理员
@@ -194,12 +196,6 @@ public class AdminMgr extends AdminBase implements HrtMsgHdlr, Runnable, IAdmin 
 		
 	}
 
-	public static void addController(String controllerAddr){
-
-		Controller newController = new Controller(controllerAddr);
-		GlobleUtil.getInstance().controllers.put(controllerAddr, newController);
-
-	}
 	public void askGroupBase(){
 		
 		Socket s = null;

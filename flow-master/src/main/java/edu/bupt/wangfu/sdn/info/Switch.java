@@ -15,6 +15,8 @@ public class Switch {
     private String DPID;
     private String mac;
     private String ipAddr;
+
+    private double load;
     private Map<Integer, Integer> portList;
     private Long lastSeen;
 
@@ -60,5 +62,13 @@ public class Switch {
 
     public void setPortList(Map<Integer, Integer> portList) {
         this.portList = portList;
+    }
+
+    public double getLoad() {
+        return load;
+    }
+
+    public void setLoad(double load) {
+        this.load = load;
     }
 }

@@ -3,11 +3,11 @@
 
  Copyright (C) 2002 Observatoire de Paris-Meudon
 
- Ce programme est un logiciel libre ; vous pouvez le redistribuer et/ou le modifier conformément aux dispositions de la Licence Publique Générale GNU, telle que publiée par la Free Software Foundation ; version 2 de la licence, ou encore (à votre choix) toute version ultérieure.
+ Ce programme est un logiciel libre ; vous pouvez le redistribuer et/ou le modifier conform?ment aux dispositions de la Licence Publique G?n?rale GNU, telle que publi?e par la Free Software Foundation ; version 2 de la licence, ou encore (? votre choix) toute version ult?rieure.
 
- Ce programme est distribué dans l'espoir qu'il sera utile, mais SANS AUCUNE GARANTIE ; sans même la garantie implicite de COMMERCIALISATION ou D'ADAPTATION A UN OBJET PARTICULIER. Pour plus de détail, voir la Licence Publique Générale GNU .
+ Ce programme est distribu? dans l'espoir qu'il sera utile, mais SANS AUCUNE GARANTIE ; sans m?me la garantie implicite de COMMERCIALISATION ou D'ADAPTATION A UN OBJET PARTICULIER. Pour plus de d?tail, voir la Licence Publique G?n?rale GNU .
 
- Vous devez avoir reçu un exemplaire de la Licence Publique Générale GNU en même temps que ce programme ; si ce n'est pas le cas, écrivez à la Free Software Foundation Inc., 675 Mass Ave, Cambridge, MA 02139, Etats-Unis.
+ Vous devez avoir re?u un exemplaire de la Licence Publique G?n?rale GNU en m?me temps que ce programme ; si ce n'est pas le cas, ?crivez ? la Free Software Foundation Inc., 675 Mass Ave, Cambridge, MA 02139, Etats-Unis.
  */
 
 package jaxe.elements;
@@ -59,13 +59,13 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 
 /**
- * Table dans le texte, permettant l'insertion de sous-éléments dans les cellules.
- * Type d'élément Jaxe: 'tabletexte'
- * paramètre: trTag: un attribut correspondant à une ligne de tableau
- * paramètre: tdTag: un attribut correspondant à une cellule de tableau
- * paramètre: thTag: un attribut correspondant à une cellule d'entête de tableau
- * paramètre: colspanAttr: Attributename for colspan
- * paramètre: rowspanAttr: Attributename for rowspan
+ * Table dans le texte, permettant l'insertion de sous-?l?ments dans les cellules.
+ * Type d'?l?ment Jaxe: 'tabletexte'
+ * param?tre: trTag: un attribut correspondant ? une ligne de tableau
+ * param?tre: tdTag: un attribut correspondant ? une cellule de tableau
+ * param?tre: thTag: un attribut correspondant ? une cellule d'ent?te de tableau
+ * param?tre: colspanAttr: Attributename for colspan
+ * param?tre: rowspanAttr: Attributename for rowspan
  */
 public class JETableTexte extends JaxeElement implements ActionListener {
     /**
@@ -84,7 +84,7 @@ public class JETableTexte extends JaxeElement implements ActionListener {
     boolean avecEntete;
     int nblignes;
     int nbcolonnes;
-    Element[][] grille; // utile pour gérer colspan et rowspan
+    Element[][] grille; // utile pour g?rer colspan et rowspan
     boolean inTable = true;
     private JPanel pboutons;
     TableHelper helper;
@@ -184,7 +184,7 @@ public class JETableTexte extends JaxeElement implements ActionListener {
                 avecEntete = tdh != null && THtag.equals(tdh.getLocalName());
                 final JCheckBox bcheck = new JCheckBox(getString("table.Entete"), avecEntete);
                 bcheck.addActionListener(this);
-                bcheck.setActionCommand("entête");
+                bcheck.setActionCommand("ent?te");
                 bcheck.setFont(bcheck.getFont().deriveFont((float) 9));
                 pboutons.add(bcheck);
             } else
@@ -259,7 +259,7 @@ public class JETableTexte extends JaxeElement implements ActionListener {
     }
     
     /**
-     * Réduit la taille d'un bouton pour qu'il tienne dans une barre d'outils
+     * R?duit la taille d'un bouton pour qu'il tienne dans une barre d'outils
      */
     private void petitBouton(final JButton b) {
         b.setFont(b.getFont().deriveFont((float) 9));
@@ -399,7 +399,7 @@ public class JETableTexte extends JaxeElement implements ActionListener {
     }
     
     /**
-     * Sépare la cellule en deux verticalement (sur 2 lignes)
+     * S?pare la cellule en deux verticalement (sur 2 lignes)
      */
     private void splitRows() {
         final JaxeElement jesel = cellulesel();
@@ -465,7 +465,7 @@ public class JETableTexte extends JaxeElement implements ActionListener {
     }
     
     /**
-     * Regroupe la colonne dans laquelle se trouve le curseur avec la cellule à droite
+     * Regroupe la colonne dans laquelle se trouve le curseur avec la cellule ? droite
      */
     private void concatColumns() {
         final JaxeElement jesel = cellulesel();
@@ -533,7 +533,7 @@ public class JETableTexte extends JaxeElement implements ActionListener {
     }
     
     /**
-     * Sépare la cellule en deux horizontalement (sur 2 colonnes)
+     * S?pare la cellule en deux horizontalement (sur 2 colonnes)
      */
     private void splitColumns() {
         final JaxeElement jesel = cellulesel();
@@ -590,7 +590,7 @@ public class JETableTexte extends JaxeElement implements ActionListener {
     }
     
     /**
-     * modif de JaxeElement.mettreAJourDOM pour éviter l'enregistrement de \n\n après <TABLE>
+     * modif de JaxeElement.mettreAJourDOM pour ?viter l'enregistrement de \n\n apr?s <TABLE>
      */
     @Override
     public void mettreAJourDOM() {
@@ -601,7 +601,7 @@ public class JETableTexte extends JaxeElement implements ActionListener {
     }
     
     /**
-     * Renvoit la spécification qui permettra de créer la table dans la zone de texte.
+     * Renvoit la sp?cification qui permettra de cr?er la table dans la zone de texte.
      */
     protected JaxeDocument.SwingElementSpec preparerSpecTable(final Element el, final int offset) {
         final JaxeDocument.SwingElementSpec tableSpec = doc.prepareSpec("table");
@@ -673,7 +673,7 @@ public class JETableTexte extends JaxeElement implements ActionListener {
     }
     
     /**
-     * Création des éléments Swing (JESwing) correspondants aux lignes et cellules de la table.
+     * Cr?ation des ?l?ments Swing (JESwing) correspondants aux lignes et cellules de la table.
      */
     protected void creerElementsTableJaxe(final Element elDOM, final javax.swing.text.Element elSwing) {
         setEditionAutorisee(false);
@@ -694,7 +694,7 @@ public class JETableTexte extends JaxeElement implements ActionListener {
     }
     
     /**
-     * Appelé par creerElementsTableJaxe pour créer les éléments Swing (JESwing) correspondants à une ligne de la table.
+     * Appel? par creerElementsTableJaxe pour cr?er les ?l?ments Swing (JESwing) correspondants ? une ligne de la table.
      */
     protected Position creerElementsLigneJaxe(final Element trDOM, final javax.swing.text.Element trSwing) {
         javax.swing.text.Element tdSwing = null;
@@ -858,8 +858,8 @@ public class JETableTexte extends JaxeElement implements ActionListener {
     }
     
     /**
-     * Renvoit la liste des composants graphiques (JComponent ou Icon) à l'intérieur de la table
-     * (dans cet élément ou l'un de ses descendants).
+     * Renvoit la liste des composants graphiques (JComponent ou Icon) ? l'int?rieur de la table
+     * (dans cet ?l?ment ou l'un de ses descendants).
      */
     protected ArrayList<Object> recupererComposants() {
         final int offsetdebut = getOffsetDebut();
@@ -871,7 +871,7 @@ public class JETableTexte extends JaxeElement implements ActionListener {
     }
     
     /**
-     * Renvoit les éléments se trouvant dans la zone du texte indiquée
+     * Renvoit les ?l?ments se trouvant dans la zone du texte indiqu?e
      */
     @Override
     public ArrayList<JaxeElement> elementsDans(final int dpos, final int fpos) {
@@ -941,8 +941,8 @@ public class JETableTexte extends JaxeElement implements ActionListener {
     }
     
     /**
-     * Recrée l'affichage de la table. Les composants graphiques qui se trouvent à l'intérieur
-     * sont passés en paramètres pour pouvoir être effacés correctement avant d'être reconstruits.
+     * Recr?e l'affichage de la table. Les composants graphiques qui se trouvent ? l'int?rieur
+     * sont pass?s en param?tres pour pouvoir ?tre effac?s correctement avant d'?tre reconstruits.
      */
     public void recreerTable(final ArrayList<Object> allcomp) {
         final int caretpos = doc.textPane.getCaretPosition();
@@ -986,9 +986,9 @@ public class JETableTexte extends JaxeElement implements ActionListener {
     }
     
     /**
-     * Ajoute une ligne à cette table. Si le curseur se trouve sur une ligne de cette table,
-     * la ligne est ajoutée après la ligne sur laquelle se trouve le curseur. Sinon la ligne
-     * est ajoutée à la fin de la table.
+     * Ajoute une ligne ? cette table. Si le curseur se trouve sur une ligne de cette table,
+     * la ligne est ajout?e apr?s la ligne sur laquelle se trouve le curseur. Sinon la ligne
+     * est ajout?e ? la fin de la table.
      */
     public void ajligne() {
         doc.textPane.getUndo().discardAllEdits();
@@ -1052,13 +1052,13 @@ public class JETableTexte extends JaxeElement implements ActionListener {
         creerElementsLigneJaxe(tr, trSwing);
         doc.textPane.setCaretPosition(pos);
         doc.textPane.requestFocus();
-        */ // la ligne n'est pas insérée au bon endroit...
+        */ // la ligne n'est pas ins?r?e au bon endroit...
         recreerTable(recupererComposants());
         this.doc.setModif(true);
     }
     
     /**
-     * Supprime la ligne de cette table où se trouve le curseur.
+     * Supprime la ligne de cette table o? se trouve le curseur.
      */
     public void supligne() {
         final JaxeElement jetrsel = lignesel();
@@ -1096,7 +1096,7 @@ public class JETableTexte extends JaxeElement implements ActionListener {
                     while (ic + 1 < nbcolonnes && grille[rsel][ic + 1] == td)
                         ic++;
                 } else if (rsel + 1 < nblignes && grille[rsel + 1][ic] == td) {
-                    // déplacement de td vers la ligne suivante + réduction rowspan
+                    // d?placement de td vers la ligne suivante + r?duction rowspan
                     Element td2 = null;
                     int itd2 = 1;
                     while (ic + itd2 < nbcolonnes) {
@@ -1135,7 +1135,7 @@ public class JETableTexte extends JaxeElement implements ActionListener {
             final Node parent = jetrsel.noeud.getParentNode();
             final Node nextSibling = jetrsel.noeud.getNextSibling();
             if (nextSibling != null && nextSibling.getNodeType() == Node.TEXT_NODE)
-                parent.removeChild(nextSibling); // retire le \n aprés </TR>
+                parent.removeChild(nextSibling); // retire le \n apr?s </TR>
             parent.removeChild(jetrsel.noeud);
         } catch (final DOMException ex) {
             LOG.error("supligne() - DOMException: " + ex.getMessage(), ex);
@@ -1146,9 +1146,9 @@ public class JETableTexte extends JaxeElement implements ActionListener {
     }
     
     /**
-     * Ajoute une colonne à cette table. Si le curseur se trouve sur une colonne de cette table,
-     * la colonne est ajoutée après la colonne sur laquelle se trouve le curseur. Sinon la colonne
-     * est ajoutée à la droite de la table.
+     * Ajoute une colonne ? cette table. Si le curseur se trouve sur une colonne de cette table,
+     * la colonne est ajout?e apr?s la colonne sur laquelle se trouve le curseur. Sinon la colonne
+     * est ajout?e ? la droite de la table.
      */
     public void ajcolonne() {
         doc.textPane.getUndo().discardAllEdits();
@@ -1209,7 +1209,7 @@ public class JETableTexte extends JaxeElement implements ActionListener {
     }
     
     /**
-     * Supprime la colonne de cette table où se trouve le curseur.
+     * Supprime la colonne de cette table o? se trouve le curseur.
      */
     public void supcolonne() {
         final int csel = colonnesel();
@@ -1255,7 +1255,7 @@ public class JETableTexte extends JaxeElement implements ActionListener {
     }
     
     /**
-     * Transforme les cellules normales de la première ligne en cellules entête, ou inversement.
+     * Transforme les cellules normales de la premi?re ligne en cellules ent?te, ou inversement.
      */
     public void modifEntete() {
         doc.textPane.getUndo().discardAllEdits();
@@ -1306,10 +1306,10 @@ public class JETableTexte extends JaxeElement implements ActionListener {
     }
     
     /**
-     * Renvoit l'élément Jaxe correspondant à la ligne dans laquelle se trouve le curseur.
+     * Renvoit l'?l?ment Jaxe correspondant ? la ligne dans laquelle se trouve le curseur.
      */
     private JaxeElement lignesel() {
-        // si on utilise elementA on risque de tomber sur des éléments d'une sous-table
+        // si on utilise elementA on risque de tomber sur des ?l?ments d'une sous-table
         final int pos = doc.textPane.getCaretPosition();
         final Element el = (Element) noeud;
         for (Element tr = helper.premiereLigne(el); tr != null; tr = helper.ligneSuivante(tr)) {
@@ -1322,10 +1322,10 @@ public class JETableTexte extends JaxeElement implements ActionListener {
     }
     
     /**
-     * Renvoit le numéro de la colonne dans laquelle se trouve le curseur.
+     * Renvoit le num?ro de la colonne dans laquelle se trouve le curseur.
      */
     private int colonnesel() {
-        // si on utilise elementA on risque de tomber sur des éléments d'une sous-table
+        // si on utilise elementA on risque de tomber sur des ?l?ments d'une sous-table
         final JaxeElement jecell = cellulesel();
         if (jecell == null)
             return -1;
@@ -1334,15 +1334,15 @@ public class JETableTexte extends JaxeElement implements ActionListener {
                 if (grille[il][ic] == jecell.noeud)
                     return ic;
             }
-        LOG.error("colonnesel() - colonnesel: noeud non trouvé dans la grille: " + jecell.noeud);
+        LOG.error("colonnesel() - colonnesel: noeud non trouv? dans la grille: " + jecell.noeud);
         return -1;
     }
     
     /**
-     * Renvoit l'élément Jaxe correspondant à la cellule dans laquelle se trouve le curseur.
+     * Renvoit l'?l?ment Jaxe correspondant ? la cellule dans laquelle se trouve le curseur.
      */
     protected JaxeElement cellulesel() {
-        // si on utilise elementA on risque de tomber sur des éléments d'une sous-table
+        // si on utilise elementA on risque de tomber sur des ?l?ments d'une sous-table
         final int pos = doc.textPane.getCaretPosition();
         final JaxeElement lsel = lignesel();
         if (lsel == null)
@@ -1363,7 +1363,7 @@ public class JETableTexte extends JaxeElement implements ActionListener {
     }
     
     /**
-     * Affiche le dialogue des attributs pour la ligne sélectionnée.
+     * Affiche le dialogue des attributs pour la ligne s?lectionn?e.
      */
     public void modligne() {
         final JaxeElement jsel = lignesel();
@@ -1374,7 +1374,7 @@ public class JETableTexte extends JaxeElement implements ActionListener {
     }
     
     /**
-     * Affiche le dialogue des attributs pour la cellule sélectionnée.
+     * Affiche le dialogue des attributs pour la cellule s?lectionn?e.
      */
     public void modcellule() {
         final JaxeElement jesel = cellulesel();
@@ -1386,7 +1386,7 @@ public class JETableTexte extends JaxeElement implements ActionListener {
     }
     
     /**
-     * Mise à jour du modèle et de l'affichage après modification de colspan ou rowspan.
+     * Mise ? jour du mod?le et de l'affichage apr?s modification de colspan ou rowspan.
      */
     public void majCellule(final JaxeElement jesel) {
         int icolspan;
@@ -1401,7 +1401,7 @@ public class JETableTexte extends JaxeElement implements ActionListener {
         final Element trsel = (Element) el.getParentNode();
         final int rsel = helper.numeroLigne(trsel);
 
-        // obtention des colspan et rowspan d'avant la maj à partir de la grille
+        // obtention des colspan et rowspan d'avant la maj ? partir de la grille
         icolspan = 0;
         while (csel + icolspan < nbcolonnes - 1 && grille[rsel][csel + icolspan] == grille[rsel][csel + icolspan + 1])
             icolspan++;
@@ -1411,7 +1411,7 @@ public class JETableTexte extends JaxeElement implements ActionListener {
             irowspan++;
         irowspan++;
 
-        // nouveaux colspan et rowspan à partir de l'élément DOM
+        // nouveaux colspan et rowspan ? partir de l'?l?ment DOM
         if (colspanAttr != null) {
             final String colspan2 = ((Element) jesel.noeud).getAttribute(colspanAttr);
             try {
@@ -1433,7 +1433,7 @@ public class JETableTexte extends JaxeElement implements ActionListener {
             irowspan2 = 1;
         }
 
-        // maj du modèle
+        // maj du mod?le
         if (icolspan != icolspan2 || irowspan != irowspan2) {
 
             if (icolspan2 > icolspan) {
@@ -1558,8 +1558,8 @@ public class JETableTexte extends JaxeElement implements ActionListener {
     }
     
     /**
-     * Renvoit l'élément Jaxe JETableTexte correspondant à la table de plus bas niveau dans laquelle se trouve le curseur.
-     * Permet de distinguer quelle table est sélectionnée quand il y a plusieurs tables imbriquées.
+     * Renvoit l'?l?ment Jaxe JETableTexte correspondant ? la table de plus bas niveau dans laquelle se trouve le curseur.
+     * Permet de distinguer quelle table est s?lectionn?e quand il y a plusieurs tables imbriqu?es.
      */
     private JETableTexte getTable() {
 
@@ -1592,7 +1592,7 @@ public class JETableTexte extends JaxeElement implements ActionListener {
                 jetable.supligne();
             else if ("supcolonne".equals(cmd))
                 jetable.supcolonne();
-            else if ("entête".equals(cmd))
+            else if ("ent?te".equals(cmd))
                 this.modifEntete();
             else if ("modtable".equals(cmd)) {
                 jetable.afficherDialogue(doc.jframe);
@@ -1616,7 +1616,7 @@ public class JETableTexte extends JaxeElement implements ActionListener {
     }
     
     /**
-     * Renvoit l'élément de plus bas niveau se trouvant à la position donnée dans le texte
+     * Renvoit l'?l?ment de plus bas niveau se trouvant ? la position donn?e dans le texte
      */
     @Override
     public JaxeElement elementA(final int pos) {

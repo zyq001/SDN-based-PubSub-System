@@ -1,8 +1,23 @@
 package edu.bupt.wangfu.sdn.info;
 
+import org.json.JSONObject;
+
 public class Flow {
 	private String dpid;
 	private String flowCount;
+
+	private JSONObject content;
+
+	public Flow(String dpid){this.dpid = dpid; }
+
+	public JSONObject getContent() {
+		return content;
+	}
+
+	public void setContent(JSONObject content) {
+		this.content = content;
+	}
+
 	
 	public String getDpid() {
 		return dpid;

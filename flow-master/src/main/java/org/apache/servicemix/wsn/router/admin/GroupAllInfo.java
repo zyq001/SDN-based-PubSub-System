@@ -8,15 +8,15 @@ import org.apache.servicemix.wsn.router.msg.tcp.MsgConf_;
 
 public class GroupAllInfo extends AdminBase implements Serializable{
 	/**
-	 * ´æ·Å¼¯ÈºËùÓĞĞÅÏ¢£¬°üÀ¨ÅäÖÃĞÅÏ¢£¬ÓÃÓÚÖ÷¹ÜÀíÔ±Ïò±¸·İ¹ÜÀíÔ±´«ËÍ
+	 * å­˜æ”¾é›†ç¾¤æ‰€æœ‰ä¿¡æ¯ï¼ŒåŒ…æ‹¬é…ç½®ä¿¡æ¯ï¼Œç”¨äºä¸»ç®¡ç†å‘˜å‘å¤‡ä»½ç®¡ç†å‘˜ä¼ é€
 	 * 
 	 * */
 	
 	private static final long serialVersionUID = 1L;
 	
-	public  ConcurrentHashMap<String, MsgConf_> groupconfs;//±£´æËùÓĞ¼¯ÈºµÄÅäÖÃĞÅÏ¢£¬ÓÃÓÚÖ÷´Ó¹ÜÀíÔ±Ö®¼äÍ¬²½
+	public  ConcurrentHashMap<String, MsgConf_> groupconfs;//ä¿å­˜æ‰€æœ‰é›†ç¾¤çš„é…ç½®ä¿¡æ¯ï¼Œç”¨äºä¸»ä»ç®¡ç†å‘˜ä¹‹é—´åŒæ­¥
 
-	public   ConcurrentHashMap<String, GroupUnit> groups;//Ãû×Ö:groupĞÅÏ¢£¬±£´æËùÓĞgroupµÄĞÅÏ¢
+	public   ConcurrentHashMap<String, GroupUnit> groups;//åå­—:groupä¿¡æ¯ï¼Œä¿å­˜æ‰€æœ‰groupçš„ä¿¡æ¯
 	
 	public  String sendFlag = "Ask";
 	

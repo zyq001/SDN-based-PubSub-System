@@ -5,15 +5,15 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class MsgSubsForm{
 	
-	public String topicComponent;//±¾¼¶Ãû³Æ
+	public String topicComponent;//æœ¬çº§åç§°
 	
-	public ConcurrentHashMap<String,MsgSubsForm> topicChildList; //ÏÂÒ»¼¶ÏûÏ¢£¬keyÎªÏûÏ¢Ãû³Æ
+	public ConcurrentHashMap<String,MsgSubsForm> topicChildList; //ä¸‹ä¸€çº§æ¶ˆæ¯ï¼Œkeyä¸ºæ¶ˆæ¯åç§°
 	
-	public ArrayList<String> subs; //¶©ÔÄ´ËÏûÏ¢µÄ¼¯Èº,valueÎªÆä¶©ÔÄÊ±¼ä
+	public ArrayList<String> subs; //è®¢é˜…æ­¤æ¶ˆæ¯çš„é›†ç¾¤,valueä¸ºå…¶è®¢é˜…æ—¶é—´
 	
-	public ArrayList<String> routeNext; //Õë¶Ô¸ÃÃû³ÆµÄ×ª·¢ÏÂÒ»Ìø½Úµã
+	public ArrayList<String> routeNext; //é’ˆå¯¹è¯¥åç§°çš„è½¬å‘ä¸‹ä¸€è·³èŠ‚ç‚¹
 	
-	public String routeRoot; //¸ÃÃû³Æ×ª·¢Ê÷µÄ¸ù½Úµã
+	public String routeRoot; //è¯¥åç§°è½¬å‘æ ‘çš„æ ¹èŠ‚ç‚¹
 	
 	public MsgSubsForm() {
 		topicChildList = new ConcurrentHashMap<String, MsgSubsForm>();

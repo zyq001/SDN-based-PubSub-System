@@ -1,12 +1,12 @@
 package edu.bupt.wangfu.sdn.queue;
 
 //import com.sdn.OvsOperation.OvsOperate;
-import edu.bupt.wangfu.sdn.info.DevInfo;
-import edu.bupt.wangfu.sdn.info.Switch;
+import edu.bupt.wangfu.sdn.info.*;
 import edu.bupt.wangfu.sdn.sflow.SflowAPI;
 import edu.bupt.wangfu.sdn.info.DevInfo;
 import edu.bupt.wangfu.sdn.info.Switch;
 import edu.bupt.wangfu.sdn.sflow.SflowAPI;
+import org.apache.servicemix.wsn.router.router.GlobleUtil;
 
 import java.util.Map;
 
@@ -18,7 +18,15 @@ public class QueueAdjust extends Thread{
     @Override
    public void run(){
 
-        Map<String, Switch> switchs = DevInfo.getINSTANCE().getSwitchs();
+        for(Map.Entry<String, Controller> entry: GlobleUtil.getInstance().controllers.entrySet()){
+            adjustController(entry.getValue());
+        }
+
+
+    }
+
+    private void adjustController(Controller controller){
+        Map<String, Switch> switchs = controller.getSwitchMap();
 
         for(Switch sw: switchs.values()){
             Map<Integer,Integer> ports = sw.getPortList();
@@ -26,14 +34,14 @@ public class QueueAdjust extends Thread{
                 double speed = SflowAPI.getSpeed(sw.getIpAddr(), "" + port + ".ifinpkts");
                 double bandWidth = ports.get(port);
                 if(speed > bandWidth / 2 && speed <= bandWidth * 2 / 3){//weak
-                    QueueManagerment.enQueue(sw.getDPID(), port, "30003","1.1");
+                    QueueManagerment.enQueue(controller, sw.getDPID(), port, "30003","1.1");
+
                 }else if(speed > bandWidth * 2 / 3){
-                    QueueManagerment.enQueue(sw.getDPID(), port, "30002","1.1");
-                    QueueManagerment.enQueue(sw.getDPID(), port, "30003","1.2");
+                    QueueManagerment.enQueue(controller, sw.getDPID(), port, "30002","1.1");
+                    QueueManagerment.enQueue(controller,sw.getDPID(), port, "30003","1.2");
                 }
             }
         }
-
     }
 
     public static void main(String[] args){

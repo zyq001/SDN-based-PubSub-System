@@ -119,7 +119,7 @@ public class RestProcess {///wm/device/
 			String body = doClientGet(url);
 			JSONObject json = new JSONObject(body);
 			System.out.println(json);
-			Flow dpidlist = new Flow();
+			Flow dpidlist = new Flow(json.getString("dpid"));
 			dpidlist.setDpid(REST_URL);
 			dpidlist.setFlowCount(""+json.getInt("controller__OFPacketIn"));
 			all.add(dpidlist);
@@ -130,8 +130,9 @@ public class RestProcess {///wm/device/
 			System.out.println(switchjson);
 
 			for(int i=0;i<switchjson.length();i++){//test
-				Flow list = new Flow();
 				String dpid = switchjson.getJSONObject(i).getString("dpid");
+
+				Flow list = new Flow(dpid);
 				list.setDpid(dpid);
 //				list.setDpid(DPID+"__"+(devjson.getJSONObject(i)
 //						.getJSONArray("attachmentPoint").length() > 0 ? devjson.getJSONObject(i)
@@ -174,7 +175,7 @@ public class RestProcess {///wm/device/
 
 		try {
 			CloseableHttpResponse statusCode = client.execute(method);
-
+			result.add(statusCode.toString());
 			BufferedReader reader = new BufferedReader(new InputStreamReader(statusCode.getEntity().getContent(), "utf-8"));
 			String line;
 			while ((line = reader.readLine()) != null) {

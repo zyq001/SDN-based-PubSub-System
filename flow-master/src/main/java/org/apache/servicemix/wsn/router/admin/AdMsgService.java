@@ -126,7 +126,10 @@ public class AdMsgService extends AdminBase implements Runnable {
 				}
 
 				String controllerAddr = mng.controllerAddr;
-				if(!GlobleUtil.getInstance().controllers.containsKey(controllerAddr)) this.Amgr.addController(controllerAddr);
+				if(!GlobleUtil.getInstance().controllers.containsKey(controllerAddr)){
+
+					GlobleUtil.getInstance().addController(controllerAddr);
+				}
 				oos.writeObject(mng_);
 
 			} else if (msg instanceof GroupUnit) {

@@ -3,11 +3,11 @@ Jaxe - Editeur XML en Java
 
 Copyright (C) 2010 Observatoire de Paris-Meudon
 
-Ce programme est un logiciel libre ; vous pouvez le redistribuer et/ou le modifier conform�ment aux dispositions de la Licence Publique G�n�rale GNU, telle que publi�e par la Free Software Foundation ; version 2 de la licence, ou encore (� votre choix) toute version ult�rieure.
+Ce programme est un logiciel libre ; vous pouvez le redistribuer et/ou le modifier conform?ment aux dispositions de la Licence Publique G?n?rale GNU, telle que publi?e par la Free Software Foundation ; version 2 de la licence, ou encore (? votre choix) toute version ult?rieure.
 
-Ce programme est distribu� dans l'espoir qu'il sera utile, mais SANS AUCUNE GARANTIE ; sans m�me la garantie implicite de COMMERCIALISATION ou D'ADAPTATION A UN OBJET PARTICULIER. Pour plus de d�tail, voir la Licence Publique G�n�rale GNU .
+Ce programme est distribu? dans l'espoir qu'il sera utile, mais SANS AUCUNE GARANTIE ; sans m?me la garantie implicite de COMMERCIALISATION ou D'ADAPTATION A UN OBJET PARTICULIER. Pour plus de d?tail, voir la Licence Publique G?n?rale GNU .
 
-Vous devez avoir re�u un exemplaire de la Licence Publique G�n�rale GNU en m�me temps que ce programme ; si ce n'est pas le cas, �crivez � la Free Software Foundation Inc., 675 Mass Ave, Cambridge, MA 02139, Etats-Unis.
+Vous devez avoir re?u un exemplaire de la Licence Publique G?n?rale GNU en m?me temps que ce programme ; si ce n'est pas le cas, ?crivez ? la Free Software Foundation Inc., 675 Mass Ave, Cambridge, MA 02139, Etats-Unis.
 */
 
 package jaxe.wxs.copy;
@@ -44,7 +44,7 @@ import jaxe.JaxeException;
 
 
 /**
- * Classe impl�mentant InterfaceSchema pour les sch�mas du W3C.
+ * Classe impl?mentant InterfaceSchema pour les sch?mas du W3C.
  */
 public class JaxeWXS implements InterfaceSchema {
     
@@ -52,12 +52,12 @@ public class JaxeWXS implements InterfaceSchema {
     
     private final Config cfg;
     private WXSSchema schema;
-    private final HashMap<Element, WXSElement> hRefElementVersWXS; // lien r�f�rences �l�ments -> �l�ments WXS
-    private final HashMap<Element, WXSAttribute> hRefAttributVersWXS; // lien r�f�rences attributs -> attributs WXS
+    private final HashMap<Element, WXSElement> hRefElementVersWXS; // lien r?f?rences ?l?ments -> ?l?ments WXS
+    private final HashMap<Element, WXSAttribute> hRefAttributVersWXS; // lien r?f?rences attributs -> attributs WXS
     private final HashMap<String, ArrayList<WXSElement>> hNomVersWXS; // lien noms -> objets WXS
-    private HashMap<String, String> espaceVersPrefixe; // associations espaces de noms -> pr�fixes
+    private HashMap<String, String> espaceVersPrefixe; // associations espaces de noms -> pr?fixes
     
-    // liste de tous les �l�ments WXS (pas forc�ment directement sous xs:schema)
+    // liste de tous les ?l?ments WXS (pas forc?ment directement sous xs:schema)
     // (ils peuvent avoir un attribut name ou un attribut ref)
     private final LinkedHashSet<WXSElement> lTousElements;
     private Set<WXSSchema> schemasInclu;
@@ -77,7 +77,7 @@ public class JaxeWXS implements InterfaceSchema {
         for (final WXSSchema sch : schemasInclu)
             lTousElements.addAll(sch.listeTousElements());
         for (final WXSSchema sch : schemasInclu)
-            sch.resoudreReferences(); // WXSAny.resoudreReferences() a besoin de cet objet JaxeWXS, c'est donc appel� plus tard
+            sch.resoudreReferences(); // WXSAny.resoudreReferences() a besoin de cet objet JaxeWXS, c'est donc appel? plus tard
         hRefElementVersWXS = new HashMap<Element, WXSElement>();
         hRefAttributVersWXS = new HashMap<Element, WXSAttribute>();
         hNomVersWXS = new HashMap<String, ArrayList<WXSElement>>();
@@ -102,14 +102,14 @@ public class JaxeWXS implements InterfaceSchema {
     }
     
     /**
-     * Renvoie true si la r�f�rence vient de ce sch�ma
+     * Renvoie true si la r?f?rence vient de ce sch?ma
      */
     public boolean elementDansSchema(final Element refElement) {
         return(hRefElementVersWXS.get(refElement) != null);
     }
     
     /**
-     * Renvoie la r�f�rence du premier �l�ment du sch�ma avec le nom donn�.
+     * Renvoie la r?f?rence du premier ?l?ment du sch?ma avec le nom donn?.
      */
     public Element referenceElement(final String nom) {
         final ArrayList<WXSElement> listeWXS = hNomVersWXS.get(nom);
@@ -119,7 +119,7 @@ public class JaxeWXS implements InterfaceSchema {
     }
     
     /**
-     * Renvoie la r�f�rence du premier �l�ment du sch�ma avec le nom et l'espace de noms de l'�l�ment pass� en param�tre.
+     * Renvoie la r?f?rence du premier ?l?ment du sch?ma avec le nom et l'espace de noms de l'?l?ment pass? en param?tre.
      */
     public Element referenceElement(final Element el) {
         final String nom;
@@ -135,15 +135,15 @@ public class JaxeWXS implements InterfaceSchema {
     }
     
     /**
-     * Renvoie la r�f�rence du premier �l�ment du sch�ma avec le nom et l'espace de noms de l'�l�ment pass� en param�tre,
-     * et avec le parent dont la r�f�rence est pass�e en param�tre.
+     * Renvoie la r?f?rence du premier ?l?ment du sch?ma avec le nom et l'espace de noms de l'?l?ment pass? en param?tre,
+     * et avec le parent dont la r?f?rence est pass?e en param?tre.
      */
     public Element referenceElement(final Element el, final Element refParent) {
         if (refParent == null)
-            return(referenceElement(el)); // pour les �l�ments racine
+            return(referenceElement(el)); // pour les ?l?ments racine
         final WXSElement wxsParent = hRefElementVersWXS.get(refParent);
         if (wxsParent == null) {
-            LOG.error("JaxeWXS: referenceElement: r�f�rence �l�ment inconnue: " + refParent);
+            LOG.error("JaxeWXS: referenceElement: r?f?rence ?l?ment inconnue: " + refParent);
             return(null);
         }
         final ArrayList<ToutElement> liste = wxsParent.listeSousElements();
@@ -160,20 +160,20 @@ public class JaxeWXS implements InterfaceSchema {
     }
     
     /**
-     * Renvoie le nom de l'�l�ment dont la r�f�rence est donn�e.
+     * Renvoie le nom de l'?l?ment dont la r?f?rence est donn?e.
      */
     public String nomElement(final Element refElement) {
         final WXSElement element = hRefElementVersWXS.get(refElement);
         if (element == null) {
-            LOG.error("JaxeWXS: nomElement: r�f�rence �l�ment inconnue: " + refElement);
+            LOG.error("JaxeWXS: nomElement: r?f?rence ?l?ment inconnue: " + refElement);
             return(null);
         }
         return(element.getName());
     }
     
     /**
-     * Renvoie l'espace de nom de l'�l�ment dont la r�f�rence est pass�e en param�tre,
-     * ou null si l'espace de noms n'est pas d�fini.
+     * Renvoie l'espace de nom de l'?l?ment dont la r?f?rence est pass?e en param?tre,
+     * ou null si l'espace de noms n'est pas d?fini.
      */
     public String espaceElement(final Element refElement) {
         final WXSElement element = hRefElementVersWXS.get(refElement);
@@ -183,7 +183,7 @@ public class JaxeWXS implements InterfaceSchema {
     }
     
     /**
-     * Renvoie le pr�fixe � utiliser pour cr�er un �l�ment dont on donne la r�f�rence,
+     * Renvoie le pr?fixe ? utiliser pour cr?er un ?l?ment dont on donne la r?f?rence,
      * ou null s'il n'y en a pas.
      */
     public String prefixeElement(final Element refElement) {
@@ -194,7 +194,7 @@ public class JaxeWXS implements InterfaceSchema {
     }
     
     /**
-     * Renvoie la documentation d'un �l�ment dont on donne la r�f�rence
+     * Renvoie la documentation d'un ?l?ment dont on donne la r?f?rence
      * (sous forme de texte simple, avec des \n pour faire des sauts de lignes)
      */
     public String documentationElement(final Element refElement) {
@@ -205,8 +205,8 @@ public class JaxeWXS implements InterfaceSchema {
     }
     
     /**
-     * Renvoie la liste des valeurs possibles pour un �l�ment, � partir de sa r�f�rence.
-     * Renvoie null s'il y a un nombre infini de valeurs possibles ou si l'�l�ment n'a pas un type simple.
+     * Renvoie la liste des valeurs possibles pour un ?l?ment, ? partir de sa r?f?rence.
+     * Renvoie null s'il y a un nombre infini de valeurs possibles ou si l'?l?ment n'a pas un type simple.
      */
     public ArrayList<String> listeValeursElement(final Element refElement) {
         final WXSElement element = hRefElementVersWXS.get(refElement);
@@ -216,7 +216,7 @@ public class JaxeWXS implements InterfaceSchema {
     }
     
     /**
-     * Renvoie true si la valeur donn�e est une valeur valide pour l'�l�ment
+     * Renvoie true si la valeur donn?e est une valeur valide pour l'?l?ment
      */
     public boolean valeurElementValide(final Element refElement, final String valeur) {
         final WXSElement element = hRefElementVersWXS.get(refElement);
@@ -226,7 +226,7 @@ public class JaxeWXS implements InterfaceSchema {
     }
     
     /**
-     * Renvoie la liste des espaces de noms (String) utilis�s par ce sch�ma.
+     * Renvoie la liste des espaces de noms (String) utilis?s par ce sch?ma.
      */
     public ArrayList<String> listeEspaces() {
         final LinkedHashSet<String> liste = new LinkedHashSet<String>();
@@ -238,7 +238,7 @@ public class JaxeWXS implements InterfaceSchema {
     }
     
     /**
-     * Renvoie true si l'espace de nom est d�fini dans le sch�ma
+     * Renvoie true si l'espace de nom est d?fini dans le sch?ma
      */
     public boolean aEspace(final String espace) {
         final String targetNamespace = schema.getTargetNamespace();
@@ -247,7 +247,7 @@ public class JaxeWXS implements InterfaceSchema {
                 return(true);
             if (espaceVersPrefixe.containsKey(""))
                 return(true);
-            // cas des �l�ments locaux sans espace de noms :
+            // cas des ?l?ments locaux sans espace de noms :
             final boolean qualified = "qualified".equals(schema.getElementFormDefault());
             if (!qualified)
                 return(true);
@@ -261,22 +261,22 @@ public class JaxeWXS implements InterfaceSchema {
     }
     
     /**
-     * Renvoie un pr�fixe � utiliser pour l'espace de noms donn�, ou null si aucune suggestion n'est possible
+     * Renvoie un pr?fixe ? utiliser pour l'espace de noms donn?, ou null si aucune suggestion n'est possible
      */
     public String prefixeEspace(final String ns) {
         return(espaceVersPrefixe.get(ns));
     }
     
     /**
-     * Renvoie l'espace de noms cible du sch�ma (attribut targetNamespace avec WXS).
-     * Attention: Le concept d'un espace cible unique pour un sch�ma n'existe pas avec Relax NG.
+     * Renvoie l'espace de noms cible du sch?ma (attribut targetNamespace avec WXS).
+     * Attention: Le concept d'un espace cible unique pour un sch?ma n'existe pas avec Relax NG.
      */
     public String espaceCible() {
         return(schema.getTargetNamespace());
     }
     
     /**
-     * Renvoie les r�f�rences des �l�ments qui ne sont pas dans l'espace de noms pass� en param�tre
+     * Renvoie les r?f?rences des ?l?ments qui ne sont pas dans l'espace de noms pass? en param?tre
      */
     public ArrayList<Element> listeElementsHorsEspace(final String espace) {
         final ArrayList<Element> liste = new ArrayList<Element>();
@@ -291,7 +291,7 @@ public class JaxeWXS implements InterfaceSchema {
     }
     
     /**
-     * Renvoie les r�f�rences des �l�ments qui sont dans les espaces de noms pass�s en param�tre
+     * Renvoie les r?f?rences des ?l?ments qui sont dans les espaces de noms pass?s en param?tre
      */
     public ArrayList<Element> listeElementsDansEspaces(final Set<String> espaces) {
         final ArrayList<Element> liste = new ArrayList<Element>();
@@ -306,7 +306,7 @@ public class JaxeWXS implements InterfaceSchema {
     }
     
     /**
-     * Renvoie les r�f�rences de tous les �l�ments du sch�ma
+     * Renvoie les r?f?rences de tous les ?l?ments du sch?ma
      */
     public ArrayList<Element> listeTousElements() {
         final ArrayList<Element> liste = new ArrayList<Element>();
@@ -323,12 +323,12 @@ public class JaxeWXS implements InterfaceSchema {
     public boolean elementObligatoire(final Element refParent, final Element refEnfant) {
         final WXSElement parent = hRefElementVersWXS.get(refParent);
         if (parent == null) {
-            LOG.error("JaxeWXS: elementObligatoire: r�f�rence �l�ment inconnue: " + refParent);
+            LOG.error("JaxeWXS: elementObligatoire: r?f?rence ?l?ment inconnue: " + refParent);
             return(false);
         }
         final WXSElement enfant = hRefElementVersWXS.get(refEnfant);
         if (enfant == null) {
-            LOG.error("JaxeWXS: elementObligatoire: r�f�rence �l�ment inconnue: " + refEnfant);
+            LOG.error("JaxeWXS: elementObligatoire: r?f?rence ?l?ment inconnue: " + refEnfant);
             return(false);
         }
         Boolean bb = parent.enfantObligatoire(enfant);
@@ -336,17 +336,17 @@ public class JaxeWXS implements InterfaceSchema {
     }
     
     /**
-     * Renvoit true si le parent peut avoir des enfants multiples avec la r�f�rence refEnfant.
+     * Renvoit true si le parent peut avoir des enfants multiples avec la r?f?rence refEnfant.
      */
     public boolean enfantsMultiples(final Element refParent, final Element refEnfant) {
         final WXSElement parent = hRefElementVersWXS.get(refParent);
         if (parent == null) {
-            LOG.error("JaxeWXS: enfantsMultiples: r�f�rence �l�ment inconnue: " + refParent);
+            LOG.error("JaxeWXS: enfantsMultiples: r?f?rence ?l?ment inconnue: " + refParent);
             return(false);
         }
         final WXSElement enfant = hRefElementVersWXS.get(refEnfant);
         if (enfant == null) {
-            LOG.error("JaxeWXS: enfantsMultiples: r�f�rence �l�ment inconnue: " + refEnfant);
+            LOG.error("JaxeWXS: enfantsMultiples: r?f?rence ?l?ment inconnue: " + refEnfant);
             return(false);
         }
         Boolean bb = parent.enfantsMultiples(enfant);
@@ -354,13 +354,13 @@ public class JaxeWXS implements InterfaceSchema {
     }
     
     /**
-     * Renvoie les r�f�rences des �l�ments enfants de l'�l�ment dont la r�f�rence est pass�e en param�tre
+     * Renvoie les r?f?rences des ?l?ments enfants de l'?l?ment dont la r?f?rence est pass?e en param?tre
      */
     public ArrayList<Element> listeSousElements(final Element refParent) {
-        // � faire: cache
+        // ? faire: cache
         final WXSElement parent = hRefElementVersWXS.get(refParent);
         if (parent == null) {
-            LOG.error("JaxeWXS: listeSousElements: r�f�rence �l�ment inconnue: " + refParent);
+            LOG.error("JaxeWXS: listeSousElements: r?f?rence ?l?ment inconnue: " + refParent);
             return(null);
         }
         final ArrayList<ToutElement> sousElements = parent.listeSousElements();
@@ -371,27 +371,27 @@ public class JaxeWXS implements InterfaceSchema {
     }
     
     /**
-     * Expression r�guli�re correspondant au sch�ma pour un �l�ment parent donn�.
+     * Expression r?guli?re correspondant au sch?ma pour un ?l?ment parent donn?.
      * Dans JaxeWXS, modevisu=true et modevalid=true.
-     * @param modevisu  True si on cherche une expression r�guli�re � afficher pour l'utilisateur
+     * @param modevisu  True si on cherche une expression r?guli?re ? afficher pour l'utilisateur
      * @param modevalid  Pour obtenir une validation stricte au lieu de chercher si une insertion est possible
      */
     public String expressionReguliere(final Element refParent, final boolean modevisu, final boolean modevalid) {
         final WXSElement parent = hRefElementVersWXS.get(refParent);
         if (parent == null) {
-            LOG.error("JaxeWXS: expressionReguliere: r�f�rence �l�ment inconnue: " + refParent);
+            LOG.error("JaxeWXS: expressionReguliere: r?f?rence ?l?ment inconnue: " + refParent);
             return(null);
         }
         return(parent.expressionReguliereElement()); // on utilise toujours modevisu=true et modevalid=true
     }
     
     /**
-     * Renvoie la liste des r�f�rences des parents possibles pour un �l�ment dont la r�f�rence est pass�e en param�tre
+     * Renvoie la liste des r?f?rences des parents possibles pour un ?l?ment dont la r?f?rence est pass?e en param?tre
      */
     public ArrayList<Element> listeElementsParents(final Element refElement) {
         final WXSElement element = hRefElementVersWXS.get(refElement);
         if (element == null) {
-            LOG.error("JaxeWXS: listeElementsParents: r�f�rence �l�ment inconnue: " + refElement);
+            LOG.error("JaxeWXS: listeElementsParents: r?f?rence ?l?ment inconnue: " + refElement);
             return(null);
         }
         final ArrayList<WXSElement> parents = element.listeElementsParents();
@@ -402,13 +402,13 @@ public class JaxeWXS implements InterfaceSchema {
     }
     
     /**
-     * Renvoie la liste des r�f�rences des attributs possibles pour un �l�ment dont
-     * on donne la r�f�rence en param�tre
+     * Renvoie la liste des r?f?rences des attributs possibles pour un ?l?ment dont
+     * on donne la r?f?rence en param?tre
      */
     public ArrayList<Element> listeAttributs(final Element refElement) {
         final WXSElement element = hRefElementVersWXS.get(refElement);
         if (element == null) {
-            LOG.error("JaxeWXS: listeAttributs: r�f�rence �l�ment inconnue: " + refElement);
+            LOG.error("JaxeWXS: listeAttributs: r?f?rence ?l?ment inconnue: " + refElement);
             return(null);
         }
         final ArrayList<WXSAttribute> attributs = element.listeAttributs();
@@ -419,43 +419,43 @@ public class JaxeWXS implements InterfaceSchema {
     }
     
     /**
-     * Renvoie le nom d'un attribut � partir de sa r�f�rence
+     * Renvoie le nom d'un attribut ? partir de sa r?f?rence
      */
     public String nomAttribut(final Element refAttribut) {
         final WXSAttribute attribut = hRefAttributVersWXS.get(refAttribut);
         if (attribut == null) {
-            LOG.error("JaxeWXS: nomAttribut: r�f�rence attribut inconnue: " + refAttribut);
+            LOG.error("JaxeWXS: nomAttribut: r?f?rence attribut inconnue: " + refAttribut);
             return(null);
         }
         return(attribut.getName());
     }
     
     /**
-     * Renvoie l'espace de noms d'un attribut � partir de sa r�f�rence, ou null si aucun n'est d�fini
+     * Renvoie l'espace de noms d'un attribut ? partir de sa r?f?rence, ou null si aucun n'est d?fini
      */
     public String espaceAttribut(final Element refAttribut) {
         final WXSAttribute attribut = hRefAttributVersWXS.get(refAttribut);
         if (attribut == null) {
-            LOG.error("JaxeWXS: espaceAttribut: r�f�rence attribut inconnue: " + refAttribut);
+            LOG.error("JaxeWXS: espaceAttribut: r?f?rence attribut inconnue: " + refAttribut);
             return(null);
         }
         return(attribut.getNamespace());
     }
     
     /**
-     * Renvoie la documentation d'un attribut � partir de sa r�f�rence
+     * Renvoie la documentation d'un attribut ? partir de sa r?f?rence
      */
     public String documentationAttribut(final Element refAttribut) {
         final WXSAttribute attribut = hRefAttributVersWXS.get(refAttribut);
         if (attribut == null) {
-            LOG.error("JaxeWXS: documentationAttribut: r�f�rence attribut inconnue: " + refAttribut);
+            LOG.error("JaxeWXS: documentationAttribut: r?f?rence attribut inconnue: " + refAttribut);
             return(null);
         }
         return(attribut.getDocumentation());
     }
     
     /**
-     * Renvoie l'espace de noms d'un attribut � partir de son nom complet (avec le pr�fixe s'il y en a un)
+     * Renvoie l'espace de noms d'un attribut ? partir de son nom complet (avec le pr?fixe s'il y en a un)
      */
     public String espaceAttribut(final String nomAttribut) {
         if (nomAttribut == null)
@@ -469,15 +469,15 @@ public class JaxeWXS implements InterfaceSchema {
     }
     
     /**
-     * Renvoie true si un attribut est obligatoire, � partir de sa d�finition.
-     * Attention: ce n'est pas possible � d�terminer avec seulement la r�f�rence d'attribut avec Relax NG.
+     * Renvoie true si un attribut est obligatoire, ? partir de sa d?finition.
+     * Attention: ce n'est pas possible ? d?terminer avec seulement la r?f?rence d'attribut avec Relax NG.
      * Il vaut mieux utiliser attributObligatoire.
      */
     @Deprecated
     public boolean estObligatoire(final Element refAttribut) {
         final WXSAttribute attribut = hRefAttributVersWXS.get(refAttribut);
         if (attribut == null) {
-            LOG.error("JaxeWXS: estObligatoire: r�f�rence attribut inconnue: " + refAttribut);
+            LOG.error("JaxeWXS: estObligatoire: r?f?rence attribut inconnue: " + refAttribut);
             return(false);
         }
         return("required".equals(attribut.getUse()));
@@ -491,50 +491,50 @@ public class JaxeWXS implements InterfaceSchema {
     }
     
     /**
-     * Renvoie la liste des valeurs possibles pour un attribut, � partir de sa r�f�rence.
+     * Renvoie la liste des valeurs possibles pour un attribut, ? partir de sa r?f?rence.
      * Renvoie null s'il y a un nombre infini de valeurs possibles.
      */
     public ArrayList<String> listeValeursAttribut(final Element refAttribut) {
         final WXSAttribute attribut = hRefAttributVersWXS.get(refAttribut);
         if (attribut == null) {
-            LOG.error("JaxeWXS: listeValeursAttribut: r�f�rence attribut inconnue: " + refAttribut);
+            LOG.error("JaxeWXS: listeValeursAttribut: r?f?rence attribut inconnue: " + refAttribut);
             return(null);
         }
         return(attribut.listeValeurs());
     }
     
     /**
-     * Renvoie la valeur par d�faut d'un attribut dont la r�f�rence est donn�e en param�tre
+     * Renvoie la valeur par d?faut d'un attribut dont la r?f?rence est donn?e en param?tre
      */
     public String valeurParDefaut(final Element refAttribut) {
         final WXSAttribute attribut = hRefAttributVersWXS.get(refAttribut);
         if (attribut == null) {
-            LOG.error("JaxeWXS: valeurParDefaut: r�f�rence attribut inconnue: " + refAttribut);
+            LOG.error("JaxeWXS: valeurParDefaut: r?f?rence attribut inconnue: " + refAttribut);
             return(null);
         }
         return(attribut.valeurParDefaut());
     }
     
     /**
-     * Renvoie true si la valeur donn�e est une valeur valide pour l'attribut
+     * Renvoie true si la valeur donn?e est une valeur valide pour l'attribut
      */
     public boolean attributValide(final Element refAttribut, final String valeur) {
-        // � refaire avec les classes WXS
+        // ? refaire avec les classes WXS
         final WXSAttribute attribut = hRefAttributVersWXS.get(refAttribut);
         if (attribut == null) {
-            LOG.error("JaxeWXS: attributValide: r�f�rence attribut inconnue: " + refAttribut);
+            LOG.error("JaxeWXS: attributValide: r?f?rence attribut inconnue: " + refAttribut);
             return(false);
         }
         return(attribut.validerValeur(valeur));
     }
     
     /**
-     * Renvoie la r�f�rence du premier �l�ment parent d'un attribut � partir de sa r�f�rence
+     * Renvoie la r?f?rence du premier ?l?ment parent d'un attribut ? partir de sa r?f?rence
      */
     public Element parentAttribut(final Element refAttribut) {
         final WXSAttribute attribut = hRefAttributVersWXS.get(refAttribut);
         if (attribut == null) {
-            LOG.error("JaxeWXS: parentAttribut: r�f�rence attribut inconnue: " + refAttribut);
+            LOG.error("JaxeWXS: parentAttribut: r?f?rence attribut inconnue: " + refAttribut);
             return(null);
         }
         final ArrayList<WXSElement> parents = attribut.listeElementsParents();
@@ -544,12 +544,12 @@ public class JaxeWXS implements InterfaceSchema {
     }
     
     /**
-     * Renvoie true si l'�l�ment dont on donne la r�f�rence peut contenir du texte
+     * Renvoie true si l'?l?ment dont on donne la r?f?rence peut contenir du texte
      */
     public boolean contientDuTexte(final Element refElement) {
         final WXSElement element = hRefElementVersWXS.get(refElement);
         if (element == null) {
-            LOG.error("JaxeWXS: contientDuTexte: r�f�rence �l�ment inconnue: " + refElement);
+            LOG.error("JaxeWXS: contientDuTexte: r?f?rence ?l?ment inconnue: " + refElement);
             return(false);
         }
         return(element.contientDuTexte());
@@ -557,13 +557,13 @@ public class JaxeWXS implements InterfaceSchema {
     
     
     /**
-     * Teste si un �l�ment est valide.
-     * Si insertion est true, teste juste la validit� d'une insertion (tous les sous-�l�ments sont optionnels).
+     * Teste si un ?l?ment est valide.
+     * Si insertion est true, teste juste la validit? d'une insertion (tous les sous-?l?ments sont optionnels).
      */
     public boolean elementValide(final Element refElement, final List<Element> refSousElements, final boolean insertion) {
         final WXSElement element = hRefElementVersWXS.get(refElement);
         if (element == null) {
-            LOG.error("JaxeWXS: elementValide: r�f�rence �l�ment inconnue: " + refElement);
+            LOG.error("JaxeWXS: elementValide: r?f?rence ?l?ment inconnue: " + refElement);
             return(false);
         }
         final ArrayList<WXSElement> sousElements = new ArrayList<WXSElement>();
@@ -583,7 +583,7 @@ public class JaxeWXS implements InterfaceSchema {
                 throw new JaxeException("include/import : location not found : " + schemaLocation);
             for (WXSSchema schemaInclu : schemasInclu)
                 if (schemaInclu.getURL().toURI().normalize().equals(urls.toURI().normalize())) {
-                    ajouterEspaces(schemaInclu, schemaParent, espaceImport); // une chance de plus de trouver un pr�fixe
+                    ajouterEspaces(schemaInclu, schemaParent, espaceImport); // une chance de plus de trouver un pr?fixe
                     return(schemaInclu);
                 }
             final WXSSchema schemaInclu = new WXSSchema(lireDocument(urls), urls, this, schemaParent);
@@ -631,7 +631,7 @@ public class JaxeWXS implements InterfaceSchema {
     }
     
     /**
-     * Renvoie l'�l�ment racine du document avec l'URL pass�e en param�tre.
+     * Renvoie l'?l?ment racine du document avec l'URL pass?e en param?tre.
      */
     protected static Element lireDocument(final URL urlSchema) throws JaxeException {
         Document schemadoc;
@@ -650,7 +650,7 @@ public class JaxeWXS implements InterfaceSchema {
     }
     
     /*
-     * Utilise le CatalogResolver d'Apache pour r�soudre des URI en URL
+     * Utilise le CatalogResolver d'Apache pour r?soudre des URI en URL
      */
     protected static URL resoudreURI(final URL schemadir, final String uri) throws MalformedURLException, TransformerException {
         if (uri == null)
@@ -669,7 +669,7 @@ public class JaxeWXS implements InterfaceSchema {
                     src = resolver.resolve(uri, null);
                 final URL surl = new URL(src.getSystemId());
                 try {
-                    // pour �viter un bug de CatalogResolver qui n'encode pas l'URI correctement...
+                    // pour ?viter un bug de CatalogResolver qui n'encode pas l'URI correctement...
                     final URI suri = new URI(surl.getProtocol(), surl.getHost(), surl.getPath(), surl.getQuery(), null);
                     return(suri.toURL());
                 } catch (URISyntaxException ex) {
@@ -685,8 +685,8 @@ public class JaxeWXS implements InterfaceSchema {
     }
     
     /**
-     * Renvoie l'url du r�pertoire parent du fichier ou r�pertoire correspondant � l'URL donn�e,
-     * ou null si l'on ne peut pas d�terminer le r�pertoire parent.
+     * Renvoie l'url du r?pertoire parent du fichier ou r?pertoire correspondant ? l'URL donn?e,
+     * ou null si l'on ne peut pas d?terminer le r?pertoire parent.
      */
     protected static URL getURLParent(final URL u) {
         final int index = u.toExternalForm().lastIndexOf("/");
@@ -720,7 +720,7 @@ public class JaxeWXS implements InterfaceSchema {
             for (Element ref : references)
                 liste.add(new ElementExterne(ref, cfg));
         } else {
-            // liste d'espaces de noms s�par�s par des espaces
+            // liste d'espaces de noms s?par?s par des espaces
             final HashSet<String> espaces = new HashSet<String>(Arrays.asList(namespace.split("\\s")));
             if (espaces.contains("##targetNamespace")) {
                 espaces.remove("##targetNamespace");
@@ -738,7 +738,7 @@ public class JaxeWXS implements InterfaceSchema {
     }
     
     /**
-     * Renvoie la partie locale du nom d'un �l�ment (en retirant le pr�fixe)
+     * Renvoie la partie locale du nom d'un ?l?ment (en retirant le pr?fixe)
      */
     protected static String valeurLocale(final String nom) {
         if (nom == null)
@@ -750,7 +750,7 @@ public class JaxeWXS implements InterfaceSchema {
     }
     
     /**
-     * Renvoie le pr�fixe d'un nom, ou null s'il n'en a pas.
+     * Renvoie le pr?fixe d'un nom, ou null s'il n'en a pas.
      */
     protected static String prefixeNom(final String nom) {
         if (nom == null)

@@ -1,9 +1,9 @@
 package org.apache.servicemix.wsn.router.mgr.base;
 
 import org.apache.servicemix.wsn.router.mgr.BrokerUnit;
-import org.apache.servicemix.wsn.router.mgr.calNeighbor.NeigBuild;
+//import org.apache.servicemix.wsn.router.mgr.calNeighbor.NeigBuild;
 import org.apache.servicemix.wsn.router.msg.tcp.GroupUnit;
-import org.apache.servicemix.wsn.router.msg.tcp.LSA;
+//import org.apache.servicemix.wsn.router.msg.tcp.LSA;
 
 import java.util.ArrayList;
 import java.util.TreeSet;
@@ -41,12 +41,12 @@ public abstract class SysInfo {
 	public static ConcurrentHashMap<String, GroupUnit> groupMap;//保存当前拓扑内出了本集群外所有集群的信息，key为集群名
 	protected static ArrayList<String> neighbors; //邻居集群
 	public static ConcurrentHashMap<String, BrokerUnit> fellows;//本机所在集群的其他代理，key为代理地址
-	protected static int lsaSeqNum; //LSA的序列号 
+	protected static int lsaSeqNum; //LSA的序列号
 	protected static long policyTime; // 策略消息的更新时间
 	protected static long treeTime; // 树更新时间
 
-	protected static ConcurrentHashMap<String, LSA> lsdb; //LSA数据库，以集群名称标示该集群发出的LSA消息
-	protected static LSA cacheLSA; //缓存LSA，缓存需要发送的LSA数据
+//	protected static ConcurrentHashMap<String, LSA> lsdb; //LSA数据库，以集群名称标示该集群发出的LSA消息
+//	protected static LSA cacheLSA; //缓存LSA，缓存需要发送的LSA数据
 	protected static String askMsg; // 请求LSDB和策略消息发送的字符串
 	protected static boolean joinOK;//标识加入是否成功
 	protected static ArrayList<String> waitHello;//集群hello超时时，用以标记该集群正在重选代表
@@ -59,8 +59,8 @@ public abstract class SysInfo {
 
 	protected static boolean udpMsgThreadSwitch;//用于控制接收udp消息的线程重启的开关
 	protected static boolean tcpMsgThreadSwitch;//用于控制接收tcp连接的线程重启的开关
-	
-	protected static NeigBuild nb; // 邻居选择模块
+
+//	protected static NeigBuild nb; // 邻居选择模块
 
 	public static String groupController ;
 
@@ -241,21 +241,21 @@ public abstract class SysInfo {
 		SysInfo.lsaSeqNum = lsaSeqNum;
 	}
 
-	public static ConcurrentHashMap<String, LSA> getLsdb() {
-		return lsdb;
-	}
+//	public static ConcurrentHashMap<String, LSA> getLsdb() {
+//		return lsdb;
+//	}
+//
+//	public static void setLsdb(ConcurrentHashMap<String, LSA> lsdb) {
+//		SysInfo.lsdb = lsdb;
+//	}
 
-	public static void setLsdb(ConcurrentHashMap<String, LSA> lsdb) {
-		SysInfo.lsdb = lsdb;
-	}
-
-	public static LSA getCacheLSA() {
-		return cacheLSA;
-	}
-
-	public static void setCacheLSA(LSA cacheLSA) {
-		SysInfo.cacheLSA = cacheLSA;
-	}
+//	public static LSA getCacheLSA() {
+//		return cacheLSA;
+//	}
+//
+//	public static void setCacheLSA(LSA cacheLSA) {
+//		SysInfo.cacheLSA = cacheLSA;
+//	}
 
 	public static String getAskMsg() {
 		return askMsg;
@@ -330,14 +330,14 @@ public abstract class SysInfo {
 		SysInfo.tcpMsgThreadSwitch = tcpMsgThreadSwitch;
 	}
 
-	public static NeigBuild getNb() {
-		return nb;
-	}
+//	public static NeigBuild getNb() {
+//		return nb;
+//	}
+//
+//	public static void setNb(NeigBuild nb) {
+//		SysInfo.nb = nb;
+//	}
 
-	public static void setNb(NeigBuild nb) {
-		SysInfo.nb = nb;
-	}
-	
 	public static long getPolicyTime() {
 		return policyTime;
 	}
@@ -345,7 +345,7 @@ public abstract class SysInfo {
 	public static void setPolicyTime(long policyTime) {
 		SysInfo.policyTime = policyTime;
 	}
-	
+
 	public static long getTreeTime() {
 		return treeTime;
 	}
