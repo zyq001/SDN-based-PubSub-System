@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.Map;
 
 import javax.naming.NamingException;
-import javax.swing.UnsupportedLookAndFeelException;
 
 import org.apache.servicemix.application.WSNTopicObject;
 import org.apache.servicemix.wsn.router.design.Data;
@@ -29,14 +28,12 @@ import edu.bupt.wangfu.ldap.MsgTopicModify;
 
 import org.apache.servicemix.wsn.router.msg.tcp.PolicyDB;
 import org.apache.servicemix.wsn.router.msg.tcp.UpdateTree;
-import org.apache.servicemix.wsn.router.router.Controller;
+import org.apache.servicemix.wsn.router.router.GlobleUtil;
 import org.apache.servicemix.wsn.router.topictree.TopicTreeManager;
 import org.apache.servicemix.wsn.router.wsnPolicy.ShorenUtils;
 
 import edu.bupt.wangfu.ldap.Ldap;
 import edu.bupt.wangfu.ldap.MsgTopicModify_;
-import edu.bupt.wangfu.ldap.TopicEntry;
-
 
 
 public class AdMsgService extends AdminBase implements Runnable {
@@ -129,7 +126,7 @@ public class AdMsgService extends AdminBase implements Runnable {
 				}
 
 				String controllerAddr = mng.controllerAddr;
-				if(!this.Amgr.controllers.containsKey(controllerAddr)) this.Amgr.addController(controllerAddr);
+				if(!GlobleUtil.getInstance().controllers.containsKey(controllerAddr)) this.Amgr.addController(controllerAddr);
 				oos.writeObject(mng_);
 
 			} else if (msg instanceof GroupUnit) {

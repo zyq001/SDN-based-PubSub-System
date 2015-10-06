@@ -1,4 +1,4 @@
-package org.apache.servicemix.wsn.router.router;
+package edu.bupt.wangfu.sdn.info;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -8,6 +8,6 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class Controller {
     public String name;
-    public Controller(String controllerAddr){this.name = controllerAddr}
+    public Controller(String controllerAddr){this.name = controllerAddr;}
     private Map<String, Switch> switchMap = new ConcurrentHashMap<String, Switch>();
 }

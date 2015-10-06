@@ -1,6 +1,6 @@
 package edu.bupt.wangfu.sdn.info;
 
-public class FlowInfo {
+public class Flow {
 	private String dpid;
 	private String flowCount;
 	

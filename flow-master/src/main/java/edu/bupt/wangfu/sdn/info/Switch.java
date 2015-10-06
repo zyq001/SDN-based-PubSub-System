@@ -1,7 +1,10 @@
 package edu.bupt.wangfu.sdn.info;
 
+
+
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Created by root on 15-7-14.
@@ -15,7 +18,9 @@ public class Switch {
     private Map<Integer, Integer> portList;
     private Long lastSeen;
 
-    private List<FlowInfo> flows;
+    private List<Flow> flows;
+
+    private Map<String, WSNHost> wsnHostMap = new ConcurrentHashMap<String, WSNHost>();
 
     public Long getLastSeen() {
         return lastSeen;

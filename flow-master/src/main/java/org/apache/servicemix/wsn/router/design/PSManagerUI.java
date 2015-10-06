@@ -3,7 +3,7 @@ package org.apache.servicemix.wsn.router.design;
 import edu.bupt.wangfu.ldap.TopicEntry;
 import edu.bupt.wangfu.sdn.floodlight.RestProcess;
 import edu.bupt.wangfu.sdn.info.DevInfo;
-import edu.bupt.wangfu.sdn.info.FlowInfo;
+import edu.bupt.wangfu.sdn.info.Flow;
 import edu.bupt.wangfu.sdn.info.MemoryInfo;
 //import demo.network.miscellaneous.office.*;
 //import demo.network.miscellaneous.office.OfficeDemo;
@@ -2721,8 +2721,8 @@ public class PSManagerUI implements IAdminUI {
 
 		flowConf.setLayout(new GridLayout(1, 0, 5, 0));
 
-		ArrayList<FlowInfo> flowInfo = RestProcess.getFlowInfo();
-		JTable jFlowTab = new JTable(flowInfo.size(), 4);
+		ArrayList<Flow> flow = RestProcess.getFlowInfo();
+		JTable jFlowTab = new JTable(flow.size(), 4);
 		TableColumn firsetColumn = jFlowTab.getColumnModel().getColumn(0);
 		firsetColumn.setPreferredWidth(80);
 		firsetColumn.setMaxWidth(80);
@@ -2734,9 +2734,9 @@ public class PSManagerUI implements IAdminUI {
 
 		flowConf.add(jFlowTab);
 		jFlowTab.setValueAt("控制器：", 0, 0);
-		jFlowTab.setValueAt(flowInfo.get(0).getDpid(), 0, 1);
+		jFlowTab.setValueAt(flow.get(0).getDpid(), 0, 1);
 		jFlowTab.setValueAt("总流量：", 0, 2);
-		jFlowTab.setValueAt(flowInfo.get(0).getFlowCount(), 0, 3);
+		jFlowTab.setValueAt(flow.get(0).getFlowCount(), 0, 3);
 		
 		try {
 			DefaultTableCellRenderer tcr = new DefaultTableCellRenderer() {
@@ -2761,11 +2761,11 @@ public class PSManagerUI implements IAdminUI {
 			ex.printStackTrace();
 		}
 
-		for (int i = 1; i < flowInfo.size(); i++) {
+		for (int i = 1; i < flow.size(); i++) {
 			jFlowTab.setValueAt("交换机：", i, 0);
-			jFlowTab.setValueAt(flowInfo.get(i).getDpid(), i, 1);
+			jFlowTab.setValueAt(flow.get(i).getDpid(), i, 1);
 			jFlowTab.setValueAt("流量：", i, 2);
-			jFlowTab.setValueAt(flowInfo.get(i).getFlowCount(), i, 3);
+			jFlowTab.setValueAt(flow.get(i).getFlowCount(), i, 3);
 		}
 
 		

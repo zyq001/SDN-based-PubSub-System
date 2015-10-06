@@ -1,8 +1,7 @@
 package edu.bupt.wangfu.sdn.floodlight;
 
 import edu.bupt.wangfu.sdn.info.DevInfo;
-import edu.bupt.wangfu.sdn.info.FlowInfo;
-import edu.bupt.wangfu.sdn.info.MemoryInfo;
+import edu.bupt.wangfu.sdn.info.Flow;
 import edu.bupt.wangfu.sdn.info.MemoryInfo;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.GetMethod;
@@ -105,8 +104,8 @@ public class RestProcess {///wm/device/
 
 	}
 
-	public static ArrayList<FlowInfo> getFlowInfo() {
-		ArrayList<FlowInfo> all = new ArrayList<FlowInfo>();
+	public static ArrayList<Flow> getFlowInfo() {
+		ArrayList<Flow> all = new ArrayList<Flow>();
 		try{
 			String devurl = REST_URL+"/wm/device/";
 			String devbody = doClientGet(devurl);
@@ -120,7 +119,7 @@ public class RestProcess {///wm/device/
 			String body = doClientGet(url);
 			JSONObject json = new JSONObject(body);
 			System.out.println(json);
-			FlowInfo dpidlist = new FlowInfo();
+			Flow dpidlist = new Flow();
 			dpidlist.setDpid(REST_URL);
 			dpidlist.setFlowCount(""+json.getInt("controller__OFPacketIn"));
 			all.add(dpidlist);
@@ -131,7 +130,7 @@ public class RestProcess {///wm/device/
 			System.out.println(switchjson);
 
 			for(int i=0;i<switchjson.length();i++){//test
-				FlowInfo list = new FlowInfo();
+				Flow list = new Flow();
 				String dpid = switchjson.getJSONObject(i).getString("dpid");
 				list.setDpid(dpid);
 //				list.setDpid(DPID+"__"+(devjson.getJSONObject(i)

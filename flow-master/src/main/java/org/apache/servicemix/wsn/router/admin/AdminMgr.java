@@ -13,7 +13,6 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import javax.naming.NamingException;
-import javax.swing.JOptionPane;
 
 import org.apache.servicemix.wsn.router.msg.tcp.MsgConf_;
 import org.apache.servicemix.wsn.router.msg.tcp.MsgHeartCheck;
@@ -34,7 +33,8 @@ import org.apache.servicemix.wsn.router.admin.detection.DtAdmin;
 import org.apache.servicemix.wsn.router.admin.detection.HrtMsgHdlr;
 import org.apache.servicemix.wsn.router.admin.detection.IDt;
 import org.apache.servicemix.wsn.router.design.PSManagerUI;
-import org.apache.servicemix.wsn.router.router.Controller;
+import edu.bupt.wangfu.sdn.info.Controller;
+import org.apache.servicemix.wsn.router.router.GlobleUtil;
 import org.apache.servicemix.wsn.router.wsnPolicy.ShorenUtils;
 
 public class AdminMgr extends AdminBase implements HrtMsgHdlr, Runnable, IAdmin {
@@ -76,7 +76,9 @@ public class AdminMgr extends AdminBase implements HrtMsgHdlr, Runnable, IAdmin 
 
 	public static int port2;//负责监听tcp的端口，暂存配置文件中的端口
 
-	public static Map<String, Controller> controllers = new ConcurrentHashMap<String, Controller>();
+	public GlobleUtil globleUtil;
+
+//	public static Map<String, Controller> controllers = new ConcurrentHashMap<String, Controller>();
 
 	public AdminMgr() {
 
@@ -89,7 +91,8 @@ public class AdminMgr extends AdminBase implements HrtMsgHdlr, Runnable, IAdmin 
 		Configuration configuration = new Configuration(this);
 		configuration.configure();
 		groups = new ConcurrentHashMap<String, GroupUnit>();
-		
+
+		globleUtil = GlobleUtil.getInstance();
 
 		tmt = new Thread(new TcpMsgThread(this));//开tcp监听端口tPort
 		umt = new Thread(new UdpMsgThread(this));//开udp监听端口uPort
@@ -194,7 +197,7 @@ public class AdminMgr extends AdminBase implements HrtMsgHdlr, Runnable, IAdmin 
 	public static void addController(String controllerAddr){
 
 		Controller newController = new Controller(controllerAddr);
-		controllers.put(controllerAddr, newController);
+		GlobleUtil.getInstance().controllers.put(controllerAddr, newController);
 
 	}
 	public void askGroupBase(){
