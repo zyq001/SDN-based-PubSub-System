@@ -1,7 +1,9 @@
 package org.apache.servicemix.wsn.router.router;
 
 import edu.bupt.wangfu.sdn.info.Controller;
+import edu.bupt.wangfu.sdn.info.Flow;
 
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -16,7 +18,18 @@ public class GlobleUtil {
     public boolean reflashGlobleInfo(){
 
         //Traversal controllers, GET all info to reflash
+
+        return true;
+    }
+
+    public boolean downFlow(Controller controller, List<Flow> flows){
         
+        for(Flow flow: flows)
+        return true;
+    }
+
+    public boolean downFlow(Controller controller, Flow){
+
         return true;
     }
 
