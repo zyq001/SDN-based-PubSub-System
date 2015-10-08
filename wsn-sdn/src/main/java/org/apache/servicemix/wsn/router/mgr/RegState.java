@@ -122,7 +122,7 @@ public class RegState extends AState {
 			}
 		}
 
-		// ¼ÓÈë²»³É¹¦£¬ËµÃ÷¹ÜÀíÕß´¦±£´æµÄ´ú±íÊµ¼ÊÒÑ²»ÔÙ´æÔÚ£¬ËùÒÔÍ¨ÖªÆäÉ¾È¥£¬²¢×ª»»³Érep
+		// åŠ å…¥ä¸æˆåŠŸï¼Œè¯´æ˜ç®¡ç†è€…å¤„ä¿å­˜çš„ä»£è¡¨å®é™…å·²ä¸å†å­˜åœ¨ï¼Œæ‰€ä»¥é€šçŸ¥å…¶åˆ å»ï¼Œå¹¶è½¬æ¢æˆrep
 		if (!joinOK) {
 			System.out
 					.println("rep of group " + groupName + " no longer exist");
@@ -250,7 +250,7 @@ public class RegState extends AState {
 					listCan.clear();
 				}
 			}
-		} 
+		}
 		return lsa;
 	}
 
@@ -265,7 +265,7 @@ public class RegState extends AState {
 
 				System.out
 						.println("add lsa from " + lsa.originator + "to lsdb");
-				if (lsa.syn == 1) { // Í¬²½LSA
+				if (lsa.syn == 1) { // åŒæ­¥LSA
 					lsa.sendTime = System.currentTimeMillis();
 
 					if (old.seqNum < lsa.seqNum) {
@@ -299,7 +299,7 @@ public class RegState extends AState {
 
 					old = addTopicsToLSA(old, lsa.subsTopics, 0);
 				} // else lsa.syn!=1
-					// the originator of lsa lost its neighbor
+				// the originator of lsa lost its neighbor
 				if (!lsa.lostGroup.isEmpty()) {
 					for (String lost : lsa.lostGroup) {
 						this.deleteLineFromLSDB(lost, lsa.originator);
@@ -416,16 +416,16 @@ public class RegState extends AState {
 		String repAddr = rep.addr;
 
 		fellows.remove(repAddr);
-		// ½«idÖµ×îĞ¡µÄ´úÀí¼ÇÂ¼ÔÚtmpÖĞ
+		// å°†idå€¼æœ€å°çš„ä»£ç†è®°å½•åœ¨tmpä¸­
 		BrokerUnit tmp = null;
-		long tmpId = id; 
+		long tmpId = id;
 		for (BrokerUnit b : fellows.values()) {
 			if (tmpId > b.id) {
 				tmpId = b.id;
 				tmp = b;
 			}
 		}
-		
+
 		for (String t : brokerTable.keySet()) {
 			if (brokerTable.get(t).contains(repAddr)) {
 				brokerTable.get(t).remove(repAddr);
@@ -436,8 +436,8 @@ public class RegState extends AState {
 		}
 
 		if (tmp == null) {
-			// ±¾´úÀí³ÉÎªĞÂµÄ´ú±í
-			
+			// æœ¬ä»£ç†æˆä¸ºæ–°çš„ä»£è¡¨
+
 			// add target to heart detection
 			for (String ad : fellows.keySet()) {
 				dt.addTarget(ad);
@@ -525,9 +525,9 @@ public class RegState extends AState {
 			MsgAdminChange mac = (MsgAdminChange) msg;
 			adminAddr = mac.NewAdminAddr;
 			System.out.println("AdminAddress change to:" + adminAddr);
-			log.info("AdminAddress change to£º" + adminAddr);
+			log.info("AdminAddress change toï¼š" + adminAddr);
 
-		} else if (msg instanceof MsgNewBroker) {// Èç¹û±¾¼¯ÈºÓĞĞÂµÄ³ÉÔ±
+		} else if (msg instanceof MsgNewBroker) {// å¦‚æœæœ¬é›†ç¾¤æœ‰æ–°çš„æˆå‘˜
 
 			MsgNewBroker mnm = (MsgNewBroker) msg;
 			if (mnm.broker.addr.equals(localAddr)) {
@@ -570,7 +570,7 @@ public class RegState extends AState {
 						}
 					}
 				}
-				
+
 				rep.addr = g.addr;
 				rep.tPort = g.tPort;
 
@@ -605,14 +605,14 @@ public class RegState extends AState {
 						log.warn(e);
 					}
 				}
-				
-				
+
+
 			}
 
 		} else if (msg instanceof MsgSubs) {
 
 			MsgSubs mss = (MsgSubs) msg;
-			
+
 			log.info("subs: " + mss.originator);
 
 			if (fellows.containsKey(mss.originator)) {
@@ -630,11 +630,12 @@ public class RegState extends AState {
 								}
 							}
 						} else if (mss.type == 0) {// if not exists and the type
-													// is
-													// 0
+							// is
+							// 0
 							TreeSet<String> ts = new TreeSet<String>();
 							ts.add(mss.originator);
 							brokerTable.put(t, ts);
+
 						}
 					}
 				}
@@ -685,7 +686,7 @@ public class RegState extends AState {
 			MsgSynSubs mss = (MsgSynSubs) msg;
 			System.out.println("syn subs message: " + mss.originator);
 
-			// ¸üĞÂÏà¹Ø¶©ÔÄĞÅÏ¢
+			// æ›´æ–°ç›¸å…³è®¢é˜…ä¿¡æ¯
 			for (String s : brokerTable.keySet()) {
 				if (brokerTable.get(s).contains(mss.originator)
 						&& !mss.topics.contains(s)) {
@@ -769,8 +770,8 @@ public class RegState extends AState {
 					ois = new ObjectInputStream(s.getInputStream());
 					oos = new ObjectOutputStream(s.getOutputStream());
 					while (true) {
-						msg = ois.readObject();// read ×èÈûÁË£¬Èç¹û¶Ô·½¹Ø±ÕÁËsocket
-												// ÏµÍ³»áÅ×³öioÒì³££¬´Ó¶ø¹Ø±Õ´Ë·½µÄsocket£¬ÒòÎªsocketÈ«Ë«¹¤£¬Ë«·½¶¼Òª¹Ø
+						msg = ois.readObject();// read é˜»å¡äº†ï¼Œå¦‚æœå¯¹æ–¹å…³é—­äº†socket
+						// ç³»ç»Ÿä¼šæŠ›å‡ºioå¼‚å¸¸ï¼Œä»è€Œå…³é—­æ­¤æ–¹çš„socketï¼Œå› ä¸ºsocketå…¨åŒå·¥ï¼ŒåŒæ–¹éƒ½è¦å…³
 						if ((msg != null)) {
 							boolean isLong = processKindTcpMsg(ois, oos, s, msg);
 							if (!isLong) {
@@ -801,7 +802,7 @@ public class RegState extends AState {
 	}
 
 	private boolean processKindTcpMsg(ObjectInputStream ois,
-			ObjectOutputStream oos, Socket s, Object msg) {
+									  ObjectOutputStream oos, Socket s, Object msg) {
 		if (msg instanceof MsgSetAddr) {
 			MsgSetAddr msa = (MsgSetAddr) msg;
 			processSpecificTcpMsg(ois, oos, s, msa);
@@ -866,7 +867,7 @@ public class RegState extends AState {
 	}
 
 	private void processSpecificTcpMsg(ObjectInputStream ois,
-			ObjectOutputStream oos, Socket s, MsgSetAddr msa) {
+									   ObjectOutputStream oos, Socket s, MsgSetAddr msa) {
 		System.out.println("set address: " + msa.addr);
 		log.info("set address: " + msa.addr);
 
@@ -908,7 +909,7 @@ public class RegState extends AState {
 	}
 
 	private void processSpecificTcpMsg(ObjectInputStream ois,
-			ObjectOutputStream oos, Socket s, MsgInfoChange mic) {
+									   ObjectOutputStream oos, Socket s, MsgInfoChange mic) {
 		if (rep.addr.equals(mic.originator)) {
 			// inside
 			dt.removeTarget(rep.addr);
@@ -930,7 +931,7 @@ public class RegState extends AState {
 	}
 
 	private void processSpecificTcpMsg(ObjectInputStream ois,
-			ObjectOutputStream oos, Socket s, MsgSetConf msc) {
+									   ObjectOutputStream oos, Socket s, MsgSetConf msc) {
 		System.out.println("set configurations");
 		log.info("set configurations");
 
@@ -964,7 +965,7 @@ public class RegState extends AState {
 	}
 
 	private void processSpecificTcpMsg(ObjectInputStream ois,
-			ObjectOutputStream oos, Socket s, MsgLookupMemberSubscriptions mlms) {
+									   ObjectOutputStream oos, Socket s, MsgLookupMemberSubscriptions mlms) {
 		System.out.println("look up member Subscriptions");
 		log.info("look up member Subscriptions");
 

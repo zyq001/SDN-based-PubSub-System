@@ -23,7 +23,23 @@ import java.util.Map;
 
 public class Router extends SysInfo implements IRouter {
 
-	public List<Flow> cacluate(Map<String, Controller> controllers){
+	public static boolean adjustRoute(){
+		boolean success = false;
+		List<Flow> flows = cacluate(GlobleUtil.getInstance().controllers);
+		success = FlowDownwardQueue.grtInstance().enqueue(flows);
+
+		return success;
+	}
+
+	public static boolean adjustRoute(Controller controller){
+		boolean success = false;
+		List<Flow> flows = cacluate(GlobleUtil.getInstance().controllers);
+		success = FlowDownwardQueue.grtInstance().enqueue(flows);
+
+		return success;
+	}
+
+	public static List<Flow> cacluate(Map<String, Controller> controllers){
 		List<Flow> flows = new ArrayList<Flow>();
 
 		return flows;

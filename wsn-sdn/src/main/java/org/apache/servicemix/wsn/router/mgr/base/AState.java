@@ -6,39 +6,39 @@ import org.apache.servicemix.wsn.router.msg.tcp.LSA;
 
 public abstract class AState extends SysInfo {
 
-	//¼ÓÈëµ½ÍØÆËÖ®ÖĞ
+	//åŠ å…¥åˆ°æ‹“æ‰‘ä¹‹ä¸­
 	abstract public void join();
 
-	//·¢ËÍ¶©ÔÄÏûÏ¢
+	//å‘é€è®¢é˜…æ¶ˆæ¯
 	abstract public void sendSbp(Object msg);
 	
-	// Ôö¼ÓhelloÊÔÌ½ÁÚ¾Ó
+	// å¢åŠ helloè¯•æ¢é‚»å±…
 	abstract public void addNeighbor(String target);
 
-	//Ê§Ğ§´¦Àí£¬²ÎÊıÎªÓÃÒÔ±êÊ¶Ê§Ğ§´úÀí×Ö·û´®
+	//å¤±æ•ˆå¤„ç†ï¼Œå‚æ•°ä¸ºç”¨ä»¥æ ‡è¯†å¤±æ•ˆä»£ç†å­—ç¬¦ä¸²
 	abstract public void lost(String indicator);
 	
-	// ÉèÖÃ´ú±íµÄÍ¬²½ºÍ¼ì²éLSA¼ÆÊ±Æ÷
+	// è®¾ç½®ä»£è¡¨çš„åŒæ­¥å’Œæ£€æŸ¥LSAè®¡æ—¶å™¨
 	abstract public void setClock(boolean isRep);
 
-	//´¦ÀíÊÕµ½udpÏûÏ¢
+	//å¤„ç†æ”¶åˆ°udpæ¶ˆæ¯
 	abstract public void processUdpMsg(Object msg);
 
-	//´¦ÀíÊÕµ½µÄtcpÁ¬½Ó
+	//å¤„ç†æ”¶åˆ°çš„tcpè¿æ¥
 	abstract public void processTcpMsg(Socket s);
 
-	//×ª·¢¸øÁÚ¾Ó
+	//è½¬å‘ç»™é‚»å±…
 	abstract public void sendObjectToNeighbors(Object obj);
 	
-	// ¼¯ÈºÄÚ×é²¥LSA
+	// é›†ç¾¤å†…ç»„æ’­LSA
 	abstract public void spreadLSAInLocalGroup(LSA lsa);
 	
-	//ÔÚ±¾¼¯ÈºÄÚ×é²¥
+	//åœ¨æœ¬é›†ç¾¤å†…ç»„æ’­
 	abstract public void spreadInLocalGroup(Object obj);
 	
-	//Ìí¼ÓLSA
+	//æ·»åŠ LSA
 	abstract public boolean addLSAToLSDB(LSA lsa);
 	
-	// Í¬²½LSA
+	// åŒæ­¥LSA
 	abstract public void synLSA();
 }

@@ -1,8 +1,7 @@
-package org.apache.servicemix.wsn.router.router;
+package edu.bupt.wangfu.sdn;
 
 import edu.bupt.wangfu.sdn.floodlight.RestProcess;
 import edu.bupt.wangfu.sdn.info.Controller;
-import edu.bupt.wangfu.sdn.info.DevInfo;
 import edu.bupt.wangfu.sdn.info.Flow;
 import edu.bupt.wangfu.sdn.info.Switch;
 import edu.bupt.wangfu.sdn.queue.QueueManagerment;
@@ -81,13 +80,13 @@ public class GlobleUtil {
 
     }
 
-    public static boolean downFlow(String url, JSONObject content){
+    public boolean downFlow(String url, JSONObject content){
         boolean success = false;
         return RestProcess.doClientPost(url, content).get(0).equals("200");
 
     }
 
-    public static boolean downFlow(Controller controller, List<Flow> flows){
+    public boolean downFlow(Controller controller, List<Flow> flows){
         boolean success = false;
         for(Flow flow: flows){
             if(downFlow(controller, flow)) success = true;
@@ -95,7 +94,7 @@ public class GlobleUtil {
         return true;
     }
 
-    public static boolean downFlow(Controller controller, Flow flow){
+    public boolean downFlow(Controller controller, Flow flow){
         boolean success = false;
         return RestProcess.doClientPost(controller.url, flow.getContent()).get(0).equals("200");
 

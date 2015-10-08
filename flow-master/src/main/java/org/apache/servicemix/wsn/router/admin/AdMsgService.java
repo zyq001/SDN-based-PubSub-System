@@ -12,6 +12,8 @@ import java.util.Map;
 
 import javax.naming.NamingException;
 
+import edu.bupt.wangfu.sdn.info.Controller;
+import edu.bupt.wangfu.sdn.info.Flow;
 import org.apache.servicemix.application.WSNTopicObject;
 import org.apache.servicemix.wsn.router.design.Data;
 import org.apache.servicemix.wsn.router.design.PSManagerUI;
@@ -28,7 +30,9 @@ import edu.bupt.wangfu.ldap.MsgTopicModify;
 
 import org.apache.servicemix.wsn.router.msg.tcp.PolicyDB;
 import org.apache.servicemix.wsn.router.msg.tcp.UpdateTree;
+import org.apache.servicemix.wsn.router.msg.udp.MsgSubs;
 import org.apache.servicemix.wsn.router.router.GlobleUtil;
+import org.apache.servicemix.wsn.router.router.Router;
 import org.apache.servicemix.wsn.router.topictree.TopicTreeManager;
 import org.apache.servicemix.wsn.router.wsnPolicy.ShorenUtils;
 
@@ -316,6 +320,11 @@ public class AdMsgService extends AdminBase implements Runnable {
 				
 				oos.writeObject(new MsgTopicModify_());
 				
+			}else if(msg instanceof MsgSubs){
+				MsgSubs mss = (MsgSubs) msg;
+				Controller controller = GlobleUtil.getInstance().controllers.get(mss.groupName);
+				controller.setTopics(mss.topics);
+				Router.adjustRoute(controller);
 			}
 			
 		} catch (IOException e) {

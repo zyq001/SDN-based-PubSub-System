@@ -12,25 +12,25 @@ import org.apache.servicemix.wsn.router.mgr.base.AState;
 
 public class LSA implements Serializable{
 	/**
-	 * Á´Â·×´Ì¬ÏûÏ¢
+	 * é“¾è·¯çŠ¶æ€æ¶ˆæ¯
 	 */
 	private static final long serialVersionUID = 1L;
-	public int seqNum; // ĞòÁĞºÅ
-	public int syn; // 0ÎªÆÕÍ¨LSA£¬1ÎªÍ¬²½LSA
-	public String originator; // ·¢ËÍÔ´Ãû³Æ
-	public ArrayList<String> lostGroup; // ¶ªÊ§¼¯Èº£¬ÈôÎŞ¶ªÊ§ÔòÎª¿Õ
-	public ArrayList<String> subsTopics; // ·¢ËÍÔ´µÄ¶©ÔÄ
-	public ArrayList<String> cancelTopics; //·¢ËÍÔ´È¡ÏûµÄ¶©ÔÄ
-	public  ConcurrentHashMap<String, DistBtnNebr> distBtnNebrs; // ·¢ËÍÔ´ÓëÁÚ¾ÓµÄ¾àÀë
-	public long sendTime; //·¢ËÍÊ±¼ä
-	
+	public int seqNum; // åºåˆ—å·
+	public int syn; // 0ä¸ºæ™®é€šLSAï¼Œ1ä¸ºåŒæ­¥LSA
+	public String originator; // å‘é€æºåç§°
+	public ArrayList<String> lostGroup; // ä¸¢å¤±é›†ç¾¤ï¼Œè‹¥æ— ä¸¢å¤±åˆ™ä¸ºç©º
+	public ArrayList<String> subsTopics; // å‘é€æºçš„è®¢é˜…
+	public ArrayList<String> cancelTopics; //å‘é€æºå–æ¶ˆçš„è®¢é˜…
+	public  ConcurrentHashMap<String, DistBtnNebr> distBtnNebrs; // å‘é€æºä¸é‚»å±…çš„è·ç¦»
+	public long sendTime; //å‘é€æ—¶é—´
+
 	public LSA() {
 		lostGroup = new ArrayList<String>();
 		subsTopics = new ArrayList<String>();
 		cancelTopics = new ArrayList<String>();
 		distBtnNebrs = new ConcurrentHashMap<String, DistBtnNebr>();
 	}
-	
+
 	public void copyLSA(LSA lsa) {
 		this.seqNum = lsa.seqNum;
 		this.syn = lsa.syn;
@@ -40,7 +40,7 @@ public class LSA implements Serializable{
 		this.cancelTopics.addAll(lsa.cancelTopics);
 		this.distBtnNebrs.putAll(lsa.distBtnNebrs);
 	}
-	
+
 	public void copyPartLSA(LSA lsa) {
 		this.seqNum = lsa.seqNum;
 		this.syn = lsa.syn;
@@ -48,20 +48,20 @@ public class LSA implements Serializable{
 		this.lostGroup.addAll(lsa.lostGroup);
 		this.distBtnNebrs.putAll(lsa.distBtnNebrs);
 	}
-	
+
 	public void processRepMsg(ObjectInputStream ois,
-			ObjectOutputStream oos, Socket s, LSA lsa) {
+							  ObjectOutputStream oos, Socket s, LSA lsa) {
 		AState state = RtMgr.getInstance().getState();
 		if (!state.addLSAToLSDB(lsa))
 			return;
 		// receive lsa from other groups
 		System.out.println("lsa from " + lsa.originator + " lsa seqNum: "
 				+ lsa.seqNum);
-		
-		// ×ª·¢µ½ÆäËû¼¯Èº
+
+		// è½¬å‘åˆ°å…¶ä»–é›†ç¾¤
 		state.sendObjectToNeighbors(lsa);
-		
-		// ÔÚ±¾¼¯ÈºÖĞ×é²¥
+
+		// åœ¨æœ¬é›†ç¾¤ä¸­ç»„æ’­
 		state.spreadLSAInLocalGroup(lsa);
 	}
 }

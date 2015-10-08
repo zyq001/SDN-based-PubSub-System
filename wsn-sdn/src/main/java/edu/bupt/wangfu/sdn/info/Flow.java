@@ -8,8 +8,6 @@ public class Flow {
 
 	private JSONObject content;
 
-	public Controller controller;
-
 	public Flow(String dpid){this.dpid = dpid; }
 
 	public JSONObject getContent() {

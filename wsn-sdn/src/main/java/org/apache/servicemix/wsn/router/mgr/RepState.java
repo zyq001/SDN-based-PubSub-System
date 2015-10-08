@@ -1158,6 +1158,38 @@ public class RepState extends AState {
 			groupMap.remove(lostGroup);
 	}
 
+	//group subs changes, notify mgr
+	public boolean send2Mgr(MsgSubs msg){
+		boolean success = false;
+		Socket s = null;
+		ObjectInputStream ois = null;
+		ObjectOutputStream oos = null;
+
+//		MsgNewGroup_ mng_ = null;
+		// send new group message to administrator
+		try {
+			s = new Socket(adminAddr, adminPort);
+			oos = new ObjectOutputStream(s.getOutputStream());
+			ois = new ObjectInputStream(s.getInputStream());
+
+			msg.groupName = groupName;
+			oos.writeObject(msg);
+//			Object obj = ois.readObject();
+//			mng_ = (MsgNewGroup_) obj;
+			success = ois.readBoolean();
+//			log.info(mng_);
+
+			oos.close();
+			ois.close();
+			s.close();
+		} catch (IOException e) {
+			success = false;
+			e.printStackTrace();
+			log.warn(e);
+		}
+		return success;
+	}
+
 	@Override
 	public void processUdpMsg(Object msg) {
 
@@ -1240,8 +1272,15 @@ public class RepState extends AState {
 						ts.add(mss.originator);
 						brokerTable.put(t, ts);
 
-						if (!clientTable.contains(t))
+						if (!clientTable.contains(t)) {
 							spreadTopics.add(t);
+							if(!send2Mgr(mss)){
+								send2Mgr(mss);
+							}else{
+								//send2Mgr failed twice, calc locally
+
+							}
+						}
 					}
 				}
 				if (!spreadTopics.isEmpty()) {
