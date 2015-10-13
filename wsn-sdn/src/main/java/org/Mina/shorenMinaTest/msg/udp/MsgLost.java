@@ -15,23 +15,23 @@ import org.apache.mina.core.session.IoSession;
 public class MsgLost extends WsnMsg implements Serializable {
 
 	public String indicator;//lost broker's address
-	
+
 	public boolean inside;
-	
+
 	private ArrayList<String> getForwardIp(){
 		return Start.forwardIP=searchRoute.calForwardIP("500:3:6:10:15:20:26", "m", Start.testMap);
 	}
-	
+
 	public void processRegMsg(IoSession session){
 		ArrayList<String> forwardIp = getForwardIp();
-		//策略库的位置，由策略库来过滤ip
+		//绛栫暐搴撶殑浣嶇疆锛岀敱绛栫暐搴撴潵杩囨护ip
 		ForwardMsg forwardMsg = new UDPForwardMsg(forwardIp, MinaUtil.uPort, this);
 		MsgQueueMgr.addUDPMsgInQueue(forwardMsg);
 	}
-	
+
 	public void processRepMsg(IoSession session){
 		ArrayList<String> forwardIp = getForwardIp();
-		//策略库的位置，由策略库来过滤ip
+		//绛栫暐搴撶殑浣嶇疆锛岀敱绛栫暐搴撴潵杩囨护ip
 		ForwardMsg forwardMsg = new UDPForwardMsg(forwardIp, MinaUtil.uPort, this);
 		MsgQueueMgr.addUDPMsgInQueue(forwardMsg);
 	}

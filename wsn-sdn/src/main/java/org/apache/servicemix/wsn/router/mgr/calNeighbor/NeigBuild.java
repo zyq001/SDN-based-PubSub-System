@@ -8,12 +8,12 @@ import org.apache.servicemix.wsn.router.mgr.base.SysInfo;
 import org.apache.servicemix.wsn.router.msg.tcp.GroupUnit;
 
 public class NeigBuild extends SysInfo {
-	private static int neigsMax;// ÁÚ¾ÓÊıÉÏÏŞ
-	private static int neigsMin;// ÁÚ¾ÓÊıÏÂÏŞ
-	private static int neigsDefault;// Ä¬ÈÏÁÚ¾ÓÊı
-	private static int neigsCount = 0; // µ±Ç°ÁÚ¾ÓÊı
-	public static String answerOrder; // socket serverÓ¦´ğÖ¸Áî
-	private static ArrayList<String> neigsIPArray;// ±¾µØÒÑ½¨ÁÚ¾Ó
+	private static int neigsMax;// é‚»å±…æ•°ä¸Šé™
+	private static int neigsMin;// é‚»å±…æ•°ä¸‹é™
+	private static int neigsDefault;// é»˜è®¤é‚»å±…æ•°
+	private static int neigsCount = 0; // å½“å‰é‚»å±…æ•°
+	public static String answerOrder; // socket serveråº”ç­”æŒ‡ä»¤
+	private static ArrayList<String> neigsIPArray;// æœ¬åœ°å·²å»ºé‚»å±…
 
 	public static ConcurrentHashMap<String, Node> map;
 
@@ -22,25 +22,25 @@ public class NeigBuild extends SysInfo {
 		map = new ConcurrentHashMap<String, Node>();
 	}
 
-	// ÉèÖÃÁÚ¾ÓÊıÉÏÏÂÏŞ
+	// è®¾ç½®é‚»å±…æ•°ä¸Šä¸‹é™
 	public void setValue(int max, int min, int def) {
 		neigsMax = max;
 		neigsMin = min;
 		neigsDefault = def;
 	}
 
-	// ·µ»Ø±¾µØÁÚ¾ÓÊı
+	// è¿”å›æœ¬åœ°é‚»å±…æ•°
 	public int getNeigCount() {
 		return neigsCount;
 	}
 
-	// È¡µÃÒÑ½¨Á¢µÄÁÚ¾ÓipÁĞ±í
+	// å–å¾—å·²å»ºç«‹çš„é‚»å±…ipåˆ—è¡¨
 	public ArrayList<String> getBuildedNeigsIP() {
 		return neigsIPArray;
 	}
 
-	// µÚÒ»´Î¹¹½¨²¢·µ»ØÁÚ¾ÓÁĞ±í
-	public ArrayList<String> BuildAGetNeigs(){// »ñÈ¡ÁÚ¾ÓÁĞ±í
+	// ç¬¬ä¸€æ¬¡æ„å»ºå¹¶è¿”å›é‚»å±…åˆ—è¡¨
+	public ArrayList<String> BuildAGetNeigs(){// è·å–é‚»å±…åˆ—è¡¨
 		map.clear();
 		for (GroupUnit g : groupMap.values()) {
 			if (!lsdb.isEmpty() && lsdb.containsKey(g.name)) {
@@ -62,7 +62,7 @@ public class NeigBuild extends SysInfo {
 		return selectedGroups;
 	}
 
-	// ÁÚ¾ÓÊı±ä»¯µÄÊ±ºò¼ì²éÊÇ·ñĞèÒªÖØĞÂÌí¼ÓÁÚ¾Ó£¬·µ»Ø×îÖÕÁÚ¾ÓÁĞ±í
+	// é‚»å±…æ•°å˜åŒ–çš„æ—¶å€™æ£€æŸ¥æ˜¯å¦éœ€è¦é‡æ–°æ·»åŠ é‚»å±…ï¼Œè¿”å›æœ€ç»ˆé‚»å±…åˆ—è¡¨
 	public ArrayList<String> NeigsChange(ArrayList<String> out) {
 		ArrayList<String> neigsAdd = new ArrayList<String>();
 		neigsIPArray.clear();
@@ -93,7 +93,7 @@ public class NeigBuild extends SysInfo {
 		return neigsAdd;
 	}
 
-	// ½«Ã¿¸öip·Ö¸î³ÉËÄ¶ÎintÊı
+	// å°†æ¯ä¸ªipåˆ†å‰²æˆå››æ®µintæ•°
 	public static int[] ipAddressSplit(String ipAddress) {
 		String[] ipSplit = ipAddress.split("\\.");
 		int[] ip = new int[ipSplit.length];
@@ -105,21 +105,21 @@ public class NeigBuild extends SysInfo {
 		return ip;
 	}
 
-	// ÁÚ¾Ó¼ÆËãºËĞÄËã·¨
-	private static ArrayList<String> ipSelected() {// ipµØÖ·ÓÉ½ü¼°Ô¶ÅÅĞò
+	// é‚»å±…è®¡ç®—æ ¸å¿ƒç®—æ³•
+	private static ArrayList<String> ipSelected() {// ipåœ°å€ç”±è¿‘åŠè¿œæ’åº
 
 		String[] mask = localNetmask.split("\\.");
-		int[] neigsIPInt = new int[mask.length]; // ÁÚ¾ÓipµØÖ··Ö¶Îint
-		int[] netmaskInt = new int[mask.length]; // ÁÚ¾Ó×ÓÍøÑÚÂë·Ö¶Îint
-		int[] networkAddInt = new int[mask.length]; // ÁÚ¾ÓÍøÂçµØÖ··Ö¶Îint
-		int[] localNetworkInt = new int[mask.length];// ±¾µØÍøÂçµØÖ··Ö¶Îint
-		int[] localIPInt = new int[mask.length]; // ±¾µØipµØÖ··Ö¶Îint
-		int[] localNetworkAddrInt = new int[mask.length]; // ±¾µØ×ÓÍøÑÚÂë·Ö¶Îint
-		ArrayList<Integer> neighborsCount = new ArrayList<Integer>(); //ÁÚ¾Ó¼ÆÊı
-		long[] networkAddrNum;// ÁÚ¾ÓÍøÂçµØÖ·ÕÛËãÖµ
-		long localNetworkAddrNum;// ±¾µØÍøÂçµØÖ·ÕÛËãÖµ
+		int[] neigsIPInt = new int[mask.length]; // é‚»å±…ipåœ°å€åˆ†æ®µint
+		int[] netmaskInt = new int[mask.length]; // é‚»å±…å­ç½‘æ©ç åˆ†æ®µint
+		int[] networkAddInt = new int[mask.length]; // é‚»å±…ç½‘ç»œåœ°å€åˆ†æ®µint
+		int[] localNetworkInt = new int[mask.length];// æœ¬åœ°ç½‘ç»œåœ°å€åˆ†æ®µint
+		int[] localIPInt = new int[mask.length]; // æœ¬åœ°ipåœ°å€åˆ†æ®µint
+		int[] localNetworkAddrInt = new int[mask.length]; // æœ¬åœ°å­ç½‘æ©ç åˆ†æ®µint
+		ArrayList<Integer> neighborsCount = new ArrayList<Integer>(); //é‚»å±…è®¡æ•°
+		long[] networkAddrNum;// é‚»å±…ç½‘ç»œåœ°å€æŠ˜ç®—å€¼
+		long localNetworkAddrNum;// æœ¬åœ°ç½‘ç»œåœ°å€æŠ˜ç®—å€¼
 
-		// »ñÈ¡±¾»úÍøÂçµØÖ·
+		// è·å–æœ¬æœºç½‘ç»œåœ°å€
 		for (int i = 0; i < mask.length; i++) {
 			localNetworkAddrInt[i] = Integer.parseInt(mask[i]);
 		}
@@ -137,10 +137,10 @@ public class NeigBuild extends SysInfo {
 		ConcurrentHashMap<Integer, String> m = new ConcurrentHashMap<Integer, String>();
 		for (int k = 0; k < map.size(); k++) {
 			Node node = iterator.next();
-			neigsIPInt = ipAddressSplit(node.addr); // ½«Ä¿µÄµØÖ·ip¶ÎÈ¡³ö
+			neigsIPInt = ipAddressSplit(node.addr); // å°†ç›®çš„åœ°å€ipæ®µå–å‡º
 			netmaskInt = ipAddressSplit(node.netmask);
 			for (int i = 0; i < 4; i++) {
-				networkAddInt[i] = neigsIPInt[i] & netmaskInt[i]; // ÁÚ¾ÓÍøÂçµØÖ·
+				networkAddInt[i] = neigsIPInt[i] & netmaskInt[i]; // é‚»å±…ç½‘ç»œåœ°å€
 			}
 
 			neighborsCount.add(node.neighborCount);
@@ -150,23 +150,23 @@ public class NeigBuild extends SysInfo {
 			m.put(k, node.addr);
 		}
 
-		// °´×¼ÁÚ¾ÓÍøÂçµØÖ·×ÜÖµÓë±¾µØÍøÂçµØÖ·×ÜÖµÖ®²îµÄ¾ø¶ÔÖµÅÅĞò
+		// æŒ‰å‡†é‚»å±…ç½‘ç»œåœ°å€æ€»å€¼ä¸æœ¬åœ°ç½‘ç»œåœ°å€æ€»å€¼ä¹‹å·®çš„ç»å¯¹å€¼æ’åº
 		NeigSelect localNeigsSelect = new NeigSelect();
 		localNeigsSelect.buildUDN(localNetworkAddrNum, networkAddrNum,
-				neighborsCount);// ¹¹½¨È«¾Ö´øÈ¨Íø
-		// ¼ÆËã±¾µØÁÚ¾Ó£¬»ñÈ¡±»Ñ¡ÖĞÁÚ¾ÓµÄÏÂ±ê
+				neighborsCount);// æ„å»ºå…¨å±€å¸¦æƒç½‘
+		// è®¡ç®—æœ¬åœ°é‚»å±…ï¼Œè·å–è¢«é€‰ä¸­é‚»å±…çš„ä¸‹æ ‡
 		ArrayList<Integer> neigsIPSubNum = localNeigsSelect.accuNeigsIPNum(
 				localNetworkAddrNum, networkAddrNum, localNeigsSelect.getUDN());
 		ArrayList<String> selectedNeigsIP = new ArrayList<String>();
 		for (Integer i : neigsIPSubNum) {
 			selectedNeigsIP.add(m.get(i));
 			neigsCount++;
-			// neigsIPArray.add(neigsIP[neigsIPSubNum.get(i)]);//½«Ëã·¨Ñ¡³öµÄÁÚ¾Ó´æÈëÈ«¾ÖÊı×é±äÁ¿
-			// System.out.println("±¾µØÑ¡ÔñµÄÁÚ¾ÓµÚ"+(i+1)+"¸ö£º"+selectedNeigsIP[i]);
+			// neigsIPArray.add(neigsIP[neigsIPSubNum.get(i)]);//å°†ç®—æ³•é€‰å‡ºçš„é‚»å±…å­˜å…¥å…¨å±€æ•°ç»„å˜é‡
+			// System.out.println("æœ¬åœ°é€‰æ‹©çš„é‚»å±…ç¬¬"+(i+1)+"ä¸ªï¼š"+selectedNeigsIP[i]);
 		}
 
-		// //²âÊÔ£º´òÓ¡È«¾Ö´øÈ¨Íø
-		// System.out.println("È«¾ÖUDNÍø£º");
+		// //æµ‹è¯•ï¼šæ‰“å°å…¨å±€å¸¦æƒç½‘
+		// System.out.println("å…¨å±€UDNç½‘ï¼š");
 		// for(int m=0; m<=downloadIP2.size(); m++){
 		// for(int n=0; n<=downloadIP2.size(); n++){
 		//
@@ -175,8 +175,8 @@ public class NeigBuild extends SysInfo {
 		// System.out.println();
 		// }
 		//
-		// //²âÊÔ£º´òÓ¡È«¾ÖRNGÍ¼
-		// System.out.println("È«¾ÖRNGÍ¼£º");
+		// //æµ‹è¯•ï¼šæ‰“å°å…¨å±€RNGå›¾
+		// System.out.println("å…¨å±€RNGå›¾ï¼š");
 		// localNeigsSelect.globalRNG(localNetworkAddrNum, networkAddrNum,
 		// localNeigsSelect.getUDN());
 		// for(int m=0; m<=downloadIP2.size(); m++){
@@ -190,8 +190,8 @@ public class NeigBuild extends SysInfo {
 
 	}
 
-	// ÁÚ¾ÓÊı¼ì²é
-	public ArrayList<String> neigsCountCheck(ArrayList<String> selectedIP) {// ÁÚ¾ÓÊı¼ì²é
+	// é‚»å±…æ•°æ£€æŸ¥
+	public ArrayList<String> neigsCountCheck(ArrayList<String> selectedIP) {// é‚»å±…æ•°æ£€æŸ¥
 
 		for (int k = 0; k < neigsMin; k++) {
 			if ((map.size() - neigsCount) > 0 && neigsCount < neigsMin) {

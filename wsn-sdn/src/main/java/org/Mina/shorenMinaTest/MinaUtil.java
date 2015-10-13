@@ -48,6 +48,8 @@ public class MinaUtil {
 	
 	public static int tPort = 3;
 	public static int uPort = 30002;
+	public static int lowUPort = 30003;
+	public static int highUPort = 30001;
 	
 	public static synchronized void incSenders()
 	{

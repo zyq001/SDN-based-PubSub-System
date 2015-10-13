@@ -1,9 +1,9 @@
 
 backupAdministrator:10.108.167.88
 
-localAddr:192.168.0.120
+localAddr:10.108.166.67
 
-ldapAddr:10.109.253.6
+ldapAddr:10.108.167.7
 
 floodLightIP:192.168.1.30
 

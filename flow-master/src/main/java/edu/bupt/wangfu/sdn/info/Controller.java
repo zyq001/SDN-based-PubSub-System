@@ -53,6 +53,7 @@ public class Controller {
 
     public void reflashSwitchMap(){
 
+
         switchMap = GlobleUtil.getRealtimeSwitchs(this);
 
     }

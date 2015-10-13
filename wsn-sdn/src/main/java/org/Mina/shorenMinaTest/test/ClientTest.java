@@ -41,176 +41,176 @@ public class ClientTest {
 
 	private static final Log log = LogFactory.getLog(ClientTest.class);
 	private static List<WsnMsg> msgList = MsgGenerator.generateMsgs();
-	
+
 	RtMgr  mgr = RtMgr.getInstance();
-	
-	
-	static NioSocketConnector connector = MinaUtil.createSocketConnector();	
-	static ConnectFuture cf = connector.connect(new InetSocketAddress("10.109.253.41", 30001));//½¨Á¢Á¬½Ó
+
+
+	static NioSocketConnector connector = MinaUtil.createSocketConnector();
+	static ConnectFuture cf = connector.connect(new InetSocketAddress("10.109.253.41", 30001));//å»ºç«‹è¿æ¥
 	
 	/*static NioDatagramConnector connector2 = MinaUtil.createDatagramConnector();	
-	static ConnectFuture df = connector2.connect(new InetSocketAddress("10.108.166.217", 30002));//½¨Á¢Á¬½Ó
+	static ConnectFuture df = connector2.connect(new InetSocketAddress("10.108.166.217", 30002));//å»ºç«‹è¿æ¥
 	*/
 	/*static NioSocketConnector connector3 = MinaUtil.createSocketConnector();	
-	static ConnectFuture cf2 = connector3.connect(new InetSocketAddress("10.108.166.217", 30003));//½¨Á¢Á¬½Ó
+	static ConnectFuture cf2 = connector3.connect(new InetSocketAddress("10.108.166.217", 30003));//å»ºç«‹è¿æ¥
 	
 	static NioDatagramConnector connector4 = MinaUtil.createDatagramConnector();	
-	static ConnectFuture df2 = connector4.connect(new InetSocketAddress("10.108.166.217", 30004));//½¨Á¢Á¬½Ó
-*/	
-				
+	static ConnectFuture df2 = connector4.connect(new InetSocketAddress("10.108.166.217", 30004));//å»ºç«‹è¿æ¥
+*/
+
 	//static NioSocketConnector connector1 = MinaUtil.createSocketConnector();	
-	//static ConnectFuture cf1 = connector1.connect(new InetSocketAddress("10.109.253.17", 30001));//½¨Á¢Á¬½Ó
-	
-	
+	//static ConnectFuture cf1 = connector1.connect(new InetSocketAddress("10.109.253.17", 30001));//å»ºç«‹è¿æ¥
+
+
 	public static void main(String[] args) {
 		PropertyConfigurator.configure("log4j.properties");
-		cf.awaitUninterruptibly();//µÈ´ıÁ¬½Ó´´½¨Íê³É   
-		//cf1.awaitUninterruptibly();//µÈ´ıÁ¬½Ó´´½¨Íê³É
+		cf.awaitUninterruptibly();//ç­‰å¾…è¿æ¥åˆ›å»ºå®Œæˆ   
+		//cf1.awaitUninterruptibly();//ç­‰å¾…è¿æ¥åˆ›å»ºå®Œæˆ
 		//df.awaitUninterruptibly();
 		//df2.awaitUninterruptibly();
 		/*				
 		NioSocketConnector connector2 = MinaUtil.createSocketConnector();	
-		ConnectFuture cf2 = connector2.connect(new InetSocketAddress("10.108.164.66", 30001));//½¨Á¢Á¬½Ó
-		cf2.awaitUninterruptibly();//µÈ´ıÁ¬½Ó´´½¨Íê³É 
+		ConnectFuture cf2 = connector2.connect(new InetSocketAddress("10.108.164.66", 30001));//å»ºç«‹è¿æ¥
+		cf2.awaitUninterruptibly();//ç­‰å¾…è¿æ¥åˆ›å»ºå®Œæˆ 
 		
 		NioSocketConnector connector3 = MinaUtil.createSocketConnector();	
-		ConnectFuture cf3 = connector3.connect(new InetSocketAddress("10.108.164.66", 30001));//½¨Á¢Á¬½Ó
-		cf3.awaitUninterruptibly();//µÈ´ıÁ¬½Ó´´½¨Íê³É 
+		ConnectFuture cf3 = connector3.connect(new InetSocketAddress("10.108.164.66", 30001));//å»ºç«‹è¿æ¥
+		cf3.awaitUninterruptibly();//ç­‰å¾…è¿æ¥åˆ›å»ºå®Œæˆ 
 		*/
 //		NioDatagramConnector connector = MinaUtil.createDatagramConnector();
-		//	ConnectFuture cf = connector.connect(new InetSocketAddress(mgr.localAddr, mgr.uPort));//½¨Á¢Á¬½Ó
-		
-	//	NioDatagramConnector connector = MinaUtil.CreatBoardcast();
-	//	ConnectFuture cf = connector.connect(new InetSocketAddress("255.255.255.255", 9123));	
+		//	ConnectFuture cf = connector.connect(new InetSocketAddress(mgr.localAddr, mgr.uPort));//å»ºç«‹è¿æ¥
+
+		//	NioDatagramConnector connector = MinaUtil.CreatBoardcast();
+		//	ConnectFuture cf = connector.connect(new InetSocketAddress("255.255.255.255", 9123));
 		for(int r=0;r<1;r++){
-			
-		
-		for(int j=0;j<30;j++){
-			System.out.println("---------------------------µÚ"+(j+1)+"´Î·¢ËÍ----------------------");
-          for(int i=0; i<msgList.size(); i++){
-        	  cf.getSession().write(msgList.get(i));
-		  }
-		try {		
-				Thread.sleep(2000);			
-		} catch (InterruptedException e) {			
-			e.printStackTrace();
-		}
-		
-		}
-		
-		try {		
-			Thread.sleep(5000);			
-	    } catch (InterruptedException e) {			
-		e.printStackTrace();
-	}
-	}
-	}
-	
 
 
-	//TCPÍ¨µÀ
+			for(int j=0;j<30;j++){
+				System.out.println("---------------------------ç¬¬"+(j+1)+"æ¬¡å‘é€----------------------");
+				for(int i=0; i<msgList.size(); i++){
+					cf.getSession().write(msgList.get(i));
+				}
+				try {
+					Thread.sleep(2000);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+
+			}
+
+			try {
+				Thread.sleep(5000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+
+
+	//TCPé€šé“
 	public static void TCPSessionOpened(IoSession session){
 
 	}
-	
-	
+
+
 	public static void TCPSessionCreated(IoSession session){
-		log.info("ĞÂ¿Í»§¶ËÁ¬½Ó");
-	     log.info("session" + session.toString() +  
-	       		 "###" + "create time:" + System.currentTimeMillis());
-	     
-		 MinaUtil.inTCPTotalCount();
-		 MinaUtil.iniSessionReferance(session); 
+		log.info("æ–°å®¢æˆ·ç«¯è¿æ¥");
+		log.info("session" + session.toString() +
+				"###" + "create time:" + System.currentTimeMillis());
+
+		MinaUtil.inTCPTotalCount();
+		MinaUtil.iniSessionReferance(session);
 	}
-	
+
 	public static void TCPMessageReceived(IoSession session, Object message){
-		
+
 		if(message.toString().equals("5First")){
 		}
-		
-		if(message instanceof WsnMsg){
-    		WsnMsg msg = (WsnMsg)message;
-    	}else{
 
-    	}
+		if(message instanceof WsnMsg){
+			WsnMsg msg = (WsnMsg)message;
+		}else{
+
+		}
 	}
-	
+
 
 	private static int currentAccount = 0;
 	static long t1 = 0;
 	static long t2 = 0;
-	
+
 	public static void TCPMessageSent(IoSession session, Object message) {
 
-    }
-	
-	
+	}
+
+
 	public static void TCPMessageIdle(IoSession session, IdleStatus status){
- 
+
 	}
-	
-    public static void TCPSessionClosed(IoSession session) {
-        System.out.println("one Clinet Disconnect !");       
-       
-  		//Ô´Âë
-  		MinaUtil.deTCPTotalCount();
-        //´Ó±£´æµÄÍ¨µÀÖĞÉ¾³ı
-        MsgQueueMgr.getDest_session().remove(session.getAttribute("addr"));
-        log.info("sessionClosed:" + session.toString());
-        
-        ConcurrentHashMap<String, IoSession> map = MsgQueueMgr.getDest_session();
-        Iterator it = map.keySet().iterator();
-        while(it.hasNext()){
-        	String key = (String) it.next();
-        	IoSession se = map.get(key);
-        	log.info("key:" + key);
-        	log.info("value:" + session.toString());
-        }
-        //¹Ø±ÕÁ¬½Ó
-        session.getService().dispose();
-    }
-    
-    
-    
-	//udpÍ¨µÀ
+
+	public static void TCPSessionClosed(IoSession session) {
+		System.out.println("one Clinet Disconnect !");
+
+		//æºç 
+		MinaUtil.deTCPTotalCount();
+		//ä»ä¿å­˜çš„é€šé“ä¸­åˆ é™¤
+		MsgQueueMgr.getDest_session().remove(session.getAttribute("addr"));
+		log.info("sessionClosed:" + session.toString());
+
+		ConcurrentHashMap<String, IoSession> map = MsgQueueMgr.getDest_session();
+		Iterator it = map.keySet().iterator();
+		while(it.hasNext()){
+			String key = (String) it.next();
+			IoSession se = map.get(key);
+			log.info("key:" + key);
+			log.info("value:" + session.toString());
+		}
+		//å…³é—­è¿æ¥
+		session.getService().dispose();
+	}
+
+
+
+	//udpé€šé“
 	public static void UDPSessionOpened(IoSession session){
-		
+
 	}
-	
+
 	public static void UDPSessionCreated(IoSession session){
-	//	session.write("send message...");
-        MsgInsert mi = MsgGenerator.createMsgInsert();        
-        session.write(mi);
-        
-        System.out.println("ĞÂ¿Í»§¶ËÁ¬½Ó");
-        MinaUtil.inUDPTotalCount();
-        MinaUtil.iniSessionReferance(session);
+		//	session.write("send message...");
+		MsgInsert mi = MsgGenerator.createMsgInsert();
+		session.write(mi);
+
+		System.out.println("æ–°å®¢æˆ·ç«¯è¿æ¥");
+		MinaUtil.inUDPTotalCount();
+		MinaUtil.iniSessionReferance(session);
 	}
-	
+
 	public static void UDPMessageReceived(IoSession session, Object message){
 		if(message instanceof WsnMsg){
-    		WsnMsg msg = (WsnMsg)message;
-    		RtMgr.getInstance().getState().processMsg(session, msg);
-    	}else
-    		System.out.println("receive message:" + message.toString());
+			WsnMsg msg = (WsnMsg)message;
+			RtMgr.getInstance().getState().processMsg(session, msg);
+		}else
+			System.out.println("receive message:" + message.toString());
 	}
-	
-	
+
+
 	public static void UDPMessageIdle(IoSession session, IdleStatus status){
-        //System.out.println("Á¬½Ó¿ÕÏĞ");    
-        System.out.println(new Date(System.currentTimeMillis()).toString());
-    //    session.close(true);  //close right now£¬¹Ø±ÕÍ¨µÀ
+		//System.out.println("è¿æ¥ç©ºé—²");
+		System.out.println(new Date(System.currentTimeMillis()).toString());
+		//    session.close(true);  //close right nowï¼Œå…³é—­é€šé“
 	}
-	
-    public static void UDPSessionClosed(IoSession session) {
-        System.out.println("one Clinet Disconnect !");
-        MinaUtil.deUDPTotalCount();
-        MsgQueueMgr.getDest_session().remove(session.getAttribute("addr"));
-        //¹Ø±ÕÁ¬½Ó
-        session.getService().dispose();
-    }
-    static int t = 0;
-    public static void UDPMessageSent(IoSession session, Object message) {
-    
-    }
+
+	public static void UDPSessionClosed(IoSession session) {
+		System.out.println("one Clinet Disconnect !");
+		MinaUtil.deUDPTotalCount();
+		MsgQueueMgr.getDest_session().remove(session.getAttribute("addr"));
+		//å…³é—­è¿æ¥
+		session.getService().dispose();
+	}
+	static int t = 0;
+	public static void UDPMessageSent(IoSession session, Object message) {
+
+	}
 }

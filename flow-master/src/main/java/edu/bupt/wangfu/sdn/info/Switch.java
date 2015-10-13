@@ -22,7 +22,7 @@ public class Switch {
 
     private List<Flow> flows;
 
-    private Map<String, WSNHost> wsnHostMap = new ConcurrentHashMap<String, WSNHost>();
+    private Map<String, DevInfo> wsnHostMap = new ConcurrentHashMap<String, DevInfo>();
 
     public Long getLastSeen() {
         return lastSeen;

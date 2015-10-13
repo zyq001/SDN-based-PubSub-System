@@ -1,27 +1,7 @@
 package edu.bupt.wangfu.ldap;
 
-import java.util.Hashtable;
-import java.util.List;
-
-import javax.naming.Binding;
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.Name;
-import javax.naming.NamingEnumeration;
 import javax.naming.NamingException;
-import javax.naming.RefAddr;
-import javax.naming.Reference;
-import javax.naming.Referenceable;
-import javax.naming.StringRefAddr;
-import javax.naming.directory.Attribute;
-import javax.naming.directory.Attributes;
-import javax.naming.directory.BasicAttribute;
-import javax.naming.directory.BasicAttributes;
-import javax.naming.directory.DirContext;
-import javax.naming.directory.ModificationItem;
-import javax.naming.ldap.InitialLdapContext;
 import javax.naming.ldap.LdapContext;
-import javax.naming.spi.ObjectFactory;
 
 public class Main {
 
@@ -30,7 +10,7 @@ public class Main {
 	 * @throws NamingException 
 	 */
 	public static void main(String[] args) throws NamingException {
-	    TopicEntry all = new TopicEntry("all", "1", 
+	    TopicEntry all = new TopicEntry("all", "1",
 			"ou=all_test,dc=wsn,dc=com", null);
 	    
 	    TopicEntry alarm = new TopicEntry("alarm", "2", "ou=alarm,ou=all_test,dc=wsn,dc=com", null);

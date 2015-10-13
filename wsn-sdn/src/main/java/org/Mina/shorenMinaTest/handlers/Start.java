@@ -18,6 +18,7 @@ import org.apache.mina.core.future.ConnectFuture;
 import org.apache.mina.core.session.IoSession;
 import org.apache.mina.transport.socket.nio.NioSocketConnector;
 import org.apache.servicemix.application.WsnProcessImpl;
+import org.apache.servicemix.wsn.CrossGroupMsgForwardQueue;
 import org.apache.servicemix.wsn.push.SendNotification;
 import org.apache.servicemix.wsn.router.wsnPolicy.ShorenUtils;
 import org.apache.servicemix.wsn.router.wsnPolicy.msgs.TargetGroup;
@@ -107,76 +108,82 @@ public class Start {
 	}
 	
   	public static void generateMsgNoticeMsg(MsgNotis msg){
+		ArrayList<String> fwIP = new ArrayList<String>();
+		
+		String v6MutiAddr = getv6MutiAddr(msg);
+		fwIP.add(v6MutiAddr);
+		ForwardMsg forwardMsg = new UDPForwardMsg(fwIP, MinaUtil.uPort, (WsnMsg)msg);
+		CrossGroupMsgForwardQueue.grtInstance().enqueque(forwardMsg);
 		//ArrayList<String> forwardIp = getForwardIp(topicStr, origin);
-		ArrayList<String> ret = org.apache.servicemix.wsn.router.mgr.RtMgr.calForwardGroups(msg.topicName,
-				msg.originatorGroup);
-		ArrayList<String> forwardIp = new ArrayList<String>();
-		Iterator<String> it = ret.iterator();
-		while (it.hasNext()) {
-			String itNext = it.next();
-			String addr = org.apache.servicemix.wsn.router.mgr.base.SysInfo.groupMap.get(itNext).addr;
-			forwardIp.add(addr);
-		}
-		
-		System.out.println("第二级消息++++++"+forwardIp);
-		
-		String splited[] = msg.topicName.split(":");
-		String ex = "";
-		boolean filtered = false;
-		for (int i = 0; i < splited.length; i++) {
-			if (i > 0)
-				ex += ":";
-			ex += splited[i];
-			WsnPolicyMsg wpm = ShorenUtils.decodePolicyMsg(ex);
-			if (wpm != null) {
-				for (TargetGroup tg : wpm.getAllGroups()) {
-					if (tg.getName().equals(org.Mina.shorenMinaTest.mgr.base.SysInfo.groupName) && tg.isAllMsg()) {
-						filtered = true;
-						break;
-					}
-				}
-			}
-		}
-		
-		if (!filtered) {
-			boolean send = false;
-			for(String topic :  
-				org.apache.servicemix.wsn.router.mgr.base.SysInfo.clientTable) {
-				if(isIncluded(topic, msg.topicName)) {
-					send = true;
-					break;
-				}
-			}
-			if (send && !msg.originatorAddr.equals(org.apache.servicemix.wsn.router.mgr.base.SysInfo.localAddr))// 本地有订阅并且不是消息产生者，则上交wsn。在这个地方不适合做多线程，全局变量，只读，也会出现问题
-			{
-				final org.Mina.shorenMinaTest.msg.tcp.MsgNotis mns = 
-					(org.Mina.shorenMinaTest.msg.tcp.MsgNotis) msg;
-			    SendNotification SN = new SendNotification();// 调用上层wsn的接口
-				try {
-					SN.send(mns.doc);
-					org.apache.servicemix.wsn.router.mgr.RtMgr.subtract();
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-			
-			send = false;
-			for (String topic : org.apache.servicemix.wsn.router.mgr.base.SysInfo.brokerTable.keySet()) {
-				if (isIncluded(topic, msg.topicName)) {
-					send = true;
-					break;
-				}
-			}
-			if (send) {
-				spreadInLocalGroup(msg);
-			}
-			
-			}
-		
-		//策略库的位置，由策略库来过滤ip
-		ForwardMsg forwardMsg = new TCPForwardMsg(forwardIp, 30008, (WsnMsg)msg);
-		MsgQueueMgr.addTCPMsgInQueue(forwardMsg);
+//		ArrayList<String> ret = org.apache.servicemix.wsn.router.mgr.RtMgr.calForwardGroups(msg.topicName,
+//				msg.originatorGroup);
+//		ArrayList<String> forwardIp = new ArrayList<String>();
+//		Iterator<String> it = ret.iterator();
+//		while (it.hasNext()) {
+//			String itNext = it.next();
+//			String addr = org.apache.servicemix.wsn.router.mgr.base.SysInfo.groupMap.get(itNext).addr;
+//			forwardIp.add(addr);
+//		}
+//
+//		System.out.println("第二级消息++++++"+forwardIp);
+//
+//		String splited[] = msg.topicName.split(":");
+//		String ex = "";
+//		boolean filtered = false;
+//		for (int i = 0; i < splited.length; i++) {
+//			if (i > 0)
+//				ex += ":";
+//			ex += splited[i];
+//			WsnPolicyMsg wpm = ShorenUtils.decodePolicyMsg(ex);
+//			if (wpm != null) {
+//				for (TargetGroup tg : wpm.getAllGroups()) {
+//					if (tg.getName().equals(org.Mina.shorenMinaTest.mgr.base.SysInfo.groupName) && tg.isAllMsg()) {
+//						filtered = true;
+//						break;
+//					}
+//				}
+//			}
+//		}
+//
+//		if (!filtered) {
+//			boolean send = false;
+//			for(String topic :
+//				org.apache.servicemix.wsn.router.mgr.base.SysInfo.clientTable) {
+//				if(isIncluded(topic, msg.topicName)) {
+//					send = true;
+//					break;
+//				}
+//			}
+//			if (send && !msg.originatorAddr.equals(org.apache.servicemix.wsn.router.mgr.base.SysInfo.localAddr))// 本地有订阅并且不是消息产生者，则上交wsn。在这个地方不适合做多线程，全局变量，只读，也会出现问题
+//			{
+//				final org.Mina.shorenMinaTest.msg.tcp.MsgNotis mns =
+//					(org.Mina.shorenMinaTest.msg.tcp.MsgNotis) msg;
+//			    SendNotification SN = new SendNotification();// 调用上层wsn的接口
+//				try {
+//					SN.send(mns.doc);
+//					org.apache.servicemix.wsn.router.mgr.RtMgr.subtract();
+//				} catch (Exception e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
+//			}
+//
+//			send = false;
+//			for (String topic : org.apache.servicemix.wsn.router.mgr.base.SysInfo.brokerTable.keySet()) {
+//				if (isIncluded(topic, msg.topicName)) {
+//					send = true;
+//					break;
+//				}
+//			}
+//			if (send) {
+//				spreadInLocalGroup(msg);
+//			}
+//
+//			}
+//
+//		//策略库的位置，由策略库来过滤ip
+//		ForwardMsg forwardMsg = new TCPForwardMsg(forwardIp, 30008, (WsnMsg)msg);
+//		MsgQueueMgr.addTCPMsgInQueue(forwardMsg);
 		
 /*		for(int i=0;i<forwardIp.size();i++){
 			System.out.println(forwardIp.size());
@@ -196,7 +203,9 @@ public class Start {
 		    session.close(true);
 		}*/
 	}
-	
+
+
+
 	
 	public static void generateHighPrioriyMsg(highPriority msg){
 		//ArrayList<String> forwardIp = getForwardIp(topicStr, origin);
@@ -260,10 +269,12 @@ public class Start {
 		//策略库的位置，由策略库来过滤ip
 		ArrayList<String> fwIP = new ArrayList<String>();
 //		fwIP.add("fe80::5054:ff:feb4:4640");
-		fwIP.add("fe80::5054:ff:fe98:bec0");
+//		fwIP.add("fe80::5054:ff:fe98:bec0");
 //		fwIP.add("192.168.1.11");
-		ForwardMsg forwardMsg = new UDPForwardMsg(fwIP, MinaUtil.uPort, (WsnMsg)msg);
-		MsgQueueMgr.addUDPMsgInQueue(forwardMsg);
+		String v6MutiAddr = getv6MutiAddr(msg);
+		fwIP.add(v6MutiAddr);
+		ForwardMsg forwardMsg = new UDPForwardMsg(fwIP, MinaUtil.highUPort, (WsnMsg)msg);
+		CrossGroupMsgForwardQueue.grtInstance().enqueque(forwardMsg);
 		
 		
 //		ForwardMsg forwardMsg = new TCPForwardMsg(forwardIp, 30008, (WsnMsg)msg);
@@ -298,70 +309,88 @@ public class Start {
 		    session.close(true);
 		}*/
 	}
-	
-	
+
+	private static String getv6MutiAddr(WsnMsg msg) {
+		//generate ipv6 mutiBrordcast Address based on topic
+		String v6MutiAddr = "";
+
+		return v6MutiAddr;
+
+	}
+
+
 	public static void generateLowPrioriyMsg(lowPriority msg){
+
+		ArrayList<String> fwIP = new ArrayList<String>();
+//		fwIP.add("fe80::5054:ff:feb4:4640");
+//		fwIP.add("fe80::5054:ff:fe98:bec0");
+//		fwIP.add("192.168.1.11");
+		String v6MutiAddr = getv6MutiAddr(msg);
+		fwIP.add(v6MutiAddr);
+		ForwardMsg forwardMsg = new UDPForwardMsg(fwIP, MinaUtil.lowUPort, (WsnMsg)msg);
+		CrossGroupMsgForwardQueue.grtInstance().enqueque(forwardMsg);
+
 		//ArrayList<String> forwardIp = getForwardIp(topicStr, origin);
-		ArrayList<String> ret = org.apache.servicemix.wsn.router.mgr.RtMgr.calForwardGroups(msg.topicName,
-				msg.originatorGroup);
-		
-		ArrayList<String> forwardIp = new ArrayList<String>();
-		Iterator<String> it = ret.iterator();
-		while (it.hasNext()) {
-			String itNext = it.next();
-			//System.out.println("@@@@@@@@@@@@@@@@@@@@@:"+org.apache.servicemix.wsn.router.mgr.base.SysInfo.groupMap.get(itNext).addr);
-			String addr = org.apache.servicemix.wsn.router.mgr.base.SysInfo.groupMap.get(itNext).addr;
-			forwardIp.add(addr);
-		}
-		
-		String splited[] = msg.topicName.split(":");
-		String ex = "";
-		boolean filtered = false;
-		for (int i = 0; i < splited.length; i++) {
-			if (i > 0)
-				ex += ":";
-			ex += splited[i];
-			WsnPolicyMsg wpm = ShorenUtils.decodePolicyMsg(ex);
-			if (wpm != null) {
-				for (TargetGroup tg : wpm.getAllGroups()) {
-					if (tg.getName().equals(org.Mina.shorenMinaTest.mgr.base.SysInfo.groupName) && tg.isAllMsg()) {
-						filtered = true;
-						break;
-					}
-				}
-			}
-		}
-		
-		if (!filtered) {
-			boolean send = false;
-			for(String topic :  
-				org.apache.servicemix.wsn.router.mgr.base.SysInfo.clientTable) {
-				if(isIncluded(topic, msg.topicName)) {
-					send = true;
-					break;
-				}
-			}
-			if (send && !msg.originatorAddr.equals(org.apache.servicemix.wsn.router.mgr.base.SysInfo.localAddr))// 本地有订阅并且不是消息产生者，则上交wsn。在这个地方不适合做多线程，全局变量，只读，也会出现问题
-			{
-			}
-			
-			send = false;
-			for (String topic : org.apache.servicemix.wsn.router.mgr.base.SysInfo.brokerTable.keySet()) {
-				if (isIncluded(topic, msg.topicName)) {
-					send = true;
-					break;
-				}
-			}
-			if (send) {
-				spreadInLocalGroup(msg);
-			}
-			
-			}
-		
-		System.out.println(forwardIp);
-		//策略库的位置，由策略库来过滤ip
-		ForwardMsg forwardMsg = new TCPForwardMsg(forwardIp, 30008, (WsnMsg)msg);
-		MsgQueueMgr.addTCPMsgInQueue(forwardMsg);
+//		ArrayList<String> ret = org.apache.servicemix.wsn.router.mgr.RtMgr.calForwardGroups(msg.topicName,
+//				msg.originatorGroup);
+//
+//		ArrayList<String> forwardIp = new ArrayList<String>();
+//		Iterator<String> it = ret.iterator();
+//		while (it.hasNext()) {
+//			String itNext = it.next();
+//			//System.out.println("@@@@@@@@@@@@@@@@@@@@@:"+org.apache.servicemix.wsn.router.mgr.base.SysInfo.groupMap.get(itNext).addr);
+//			String addr = org.apache.servicemix.wsn.router.mgr.base.SysInfo.groupMap.get(itNext).addr;
+//			forwardIp.add(addr);
+//		}
+//
+//		String splited[] = msg.topicName.split(":");
+//		String ex = "";
+//		boolean filtered = false;
+//		for (int i = 0; i < splited.length; i++) {
+//			if (i > 0)
+//				ex += ":";
+//			ex += splited[i];
+//			WsnPolicyMsg wpm = ShorenUtils.decodePolicyMsg(ex);
+//			if (wpm != null) {
+//				for (TargetGroup tg : wpm.getAllGroups()) {
+//					if (tg.getName().equals(org.Mina.shorenMinaTest.mgr.base.SysInfo.groupName) && tg.isAllMsg()) {
+//						filtered = true;
+//						break;
+//					}
+//				}
+//			}
+//		}
+//
+//		if (!filtered) {
+//			boolean send = false;
+//			for(String topic :
+//				org.apache.servicemix.wsn.router.mgr.base.SysInfo.clientTable) {
+//				if(isIncluded(topic, msg.topicName)) {
+//					send = true;
+//					break;
+//				}
+//			}
+//			if (send && !msg.originatorAddr.equals(org.apache.servicemix.wsn.router.mgr.base.SysInfo.localAddr))// 本地有订阅并且不是消息产生者，则上交wsn。在这个地方不适合做多线程，全局变量，只读，也会出现问题
+//			{
+//			}
+//
+//			send = false;
+//			for (String topic : org.apache.servicemix.wsn.router.mgr.base.SysInfo.brokerTable.keySet()) {
+//				if (isIncluded(topic, msg.topicName)) {
+//					send = true;
+//					break;
+//				}
+//			}
+//			if (send) {
+//				spreadInLocalGroup(msg);
+//			}
+//
+//			}
+//
+//		System.out.println(forwardIp);
+//		//策略库的位置，由策略库来过滤ip
+//		ForwardMsg forwardMsg = new TCPForwardMsg(forwardIp, 30008, (WsnMsg)msg);
+//		MsgQueueMgr.addTCPMsgInQueue(forwardMsg);
 		
 /*		for(int i=0;i<forwardIp.size();i++){
 			System.out.println(forwardIp.size());

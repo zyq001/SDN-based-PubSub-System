@@ -18,27 +18,27 @@ public class MsgConf_ extends WsnMsg implements Serializable {
 
 
 	//representative's information
-	public String repAddr;//´ú±íµØÖ·
+	public String repAddr;//ä»£è¡¨åœ°å€
 	
-	public int tPort;//´ú±íµÄTCP¶Ë¿ÚºÅ
+	public int tPort;//ä»£è¡¨çš„TCPç«¯å£å·
 	
 	//
-	public int neighborSize;//×Ó½ÚµãÊıÄ¿
+	public int neighborSize;//å­èŠ‚ç‚¹æ•°ç›®
 	
-	public String multiAddr;//×é²¥µØÖ·
+	public String multiAddr;//ç»„æ’­åœ°å€
 	
-	public int uPort;//×é²¥¶Ë¿ÚºÅ
+	public int uPort;//ç»„æ’­ç«¯å£å·
 	
 	public int joinTimes;
 	
 	public long synPeriod;
 	
 	//below heart detection
-	public long lostThreshold;//ÅĞ¶¨Ê§Ğ§µÄ·§Öµ
+	public long lostThreshold;//åˆ¤å®šå¤±æ•ˆçš„é˜€å€¼
 	
-	public long scanPeriod;//É¨ÃèÖÜÆÚ
+	public long scanPeriod;//æ‰«æå‘¨æœŸ
 	
-	public long sendPeriod;//·¢ËÍÖÜÆÚ
+	public long sendPeriod;//å‘é€å‘¨æœŸ
 	
 	private ArrayList<String> getForwardIp(){
 
@@ -48,7 +48,7 @@ public class MsgConf_ extends WsnMsg implements Serializable {
     public void processRegMsg(IoSession session){
 		
 		ArrayList<String> forwardIp = getForwardIp();
-		//²ßÂÔ¿âµÄÎ»ÖÃ£¬ÓÉ²ßÂÔ¿âÀ´¹ıÂËip
+		//ç­–ç•¥åº“çš„ä½ç½®ï¼Œç”±ç­–ç•¥åº“æ¥è¿‡æ»¤ip
 		ForwardMsg forwardMsg = new TCPForwardMsg(forwardIp, SysInfo.gettPort(), this);
 		MsgQueueMgr.addTCPMsgInQueue(forwardMsg);
 
@@ -57,7 +57,7 @@ public class MsgConf_ extends WsnMsg implements Serializable {
 	public void processRepMsg(IoSession session){
 		
 		ArrayList<String> forwardIp = getForwardIp();
-		//²ßÂÔ¿âµÄÎ»ÖÃ£¬ÓÉ²ßÂÔ¿âÀ´¹ıÂËip
+		//ç­–ç•¥åº“çš„ä½ç½®ï¼Œç”±ç­–ç•¥åº“æ¥è¿‡æ»¤ip
 		ForwardMsg forwardMsg = new TCPForwardMsg(forwardIp, SysInfo.gettPort(), this);
 		MsgQueueMgr.addTCPMsgInQueue(forwardMsg);
 	}
