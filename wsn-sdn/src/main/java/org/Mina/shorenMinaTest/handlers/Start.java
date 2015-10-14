@@ -109,7 +109,7 @@ public class Start {
 	
   	public static void generateMsgNoticeMsg(MsgNotis msg){
 		ArrayList<String> fwIP = new ArrayList<String>();
-		
+
 		String v6MutiAddr = getv6MutiAddr(msg);
 		fwIP.add(v6MutiAddr);
 		ForwardMsg forwardMsg = new UDPForwardMsg(fwIP, MinaUtil.uPort, (WsnMsg)msg);
