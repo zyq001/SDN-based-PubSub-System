@@ -38,10 +38,16 @@
 			<version>20030619_6</version>
 		</dependency>
 		<dependency>
-			<groupId>org.eclipse</groupId>
-			<artifactId>jface</artifactId>
-			<version>3.3.0-I20070606-0010</version>
+			<groupId>org.eclipse.swt</groupId>
+			<artifactId>org.eclipse.swt.win32.win32.x86_64</artifactId>
+			<version>4.3</version>
 		</dependency>
+
+		<!--<dependency>-->
+			<!--<groupId>org.eclipse</groupId>-->
+			<!--<artifactId>jface</artifactId>-->
+			<!--<version>3.3.0-I20070606-0010</version>-->
+		<!--</dependency>-->
 		<dependency>
 			<groupId>org.apache.xmlgraphics</groupId>
 			<artifactId>fop</artifactId>
@@ -67,11 +73,11 @@
 			<artifactId>xml-resolver</artifactId>
 			<version>1.2</version>
 		</dependency>
-		<dependency>
-			<groupId>org.eclipse.swt</groupId>
-			<artifactId>org.eclipse.swt.win32.win32.x86</artifactId>
-			<version>4.3</version>
-		</dependency>
+		<!--<dependency>-->
+			<!--<groupId>org.eclipse.swt</groupId>-->
+			<!--<artifactId>org.eclipse.swt.win32.win32.x86</artifactId>-->
+			<!--<version>4.3</version>-->
+		<!--</dependency>-->
 		<dependency>
 			<groupId>com.jtattoo</groupId>
 			<artifactId>JTattoo</artifactId>

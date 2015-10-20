@@ -9,29 +9,28 @@ import java.util.concurrent.ConcurrentHashMap;
 /**
  * Created by root on 15-7-14.
  */
-public class Switch {
+public class Switch extends DevInfo {
 
 
     private String DPID;
     private String mac;
-    private String ipAddr;
+    private String ipAddr;//ipv4
 
-    private double load;
-    private Map<Integer, Integer> portList;
+    private double load;//参数无法通过flootlight获取
+//    private Map<Integer, Integer> portList;
     private Long lastSeen;
 
     private List<Flow> flows;
 
-    private Map<String, DevInfo> wsnHostMap = new ConcurrentHashMap<String, DevInfo>();
+    private Map<Integer, DevInfo> wsnHostMap = new ConcurrentHashMap<Integer, DevInfo>();
 
-    public Long getLastSeen() {
-        return lastSeen;
-    }
-
-    public void setLastSeen(Long lastSeen) {
-        this.lastSeen = lastSeen;
-    }
-
+//    public Long getLastSeen() {
+//        return lastSeen;
+//    }
+//
+//    public void setLastSeen(Long lastSeen) {
+//        this.lastSeen = lastSeen;
+//    }
     public String getMac() {
         return mac;
     }
@@ -56,13 +55,13 @@ public class Switch {
         this.ipAddr = ipAddr;
     }
 
-    public Map<Integer, Integer> getPortList() {
-        return portList;
-    }
-
-    public void setPortList(Map<Integer, Integer> portList) {
-        this.portList = portList;
-    }
+//    public Map<Integer, Integer> getPortList() {
+//        return portList;
+//    }
+//
+//    public void setPortList(Map<Integer, Integer> portList) {
+//        this.portList = portList;
+//    }
 
     public double getLoad() {
         return load;
@@ -70,5 +69,13 @@ public class Switch {
 
     public void setLoad(double load) {
         this.load = load;
+    }
+
+    public Map<Integer, DevInfo> getWsnHostMap() {
+        return wsnHostMap;
+    }
+
+    public void setWsnHostMap(Map<Integer, DevInfo> wsnHostMap) {
+        this.wsnHostMap = wsnHostMap;
     }
 }

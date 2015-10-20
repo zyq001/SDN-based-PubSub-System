@@ -17,11 +17,25 @@ public class Controller {
     private Map<String, Switch> switchMap = new ConcurrentHashMap<String, Switch>();
 
 
+    private Switch repSwitch ;
+
+
+
     //switchs connected to other groups, cross-group route calc need
     private Map<String, Switch> boardSwitch = new ConcurrentHashMap<String, Switch>();
 
     private List<String> topics = new ArrayList<String>();
+
+
     public Controller(String controllerAddr){this.url = controllerAddr;}
+
+    public Switch getRepSwitch() {
+        return repSwitch;
+    }
+
+    public void setRepSwitch(Switch repSwitch) {
+        this.repSwitch = repSwitch;
+    }
 
     public boolean isAlive(){
 

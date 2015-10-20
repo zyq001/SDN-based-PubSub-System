@@ -1,11 +1,11 @@
 package org.apache.servicemix.wsn.router.router;
 
 import edu.bupt.wangfu.sdn.floodlight.RestProcess;
-import edu.bupt.wangfu.sdn.info.Controller;
-import edu.bupt.wangfu.sdn.info.DevInfo;
-import edu.bupt.wangfu.sdn.info.Flow;
-import edu.bupt.wangfu.sdn.info.Switch;
+import edu.bupt.wangfu.sdn.info.*;
 import edu.bupt.wangfu.sdn.queue.QueueManagerment;
+import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.methods.GetMethod;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.*;
@@ -18,7 +18,8 @@ public class GlobleUtil {
     private static GlobleUtil INSTANCE;
     public Map<String, Controller> controllers = new ConcurrentHashMap<String, Controller>();
     public static List<Flow> initFlows = new ArrayList<Flow>();
-
+    public static String REST_URL = "http://10.108.166.220:8080";//nll
+    private static int index = 2;//nll
     private static Timer timer = new Timer();
 
     private GlobleUtil(){
@@ -64,12 +65,79 @@ public class GlobleUtil {
         return true;
     }
 
-    public static Map<String, Switch> getRealtimeSwitchs(Controller controller){
+    public static Map<String, Switch> getRealtimeSwitchs(Controller controller){//nll
 
         Map<String, Switch> switches = new HashMap<String, Switch>();
-
-
+        try{
+            String url = REST_URL+"/wm/core/controller/switches/json";
+            String body = doClientGet(url);
+            JSONArray json = new JSONArray(body);
+            System.out.println(body);
+            System.out.println(json.length());
+            for(int i=0;i<json.length();i++){//获取交换机对象
+                Switch swc = new Switch();
+                String DPID = json.getJSONObject(i).getString("switchDPID");
+                swc.setDPID(DPID);
+                String mac = null;
+                Map<Integer, DevInfo> wsnHostMap = new ConcurrentHashMap<Integer, DevInfo>();//交换机所连接的所有设备
+                String url_af = REST_URL+"/wm/core/switch/all/features/json";
+                String body_af = doClientGet(url_af);
+                JSONArray json_af = new JSONArray(body_af);
+                System.out.println(body_af);
+                JSONArray json_each = json_af.getJSONObject(0).getJSONArray(DPID);//根据当前的DPID获取到这个交换机的相关信息
+                JSONArray json_port = json_each.getJSONObject(0).getJSONArray("portDesc");
+                for(int j = 0;j<json_port.length();j++){
+                    if(json_port.getJSONObject(j).getString("portNumber").equals("local")){
+                        mac = json_port.getJSONObject(j).getString("hardwareAddress");
+                        swc.setMac(mac);
+                    }else{
+                        if(!json_port.getJSONObject(j).getString("portNumber").equals("1")){//如果端口号不是local与1则为所连接的设备
+                            int portNum = json_port.getJSONObject(j).getInt("portNumber");
+                            String macAddr = json_port.getJSONObject(j).getString("hardwareAddress");
+                            boolean flag = false;//用来记录是否在map中找到该交换机
+                            Switch swth = null;
+                            for(Map.Entry<String,Switch> entry : switches.entrySet()){
+                                Switch swt = entry.getValue();
+                                if(swt.getMac().equals(macAddr)){
+                                    flag = true;
+                                    swth = swt;
+                                }
+                            }
+                            if(flag){
+                                wsnHostMap.put(portNum,swth);
+                            }else{
+                                WSNHost host = new WSNHost();
+                                host.setMac(macAddr);
+                                wsnHostMap.put(portNum,host);
+                            }
+                            swc.setWsnHostMap(wsnHostMap);
+                        }
+                    }
+                }
+                switches.put(DPID,swc);
+            }
+            return switches;
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
         return switches;
+    }
+    private static String doClientGet(String url) {//nll
+        try {
+            HttpClient httpclient = new HttpClient();
+            GetMethod getMethod= new GetMethod(url);
+//				 PostMethod postMethod = new PostMethod(url);
+//				if (postData != null) {
+//					getMethod.addParameters(postData);
+//				}
+            httpclient.executeMethod(getMethod);
+            String body = getMethod.getResponseBodyAsString();
+            getMethod.releaseConnection();
+            return body;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public synchronized void addController(String controllerAddr){

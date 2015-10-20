@@ -3,11 +3,11 @@ Jaxe - Editeur XML en Java
 
 Copyright (C) 2010 Observatoire de Paris-Meudon
 
-Ce programme est un logiciel libre ; vous pouvez le redistribuer et/ou le modifier conformément aux dispositions de la Licence Publique Générale GNU, telle que publiée par la Free Software Foundation ; version 2 de la licence, ou encore (à votre choix) toute version ultérieure.
+Ce programme est un logiciel libre ; vous pouvez le redistribuer et/ou le modifier conformé–™ent aux dispositions de la Licence Publique Gé–šé–ale GNU, telle que publié–‘ par la Free Software Foundation ; version 2 de la licence, ou encore (ï¿½ votre choix) toute version ulté–ieure.
 
-Ce programme est distribué dans l'espoir qu'il sera utile, mais SANS AUCUNE GARANTIE ; sans même la garantie implicite de COMMERCIALISATION ou D'ADAPTATION A UN OBJET PARTICULIER. Pour plus de détail, voir la Licence Publique Générale GNU .
+Ce programme est distribuï¿½ dans l'espoir qu'il sera utile, mais SANS AUCUNE GARANTIE ; sans mé˜­e la garantie implicite de COMMERCIALISATION ou D'ADAPTATION A UN OBJET PARTICULIER. Pour plus de dé– ail, voir la Licence Publique Gé–šé–ale GNU .
 
-Vous devez avoir reçu un exemplaire de la Licence Publique Générale GNU en même temps que ce programme ; si ce n'est pas le cas, écrivez à la Free Software Foundation Inc., 675 Mass Ave, Cambridge, MA 02139, Etats-Unis.
+Vous devez avoir reé„ un exemplaire de la Licence Publique Gé–šé–ale GNU en mé˜­e temps que ce programme ; si ce n'est pas le cas, é–rivez ï¿½ la Free Software Foundation Inc., 675 Mass Ave, Cambridge, MA 02139, Etats-Unis.
 */
 
 package jaxe.wxs;

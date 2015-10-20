@@ -7,8 +7,8 @@ import java.util.concurrent.ConcurrentHashMap;
 /**
  * Created by root on 15-10-5.
  */
-public class WSNHost {
-    public String ip;
+public class WSNHost extends DevInfo{
+    public String mac;
     private Map<String, List<String>> subers = new ConcurrentHashMap<String, List<String>>();
 
 }

@@ -5,13 +5,13 @@ import java.util.Date;
 
 public class GroupUnit implements Serializable {
 
-	public String name;//groupµÄÃû×Ö
+	public String name;//groupçš„åå­—
 	
-	public int uPort;//udp socketµÄ¶Ë¿ÚºÅ
+	public int uPort;//udp socketçš„ç«¯å£å·
 	
-	public Date date;//¼ÓÈëÊ±¼ä
+	public Date date;//åŠ å…¥æ—¶é—´
 	
-	public BrokerUnit rep;//¼¯Èº´ú±í
+	public BrokerUnit rep;//é›†ç¾¤ä»£è¡¨
 	
 	public GroupUnit() {
 		rep = new BrokerUnit();

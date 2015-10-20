@@ -4,19 +4,19 @@ import java.net.Socket;
 
 public abstract class AState {
 
-	//·¢ËÍĞÄÌøÏûÏ¢
+	//å‘é€å¿ƒè·³æ¶ˆæ¯
 	abstract public void sendHrt();
 	
-	//Ê§Ğ§´¦Àí£¬²ÎÊıÎªÓÃÒÔ±êÊ¶Ê§Ğ§´úÀí×Ö·û´®
+	//å¤±æ•ˆå¤„ç†ï¼Œå‚æ•°ä¸ºç”¨ä»¥æ ‡è¯†å¤±æ•ˆä»£ç†å­—ç¬¦ä¸²
 	abstract public void lost(String indicator);
 	
-	//·¢ËÍÍ¬²½¼¯Èº¶©ÔÄ±íµÄÏûÏ¢
+	//å‘é€åŒæ­¥é›†ç¾¤è®¢é˜…è¡¨çš„æ¶ˆæ¯
 	abstract public void synTopoInfo();
 	
-	//´¦ÀíÊÕµ½udpÏûÏ¢
+	//å¤„ç†æ”¶åˆ°udpæ¶ˆæ¯
 	abstract public void processUdpMsg(Object msg);
 	
-	//´¦ÀíÊÕµ½µÄtcpÁ¬½Ó
+	//å¤„ç†æ”¶åˆ°çš„tcpè¿æ¥
 	abstract public void processTcpMsg(Socket s);
 	
 }

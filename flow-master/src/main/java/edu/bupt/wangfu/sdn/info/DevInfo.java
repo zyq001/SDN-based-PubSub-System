@@ -25,7 +25,7 @@ public class DevInfo {
 	private static DevInfo INSTANCE = null;
 
 
-	private DevInfo(){
+	public DevInfo(){
 
 		String floodLightIP = Configure.floodlightIP;
 
