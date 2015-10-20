@@ -10,19 +10,19 @@ public class MsgInsert_ implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
-	public boolean isOK;//ÊÇ·ñ²åÈë³É¹¦
+	public boolean isOK;//æ˜¯å¦æ’å…¥æˆåŠŸ
 	
 	public HashMap<String, TreeSet<String>> groupTab;//subscription info about groups
 	
 	public HashMap<String, GroupUnit> groupMap;
 	
-	public String next;//ÏÂ¸ö¼¯ÈºµÄµØÖ·
+	public String next;//ä¸‹ä¸ªé›†ç¾¤çš„åœ°å€
 	
-	public int tPort;//ÏÂÒ»¸ö¼¯ÈºµÄtcp¶Ë¿ÚºÅ
+	public int tPort;//ä¸‹ä¸€ä¸ªé›†ç¾¤çš„tcpç«¯å£å·
 	
-	public String name;//¼¯ÈºÃû×Ö
+	public String name;//é›†ç¾¤åå­—
 	
-	public int uPort;//±¾¼¯ÈºµÄudp¶Ë¿ÚºÅ
+	public int uPort;//æœ¬é›†ç¾¤çš„udpç«¯å£å·
 	
 	public long id;
 	

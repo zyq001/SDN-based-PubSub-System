@@ -29,10 +29,10 @@ public class QueueAdjust extends Thread{
         Map<String, Switch> switchs = controller.getSwitchMap();
 
         for(Switch sw: switchs.values()){
-            Map<Integer,Integer> ports = sw.getPortList();
+            Map<Integer,DevInfo> ports = sw.getWsnHostMap();
             for(Integer port: ports.keySet()){
                 double speed = SflowAPI.getSpeed(sw.getIpAddr(), "" + port + ".ifinpkts");
-                double bandWidth = ports.get(port);
+                double bandWidth = ports.get(port).hashCode();
                 if(speed > bandWidth / 2 && speed <= bandWidth * 2 / 3){//weak
                     QueueManagerment.enQueue(controller, sw.getDPID(), port, "30003","1.1");
 

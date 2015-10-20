@@ -20,16 +20,16 @@ public class PSVirtual_LookUpMem {
 		ObjectInputStream ois;
 		ObjectOutputStream oos;
 		try {
-			System.out.println("ÕıÔÚ¼àÌı");
+			System.out.println("æ­£åœ¨ç›‘å¬");
 			ServerSocket PSServer=new ServerSocket(2000);
 			Socket Server=PSServer.accept();
-			System.out.println("Á¬½Ó½¨Á¢");
+			System.out.println("è¿æ¥å»ºç«‹");
 			
 			ois=new ObjectInputStream(Server.getInputStream());
 			oos=new ObjectOutputStream(Server.getOutputStream());
 			
 			MsgLookupGroupMember require=(MsgLookupGroupMember) ois.readObject();
-			System.out.println("½ÓÊÕÁËÇëÇó");
+			System.out.println("æ¥æ”¶äº†è¯·æ±‚");
 			MsgLookupGroupMember_ rtnMember = new MsgLookupGroupMember_();
 
 			BrokerUnit member1=new BrokerUnit();
@@ -46,7 +46,7 @@ public class PSVirtual_LookUpMem {
 		    rtnMember.members.add(member2);
 			
 		    oos.writeObject(rtnMember);
-		    System.out.println("·¢ËÍÁËÇëÇó");
+		    System.out.println("å‘é€äº†è¯·æ±‚");
 		    oos.close();
 	        ois.close();
 	        Server.close();

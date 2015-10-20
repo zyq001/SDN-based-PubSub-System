@@ -74,27 +74,27 @@ public class GlobleUtil {
             JSONArray json = new JSONArray(body);
             System.out.println(body);
             System.out.println(json.length());
-            for(int i=0;i<json.length();i++){//»ñÈ¡½»»»»ú¶ÔÏó
+            for(int i=0;i<json.length();i++){//è·å–äº¤æ¢æœºå¯¹è±¡
                 Switch swc = new Switch();
                 String DPID = json.getJSONObject(i).getString("switchDPID");
                 swc.setDPID(DPID);
                 String mac = null;
-                Map<Integer, DevInfo> wsnHostMap = new ConcurrentHashMap<Integer, DevInfo>();//½»»»»úËùÁ¬½ÓµÄËùÓĞÉè±¸
+                Map<Integer, DevInfo> wsnHostMap = new ConcurrentHashMap<Integer, DevInfo>();//äº¤æ¢æœºæ‰€è¿æ¥çš„æ‰€æœ‰è®¾å¤‡
                 String url_af = REST_URL+"/wm/core/switch/all/features/json";
                 String body_af = doClientGet(url_af);
                 JSONArray json_af = new JSONArray(body_af);
                 System.out.println(body_af);
-                JSONArray json_each = json_af.getJSONObject(0).getJSONArray(DPID);//¸ù¾İµ±Ç°µÄDPID»ñÈ¡µ½Õâ¸ö½»»»»úµÄÏà¹ØĞÅÏ¢
+                JSONArray json_each = json_af.getJSONObject(0).getJSONArray(DPID);//æ ¹æ®å½“å‰çš„DPIDè·å–åˆ°è¿™ä¸ªäº¤æ¢æœºçš„ç›¸å…³ä¿¡æ¯
                 JSONArray json_port = json_each.getJSONObject(0).getJSONArray("portDesc");
                 for(int j = 0;j<json_port.length();j++){
                     if(json_port.getJSONObject(j).getString("portNumber").equals("local")){
                         mac = json_port.getJSONObject(j).getString("hardwareAddress");
                         swc.setMac(mac);
                     }else{
-                        if(!json_port.getJSONObject(j).getString("portNumber").equals("1")){//Èç¹û¶Ë¿ÚºÅ²»ÊÇlocalÓë1ÔòÎªËùÁ¬½ÓµÄÉè±¸
+                        if(!json_port.getJSONObject(j).getString("portNumber").equals("1")){//å¦‚æœç«¯å£å·ä¸æ˜¯localä¸1åˆ™ä¸ºæ‰€è¿æ¥çš„è®¾å¤‡
                             int portNum = json_port.getJSONObject(j).getInt("portNumber");
                             String macAddr = json_port.getJSONObject(j).getString("hardwareAddress");
-                            boolean flag = false;//ÓÃÀ´¼ÇÂ¼ÊÇ·ñÔÚmapÖĞÕÒµ½¸Ã½»»»»ú
+                            boolean flag = false;//ç”¨æ¥è®°å½•æ˜¯å¦åœ¨mapä¸­æ‰¾åˆ°è¯¥äº¤æ¢æœº
                             Switch swth = null;
                             for(Map.Entry<String,Switch> entry : switches.entrySet()){
                                 Switch swt = entry.getValue();

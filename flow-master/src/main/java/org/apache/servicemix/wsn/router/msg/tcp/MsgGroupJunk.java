@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class MsgGroupJunk implements Serializable {
 
-	//该集群的代表不存在了
+	//璇ラ泦缇ょ殑浠ｈ〃涓嶅瓨鍦ㄤ簡
 	private static final long serialVersionUID = 1L;
 	
 	public String name;//group name

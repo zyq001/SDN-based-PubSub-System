@@ -12,12 +12,12 @@ public abstract class AdminBase  {
 
 	private static final long serialVersionUID = 1L;
 	
-//	public static ConcurrentHashMap<String, MsgConf_> groupconfs;//±£´æËùÓĞ¼¯ÈºµÄÅäÖÃĞÅÏ¢£¬ÓÃÓÚÖ÷´Ó¹ÜÀíÔ±Ö®¼äÍ¬²½
+//	public static ConcurrentHashMap<String, MsgConf_> groupconfs;//ä¿å­˜æ‰€æœ‰é›†ç¾¤çš„é…ç½®ä¿¡æ¯ï¼Œç”¨äºä¸»ä»ç®¡ç†å‘˜ä¹‹é—´åŒæ­¥
 	
-	public static  ConcurrentHashMap<String, GroupUnit> groups;//Ãû×Ö:groupĞÅÏ¢£¬±£´æËùÓĞgroupµÄĞÅÏ¢
+	public static  ConcurrentHashMap<String, GroupUnit> groups;//åå­—:groupä¿¡æ¯ï¼Œä¿å­˜æ‰€æœ‰groupçš„ä¿¡æ¯
 	
 	
-	static int port;//¹ÜÀíÕß¼àÌıµÄTCP¶Ë¿ÚºÅ
+	static int port;//ç®¡ç†è€…ç›‘å¬çš„TCPç«¯å£å·
 	
 	static PSManagerUI ui;
 	

@@ -9,11 +9,11 @@ import org.apache.servicemix.wsn.router.wsnPolicy.msgs.WsnPolicyMsg;
 public class PolicyDB implements Serializable {
 
 	/**
-	 * ²ßÂÔĞÅÏ¢¿â
+	 * ç­–ç•¥ä¿¡æ¯åº“
 	 */
 	private static final long serialVersionUID = 1L;
 	public long time;
-	public boolean clearAll; //ÊÇ·ñÎªÈ«¿â¸üĞÂ
+	public boolean clearAll; //æ˜¯å¦ä¸ºå…¨åº“æ›´æ–°
 	public ArrayList<WsnPolicyMsg> pdb;
 	public  HashMap<String, GroupUnit> groupMsg;
 	

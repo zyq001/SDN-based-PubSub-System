@@ -31,23 +31,23 @@ public class SetAddress {
 		final Shell shell = new Shell(SWT.SYSTEM_MODAL|SWT.CLOSE);
 		
 		shell.setSize(513, 341);
-		shell.setText("ÉèÖÃµØÖ·ĞÅÏ¢");
+		shell.setText("è®¾ç½®åœ°å€ä¿¡æ¯");
 		
 		//-------------------------------------------------
 		Group group = new Group(shell, SWT.NONE);
 		group.setBounds(10, 31, 449, 79);
-		group.setText("Ö÷»úÔ­À´µÄµØÖ·ºÍ¶Ë¿Ú");
+		group.setText("ä¸»æœºåŸæ¥çš„åœ°å€å’Œç«¯å£");
 		
 		Label label = new Label(group, SWT.NONE);
 		label.setBounds(22, 38, 30, 12);
-		label.setText("µØÖ·:");
+		label.setText("åœ°å€:");
 		text = new Text(group, SWT.BORDER);
 		text.setBounds(58, 35, 101, 18);
 		
 		
 		Label lblNewLabel = new Label(group, SWT.NONE);
 		lblNewLabel.setBounds(226, 38, 42, 12);
-		lblNewLabel.setText("¶Ë¿ÚºÅ:");
+		lblNewLabel.setText("ç«¯å£å·:");
 		text_1 = new Text(group, SWT.BORDER);
 		text_1.setBounds(271, 35, 70, 18);
 		//---------------------------------
@@ -55,17 +55,17 @@ public class SetAddress {
 		//-----------------------------------
 		Group group_1 = new Group(shell, SWT.NONE);
 		group_1.setBounds(10, 132, 449, 79);
-		group_1.setText("Ö÷»úĞÂÅäÖÃµÄµØÖ·ºÍ¶Ë¿Ú");
+		group_1.setText("ä¸»æœºæ–°é…ç½®çš„åœ°å€å’Œç«¯å£");
 		
 		Label label_1 = new Label(group_1, SWT.NONE);
-		label_1.setText("µØÖ·:");
+		label_1.setText("åœ°å€:");
 		label_1.setBounds(22, 37, 30, 12);
 		
 		text_2 = new Text(group_1, SWT.BORDER);
 		text_2.setBounds(58, 34, 101, 18);
 		
 		Label label_2 = new Label(group_1, SWT.NONE);
-		label_2.setText("¶Ë¿ÚºÅ:");
+		label_2.setText("ç«¯å£å·:");
 		label_2.setBounds(228, 37, 42, 12);
 		
 		text_3 = new Text(group_1, SWT.BORDER);
@@ -80,7 +80,7 @@ public class SetAddress {
 			}
 		});
 		btnNewButton.setBounds(256, 277, 72, 22);
-		btnNewButton.setText("È·¶¨");
+		btnNewButton.setText("ç¡®å®š");
 		
 		Button btnNewButton_1 = new Button(shell, SWT.NONE);
 		btnNewButton_1.addSelectionListener(new SelectionAdapter() {
@@ -90,7 +90,7 @@ public class SetAddress {
 			}
 		});
 		btnNewButton_1.setBounds(387, 277, 72, 22);
-		btnNewButton_1.setText("È¡Ïû");
+		btnNewButton_1.setText("å–æ¶ˆ");
 
 		
 		shell.open();

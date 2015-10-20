@@ -16,7 +16,7 @@ public class Switch extends DevInfo {
     private String mac;
     private String ipAddr;//ipv4
 
-    private double load;//参数无法通过flootlight获取
+    private double load;//鍙傛暟鏃犳硶閫氳繃flootlight鑾峰彇
 //    private Map<Integer, Integer> portList;
     private Long lastSeen;
 

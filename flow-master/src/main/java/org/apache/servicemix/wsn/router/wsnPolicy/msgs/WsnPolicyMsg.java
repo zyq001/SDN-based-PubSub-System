@@ -11,18 +11,18 @@ import java.util.List;
 import java.util.Set;
 
 /**
- *²ßÂÔĞÅÏ¢Àà
- *²ßÂÔĞÅÏ¢±£´æÔÚ´ÅÅÌÎÄ¼şÖĞ£¬¸üĞÂºó¾ÍÖ±½ÓÌæ»»»òĞŞ¸ÄÎÄ¼ş¡£
- *ËùÓĞĞÅÏ¢·ÅÔÚÒ»¸öxmlÎÄ¼şÖĞ£¬ÒòÎª²ßÂÔĞÅÏ¢²»ÊÇºÜ¶à¹ş¡£
+ *ç­–ç•¥ä¿¡æ¯ç±»
+ *ç­–ç•¥ä¿¡æ¯ä¿å­˜åœ¨ç£ç›˜æ–‡ä»¶ä¸­ï¼Œæ›´æ–°åå°±ç›´æ¥æ›¿æ¢æˆ–ä¿®æ”¹æ–‡ä»¶ã€‚
+ *æ‰€æœ‰ä¿¡æ¯æ”¾åœ¨ä¸€ä¸ªxmlæ–‡ä»¶ä¸­ï¼Œå› ä¸ºç­–ç•¥ä¿¡æ¯ä¸æ˜¯å¾ˆå¤šå“ˆã€‚
  */
 public class WsnPolicyMsg implements java.io.Serializable{
 	private static final long serialVersionUID = 1L;
-	//Õâ¸öÔİÊ±ÓÃ²»ÉÏ
+	//è¿™ä¸ªæš‚æ—¶ç”¨ä¸ä¸Š
 //	private String targetMsgStyle;
 	protected String targetTopic;
 	protected List<TargetGroup> targetGroups;
 	protected List<ComplexGroup> complexGroups;
-	//Õâ¸öÊÇ½«ËùÓĞµÄComplexGroupÀïÃæºÍ
+	//è¿™ä¸ªæ˜¯å°†æ‰€æœ‰çš„ComplexGroupé‡Œé¢å’Œ
 	private Set<TargetGroup> allGroups;  
 /*	public String getTargetMsgStyle() {
 		return targetMsgStyle;
@@ -47,7 +47,7 @@ public class WsnPolicyMsg implements java.io.Serializable{
 		this(targetTopic, complexGroups, null);
 	} 
 	
-	//Éú³ÉÒ»ÌõÍêÕû²ßÂÔĞÅÏ¢
+	//ç”Ÿæˆä¸€æ¡å®Œæ•´ç­–ç•¥ä¿¡æ¯
 	public WsnPolicyMsg(String targetTopic, List<ComplexGroup> complexGroups, List<TargetGroup> targetGroups)
 	{
 		this.targetTopic = targetTopic;
@@ -106,11 +106,11 @@ public class WsnPolicyMsg implements java.io.Serializable{
 		{
 			getAllGroups();	  //update allGroups.	
 			TargetGroup ttg = tgs.get(0);
-			//Èç¹ûÃ»ÓĞ´Ë¼¯Èº£¬Ôò¼ÓÈë£¬ÈôÓĞ£¬ÔòÉîÈëmerge¡£
+			//å¦‚æœæ²¡æœ‰æ­¤é›†ç¾¤ï¼Œåˆ™åŠ å…¥ï¼Œè‹¥æœ‰ï¼Œåˆ™æ·±å…¥mergeã€‚
 			if(!allGroups.contains(ttg))
 				targetGroups.add(ttg);
 			else{
-				//ÉîÈëmerge
+				//æ·±å…¥merge
 				Iterator it = allGroups.iterator();
 				while(it.hasNext())
 				{
@@ -124,8 +124,8 @@ public class WsnPolicyMsg implements java.io.Serializable{
 			}
 		}else{
 			//add groups simply
-			//Èç¹û°üº¬ĞÂ¼ÓÈëµÄgroups£¬¾Í°ÑÖ®Ç°µÄÉ¾³ı£¬Ìí¼ÓĞÂµÄ£¬ÒòÎªĞÂµÄÄ¬ÈÏÊÇ
-			//°üº¬ÄÚ²¿ËùÓĞ³ÉÔ±¡£
+			//å¦‚æœåŒ…å«æ–°åŠ å…¥çš„groupsï¼Œå°±æŠŠä¹‹å‰çš„åˆ é™¤ï¼Œæ·»åŠ æ–°çš„ï¼Œå› ä¸ºæ–°çš„é»˜è®¤æ˜¯
+			//åŒ…å«å†…éƒ¨æ‰€æœ‰æˆå‘˜ã€‚
 			if(!cgs.isEmpty())
 			{
 				for(int i=0; i<cgs.size(); i++){
@@ -184,10 +184,10 @@ public class WsnPolicyMsg implements java.io.Serializable{
 				
 			getAllGroups();	  //update allGroups.	
 			
-			//Èç¹û°üº¬´Ë¼¯Èº£¬Ôòdelete
+			//å¦‚æœåŒ…å«æ­¤é›†ç¾¤ï¼Œåˆ™delete
 			if(allGroups.contains(ttg))
 			{
-				//ÉîÈë
+				//æ·±å…¥
 				Iterator it = allGroups.iterator();
 				while(it.hasNext())
 				{

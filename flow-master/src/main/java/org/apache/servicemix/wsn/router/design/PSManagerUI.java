@@ -7,9 +7,9 @@ import edu.bupt.wangfu.sdn.info.Flow;
 import edu.bupt.wangfu.sdn.info.MemoryInfo;
 //import demo.network.miscellaneous.office.*;
 //import demo.network.miscellaneous.office.OfficeDemo;
-import jaxe.Jaxe;
-import jaxe.JaxeFrame;
-import jaxe.JaxeResourceBundle;
+//import jaxe.Jaxe;
+//import jaxe.JaxeFrame;
+//import jaxe.JaxeResourceBundle;
 import org.apache.servicemix.wsn.router.admin.AdminMgr;
 import org.apache.servicemix.wsn.router.mgr.BrokerUnit;
 import org.apache.servicemix.wsn.router.msg.tcp.GroupUnit;
@@ -141,8 +141,8 @@ public class PSManagerUI implements IAdminUI {
 	private JScrollPane fbdnGroupsScrollPane;
 	private JPanel chooseTopic;
 
-	private Jaxe jaxe;
-	private JaxeFrame schemaFrame;
+//	private Jaxe jaxe;
+//	private JaxeFrame schemaFrame;
 	private JPanel panel;
 	private JButton btnNewButton;
 	private JButton btnNewButton_1;
@@ -1554,116 +1554,116 @@ public class PSManagerUI implements IAdminUI {
 		reloadAllGroup();
 
 		// schema模块
-
-		final File dir = new File("config");
-		if (!dir.exists()) {
-			JOptionPane.showMessageDialog(null, JaxeResourceBundle.getRB()
-					.getString("erreur.DossierConfig"), JaxeResourceBundle
-					.getRB().getString("config.ErreurLancement"),
-					JOptionPane.ERROR_MESSAGE);
-			System.exit(1);
-		}
-		int nbconf = 0;
-		final File[] liste = dir.listFiles();
-		for (final File element : liste)
-			if (element.getName().endsWith("cfg.xml")
-					|| element.getName().endsWith("config.xml")) {
-				if (nbconf == 0)
-					new Jaxe(element.getPath());
-				nbconf++;
-			}
-		if (nbconf == 0) {
-			JOptionPane.showMessageDialog(null, JaxeResourceBundle.getRB()
-					.getString("config.AucunFichier"), JaxeResourceBundle
-					.getRB().getString("config.ErreurLancement"),
-					JOptionPane.ERROR_MESSAGE);
-			System.exit(1);
-		}
-		Jaxe.ouvrir(new File("schema/test.xsd"), null);
-
-		JPanel schemaPanel = new JPanel();
-		schemaPanel.setLayout(new BorderLayout(0, 0));
-
-		panel = new JPanel();
-		FlowLayout flowLayout_3 = (FlowLayout) panel.getLayout();
-		flowLayout_3.setAlignment(FlowLayout.LEADING);
-		schemaPanel.add(panel, BorderLayout.NORTH);
-
-		btnNewButton = new JButton("打开");
-		btnNewButton.addActionListener(new ActionListener() {
-			private JFileChooser jChooser;
-
-			public void actionPerformed(ActionEvent e) {
-
-				jChooser = new JFileChooser();
-				// 设置默认的打开目录,如果不设的话按照window的默认目录(我的文档)
-				jChooser.setCurrentDirectory(new File("schema/"));
-				// 设置打开文件类型,此处设置成只能选择文件夹，不能选择文件
-				jChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);// 只能打开文件夹
-				// 打开一个对话框
-				int index = jChooser.showDialog(null, "打开文件");
-				if (index == JFileChooser.APPROVE_OPTION) {
-
-					Jaxe.schemaFrame.ouvrir(jChooser.getSelectedFile());
-
-					// 把获取到的文件的绝对路径显示在文本编辑框中
-					lblNewLabel_5.setText("        当前："
-							+ jChooser.getSelectedFile().getName());
-
-				}
-			}
-		});
-		panel.add(btnNewButton);
-
-		btnNewButton_1 = new JButton("保存");
-		btnNewButton_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Jaxe.schemaFrame.enregistrer();
-
-				// 写入ldap
-
-				// 获得当前xsd的DN
-
-				// String chosenTopicPath
-				// ="ou="+selectedTopic+",ou=all_test,dc=wsn,dc=com";
-				// TopicEntry newSchema =
-				// ShorenUtils.ldap.getByDN(chosenTopicPath);
-			}
-		});
-		panel.add(btnNewButton_1);
-
-		btnNewButton_2 = new JButton("刷新");
-		panel.add(btnNewButton_2);
-		btnNewButton_2.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-
-				// 读取ldap并刷新显示
-
-			}
-		});
-
-		btnNewButton_3 = new JButton("重置");
-		panel.add(btnNewButton_3);
-
-		lblNewLabel_5 = new JLabel("        当前：");
-		lblNewLabel_5.setAutoscrolls(true);
-		lblNewLabel_5.setToolTipText("当前选择");
-		panel.add(lblNewLabel_5);
-		btnNewButton_3.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-
-				// 将当前schema恢复成默认
-				Jaxe.schemaFrame.ouvrir(new File("schema/test.xsd"));
-
-			}
-		});
-		schemaPanel.add(Jaxe.schemaFrame.getContentPane(), BorderLayout.CENTER);
-		visualManagement
-				.addTab("",
-						new ImageIcon(
-								PSManagerUI.class
-										.getResource("/edu/bupt/wangfu/Swing/res/shcemaM.png")),
-						schemaPanel, null);
+//
+//		final File dir = new File("config");
+//		if (!dir.exists()) {
+//			JOptionPane.showMessageDialog(null, JaxeResourceBundle.getRB()
+//					.getString("erreur.DossierConfig"), JaxeResourceBundle
+//					.getRB().getString("config.ErreurLancement"),
+//					JOptionPane.ERROR_MESSAGE);
+//			System.exit(1);
+//		}
+//		int nbconf = 0;
+//		final File[] liste = dir.listFiles();
+//		for (final File element : liste)
+//			if (element.getName().endsWith("cfg.xml")
+//					|| element.getName().endsWith("config.xml")) {
+//				if (nbconf == 0)
+//					new Jaxe(element.getPath());
+//				nbconf++;
+//			}
+//		if (nbconf == 0) {
+//			JOptionPane.showMessageDialog(null, JaxeResourceBundle.getRB()
+//					.getString("config.AucunFichier"), JaxeResourceBundle
+//					.getRB().getString("config.ErreurLancement"),
+//					JOptionPane.ERROR_MESSAGE);
+//			System.exit(1);
+//		}
+//		Jaxe.ouvrir(new File("schema/test.xsd"), null);
+//
+//		JPanel schemaPanel = new JPanel();
+//		schemaPanel.setLayout(new BorderLayout(0, 0));
+//
+//		panel = new JPanel();
+//		FlowLayout flowLayout_3 = (FlowLayout) panel.getLayout();
+//		flowLayout_3.setAlignment(FlowLayout.LEADING);
+//		schemaPanel.add(panel, BorderLayout.NORTH);
+//
+//		btnNewButton = new JButton("打开");
+//		btnNewButton.addActionListener(new ActionListener() {
+//			private JFileChooser jChooser;
+//
+//			public void actionPerformed(ActionEvent e) {
+//
+//				jChooser = new JFileChooser();
+//				// 设置默认的打开目录,如果不设的话按照window的默认目录(我的文档)
+//				jChooser.setCurrentDirectory(new File("schema/"));
+//				// 设置打开文件类型,此处设置成只能选择文件夹，不能选择文件
+//				jChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);// 只能打开文件夹
+//				// 打开一个对话框
+//				int index = jChooser.showDialog(null, "打开文件");
+//				if (index == JFileChooser.APPROVE_OPTION) {
+//
+//					Jaxe.schemaFrame.ouvrir(jChooser.getSelectedFile());
+//
+//					// 把获取到的文件的绝对路径显示在文本编辑框中
+//					lblNewLabel_5.setText("        当前："
+//							+ jChooser.getSelectedFile().getName());
+//
+//				}
+//			}
+//		});
+//		panel.add(btnNewButton);
+//
+//		btnNewButton_1 = new JButton("保存");
+//		btnNewButton_1.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent e) {
+//				Jaxe.schemaFrame.enregistrer();
+//
+//				// 写入ldap
+//
+//				// 获得当前xsd的DN
+//
+//				// String chosenTopicPath
+//				// ="ou="+selectedTopic+",ou=all_test,dc=wsn,dc=com";
+//				// TopicEntry newSchema =
+//				// ShorenUtils.ldap.getByDN(chosenTopicPath);
+//			}
+//		});
+//		panel.add(btnNewButton_1);
+//
+//		btnNewButton_2 = new JButton("刷新");
+//		panel.add(btnNewButton_2);
+//		btnNewButton_2.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent e) {
+//
+//				// 读取ldap并刷新显示
+//
+//			}
+//		});
+//
+//		btnNewButton_3 = new JButton("重置");
+//		panel.add(btnNewButton_3);
+//
+//		lblNewLabel_5 = new JLabel("        当前：");
+//		lblNewLabel_5.setAutoscrolls(true);
+//		lblNewLabel_5.setToolTipText("当前选择");
+//		panel.add(lblNewLabel_5);
+//		btnNewButton_3.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent e) {
+//
+//				// 将当前schema恢复成默认
+//				Jaxe.schemaFrame.ouvrir(new File("schema/test.xsd"));
+//
+//			}
+//		});
+//		schemaPanel.add(Jaxe.schemaFrame.getContentPane(), BorderLayout.CENTER);
+//		visualManagement
+//				.addTab("",
+//						new ImageIcon(
+//								PSManagerUI.class
+//										.getResource("/edu/bupt/wangfu/Swing/res/shcemaM.png")),
+//						schemaPanel, null);
 
 	}
 

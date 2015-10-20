@@ -7,16 +7,16 @@ public class MsgNotis implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 
-	public String sender;// ×ª·¢ÕßµÄĞÅÏ¢
+	public String sender;// è½¬å‘è€…çš„ä¿¡æ¯
 
-	public String originatorGroup;// Ìá¹©Í¨ÖªµÄbrokerËùÔÚ¼¯ÈºÃû×Ö
+	public String originatorGroup;// æä¾›é€šçŸ¥çš„brokeræ‰€åœ¨é›†ç¾¤åå­—
 
-	public String originatorAddr;// Ìá¹©Í¨ÖªµÄbrokerµÄIPµØÖ·
+	public String originatorAddr;// æä¾›é€šçŸ¥çš„brokerçš„IPåœ°å€
 
-	public String topicName;// Í¨ÖªÖ÷Ìâ
+	public String topicName;// é€šçŸ¥ä¸»é¢˜
 
-	public String doc;// Í¨ÖªÄÚÈİ
+	public String doc;// é€šçŸ¥å†…å®¹
 
-	public Date sendDate;// ÏûÏ¢²úÉúµÄÊ±¼ä
+	public Date sendDate;// æ¶ˆæ¯äº§ç”Ÿçš„æ—¶é—´
 
 }

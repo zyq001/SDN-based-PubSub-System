@@ -57,7 +57,7 @@ public class PriState extends AState{
 			e.printStackTrace();
 		}
 		
-		if(!(Amgr.SendHrtObj==null))//ÅĞ¶ÏÊÇ·ñĞèÒª¸ø±¸·İ·¢ËÍĞÄÌø 
+		if(!(Amgr.SendHrtObj==null))//åˆ¤æ–­æ˜¯å¦éœ€è¦ç»™å¤‡ä»½å‘é€å¿ƒè·³ 
 		{
 			try {
 				DatagramPacket p = new DatagramPacket(Bheart, Bheart.length, InetAddress.getByName(Amgr.backup), Amgr.uPort);
@@ -73,13 +73,13 @@ public class PriState extends AState{
 	
 	@Override
 	public void lost(String indicator){
-		// µ±±¸·İ¹ÜÀíÔ±¶ªÊ§Ê±,ÓëÈÎÒ»½áµã½¨Á¢Á¬½Ó,½«¶ªÊ§ĞÅÏ¢ÒÔÍ¨ÖªÏûÏ¢¸ñÊ½ËÍ³ö
+		// å½“å¤‡ä»½ç®¡ç†å‘˜ä¸¢å¤±æ—¶,ä¸ä»»ä¸€ç»“ç‚¹å»ºç«‹è¿æ¥,å°†ä¸¢å¤±ä¿¡æ¯ä»¥é€šçŸ¥æ¶ˆæ¯æ ¼å¼é€å‡º
 		if (Amgr.groups.size()>0){
 		Random random = new Random();
 		ArrayList<GroupUnit> list = new ArrayList(Amgr.groups.values());
 		GroupUnit gu = list.get(random.nextInt(Amgr.groups.size()));
 		MsgNotis backupAdminLost = new MsgNotis();
-		backupAdminLost.sender = gu.addr;// root´æ´¢¸ù½ÚµãµÄIPµØÖ·
+		backupAdminLost.sender = gu.addr;// rootå­˜å‚¨æ ¹èŠ‚ç‚¹çš„IPåœ°å€
 		backupAdminLost.originatorGroup = gu.name;
 		backupAdminLost.originatorAddr = Amgr.localAddr;
 		backupAdminLost.topicName = "backupAdminLost";
@@ -91,7 +91,7 @@ public class PriState extends AState{
 		ObjectOutputStream oos = null;
 		ObjectInputStream ois = null;
 		try {
-			s = new Socket(gu.addr, gu.tPort);//Óë¸ùÍ¨ĞÅ
+			s = new Socket(gu.addr, gu.tPort);//ä¸æ ¹é€šä¿¡
 			oos = new ObjectOutputStream(s.getOutputStream());
 			ois = new ObjectInputStream(s.getInputStream());
 			oos.writeObject(backupAdminLost);
@@ -107,7 +107,7 @@ public class PriState extends AState{
 			e.printStackTrace();
 		}
 		}
-		System.out.println("Backup administrator lost£¡");
+		System.out.println("Backup administrator lostï¼");
 				
 	}
 	
@@ -137,7 +137,7 @@ public class PriState extends AState{
 				e.printStackTrace();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
-				System.out.println("ÓëÖ÷/±¸¹ÜÀíÔ±Á¬½Ó¶Ï¿ª");
+				System.out.println("ä¸ä¸»/å¤‡ç®¡ç†å‘˜è¿æ¥æ–­å¼€");
 //				e.printStackTrace();
 			} 
 		}
@@ -191,10 +191,10 @@ public class PriState extends AState{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}//catch
-		}else if (msg instanceof GroupAllInfo) {//µ±Ç°Ö÷¹ÜÀíÔ±·¢À´µÄ¼¯ÈºĞÅÏ¢
+		}else if (msg instanceof GroupAllInfo) {//å½“å‰ä¸»ç®¡ç†å‘˜å‘æ¥çš„é›†ç¾¤ä¿¡æ¯
 		
 		GroupAllInfo grps = (GroupAllInfo) msg;
-		if (grps.sendFlag.equals("Ask")){//µ±Ç°³ÌĞòÊÇÖ÷¹ÜÀíÔ±£¬ÊÕµ½±¸·İ¹ÜÀíÔ±µÄÇëÇó£¬»Ø¸´ËùÓĞ¼¯ÈºĞÅÏ¢
+		if (grps.sendFlag.equals("Ask")){//å½“å‰ç¨‹åºæ˜¯ä¸»ç®¡ç†å‘˜ï¼Œæ”¶åˆ°å¤‡ä»½ç®¡ç†å‘˜çš„è¯·æ±‚ï¼Œå›å¤æ‰€æœ‰é›†ç¾¤ä¿¡æ¯
 		
 		GroupAllInfo sendInfo = new GroupAllInfo("Send");
 		if (!Amgr.groups.isEmpty()){
@@ -228,7 +228,7 @@ public class PriState extends AState{
 				Amgr.ui.updateConfigureFile(g,grps.groupconfs.get(g));
 		}
 			Amgr.groups.putAll(grps.groups);
-			System.out.println("groups±ä»¯,ĞÂµÄgroupsÎª" + Amgr.groups);
+			System.out.println("groupså˜åŒ–,æ–°çš„groupsä¸º" + Amgr.groups);
 		}
 		}
 		

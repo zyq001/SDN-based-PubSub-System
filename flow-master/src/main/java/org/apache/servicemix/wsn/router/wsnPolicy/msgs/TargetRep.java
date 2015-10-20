@@ -10,14 +10,14 @@ import java.util.List;
 /**
  *
  */
-//²ßÂÔĞÅÏ¢ÖĞ¸½´øµÄ´úÀíĞÅÏ¢£¬Ö÷ÒªÓÃÀ´´æ´¢¿Í»§ĞÅÏ¢
+//ç­–ç•¥ä¿¡æ¯ä¸­é™„å¸¦çš„ä»£ç†ä¿¡æ¯ï¼Œä¸»è¦ç”¨æ¥å­˜å‚¨å®¢æˆ·ä¿¡æ¯
 public class TargetRep extends TargetMsg
 {	
 
 	private static final long serialVersionUID = 1L;
 	protected List<TargetHost> targetClients;
 	protected String repIp;
-	protected boolean allMsg = false;  //ÊÇ·ñ°üº¬ÄÚ²¿ËùÓĞ³ÉÔ±£¬ÈôÊÇ°üÀ¨£¬ÆäÁĞ±í¿ÉÎª¿Õ¡£
+	protected boolean allMsg = false;  //æ˜¯å¦åŒ…å«å†…éƒ¨æ‰€æœ‰æˆå‘˜ï¼Œè‹¥æ˜¯åŒ…æ‹¬ï¼Œå…¶åˆ—è¡¨å¯ä¸ºç©ºã€‚
 
 
 	public boolean isAllMsg() {
@@ -84,13 +84,13 @@ public class TargetRep extends TargetMsg
 	{
 		if(!this.equals(msg))
 			return;
-		//Èç¹ûmsgËùÓĞÖ÷»ú¾ùÊÜÏŞ
+		//å¦‚æœmsgæ‰€æœ‰ä¸»æœºå‡å—é™
 		if(msg.isAllMsg()){
 			this.setAllMsg(true);
 			targetClients.clear();
 			return;
 		}
-		//Èç¹ûµ±Ç°ËùÓĞÖ÷»ú¾ùÊÜÏŞ
+		//å¦‚æœå½“å‰æ‰€æœ‰ä¸»æœºå‡å—é™
 		if(this.allMsg)
 			return;
 		

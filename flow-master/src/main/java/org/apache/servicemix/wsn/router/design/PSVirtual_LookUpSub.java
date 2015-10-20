@@ -20,23 +20,23 @@ public class PSVirtual_LookUpSub {
 		ObjectInputStream ois;
 		ObjectOutputStream oos;
 		try {
-			System.out.println("ÕıÔÚ¼àÌı");
+			System.out.println("æ­£åœ¨ç›‘å¬");
 			ServerSocket PSServer=new ServerSocket(2000);
 			Socket Server=PSServer.accept();
-			System.out.println("Á¬½Ó½¨Á¢");
+			System.out.println("è¿æ¥å»ºç«‹");
 			
 			ois=new ObjectInputStream(Server.getInputStream());
 			oos=new ObjectOutputStream(Server.getOutputStream());
 			
 			MsgLookupGroupSubscriptions require=(MsgLookupGroupSubscriptions) ois.readObject();
-			System.out.println("½ÓÊÕÁËÇëÇó");
+			System.out.println("æ¥æ”¶äº†è¯·æ±‚");
 			MsgLookupGroupSubscriptions_ rtnMember = new MsgLookupGroupSubscriptions_();
 
-		    rtnMember.topics.add("ÎÂ¶È");
-		    rtnMember.topics.add("Êª¶È");
+		    rtnMember.topics.add("æ¸©åº¦");
+		    rtnMember.topics.add("æ¹¿åº¦");
 			
 		    oos.writeObject(rtnMember);
-		    System.out.println("·¢ËÍÁËÇëÇó");
+		    System.out.println("å‘é€äº†è¯·æ±‚");
 		    oos.close();
 	        ois.close();
 	        Server.close();

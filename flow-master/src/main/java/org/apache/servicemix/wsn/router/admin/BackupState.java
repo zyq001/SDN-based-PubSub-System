@@ -73,11 +73,11 @@ public class BackupState extends AState{
 	@SuppressWarnings("static-access")
 	@Override
 	public void lost(String indicator){
-		if(Amgr.backup==indicator){//±¸·İ¹ÜÀíÔ±¼ì²âµ½Ö÷¹ÜÀíÔ±Ê§Ğ§ 
+		if(Amgr.backup==indicator){//å¤‡ä»½ç®¡ç†å‘˜æ£€æµ‹åˆ°ä¸»ç®¡ç†å‘˜å¤±æ•ˆ 
 			if(Amgr.groups.size()> 0){
 				
 			
-			MsgNotis priAdminLost = new MsgNotis();// µ±Ö÷¹ÜÀíÔ±¶ªÊ§Ê±,ÓëËæ»ú½Úµã½¨Á¢Á¬½Ó,½«Ö÷¹ÜÀíÔ±Ê§Ğ§ÒÔÍ¨ÖªÏûÏ¢ĞÎÊ½ËÍ³ö
+			MsgNotis priAdminLost = new MsgNotis();// å½“ä¸»ç®¡ç†å‘˜ä¸¢å¤±æ—¶,ä¸éšæœºèŠ‚ç‚¹å»ºç«‹è¿æ¥,å°†ä¸»ç®¡ç†å‘˜å¤±æ•ˆä»¥é€šçŸ¥æ¶ˆæ¯å½¢å¼é€å‡º
 
 			priAdminLost.originatorAddr = Amgr.localAddr;
 			priAdminLost.topicName = "priAdminLost";
@@ -101,7 +101,7 @@ public class BackupState extends AState{
 				mar_ = (MsgAdReboot_)ois2.readObject();
 				
 				while (!mar_.c.isEmpty()) {
-					//Á½ÖÖGroupUnitµÄ×ª»»
+					//ä¸¤ç§GroupUnitçš„è½¬æ¢
 					GroupUnit g = (GroupUnit)mar_.c.poll();
 					Amgr.groups.put(g.name, g);
 				}
@@ -112,17 +112,17 @@ public class BackupState extends AState{
 //			} catch (UnknownHostException e) {
 //				e.printStackTrace();
 			} catch (IOException e) {
-				System.out.println("ÓëËæ»ú¼¯Èº½¨Á¢Á¬½ÓÊ§°Ü£¬¸Ã¼¯Èº¿ÉÄÜÒÑ¾­¶ªÊ§");
+				System.out.println("ä¸éšæœºé›†ç¾¤å»ºç«‹è¿æ¥å¤±è´¥ï¼Œè¯¥é›†ç¾¤å¯èƒ½å·²ç»ä¸¢å¤±");
 				//e.printStackTrace();
 			} catch (ClassNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 
-			System.out.println("Primary administrator" + indicator+ "lost£¬backup adminitrator" + Amgr.localAddr + "replace£¡");
+			System.out.println("Primary administrator" + indicator+ "lostï¼Œbackup adminitrator" + Amgr.localAddr + "replaceï¼");
 			
-			// Ïò¸ù½Úµã·¢ËÍMsgAdRebootĞÅÏ¢£¬ÒªÇó·µ»ØMsgAdReboot_ĞÅÏ¢
-			// ËùÓĞ¼¯ÈºµÄ¼¯ºÏ
+			// å‘æ ¹èŠ‚ç‚¹å‘é€MsgAdRebootä¿¡æ¯ï¼Œè¦æ±‚è¿”å›MsgAdReboot_ä¿¡æ¯
+			// æ‰€æœ‰é›†ç¾¤çš„é›†åˆ
 			dt.removeTarget(indicator);
 //			if (!(gu.addr==null)&&!(gu.name==null)&&!(gu.tPort==0)) {
 //				
@@ -142,7 +142,7 @@ public class BackupState extends AState{
 //					mar_ = (MsgAdReboot_)ois.readObject();
 //					
 //					while (!mar_.c.isEmpty()) {
-//						//Á½ÖÖGroupUnitµÄ×ª»»
+//						//ä¸¤ç§GroupUnitçš„è½¬æ¢
 //						org.apache.servicemix.wsn.router.msg.tcp.GroupUnit g = (org.apache.servicemix.wsn.router.msg.tcp.GroupUnit)mar_.c.poll();
 //						Amgr.groups.put(g.name, g);
 //					}
@@ -170,7 +170,7 @@ public class BackupState extends AState{
 //				}//finally
 //				
 //			}//if
-			//½«¹ÜÀíÔ±¸Ä±äµÄÏûÏ¢×ª·¢ÖÁËùÓĞ´ú±í
+			//å°†ç®¡ç†å‘˜æ”¹å˜çš„æ¶ˆæ¯è½¬å‘è‡³æ‰€æœ‰ä»£è¡¨
 			MsgAdminChange mac=new MsgAdminChange();
 			mac.NewAdminAddr=Amgr.localAddr;
 			
@@ -193,12 +193,12 @@ public class BackupState extends AState{
 					s.close();
 				}catch(IOException e){
 					// TODO Auto-generated catch block
-					System.out.println("ÏòÄ³´ú±í×ª·¢¹ÜÀíÔ±¸Ä±äÏûÏ¢Ê§°Ü£¬¸Ã¼¯Èº¿ÉÄÜÒÑ¾­¶ªÊ§");
+					System.out.println("å‘æŸä»£è¡¨è½¬å‘ç®¡ç†å‘˜æ”¹å˜æ¶ˆæ¯å¤±è´¥ï¼Œè¯¥é›†ç¾¤å¯èƒ½å·²ç»ä¸¢å¤±");
 					//e.printStackTrace();
 				}	
 			}
 			}
-		//»Ö¸´¹ÜÀíÔ±½çÃæ
+		//æ¢å¤ç®¡ç†å‘˜ç•Œé¢
 			
 		Amgr.setState(Amgr.getPriState());	
 		Amgr.IsPrimary=1;
@@ -220,7 +220,7 @@ public class BackupState extends AState{
 			ShorenUtils.encodeAllPolicy();
 		} catch (NamingException e) {
 			// TODO Auto-generated catch block
-			System.out.println("½«ËùÓĞ²ßÂÔĞÅÏ¢Ğ´ÈëxmlÎÄ¼şÊ±³ö´í");
+			System.out.println("å°†æ‰€æœ‰ç­–ç•¥ä¿¡æ¯å†™å…¥xmlæ–‡ä»¶æ—¶å‡ºé”™");
 			e.printStackTrace();
 		}
 	}
@@ -251,10 +251,10 @@ public class BackupState extends AState{
 			ois = new ObjectInputStream(s.getInputStream());
 			oos = new ObjectOutputStream(s.getOutputStream());
 			msg = ois.readObject();
-			if (msg instanceof GroupAllInfo) {//µ±Ç°Ö÷¹ÜÀíÔ±·¢À´µÄ¼¯ÈºĞÅÏ¢
+			if (msg instanceof GroupAllInfo) {//å½“å‰ä¸»ç®¡ç†å‘˜å‘æ¥çš„é›†ç¾¤ä¿¡æ¯
 				
 				GroupAllInfo grps = (GroupAllInfo) msg;
-				if (grps.sendFlag.equals("Ask")){//µ±Ç°³ÌĞòÊÇÖ÷¹ÜÀíÔ±£¬ÊÕµ½±¸·İ¹ÜÀíÔ±µÄÇëÇó£¬»Ø¸´ËùÓĞ¼¯ÈºĞÅÏ¢
+				if (grps.sendFlag.equals("Ask")){//å½“å‰ç¨‹åºæ˜¯ä¸»ç®¡ç†å‘˜ï¼Œæ”¶åˆ°å¤‡ä»½ç®¡ç†å‘˜çš„è¯·æ±‚ï¼Œå›å¤æ‰€æœ‰é›†ç¾¤ä¿¡æ¯
 				GroupAllInfo sendInfo = new GroupAllInfo("Send");
 				if (Amgr.groups != null){
 				Iterator<String> Itr = Amgr.groups.keySet().iterator();
@@ -279,7 +279,7 @@ public class BackupState extends AState{
 					Amgr.ui.updateConfigureFile(g,grps.groupconfs.get(g));
 			}
 				Amgr.groups.putAll(grps.groups);
-				System.out.println("groups±ä»¯,ĞÂµÄgroupsÎª" + Amgr.groups);
+				System.out.println("groupså˜åŒ–,æ–°çš„groupsä¸º" + Amgr.groups);
 			}
 			}
 			}

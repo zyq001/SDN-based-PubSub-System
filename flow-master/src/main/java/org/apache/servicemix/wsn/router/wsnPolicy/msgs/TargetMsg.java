@@ -7,7 +7,7 @@ package org.apache.servicemix.wsn.router.wsnPolicy.msgs;
 /**
  *
  */
-public //显示集群信息时，按顺序排列，所以实现Comparable接口
+public //鏄剧ず闆嗙兢淇℃伅鏃讹紝鎸夐『搴忔帓鍒楋紝鎵�浠ュ疄鐜癈omparable鎺ュ彛
 class TargetMsg implements java.io.Serializable
 {	
 	private static final long serialVersionUID = 1L;

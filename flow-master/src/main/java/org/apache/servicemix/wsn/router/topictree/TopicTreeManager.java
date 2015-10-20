@@ -56,7 +56,7 @@ import javax.xml.transform.stream.StreamResult;
 
 import edu.bupt.wangfu.ldap.Ldap;
 import edu.bupt.wangfu.ldap.TopicEntry;
-import jaxe.Jaxe;
+//import jaxe.Jaxe;
 
 import org.apache.servicemix.application.WSNTopicObject;
 import org.apache.servicemix.wsn.router.admin.AdminMgr;
@@ -525,24 +525,24 @@ public class TopicTreeManager {
 		LibTreeForSchema.addMouseListener(new MouseAdapter() {
 
 			public void mouseClicked(MouseEvent e) {
-				if(e.getClickCount()==2){//????????????
-
-					TreePath path = LibTreeForSchema.getPathForLocation(e.getX(), e.getY());
-					LibTreeForSchema.setSelectionPath(path);
-					DefaultMutableTreeNode chosenSchema = (DefaultMutableTreeNode)LibTreeForSchema.getLastSelectedPathComponent();
-					if(path!=null&&chosenSchema.isLeaf())
-					{
-						//??????????????????);
-						File clickSchemaFile = new File("schema/"+chosenSchema.toString()+".xsd");
-						if(clickSchemaFile.exists()){
-							Jaxe.schemaFrame.ouvrir(clickSchemaFile);
-							ui.lblNewLabel_5.setText("        ???" + chosenSchema.toString());
-							ui.lblNewLabel_5.setName(chosenSchema.toString());
-						}else
-							JOptionPane.showMessageDialog(null, "??????schema? "+chosenSchema.toString());
-					}
-
-				}
+//				if(e.getClickCount()==2){//????????????
+//
+//					TreePath path = LibTreeForSchema.getPathForLocation(e.getX(), e.getY());
+//					LibTreeForSchema.setSelectionPath(path);
+//					DefaultMutableTreeNode chosenSchema = (DefaultMutableTreeNode)LibTreeForSchema.getLastSelectedPathComponent();
+//					if(path!=null&&chosenSchema.isLeaf())
+//					{
+//						//??????????????????);
+//						File clickSchemaFile = new File("schema/"+chosenSchema.toString()+".xsd");
+//						if(clickSchemaFile.exists()){
+//							Jaxe.schemaFrame.ouvrir(clickSchemaFile);
+//							ui.lblNewLabel_5.setText("        ???" + chosenSchema.toString());
+//							ui.lblNewLabel_5.setName(chosenSchema.toString());
+//						}else
+//							JOptionPane.showMessageDialog(null, "??????schema? "+chosenSchema.toString());
+//					}
+//
+//				}
 
 			}
 
@@ -826,44 +826,44 @@ public class TopicTreeManager {
 
 		});
 
-		JMenuItem schema = new JMenuItem("schema",schemaimage);
-		schema.addActionListener(new ActionListener(){
-//			private File schemaFile;
-
-//			@Override
-			public void actionPerformed(ActionEvent e){
-
-//				TreePath path = LibTreeForSchema.getPathForLocation(evt.getX(), evt.getY());
-//				if(path!=null)
-//				{
-//					LibTreeForSchema.setSelectionPath(path);
-				DefaultMutableTreeNode chosenSchema = (DefaultMutableTreeNode)LibTree.getLastSelectedPathComponent();
-				//??????????????????);
-				File popSchemaFile = new File("schema/"+chosenSchema.toString()+".xsd");
-				if(popSchemaFile.exists()){
-					Jaxe.schemaFrame.ouvrir(popSchemaFile);
-					LibTreeForSchema.setSelectionPath(LibTree.getLeadSelectionPath());
-
-					ui.visualManagement.setSelectedIndex(3);//?????????
-					//????????
-					ui.lblNewLabel_5.setText("        ???" + chosenSchema.toString());
-					ui.lblNewLabel_5.setName(chosenSchema.toString());
-				}else if(!chosenSchema.isLeaf()){
-					LibTreeForSchema.setSelectionPath(LibTree.getLeadSelectionPath());
-					ui.visualManagement.setSelectedIndex(3);//?????????
-					//????????
-					ui.lblNewLabel_5.setText("        ???" + chosenSchema.toString());
-					ui.lblNewLabel_5.setName(chosenSchema.toString());
-				}else
-					JOptionPane.showMessageDialog( null, "??????schema? "+chosenSchema.toString());
-			}
-		});
+//		JMenuItem schema = new JMenuItem("schema",schemaimage);
+//		schema.addActionListener(new ActionListener(){
+////			private File schemaFile;
+//
+////			@Override
+//			public void actionPerformed(ActionEvent e){
+//
+////				TreePath path = LibTreeForSchema.getPathForLocation(evt.getX(), evt.getY());
+////				if(path!=null)
+////				{
+////					LibTreeForSchema.setSelectionPath(path);
+//				DefaultMutableTreeNode chosenSchema = (DefaultMutableTreeNode)LibTree.getLastSelectedPathComponent();
+//				//??????????????????);
+//				File popSchemaFile = new File("schema/"+chosenSchema.toString()+".xsd");
+//				if(popSchemaFile.exists()){
+//					Jaxe.schemaFrame.ouvrir(popSchemaFile);
+//					LibTreeForSchema.setSelectionPath(LibTree.getLeadSelectionPath());
+//
+//					ui.visualManagement.setSelectedIndex(3);//?????????
+//					//????????
+//					ui.lblNewLabel_5.setText("        ???" + chosenSchema.toString());
+//					ui.lblNewLabel_5.setName(chosenSchema.toString());
+//				}else if(!chosenSchema.isLeaf()){
+//					LibTreeForSchema.setSelectionPath(LibTree.getLeadSelectionPath());
+//					ui.visualManagement.setSelectedIndex(3);//?????????
+//					//????????
+//					ui.lblNewLabel_5.setText("        ???" + chosenSchema.toString());
+//					ui.lblNewLabel_5.setName(chosenSchema.toString());
+//				}else
+//					JOptionPane.showMessageDialog( null, "??????schema? "+chosenSchema.toString());
+//			}
+//		});
 
 		popMenu.add(addItem);
 		popMenu.add(delItem);
 		popMenu.add(editItem);
 		popMenu.add(strategyItem);
-		popMenu.add(schema);
+//		popMenu.add(schema);
 	}
 	private void Tree_init() {
 		// ??????????

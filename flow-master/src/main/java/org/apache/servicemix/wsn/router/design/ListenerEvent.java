@@ -91,13 +91,13 @@ class ReConfigEvent extends SelectionAdapter{
 		int selection=table.getSelectionIndex();
 
 		if(selection==-1){
-			MessageDialog.openInformation(shell, "", "????????????????");
+			MessageDialog.openInformation(shell, "", "锟斤拷锟节憋拷锟斤拷锟窖★拷锟揭伙拷锟斤拷录");
 		}
 		else{ 
 			TableItem tmpItem=table.getItem(selection);
 			String grpName=tmpItem.getText(0);
 			if(grpName.equals("")){
-				MessageDialog.openInformation(shell, "", "????????????????????");
+				MessageDialog.openInformation(shell, "", "锟斤拷选锟斤拷一锟斤拷锟斤拷锟斤拷撇锟轿拷盏募锟铰�");
 			}
 			else{
 				shell.setEnabled(false);
@@ -105,15 +105,15 @@ class ReConfigEvent extends SelectionAdapter{
 				shell.setEnabled(true);
 				shell.setActive();
 				
-				//???????
-				win.label_operate.setText("???ü??"+grpName );
-				//?л????????
+				//锟斤拷示状态锟斤拷
+				win.label_operate.setText("锟斤拷锟矫硷拷群"+grpName );
+				//锟叫伙拷锟斤拷锟斤拷锟斤拷台
 				win.tabFolder.setSelection(win.tabItem);
 				
 				
 				SimpleDateFormat sdf = new SimpleDateFormat("H:mm yyyy-M-dd");
 				Date date = new Date();
-				text.append("\n"+sdf.format(date)+":??"+grpName+"????????\n");
+				text.append("\n"+sdf.format(date)+":锟斤拷"+grpName+"锟斤拷锟斤拷锟斤拷锟斤拷\n");
 			}
 		}
 	}
@@ -127,8 +127,8 @@ class AboutMeEvent extends SelectionAdapter{
    }	
 	public void widgetSelected(final SelectionEvent e){
 		MessageBox msg = new MessageBox(shell);
-		msg.setText("????????±?");
-		msg.setMessage("?汾:Version1.2\n??????:?????\t\n\n2011.5.20");
+		msg.setText("锟斤拷锟节憋拷锟斤拷锟铰憋拷");
+		msg.setMessage("锟芥本:Version1.2\n锟斤拷锟斤拷锟斤拷:锟斤拷思锟斤拷\t\n\n2011.5.20");
 		msg.open();
 	}
 }
@@ -141,7 +141,7 @@ class TimeDateEvent extends SelectionAdapter{
 	public void widgetSelected(final SelectionEvent e){
 		SimpleDateFormat sdf = new SimpleDateFormat("H:mm yyyy-M-dd\n");
 		Date date = new Date();
-		text.append("\n"+sdf.format(date)+"???????????"+sdf.format(date)+"\n");
+		text.append("\n"+sdf.format(date)+"锟斤拷锟斤拷询锟斤拷前时锟戒："+sdf.format(date)+"\n");
 	}
 }
 
@@ -191,13 +191,13 @@ class ShowGroupInfo extends SelectionAdapter{
 		this.win=win;
 	}
 	public void widgetSelected(final SelectionEvent e) {
-		//????
-		win.label_event.setText("????????????");
-		//??????????????
+		//状态锟斤拷
+		win.label_event.setText("锟斤拷询锟斤拷群注锟斤拷锟斤拷息");
+		//突锟斤拷锟斤拷锟斤拷锟斤拷乜锟斤拷锟教�
 		win.tabFolder.setSelection(win.tabItem);
 		
 		List<GroupInfo> GroupList=new ArrayList<GroupInfo>();
-		//?????е???????????
+		//删锟斤拷原锟叫的憋拷锟斤拷录锟酵憋拷锟斤拷锟�
 		table.removeAll();
 		TableColumn[] allColumns=table.getColumns();
 		
@@ -205,22 +205,22 @@ class ShowGroupInfo extends SelectionAdapter{
 			allColumns[i].dispose();
 		}
 		
-		//??????????
+		//锟斤拷始锟斤拷锟铰碉拷锟斤拷
 		TableColumn tblclmnNewColumn = new TableColumn(table, SWT.NONE);
 		tblclmnNewColumn.setWidth(100);
-		tblclmnNewColumn.setText("??????");
+		tblclmnNewColumn.setText("锟斤拷群锟斤拷锟�");
 		
 		TableColumn tblclmnNewColumn_1 = new TableColumn(table, SWT.NONE);
 		tblclmnNewColumn_1.setWidth(100);
-		tblclmnNewColumn_1.setText("????????");
+		tblclmnNewColumn_1.setText("锟斤拷群锟斤拷锟斤拷址");
 		
 		TableColumn tblclmnNewColumn_2 = new TableColumn(table, SWT.NONE);
 		tblclmnNewColumn_2.setWidth(100);
-		tblclmnNewColumn_2.setText("??????");
+		tblclmnNewColumn_2.setText("注锟斤拷时锟斤拷");
 		
 		
 		
-		text.append("????????\n");
+		text.append("锟介看锟斤拷群锟斤拷息\n");
 		GroupList=data.getAllGroup();
 		Iterator<GroupInfo> itr=GroupList.iterator();
 		SimpleDateFormat sdf = new SimpleDateFormat("H:mm yyyy-M-dd\n");
@@ -239,7 +239,7 @@ class ShowGroupInfo extends SelectionAdapter{
 			}
 		}
 		
-		//-----------------------------????????--------------------------------------------//
+		//-----------------------------锟斤拷锟斤拷锟斤拷录锟�--------------------------------------------//
 		table.addMouseListener(new MouseListener(){
 			public void mouseDoubleClick(MouseEvent e){
 				int sellndex=table.getSelectionIndex();
@@ -248,33 +248,33 @@ class ShowGroupInfo extends SelectionAdapter{
 				String grpName=item.getText(0);
 				String grpReAddr=item.getText(1);
 				
-				//??????????????м?????????
+				//双锟斤拷某锟斤拷群锟斤拷锟斤拷示选锟叫硷拷群锟侥筹拷员锟斤拷息
 				table.removeAll();
-				//?????????
+				//删锟斤拷原锟斤拷锟斤拷息
 				TableColumn[] allColumns=table.getColumns();
 				for(int i=0;i<allColumns.length;i++){
 					allColumns[i].dispose();
 				}
 				
-				//?????????
+				//锟斤拷锟斤拷锟铰碉拷锟斤拷
 				TableColumn tblclmnNewColumn = new TableColumn(table, SWT.NONE);
 				tblclmnNewColumn.setWidth(100);
-				tblclmnNewColumn.setText("??????");
+				tblclmnNewColumn.setText("锟斤拷群锟斤拷锟�");
 			
 				TableColumn tblclmnNewColumn_1 = new TableColumn(table, SWT.NONE);
 				tblclmnNewColumn_1.setWidth(100);
-				tblclmnNewColumn_1.setText("??????");
+				tblclmnNewColumn_1.setText("锟斤拷员锟斤拷址");
 				
 				TableColumn tblclmnNewColumn_2 = new TableColumn(table, SWT.NONE);
 				tblclmnNewColumn_2.setWidth(100);
-				tblclmnNewColumn_2.setText("???id");
+				tblclmnNewColumn_2.setText("锟斤拷群id");
 				
 				TableColumn tblclmnNewColumn_3 = new TableColumn(table, SWT.NONE);
 				tblclmnNewColumn_3.setWidth(100);
-				tblclmnNewColumn_3.setText("tcp????");
+				tblclmnNewColumn_3.setText("tcp锟剿口猴拷");
 				
 				
-				//?????????
+				//锟斤拷锟斤拷锟矫达拷锟斤拷
 				/*
 			  	TableItem item=new TableItem(table,0);
 			  	item.setText(new String[]{grpName,"118.229.134.140"});
@@ -282,39 +282,39 @@ class ShowGroupInfo extends SelectionAdapter{
 			  	item2.setText(new String[]{"","118.229.134.250"});
 				 */ 
 			
-				//?????????????????????
+				//锟斤拷锟矫接口癸拷锟杰ｏ拷实锟街硷拷群锟斤拷员锟斤拷询
 				MsgLookupGroupMember_ GroupMember=Interface.lookupGroupMember(grpName);
 				Iterator<BrokerUnit> itr=GroupMember.members.iterator();
 				
 				BrokerUnit b1 = itr.next();
 				TableItem ti1 = new TableItem(table, 0);
-				ti1.setText(new String[]{grpName, b1.addr + "(???)", "" + b1.id, "" + b1.tPort});
+				ti1.setText(new String[]{grpName, b1.addr + "(锟斤拷锟�)", "" + b1.id, "" + b1.tPort});
 
-				//?????????б?,???±??
+				//锟斤拷锟斤拷氐某锟皆憋拷斜锟�,锟斤拷锟铰憋拷锟�
 				while(itr.hasNext()){
 					TableItem member=new TableItem(table,0);
 					BrokerUnit aMember=itr.next();
 					member.setText(new String[]{"",aMember.addr,""+aMember.id,""+aMember.tPort});
 				}
-			  //????????
-				/*//?????????????????????
+			  //锟斤拷锟铰匡拷锟斤拷台
+				/*//锟斤拷锟矫接口癸拷锟杰ｏ拷实锟街硷拷群锟斤拷员锟斤拷询
 				MsgLookupGroupMember_ GroupMember=Interface.lookupGroupMember(grpName);
 				Iterator<BrokerUnit> itr=GroupMember.members.iterator();
 				int count=0;
-				//?????????б?,???±??
+				//锟斤拷锟斤拷氐某锟皆憋拷斜锟�,锟斤拷锟铰憋拷锟�
 				while(itr.hasNext()){
 					TableItem member=new TableItem(table,0);
 					BrokerUnit aMember=itr.next();
 					String addr;
-					//????????????
+					//锟斤拷锟斤拷欠锟斤拷谴锟斤拷锟街�
 					if(aMember.addr.equals(grpReAddr)){
-						addr=aMember.addr+"(?????)";
+						addr=aMember.addr+"(锟斤拷锟斤拷址)";
 					}
 					else{
 						addr=aMember.addr;
 					}
 					
-					//????????????
+					//锟斤拷锟斤拷欠锟斤拷堑锟揭伙拷锟�
 					if(count==0){
 						
 						member.setText(new String[]{grpName,addr,""+aMember.id,""+aMember.tPort});
@@ -337,10 +337,10 @@ class ShowGroupInfo extends SelectionAdapter{
 			}
 		});
 		
-		//-------------------------------???????????????--------------------------------------------//
-		//???±??
+		//-------------------------------锟斤拷应锟斤拷锟斤拷锟斤拷录锟斤拷锟斤拷锟�--------------------------------------------//
+		//锟斤拷锟铰憋拷锟�
 		Date date = new Date();
-		text.append("\n"+sdf.format(date)+"?????????????????"+"\n");
+		text.append("\n"+sdf.format(date)+"锟斤拷锟斤拷询锟剿硷拷群锟斤拷注锟斤拷锟斤拷息"+"\n");
 	}
 }
 //---------------------------------------------------------------------//
@@ -363,18 +363,18 @@ class LookUpSub extends SelectionAdapter{
 		// TODO Auto-generated constructor stub
 	}
 	public void widgetSelected(final SelectionEvent e) {
-		InputDialog dialog = new InputDialog(shell,"???????","???????????","",new MyValidator());
+		InputDialog dialog = new InputDialog(shell,"锟斤拷询锟斤拷锟皆�","锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟�","",new MyValidator());
 		
 		if(dialog.open()==InputDialog.OK){
 			grpName=dialog.getValue();
 		
 			if(data.getGroupIndex(grpName)==-1){
-				MessageDialog.openInformation(shell, "???", "?????????");
+				MessageDialog.openInformation(shell, "锟斤拷示", "锟斤拷锟斤拷锟节革拷锟斤拷");
 			}
 			else{
-				//????
-				win.label_operate.setText("?????????????");
-				//??????????????
+				//状态锟斤拷
+				win.label_operate.setText("锟斤拷询锟斤拷群锟斤拷锟斤拷锟斤拷息");
+				//突锟斤拷锟斤拷锟斤拷锟斤拷乜锟斤拷锟教�
 				win.tabFolder.setSelection(win.tabItem);
 				
 				List<GroupInfo> GroupList=new ArrayList<GroupInfo>();
@@ -388,34 +388,34 @@ class LookUpSub extends SelectionAdapter{
 				
 				TableColumn tblclmnNewColumn = new TableColumn(table, SWT.NONE);
 				tblclmnNewColumn.setWidth(100);
-				tblclmnNewColumn.setText("??????");
+				tblclmnNewColumn.setText("锟斤拷群锟斤拷锟�");
 				
 				TableColumn tblclmnNewColumn_1 = new TableColumn(table, SWT.NONE);
 				tblclmnNewColumn_1.setWidth(100);
-				tblclmnNewColumn_1.setText("??????????");
+				tblclmnNewColumn_1.setText("锟斤拷群锟斤拷锟斤拷锟斤拷息");
 				
 				/*
-				//??????
+				//锟斤拷锟斤拷锟斤拷
 				  TableItem item=new TableItem(table,0);
-				  item.setText(new String[]{grpName,"???????"});
+				  item.setText(new String[]{grpName,"锟斤拷锟斤拷预锟斤拷"});
 				  TableItem item2=new TableItem(table,0);
-				  item2.setText(new String[]{"","???????"});
-				//????END
+				  item2.setText(new String[]{"","锟斤拷锟斤拷状锟斤拷"});
+				//锟斤拷锟斤拷END
 				*/
 				
 				SimpleDateFormat sdf = new SimpleDateFormat("H:mm yyyy-M-dd");
 				Date date = new Date();
-				text.append("\n"+sdf.format(date)+"?????????"+grpName+"????????\n");
-				//??????
+				text.append("\n"+sdf.format(date)+"锟斤拷锟斤拷询锟剿硷拷群"+grpName+"锟侥讹拷锟斤拷锟斤拷息\n");
+				//锟斤拷锟矫接匡拷
 					
 //				String[] GroupMember=Interface.lookupGroupSubscriptions(grpName);
 //				if(GroupMember==null){
 //					data.removeGroup(grpName);
 //					Interface.groups.remove(grpName);
 //					Interface.GroupsChangeNtfyBkp();
-//					MessageDialog.openInformation(shell, "???", "??????ü??");
+//					MessageDialog.openInformation(shell, "锟斤拷示", "锟斤拷锟斤拷锟节该硷拷群");
 //				}else{
-//					//????table
+//					//锟斤拷锟斤拷table
 //					for(int i=0;i<GroupMember.length;i++){
 //						TableItem member=new TableItem(table,0);
 //						if(i==0){
@@ -467,13 +467,13 @@ class GetGroupConfig extends SelectionAdapter{
 			int selection=table.getSelectionIndex();
 
 			if(selection==-1){
-				MessageDialog.openInformation(shell, "", "????????????????");
+				MessageDialog.openInformation(shell, "", "锟斤拷锟节憋拷锟斤拷锟窖★拷锟揭伙拷锟斤拷录");
 			}
 			else{ 
 				TableItem tmpItem=table.getItem(selection);
 				String grpName=tmpItem.getText(0);
 				if(grpName.equals("")){
-					MessageDialog.openInformation(shell, "", "????????????????????");
+					MessageDialog.openInformation(shell, "", "锟斤拷选锟斤拷一锟斤拷锟斤拷锟斤拷撇锟轿拷盏募锟铰�");
 				}
 				else{
 					GroupConfiguration initInfo=new GroupConfiguration();
@@ -483,29 +483,29 @@ class GetGroupConfig extends SelectionAdapter{
 					else{
 						initInfo=configFile.ReadGroupConfiguration(grpName);
 					}
-					String configInfo = new String("???????"+initInfo.GroupName+"\n"
-							+"???????"+initInfo.repAddr+"\n"
-							+"TCP?????"+initInfo.tPort+"\n"
-							+"?鲥?????"+initInfo.uPort+"\n"
-							+"?????????"+initInfo.childrenSize+"\n"
-							+"????????"+initInfo.joinTimes+"\n"
-							+"???????С??"+initInfo.synPeriod+"\n"
-							+"?ж??Ч?????"+initInfo.lostThreshold+"\n"
-							+"????????"+initInfo.scanPeriod+"\n"
-							+"?????????"+initInfo.sendPeriod+"\n");
+					String configInfo = new String("锟斤拷群锟斤拷疲锟�"+initInfo.GroupName+"\n"
+							+"锟斤拷锟斤拷址锟斤拷"+initInfo.repAddr+"\n"
+							+"TCP锟剿口号ｏ拷"+initInfo.tPort+"\n"
+							+"锟介播锟剿口号ｏ拷"+initInfo.uPort+"\n"
+							+"锟接节碉拷锟斤拷目锟斤拷"+initInfo.childrenSize+"\n"
+							+"锟斤拷锟诫超时时锟戒："+initInfo.joinTimes+"\n"
+							+"锟斤拷锟斤拷锟斤拷锟叫★拷锟�"+initInfo.synPeriod+"\n"
+							+"锟叫讹拷失效锟斤拷值锟斤拷"+initInfo.lostThreshold+"\n"
+							+"扫锟斤拷锟斤拷锟节ｏ拷"+initInfo.scanPeriod+"\n"
+							+"锟斤拷锟斤拷锟斤拷锟节ｏ拷"+initInfo.sendPeriod+"\n");
 					
-					//???????
-					win.label_operate.setText("?????"+grpName+"?????????");
-					//?л????????
+					//状态锟斤拷锟斤拷示
+					win.label_operate.setText("锟介看锟斤拷群"+grpName+"锟斤拷锟斤拷锟斤拷锟斤拷息");
+					//锟叫伙拷锟斤拷锟斤拷锟斤拷台
 					win.tabFolder.setSelection(win.tabItem);
 					
-					//text.append("??"+grpName+"?????????ò??,?????????\n"+configInfo);
-					//????????????????
-					MessageDialog.openInformation(shell, "???"+grpName+"?????????", configInfo);
+					//text.append("锟斤拷"+grpName+"锟斤拷锟斤拷锟斤拷锟斤拷锟矫诧拷询,锟斤拷锟斤拷锟斤拷锟铰ｏ拷\n"+configInfo);
+					//锟矫对伙拷锟斤拷锟斤拷示锟斤拷锟斤拷锟斤拷息
+					MessageDialog.openInformation(shell, "锟斤拷群"+grpName+"锟斤拷锟斤拷锟斤拷锟斤拷息", configInfo);
 					
 					SimpleDateFormat sdf = new SimpleDateFormat("H:mm yyyy-M-dd");
 					Date date = new Date();
-					text.append("\n"+sdf.format(date)+"?????????"+grpName+"?????????\n");
+					text.append("\n"+sdf.format(date)+"锟斤拷锟斤拷询锟剿硷拷群"+grpName+"锟斤拷锟斤拷锟斤拷锟斤拷息\n");
 				}
 			}
 	}
@@ -556,49 +556,49 @@ class LookUpMem extends SelectionAdapter{
 		this.Interface=interactIF;
 	}
 	public void widgetSelected(final SelectionEvent e) {
-		InputDialog dialog = new InputDialog(shell,"???????","???????????","",new MyValidator());
+		InputDialog dialog = new InputDialog(shell,"锟斤拷询锟斤拷锟皆�","锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟�","",new MyValidator());
 		if(dialog.open()==InputDialog.OK){
 			grpName=dialog.getValue();
 		    int index=data.getGroupIndex(grpName);
 			if(index==-1&&grpName!=null){
-				MessageDialog.openInformation(shell, "???", "?????????");
+				MessageDialog.openInformation(shell, "锟斤拷示", "锟斤拷锟斤拷锟节革拷锟斤拷");
 			}
 			else{
-				//???????
-				win.label_operate.setText("?????????");
-				//???л??????
+				//锟斤拷示状态锟斤拷
+				win.label_operate.setText("锟斤拷询锟斤拷群锟斤拷员");
+				//锟斤拷锟叫伙拷锟斤拷锟斤拷锟�
 				win.tabFolder.setSelection(win.tabItem);
-				//?????????
+				//锟斤拷锟皆拷锟斤拷锟铰�
 				table.removeAll();
-				//?????????
+				//删锟斤拷原锟斤拷锟斤拷息
 				TableColumn[] allColumns=table.getColumns();
 				for(int i=0;i<allColumns.length;i++){
 					allColumns[i].dispose();
 				}
 				
-				//?????????
+				//锟斤拷锟斤拷锟铰碉拷锟斤拷
 				TableColumn tblclmnNewColumn = new TableColumn(table, SWT.NONE);
 				tblclmnNewColumn.setWidth(100);
-				tblclmnNewColumn.setText("??????");
+				tblclmnNewColumn.setText("锟斤拷群锟斤拷锟�");
 			
 				TableColumn tblclmnNewColumn_1 = new TableColumn(table, SWT.NONE);
 				tblclmnNewColumn_1.setWidth(100);
-				tblclmnNewColumn_1.setText("??????");
+				tblclmnNewColumn_1.setText("锟斤拷员锟斤拷址");
 				
 				TableColumn tblclmnNewColumn_2 = new TableColumn(table, SWT.NONE);
 				tblclmnNewColumn_2.setWidth(100);
-				tblclmnNewColumn_2.setText("???id");
+				tblclmnNewColumn_2.setText("锟斤拷群id");
 				
 				TableColumn tblclmnNewColumn_3 = new TableColumn(table, SWT.NONE);
 				tblclmnNewColumn_3.setWidth(100);
-				tblclmnNewColumn_3.setText("tcp????");
+				tblclmnNewColumn_3.setText("tcp锟剿口猴拷");
 				
-				//??????????????
+				//锟斤拷取锟斤拷锟诫集群锟侥达拷锟斤拷址
 //				List<GroupInfo> GroupList=data.getAllGroup();
 //				GroupInfo theGroup=GroupList.get(index);
 //				String grpReAddr=theGroup.GroupAddress;
 				
-				//?????????
+				//锟斤拷锟斤拷锟矫达拷锟斤拷
 				/*
 			  	TableItem item=new TableItem(table,0);
 			  	item.setText(new String[]{grpName,"118.229.134.140"});
@@ -607,31 +607,31 @@ class LookUpMem extends SelectionAdapter{
 				 */ 
 			
 				
-				//?????????????????????
+				//锟斤拷锟矫接口癸拷锟杰ｏ拷实锟街硷拷群锟斤拷员锟斤拷询
 				MsgLookupGroupMember_ GroupMember=Interface.lookupGroupMember(grpName);
 				if(GroupMember==null){
 					data.removeGroup(grpName);
 					Interface.groups.remove(grpName);
 					Interface.GroupsChangeNtfyBkp();
-					MessageDialog.openInformation(shell, "???", "??????ü??");
+					MessageDialog.openInformation(shell, "锟斤拷示", "锟斤拷锟斤拷锟节该硷拷群");
 				}else{
 					Iterator<BrokerUnit> itr=GroupMember.members.iterator();
 					
 					BrokerUnit b1 = itr.next();
 					TableItem ti1 = new TableItem(table, 0);
-					ti1.setText(new String[]{grpName, b1.addr + "(???)", "" + b1.id, "" + b1.tPort});
+					ti1.setText(new String[]{grpName, b1.addr + "(锟斤拷锟�)", "" + b1.id, "" + b1.tPort});
 
-					//?????????б?,???±??
+					//锟斤拷锟斤拷氐某锟皆憋拷斜锟�,锟斤拷锟铰憋拷锟�
 					while(itr.hasNext()){
 						TableItem member=new TableItem(table,0);
 						BrokerUnit aMember=itr.next();
 						member.setText(new String[]{"",aMember.addr,""+aMember.id,""+aMember.tPort});
 					}
-				  //????????
+				  //锟斤拷锟铰匡拷锟斤拷台
 				
 					SimpleDateFormat sdf = new SimpleDateFormat("H:mm yyyy-M-dd");
 					Date date = new Date();
-					text.append("\n"+sdf.format(date)+"?????????"+grpName+"???????\n");
+					text.append("\n"+sdf.format(date)+"锟斤拷锟斤拷询锟剿硷拷群"+grpName+"锟侥筹拷员锟斤拷息\n");
 				}
 				
 			}
@@ -659,7 +659,7 @@ class LookUpMemSub extends SelectionAdapter{
 	}
 	
 	public void widgetSelected(final SelectionEvent e) {
-		InputDialog dialog = new InputDialog(shell,"?????????????????","??????????","",new MyValidator());
+		InputDialog dialog = new InputDialog(shell,"锟斤拷询锟截讹拷锟斤拷锟皆憋拷锟斤拷锟斤拷锟较�","锟斤拷锟斤拷锟诫集群锟斤拷锟�","",new MyValidator());
 		
 		if(dialog.open()==InputDialog.OK){
 			grpName=dialog.getValue();
@@ -671,20 +671,20 @@ class LookUpMemSub extends SelectionAdapter{
 			hstAddr=infoScan.next();
 		*/
 			if(data.getGroupIndex(grpName)==-1){
-				MessageDialog.openInformation(shell, "???", "?????????");
+				MessageDialog.openInformation(shell, "锟斤拷示", "锟斤拷锟斤拷锟节革拷锟斤拷");
 			}
 			else{
 				
 				
-				InputDialog dialog1 = new InputDialog(shell,"?????????????????","??????????????","",new MyValidator());
+				InputDialog dialog1 = new InputDialog(shell,"锟斤拷询锟截讹拷锟斤拷锟皆憋拷锟斤拷锟斤拷锟较�","锟斤拷锟斤拷锟诫集群锟节筹拷员锟斤拷址","",new MyValidator());
 				
 				if(dialog1.open()==InputDialog.OK){
 					
 					hstAddr=dialog1.getValue();
 					
-					//???????
-					win.label_operate.setText("????????????????");
-					//??????????????
+					//锟斤拷示状态锟斤拷
+					win.label_operate.setText("锟斤拷询锟斤拷群锟斤拷员锟斤拷锟斤拷锟斤拷息");
+					//突锟斤拷锟斤拷锟斤拷锟斤拷乜锟斤拷锟教�
 					win.tabFolder.setSelection(win.tabItem);
 					
 					List<GroupInfo> GroupList=new ArrayList<GroupInfo>();
@@ -698,27 +698,27 @@ class LookUpMemSub extends SelectionAdapter{
 					
 					TableColumn tblclmnNewColumn = new TableColumn(table, SWT.NONE);
 					tblclmnNewColumn.setWidth(100);
-					tblclmnNewColumn.setText("??????");
+					tblclmnNewColumn.setText("锟斤拷群锟斤拷锟�");
 					
 					TableColumn tblclmnNewColumn_1 = new TableColumn(table, SWT.NONE);
 					tblclmnNewColumn_1.setWidth(100);
-					tblclmnNewColumn_1.setText("?????????");
+					tblclmnNewColumn_1.setText("锟斤拷群锟斤拷员锟斤拷址");
 					
 					TableColumn tblclmnNewColumn_2 = new TableColumn(table, SWT.NONE);
 					tblclmnNewColumn_2.setWidth(100);
-					tblclmnNewColumn_2.setText("???????");
+					tblclmnNewColumn_2.setText("锟斤拷锟斤拷锟斤拷息");
 					
-					//????????
-					//???±??
+					//锟斤拷示锟斤拷锟斤拷台
+					//锟斤拷锟铰憋拷锟�
 					SimpleDateFormat sdf = new SimpleDateFormat("H:mm yyyy-M-dd");
 					Date date = new Date();
-					text.append("\n"+sdf.format(date)+"?????????"+grpName+"?г??"+hstAddr+"????????"+"\n");
-					//??????
+					text.append("\n"+sdf.format(date)+"锟斤拷锟斤拷询锟剿硷拷群"+grpName+"锟叫筹拷员"+hstAddr+"锟侥讹拷锟斤拷锟斤拷息"+"\n");
+					//锟斤拷锟矫接匡拷
 					
 						
 //					String[] GroupMember=Interface.lookupMemberSubscriptions(grpName,hstAddr);
 //					if(GroupMember==null){
-//						MessageDialog.openInformation(shell, "???", "?ü??????????????????");
+//						MessageDialog.openInformation(shell, "锟斤拷示", "锟矫硷拷群锟节诧拷锟斤拷锟斤拷锟斤拷锟斤拷锟皆憋拷锟街�");
 //					}else{
 //						for(int i=0;i<GroupMember.length;i++){
 //							TableItem member=new TableItem(table,0);
@@ -753,12 +753,12 @@ class ShowHistory extends SelectionAdapter{
 		
 		win.tabFolder.setSelection(win.tabItem);
 		
-		win.label_operate.setText("????????");
+		win.label_operate.setText("锟介看锟斤拷史锟斤拷录");
 		
 		Iterator<String> itr=HistoryList.iterator();
 		SimpleDateFormat sdf = new SimpleDateFormat("H:mm yyyy-M-dd");
 		Date date = new Date();
-		text.append("\n"+sdf.format(date)+":????????\n");
+		text.append("\n"+sdf.format(date)+":锟介看锟斤拷史锟斤拷录\n");
 		while(itr.hasNext()){
 			String history=itr.next();
 			text.append("\n"+history+"\n");
@@ -774,10 +774,11 @@ class MyValidator implements IInputValidator{
 	public String isValid(String newText) {
 		// TODO Auto-generated method stub
 		if (newText==null){
-			return "??";
+			return "锟斤拷锟斤拷锟斤拷锟斤拷值";
 		}
 		
 		return null;
+		//return "锟斤拷锟捷碉拷前锟斤拷锟斤拷息锟斤拷锟斤拷锟斤拷锟斤拷锟�";
 	}
 	
 }

@@ -8,9 +8,9 @@ public class MsgSynTopoInfo implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
-	public String originator;//£¨Ö÷/±¸£©¹ÜÀíÔ±µØÖ·(Í¬²½ÏûÏ¢µÄÀ´Ô´)
+	public String originator;//ï¼ˆä¸»/å¤‡ï¼‰ç®¡ç†å‘˜åœ°å€(åŒæ­¥æ¶ˆæ¯çš„æ¥æº)
 	
-	public GroupUnit syn_root_group;//¸ù½Úµã¼¯Èº
+	public GroupUnit syn_root_group;//æ ¹èŠ‚ç‚¹é›†ç¾¤
 	
 	
 }

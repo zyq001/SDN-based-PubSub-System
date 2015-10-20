@@ -2,22 +2,22 @@ package org.apache.servicemix.wsn.router.admin.detection;
 import org.apache.servicemix.wsn.router.admin.MsgLsnr;
 public interface IDt extends MsgLsnr {
 
-	//Ìí¼ÓĞÄÌø¼ì²âµÄÄ¿±ê
+	//æ·»åŠ å¿ƒè·³æ£€æµ‹çš„ç›®æ ‡
 	public void addTarget(String indicator);
 	
-	//É¾³ıĞÄÌø¼ì²âµÄÄ¿±ê
+	//åˆ é™¤å¿ƒè·³æ£€æµ‹çš„ç›®æ ‡
 	public void removeTarget(String indicator);
 	
-	//ÉèÖÃÊ§Ğ§µÄ·§Öµ
+	//è®¾ç½®å¤±æ•ˆçš„é˜€å€¼
 	public void setThreshold(long value);
 	
-	//ÉèÖÃĞÄÌøÏûÏ¢µÄ·¢ËÍÆµÂÊ²¢ÖØÆô¸Ã¼ÆÊ±Æ÷ÈÎÎñ
+	//è®¾ç½®å¿ƒè·³æ¶ˆæ¯çš„å‘é€é¢‘ç‡å¹¶é‡å¯è¯¥è®¡æ—¶å™¨ä»»åŠ¡
 	public void setSendPeriod(long value);
 	
-	//ÉèÖÃÉ¨ÃèĞÄÌøĞÅÏ¢±íµÄÆµÂÊ²¢ÖØÆô¸Ã¼ÆÊ±Æ÷ÈÎÎñ
+	//è®¾ç½®æ‰«æå¿ƒè·³ä¿¡æ¯è¡¨çš„é¢‘ç‡å¹¶é‡å¯è¯¥è®¡æ—¶å™¨ä»»åŠ¡
 	public void setScanPeriod(long value);
 	
-	//ÉèÖÃ·¢ËÍÍ¬²½ÏûÏ¢µÄÆµÂÊ²¢ÖØÆô¸Ã¼ÆÊ±Æ÷ÈÎÎñ
+	//è®¾ç½®å‘é€åŒæ­¥æ¶ˆæ¯çš„é¢‘ç‡å¹¶é‡å¯è¯¥è®¡æ—¶å™¨ä»»åŠ¡
 	public void setSynPeriod(long value);
 
 

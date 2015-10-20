@@ -6,7 +6,7 @@ import org.apache.servicemix.wsn.router.mgr.GroupUnit;
 
 public class MsgGroup implements Serializable {
 
-	//µ±ÓĞ¼¯Èº²åÈëµ½±¾¼¯ÈºÊ±£¬´ú±í×ª·¢´ËÏûÏ¢
+	//å½“æœ‰é›†ç¾¤æ’å…¥åˆ°æœ¬é›†ç¾¤æ—¶ï¼Œä»£è¡¨è½¬å‘æ­¤æ¶ˆæ¯
 	
 	private static final long serialVersionUID = 1L;
 	

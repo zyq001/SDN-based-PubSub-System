@@ -44,13 +44,13 @@ public class Configuration {
 		shell.setDragDetect(false);
 		shell.setFullScreen(false);
 
-		shell.setText(Title+"ÅäÖÃĞÅÏ¢");
+		shell.setText(Title+"é…ç½®ä¿¡æ¯");
 		
-		//¶ÁÈ¡ÎÄ¼ş
+		//è¯»å–æ–‡ä»¶
 		GroupConfiguration initInfo=new GroupConfiguration();
 		if(Title.equals("Default")){
 			initInfo=configFile.ReadGroupConfiguration("Default");
-		//	System.out.println("¶ÁÈ¡ÍêÄ¬ÈÏÅäÖÃÎÄ¼şµ½initInfoÖĞ");
+		//	System.out.println("è¯»å–å®Œé»˜è®¤é…ç½®æ–‡ä»¶åˆ°initInfoä¸­");
 		}
 		else{
 			if(configFile.LookForConfigFile(Title)==null){
@@ -60,13 +60,13 @@ public class Configuration {
 				initInfo=configFile.ReadGroupConfiguration(Title);
 			}
 		}
-		//¶ÁÈ¡ÎÄ¼ş½áÊø
+		//è¯»å–æ–‡ä»¶ç»“æŸ
 		
-		//³õÊ¼»¯½çÃæĞÅÏ¢
+		//åˆå§‹åŒ–ç•Œé¢ä¿¡æ¯
 		//setInitInfo(initInfo);
-		//³õÊ¼»¯½áÊø
+		//åˆå§‹åŒ–ç»“æŸ
 		
-		//±£´æ°´Å¥
+		//ä¿å­˜æŒ‰é’®
 		Button btnNewButton = new Button(shell, SWT.NONE);
 		btnNewButton.addSelectionListener(new SelectionAdapter() {
 			@Override
@@ -89,7 +89,7 @@ public class Configuration {
 				
 				
 				configFile.WriteGroupConfiguration(svGroup);
-				MessageDialog.openInformation(shell, "", "±£´æ³É¹¦");
+				MessageDialog.openInformation(shell, "", "ä¿å­˜æˆåŠŸ");
 				
 				if(!Title.equalsIgnoreCase("Default")){
 					conf.repAddr=text.getText();
@@ -108,9 +108,9 @@ public class Configuration {
 			}
 		});
 		btnNewButton.setBounds(156, 557, 72, 22);
-		btnNewButton.setText("±£´æ");
+		btnNewButton.setText("ä¿å­˜");
 		
-		//ÍË³ö°´Å¥
+		//é€€å‡ºæŒ‰é’®
 		Button btnNewButton_1 = new Button(shell, SWT.NONE);
 		btnNewButton_1.addSelectionListener(new SelectionAdapter() {
 			@Override
@@ -122,88 +122,88 @@ public class Configuration {
 			}
 		});
 		btnNewButton_1.setBounds(253, 557, 72, 22);
-		btnNewButton_1.setText("ÍË³ö");
-		//ÅäÖÃÏîµÚÒ»×é
+		btnNewButton_1.setText("é€€å‡º");
+		//é…ç½®é¡¹ç¬¬ä¸€ç»„
 		Group group = new Group(shell, SWT.NONE);
 		group.setBounds(10, 10, 302, 357);
-		group.setText("»ù±¾ÅäÖÃÏî");
+		group.setText("åŸºæœ¬é…ç½®é¡¹");
 	
-		//´ú±íµØÖ·ÅäÖÃÏî
+		//ä»£è¡¨åœ°å€é…ç½®é¡¹
 		Label lblNewLabel = new Label(group, SWT.NONE);
 		lblNewLabel.setBounds(10, 51, 85, 18);
-		lblNewLabel.setText("´ú±íµØÖ·");
+		lblNewLabel.setText("ä»£è¡¨åœ°å€");
 		
 		text = new Text(group, SWT.BORDER);
 		text.setBounds(140, 48, 101, 18);
-		//TCP¶Ë¿ÚºÅÅäÖÃÏî
+		//TCPç«¯å£å·é…ç½®é¡¹
 		Label lblNewLabel_1 = new Label(group, SWT.NONE);
 		lblNewLabel_1.setBounds(10, 98, 79, 18);
-		lblNewLabel_1.setText("TCP¶Ë¿Ú");
+		lblNewLabel_1.setText("TCPç«¯å£");
 		
 		text_1 = new Text(group, SWT.BORDER);
 		text_1.setBounds(140, 95, 101, 18);
 		
-		//×Ó½ÚµãÊıÄ¿ÅäÖÃÏî
+		//å­èŠ‚ç‚¹æ•°ç›®é…ç½®é¡¹
 		Label lblNewLabel_2 = new Label(group, SWT.NONE);
 		lblNewLabel_2.setBounds(10, 137, 85, 18);
-		lblNewLabel_2.setText("×Ó½ÚµãÊıÄ¿");
+		lblNewLabel_2.setText("å­èŠ‚ç‚¹æ•°ç›®");
 		
 		text_2 = new Text(group, SWT.BORDER);
 		text_2.setBounds(140, 134, 101, 18);
 		
-		//×é²¥µØÖ·ÅäÖÃÏî
+		//ç»„æ’­åœ°å€é…ç½®é¡¹
 		Label lblNewLabel_3 = new Label(group, SWT.NONE);
 		lblNewLabel_3.setBounds(10, 179, 72, 15);
-		lblNewLabel_3.setText("×é²¥µØÖ·");
+		lblNewLabel_3.setText("ç»„æ’­åœ°å€");
 		
 		text_3 = new Text(group, SWT.BORDER);
 		text_3.setBounds(140, 176, 101, 18);
 		
-		//×é²¥¶Ë¿ÚºÅ
+		//ç»„æ’­ç«¯å£å·
 		Label lblNewLabel_4 = new Label(group, SWT.NONE);
 		lblNewLabel_4.setBounds(10, 218, 79, 15);
-		lblNewLabel_4.setText("×é²¥¶Ë¿ÚºÅ");
+		lblNewLabel_4.setText("ç»„æ’­ç«¯å£å·");
 		
 		text_4 = new Text(group, SWT.BORDER);
 		text_4.setBounds(140, 215, 101, 18);
 		
-		//¼ÓÈë³¬Ê±Ê±¼äÅäÖÃÏî
+		//åŠ å…¥è¶…æ—¶æ—¶é—´é…ç½®é¡¹
 		Label lblNewLabel_5 = new Label(group, SWT.NONE);
 		lblNewLabel_5.setBounds(10, 265, 108, 16);
-		lblNewLabel_5.setText("¼ÓÈëÖØÊÔ´ÎÊı");
+		lblNewLabel_5.setText("åŠ å…¥é‡è¯•æ¬¡æ•°");
 		
 		text_5 = new Text(group, SWT.BORDER);
 		text_5.setBounds(140, 262, 97, 22);
 		
-		//»º³åÇø´óĞ¡
+		//ç¼“å†²åŒºå¤§å°
 	
 		Label lblNewLabel_6 = new Label(group, SWT.NONE);
 		lblNewLabel_6.setBounds(10, 302, 85, 16);
-		lblNewLabel_6.setText("¶©ÔÄÍ¬²½ÖÜÆÚ");
+		lblNewLabel_6.setText("è®¢é˜…åŒæ­¥å‘¨æœŸ");
 		
 		text_6 = new Text(group, SWT.BORDER);
 		text_6.setBounds(140, 302, 97, 22);
 		
-		//ÅäÖÃÏîµÚ¶ş×é
+		//é…ç½®é¡¹ç¬¬äºŒç»„
 		Group group_1 = new Group(shell, SWT.NONE);
 		group_1.setBounds(10, 386, 302, 151);
-		group_1.setText("ĞÄÌø¼ì²âÅäÖÃÏî");
+		group_1.setText("å¿ƒè·³æ£€æµ‹é…ç½®é¡¹");
 		
 		Label lblNewLabel_7 = new Label(group_1, SWT.NONE);
 		lblNewLabel_7.setBounds(10, 28, 104, 16);
-		lblNewLabel_7.setText("ÅĞ¶¨Ê§Ğ§·§Öµ");
+		lblNewLabel_7.setText("åˆ¤å®šå¤±æ•ˆé˜€å€¼");
 		text_7 = new Text(group_1, SWT.BORDER);
 		text_7.setBounds(141, 22, 71, 22);
 		
 		Label lblNewLabel_8 = new Label(group_1, SWT.NONE);
 		lblNewLabel_8.setBounds(10, 72, 72, 16);
-		lblNewLabel_8.setText("É¨ÃèÖÜÆÚ");
+		lblNewLabel_8.setText("æ‰«æå‘¨æœŸ");
 		text_8 = new Text(group_1, SWT.BORDER);
 		text_8.setBounds(141, 72, 71, 22);
 		
 		Label lblNewLabel_9 = new Label(group_1, SWT.NONE);
 		lblNewLabel_9.setBounds(10, 114, 72, 16);
-		lblNewLabel_9.setText("·¢ËÍÖÜÆÚ");
+		lblNewLabel_9.setText("å‘é€å‘¨æœŸ");
 		text_9 = new Text(group_1, SWT.BORDER);
 		text_9.setBounds(141, 111, 71, 22);
 		
@@ -219,8 +219,8 @@ public class Configuration {
 	}
 	
 	public void setInitInfo(GroupConfiguration initInfo){
-	//	System.out.println("´ú±íµØÖ·Îª£º"+initInfo.repAddr);
-	//	System.out.println("¶Ë¿ÚºÅÎª£º"+initInfo.portT);
+	//	System.out.println("ä»£è¡¨åœ°å€ä¸ºï¼š"+initInfo.repAddr);
+	//	System.out.println("ç«¯å£å·ä¸ºï¼š"+initInfo.portT);
 	
 		text.setText(initInfo.repAddr);
 		text_1.setText(""+initInfo.tPort);

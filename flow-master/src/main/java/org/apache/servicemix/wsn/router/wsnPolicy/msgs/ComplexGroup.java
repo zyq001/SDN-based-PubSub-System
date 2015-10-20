@@ -17,7 +17,7 @@ public class ComplexGroup extends TargetMsg
 	private static final long serialVersionUID = 1L;
 	protected List<ComplexGroup> complexGroups;
 	protected List<TargetGroup> targetGroups;
-	protected boolean allMsg = false;  //ÊÇ·ñ°üº¬ÄÚ²¿ËùÓĞ³ÉÔ±£¬ÈôÊÇ°üÀ¨£¬ÆäÁĞ±í¿ÉÎª¿Õ¡£
+	protected boolean allMsg = false;  //æ˜¯å¦åŒ…å«å†…éƒ¨æ‰€æœ‰æˆå‘˜ï¼Œè‹¥æ˜¯åŒ…æ‹¬ï¼Œå…¶åˆ—è¡¨å¯ä¸ºç©ºã€‚
 
 
 	public boolean isAllMsg() {

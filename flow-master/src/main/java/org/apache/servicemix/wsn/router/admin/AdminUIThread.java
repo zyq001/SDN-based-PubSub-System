@@ -20,7 +20,7 @@ public class AdminUIThread implements Runnable {
 		Iterator<GroupUnit> Itr = Amgr.groups.values().iterator();
 		while (Itr.hasNext()) {
 			GroupUnit g = Itr.next();
-			Amgr.ui.recoverGroup(g);// 恢复集群信息，便于管理员查询
+			Amgr.ui.recoverGroup(g);// 鎭㈠闆嗙兢淇℃伅锛屼究浜庣鐞嗗憳鏌ヨ
 		}
 		// Display.getDefault().asyncExec(new Runnable(){
 

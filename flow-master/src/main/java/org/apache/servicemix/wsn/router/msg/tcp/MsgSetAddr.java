@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class MsgSetAddr implements Serializable {
 
-	//由管理者指定主机使用的地址 
+	//鐢辩鐞嗚�呮寚瀹氫富鏈轰娇鐢ㄧ殑鍦板潃 
 	
 	private static final long serialVersionUID = 1L;
 	

@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class UpdateTree implements Serializable {
 	/**
-	 * ¹ÜÀíÔ±Í¨Öª¸üĞÂÖ÷ÌâÊ÷
+	 * ç®¡ç†å‘˜é€šçŸ¥æ›´æ–°ä¸»é¢˜æ ‘
 	 */
 	private static final long serialVersionUID = 1L;
 	public String newName;

@@ -8,6 +8,14 @@
     <artifactId>SDN-based-PubSub-System</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+
+
+    <properties>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+
     <modules>
         <module>flow-master</module>
         <module>wsn-sdn</module>

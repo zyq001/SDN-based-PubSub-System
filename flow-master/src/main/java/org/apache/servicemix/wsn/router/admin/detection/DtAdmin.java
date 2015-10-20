@@ -7,20 +7,20 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import org.apache.servicemix.wsn.router.msg.udp.MsgHeart;
 public class DtAdmin implements DtAction, IDt, Runnable {
-	private long threshold = 45000;//Ê§Ğ§·§ÖµµÄÈ±Ê¡Öµ
-	private long sendPeriod = 10000;//·¢ËÍÆµÂÊµÄÈ±Ê¡Öµ
-	private long scanPeriod = 15000;//É¨ÃèÆµÂÊµÄÈ±Ê¡Öµ
-	private long synPeriod = 20000;//Í¬²½ÆµÂÊµÄÈ±Ê¡Öµ
+	private long threshold = 45000;//å¤±æ•ˆé˜€å€¼çš„ç¼ºçœå€¼
+	private long sendPeriod = 10000;//å‘é€é¢‘ç‡çš„ç¼ºçœå€¼
+	private long scanPeriod = 15000;//æ‰«æé¢‘ç‡çš„ç¼ºçœå€¼
+	private long synPeriod = 20000;//åŒæ­¥é¢‘ç‡çš„ç¼ºçœå€¼
 
-	private HrtMsgHdlr AdminMgr;//µ÷¶ÈÄ£¿é
+	private HrtMsgHdlr AdminMgr;//è°ƒåº¦æ¨¡å—
 
-	private Timer timer;//¼ÆÊ±Æ÷
-	private DtTask scanTask;//É¨ÃèÈÎÎñ
-	private DtTask sendTask;//·¢ËÍÈÎÎñ
-	private DtTask synTask;//Í¬²½ÈÎÎñ
+	private Timer timer;//è®¡æ—¶å™¨
+	private DtTask scanTask;//æ‰«æä»»åŠ¡
+	private DtTask sendTask;//å‘é€ä»»åŠ¡
+	private DtTask synTask;//åŒæ­¥ä»»åŠ¡
 
-	private ConcurrentHashMap<String, Long> tbl;//ĞÄÌøĞÅÏ¢±í£¬keyÎªÄ¿±ê±êÊ¶£¨Ä¿±êÊÇ¼¯ÈºµÄ»°Îª¼¯ÈºÃû£¬Ä¿±êÎª´úÀíµÄ»°ÎªÆäµØÖ·£©£¬valueÎªÊ±¼äµÄlong±íÊ¾
-	private ArrayBlockingQueue<MsgHeart> q;//ĞÄÌøÏûÏ¢µÄ¶ÓÁĞ
+	private ConcurrentHashMap<String, Long> tbl;//å¿ƒè·³ä¿¡æ¯è¡¨ï¼Œkeyä¸ºç›®æ ‡æ ‡è¯†ï¼ˆç›®æ ‡æ˜¯é›†ç¾¤çš„è¯ä¸ºé›†ç¾¤åï¼Œç›®æ ‡ä¸ºä»£ç†çš„è¯ä¸ºå…¶åœ°å€ï¼‰ï¼Œvalueä¸ºæ—¶é—´çš„longè¡¨ç¤º
+	private ArrayBlockingQueue<MsgHeart> q;//å¿ƒè·³æ¶ˆæ¯çš„é˜Ÿåˆ—
 
 	public DtAdmin(HrtMsgHdlr AdminMgr) {
 		this.AdminMgr = AdminMgr;
@@ -85,8 +85,8 @@ public class DtAdmin implements DtAction, IDt, Runnable {
 				System.out.println(cur.getTime());
 				if (cur.getTime() - tbl.get(in) > threshold) {
 					
-					int BackupIsPrimary = AdminMgr.BackupIsPrimary();//Óë±¸·İ·şÎñÆ÷½¨Á¢Á¬½Ó£¬Ì½Öª¶Ô·½ÊÇ·ñÊÇÖ÷¹ÜÀíÔ±
-					if (BackupIsPrimary == 0) {//¶Ô·½²»ÊÇÖ÷¹ÜÀíÔ±
+					int BackupIsPrimary = AdminMgr.BackupIsPrimary();//ä¸å¤‡ä»½æœåŠ¡å™¨å»ºç«‹è¿æ¥ï¼Œæ¢çŸ¥å¯¹æ–¹æ˜¯å¦æ˜¯ä¸»ç®¡ç†å‘˜
+					if (BackupIsPrimary == 0) {//å¯¹æ–¹ä¸æ˜¯ä¸»ç®¡ç†å‘˜
 					
 					//tell routing manager that some broker is timeout and remove the item
 					tbl.remove(in);

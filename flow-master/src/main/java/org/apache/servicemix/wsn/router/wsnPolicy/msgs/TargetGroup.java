@@ -10,7 +10,7 @@ import java.util.List;
 /**
  *
  */
- //²ßÂÔĞÅÏ¢ÖĞ¸½´øµÄ´ú±íĞÅÏ¢£¬Ö÷ÒªÓÃÀ´´æ´¢´úÀíĞÅÏ¢
+ //ç­–ç•¥ä¿¡æ¯ä¸­é™„å¸¦çš„ä»£è¡¨ä¿¡æ¯ï¼Œä¸»è¦ç”¨æ¥å­˜å‚¨ä»£ç†ä¿¡æ¯
 public class TargetGroup extends TargetMsg
 {
 	private static final long serialVersionUID = 1L;
@@ -61,13 +61,13 @@ public class TargetGroup extends TargetMsg
 	{
 		if(!this.equals(tg))
 			return;
-		//Èç¹ûtgËùÓĞĞÅÏ¢¾ùÊÜÏŞ
+		//å¦‚æœtgæ‰€æœ‰ä¿¡æ¯å‡å—é™
 		if(tg.isAllMsg()){
 			this.setAllMsg(true);
 			targetList.clear();
 			return;
 		}
-		//Èç¹ûµ±Ç°¼¯ÈºËùÓĞÖ÷»ú¾ùÊÜÏŞ
+		//å¦‚æœå½“å‰é›†ç¾¤æ‰€æœ‰ä¸»æœºå‡å—é™
 		if(this.allMsg)
 			return;
 		List<TargetRep> trs = tg.getTargetList();
@@ -86,7 +86,7 @@ public class TargetGroup extends TargetMsg
 				ttr.mergeMsg(tr);
 			}
 		}else{
-			//Èôº¬ÓĞtgÏÂµÄreps£¬ÔòÉ¾³ıÔ­À´µÄ£¬Ìí¼Óµ±Ç°µÄ
+			//è‹¥å«æœ‰tgä¸‹çš„repsï¼Œåˆ™åˆ é™¤åŸæ¥çš„ï¼Œæ·»åŠ å½“å‰çš„
 			for(int i=0; i<trs.size(); i++){
 				TargetRep tr = trs.get(i);
 				if(targetList.contains(tr)){
@@ -116,7 +116,7 @@ public class TargetGroup extends TargetMsg
 				ttr.deleteMsg(tr);
 			}
 		}else{
-			//Èôº¬ÓĞtgÏÂµÄreps£¬ÔòÉ¾³ı
+			//è‹¥å«æœ‰tgä¸‹çš„repsï¼Œåˆ™åˆ é™¤
 			for(int i=0; i<trs.size(); i++){
 				TargetRep tr = trs.get(i);
 				if(targetList.contains(tr)){
