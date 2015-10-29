@@ -4,6 +4,12 @@
  */
 package org.apache.servicemix.wsn.router.wsnPolicy;
 
+import org.apache.servicemix.wsn.router.wsnPolicy.msgs.ComplexGroup;
+import org.apache.servicemix.wsn.router.wsnPolicy.msgs.TargetGroup;
+import org.apache.servicemix.wsn.router.wsnPolicy.msgs.TargetMsg;
+import org.apache.servicemix.wsn.router.wsnPolicy.msgs.WsnPolicyMsg;
+import org.w3c.dom.*;
+
 import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -12,60 +18,69 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
-import org.apache.servicemix.wsn.router.wsnPolicy.msgs.ComplexGroup;
-import org.apache.servicemix.wsn.router.wsnPolicy.msgs.TargetGroup;
-import org.apache.servicemix.wsn.router.wsnPolicy.msgs.TargetMsg;
-import org.apache.servicemix.wsn.router.wsnPolicy.msgs.WsnPolicyMsg;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.NamedNodeMap;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-
 /**
- *encodeºóµÄ¸ñÊ½ÈçÏÂ:
- <wsnPolicy>
-	<policyMsg targetTopic="host_insert_msg">
-	  <arrayList name = "complexGroups">
-		 <ComplexGroup name = "complexGroup1">
- 			<ComplexGroup name = "complexGroup11">
- 				<TargetGroup name = "targetGroup111">
- 				....
- 				</TargetGroup>
- 			</ComplexGroup>
- 			<ComplexGroup name = "complexGroup12">
- 				.....
- 			</ComplexGroup>
- 		</ComplexGroup>
- 	</arrayList>
- 	<arrayList name = "targetGroups">
-		<TargetGroup groupName="G1">
-			<TargetRep repIp="repAddr">
-				<TargetHost hostIp="clientAddr">
-				</TargetHost>
-			</TargetRep>
-		</TargetGroup>
-		<TargetGroup groupName="G2">
-			<TargetRep repIp="repAddr">
-				<TargetHost hostIp="clientAddr">
-				</TargetHost>
-			</TargetRep>
-		</TargetGroup>
-	</arrayList>
-	</policyMsg>
-</wsnPolicy>
+ * encodeåçš„æ ¼å¼å¦‚ä¸‹:
+ * <wsnPolicy>
+ * <policyMsg targetTopic="host_insert_msg">
+ * <arrayList name = "complexGroups">
+ * <ComplexGroup name = "complexGroup1">
+ * <ComplexGroup name = "complexGroup11">
+ * <TargetGroup name = "targetGroup111">
+ * ....
+ * </TargetGroup>
+ * </ComplexGroup>
+ * <ComplexGroup name = "complexGroup12">
+ * .....
+ * </ComplexGroup>
+ * </ComplexGroup>
+ * </arrayList>
+ * <arrayList name = "targetGroups">
+ * <TargetGroup groupName="G1">
+ * <TargetRep repIp="repAddr">
+ * <TargetHost hostIp="clientAddr">
+ * </TargetHost>
+ * </TargetRep>
+ * </TargetGroup>
+ * <TargetGroup groupName="G2">
+ * <TargetRep repIp="repAddr">
+ * <TargetHost hostIp="clientAddr">
+ * </TargetHost>
+ * </TargetRep>
+ * </TargetGroup>
+ * </arrayList>
+ * </policyMsg>
+ * </wsnPolicy>
  */
 public class WsnPolicyMsgCodec {
 
+	private static final String MSGPACKAGE = "org.apache.servicemix.wsn.router.wsnPolicy.msgs.";
 	/**
 	 * Holds the owner document of the codec.
 	 */
 	protected Document document;
-	//ÊÇ·ñÍêÈ«±àÂë¡£ÈôÎªtrue£¬Ôò±àÂëÁ£¶ÈÖÁhost£¬ÈôÎªfalse£¬Ôò±àÂëÁ£¶ÈÖÁTargetGroup¡£
-	//ÔÚ±àÂëPolicyMsgÊ±£¬ÓÃÍêÈ«±àÂë£¬±àÂë¸´ºÏ¼¯ÈººÍµ¥Ôª¼¯ÈºĞÅÏ¢Ê±£¬ÓÃ²»ÍêÈ«±àÂë.
+	//æ˜¯å¦å®Œå…¨ç¼–ç ã€‚è‹¥ä¸ºtrueï¼Œåˆ™ç¼–ç ç²’åº¦è‡³hostï¼Œè‹¥ä¸ºfalseï¼Œåˆ™ç¼–ç ç²’åº¦è‡³TargetGroupã€‚
+	//åœ¨ç¼–ç PolicyMsgæ—¶ï¼Œç”¨å®Œå…¨ç¼–ç ï¼Œç¼–ç å¤åˆé›†ç¾¤å’Œå•å…ƒé›†ç¾¤ä¿¡æ¯æ—¶ï¼Œç”¨ä¸å®Œå…¨ç¼–ç .
 	protected boolean codeAll = true;
-	
-	private static final String MSGPACKAGE = "org.apache.servicemix.wsn.router.wsnPolicy.msgs.";
+
+	public WsnPolicyMsgCodec() {
+		this(ShorenUtils.createDocument());
+	}
+
+	public WsnPolicyMsgCodec(Document document) {
+		if (document == null) {
+			document = ShorenUtils.createDocument();
+		}
+
+		this.document = document;
+	}
+
+	//å°†å±æ€§attrçš„å€¼æ·»åŠ åˆ°æŒ‡å®šNodeä¸Šã€‚
+	public static void setAttribute(Node node, String attribute, Object value) {
+		if (node.getNodeType() == Node.ELEMENT_NODE && attribute != null
+				&& value != null) {
+			((Element) node).setAttribute(attribute, String.valueOf(value));
+		}
+	}
 
 	public boolean isCodeAll() {
 		return codeAll;
@@ -83,53 +98,30 @@ public class WsnPolicyMsgCodec {
 		this.document = document;
 	}
 
-	public WsnPolicyMsgCodec()
-	{
-		this(ShorenUtils.createDocument());
-	}
-	
-	public WsnPolicyMsgCodec(Document document)
-	{
-		if (document == null)
-		{
-			document = ShorenUtils.createDocument();
-		}
+	protected Node encodePolicyMsg(WsnPolicyMsg msg) {
 
-		this.document = document;
-	}
-	
-
-	
-	protected Node encodePolicyMsg(WsnPolicyMsg msg)
-	{
-		
 		Node node = null;
-		if(msg != null && msg.getTargetTopic() != null)
-		{
+		if (msg != null && msg.getTargetTopic() != null) {
 			node = this.document.createElement("policyMsg");
 			encodeFields(msg, node);
-		}			
+		}
 		return node;
 	}
-	
+
 	@SuppressWarnings("rawtypes")
-	protected void encodeFields(Object obj, Node node)
-	{
+	protected void encodeFields(Object obj, Node node) {
 		Class type = obj.getClass();
 
-		while (type != null)
-		{
+		while (type != null) {
 			Field[] fields = type.getDeclaredFields();
 
-			for (int i = 0; i < fields.length; i++)
-			{
+			for (int i = 0; i < fields.length; i++) {
 				Field f = fields[i];
 
-				//Ö»ÓĞprotected²Å½âÎö
-				if ((f.getModifiers() & Modifier.PROTECTED) == Modifier.PROTECTED)
-				{
+				//åªæœ‰protectedæ‰è§£æ
+				if ((f.getModifiers() & Modifier.PROTECTED) == Modifier.PROTECTED) {
 					String fieldname = f.getName();
-					Object value = getFieldValue(obj, fieldname);  
+					Object value = getFieldValue(obj, fieldname);
 					encodeValue(fieldname, value, node);
 				}
 			}
@@ -137,35 +129,29 @@ public class WsnPolicyMsgCodec {
 			type = type.getSuperclass();
 		}
 	}
-	
-	//½«Ö¸¶¨µÄº¢×Ó£¨filedNameÊÇ±êÇ©£¬ÖµÊÇvalue£©¼Óµ½node.	
+
+	//å°†æŒ‡å®šçš„å­©å­ï¼ˆfiledNameæ˜¯æ ‡ç­¾ï¼Œå€¼æ˜¯valueï¼‰åŠ åˆ°node.
 	@SuppressWarnings("rawtypes")
-	protected void encodeValue(String filedName, Object value , Node node)
-	{
-		//stringÀàĞÍµÄÖµ
-		if(value != null && !(value instanceof List))
-		{
+	protected void encodeValue(String filedName, Object value, Node node) {
+		//stringç±»å‹çš„å€¼
+		if (value != null && !(value instanceof List)) {
 			setAttribute(node, filedName, value);
-		}
-		else if(value != null && (value instanceof List) && !((List)value).isEmpty())
-		{
+		} else if (value != null && (value instanceof List) && !((List) value).isEmpty()) {
 
 			Node children = this.document.createElement("array");
 			setAttribute(children, "as", filedName);
-			
-			Iterator it = ((List)value).iterator();			
-			while(it.hasNext())
-			{
-				Object obj = it.next();				
-				if(obj instanceof TargetMsg)
-				{
-					//Èô±àÂëÁ£¶ÈÖÁTargetGroup,¶øobj²»ÊÇComplexGroupÀà£¬Ò²²»ÊÇTargetGroupÀà£¬Ôò·µ»Ø¡£
-					if((!isCodeAll()) && (!(obj instanceof TargetGroup 
+
+			Iterator it = ((List) value).iterator();
+			while (it.hasNext()) {
+				Object obj = it.next();
+				if (obj instanceof TargetMsg) {
+					//è‹¥ç¼–ç ç²’åº¦è‡³TargetGroup,è€Œobjä¸æ˜¯ComplexGroupç±»ï¼Œä¹Ÿä¸æ˜¯TargetGroupç±»ï¼Œåˆ™è¿”å›ã€‚
+					if ((!isCodeAll()) && (!(obj instanceof TargetGroup
 							|| obj instanceof ComplexGroup)))
 						return;
 					Class type = obj.getClass();
 					String stype = String.valueOf(type);
-					String label = stype.substring(stype.lastIndexOf(".")+1);
+					String label = stype.substring(stype.lastIndexOf(".") + 1);
 					Node child = this.document.createElement(label);
 					encodeFields(obj, child);
 					children.appendChild(child);
@@ -174,117 +160,77 @@ public class WsnPolicyMsgCodec {
 			node.appendChild(children);
 		}
 	}
-	
-	//½«ÊôĞÔattrµÄÖµÌí¼Óµ½Ö¸¶¨NodeÉÏ¡£
-	public static void setAttribute(Node node, String attribute, Object value)
-	{
-		if (node.getNodeType() == Node.ELEMENT_NODE && attribute != null
-				&& value != null)
-		{
-			((Element) node).setAttribute(attribute, String.valueOf(value));
-		}
-	}
-	
-	protected Object getFieldValue(Object obj, String fieldname)
-	{
+
+	protected Object getFieldValue(Object obj, String fieldname) {
 		Object value = null;
 
-		if (obj != null && fieldname != null)
-		{
+		if (obj != null && fieldname != null) {
 			Field field = getField(obj, fieldname);
 
-			try
-			{
-				if (field != null)
-				{
+			try {
+				if (field != null) {
 					value = field.get(obj);
 				}
-			}
-			catch (IllegalAccessException e1)
-			{
-				if (field != null)
-				{
-					try
-					{
+			} catch (IllegalAccessException e1) {
+				if (field != null) {
+					try {
 						Method method = getAccessor(obj, field, true);
 						value = method.invoke(obj, (Object[]) null);
-					}
-					catch (Exception e2)
-					{
+					} catch (Exception e2) {
 						// ignore
 					}
 				}
-			}
-			catch (Exception e)
-			{
+			} catch (Exception e) {
 				// ignore
 			}
 		}
 
 		return value;
 	}
-	
+
 	/**
 	 * Returns the accessor (getter, setter) for the specified field.
 	 */
-	protected Method getAccessor(Object obj, Field field, boolean isGetter)
-	{
+	protected Method getAccessor(Object obj, Field field, boolean isGetter) {
 		String name = field.getName();
 		name = name.substring(0, 1).toUpperCase() + name.substring(1);
 
-		if (!isGetter)
-		{
+		if (!isGetter) {
 			name = "set" + name;
-		}
-		else if (boolean.class.isAssignableFrom(field.getType()))
-		{
+		} else if (boolean.class.isAssignableFrom(field.getType())) {
 			name = "is" + name;
-		}
-		else
-		{
+		} else {
 			name = "get" + name;
 		}
 
-		try
-		{
-			if (isGetter)
-			{
+		try {
+			if (isGetter) {
 				return getMethod(obj, name, null);
+			} else {
+				return getMethod(obj, name, new Class[]{field.getType()});
 			}
-			else
-			{
-				return getMethod(obj, name, new Class[] { field.getType() });
-			}
-		}
-		catch (Exception e1)
-		{
+		} catch (Exception e1) {
 			// ignore
 		}
 
 		return null;
 	}
-	
+
 	/**
 	 * Returns the method with the specified signature.
 	 */
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	protected Method getMethod(Object obj, String methodname, Class[] params)
-	{
+	@SuppressWarnings({"rawtypes", "unchecked"})
+	protected Method getMethod(Object obj, String methodname, Class[] params) {
 		Class type = obj.getClass();
 
-		while (type != null)
-		{
-			try
-			{				
+		while (type != null) {
+			try {
 				Method method = type.getDeclaredMethod(methodname, params);
 
-				if (method != null)
-				{
+				if (method != null) {
 					return method;
 				}
-			}
-			catch (Exception e)
-			{
+			} catch (Exception e) {
 				// ignore
 			}
 
@@ -292,30 +238,24 @@ public class WsnPolicyMsgCodec {
 		}
 		return null;
 	}
-	
+
 	/**
 	 * Returns the field with the specified name.
 	 */
 	@SuppressWarnings("rawtypes")
-	protected Field getField(Object obj, String fieldname)
-	{
+	protected Field getField(Object obj, String fieldname) {
 		Class type = obj.getClass();
 
-		while (type != null)
-		{
-			try
-			{
+		while (type != null) {
+			try {
 				Field field = type.getDeclaredField(fieldname);
 
-				if (field != null)
-				{
+				if (field != null) {
 					return field;
 				}
-			}
-			catch (Exception e)
-			{
+			} catch (Exception e) {
 				// ignore
-			//	System.out.println("filedError!");
+				//	System.out.println("filedError!");
 			}
 
 			type = type.getSuperclass();
@@ -323,27 +263,23 @@ public class WsnPolicyMsgCodec {
 
 		return null;
 	}
-	
-	protected Node encodeTargetMsg(TargetMsg msg)
-	{
-		if(msg instanceof ComplexGroup)
-			return encodeComplexGroup((ComplexGroup)msg);
-		else if(msg instanceof TargetGroup)
-		{
+
+	protected Node encodeTargetMsg(TargetMsg msg) {
+		if (msg instanceof ComplexGroup)
+			return encodeComplexGroup((ComplexGroup) msg);
+		else if (msg instanceof TargetGroup) {
 			Node child = this.document.createElement("TargetGroup");
 			((Element) child).setAttribute("name", msg.getName());
 			return child;
 		}
 		return null;
 	}
-	
+
 	@SuppressWarnings("rawtypes")
-	protected Node encodeComplexGroup(ComplexGroup cgroup)
-	{
+	protected Node encodeComplexGroup(ComplexGroup cgroup) {
 		Node node = null;
-		if(cgroup != null)
-		{
-			node = this.document.createElement("ComplexGroup"); 
+		if (cgroup != null) {
+			node = this.document.createElement("ComplexGroup");
 			((Element) node).setAttribute("name", cgroup.getName());
 			List<ComplexGroup> complexGroups = cgroup.getComplexGroups();
 			List<TargetGroup> targetGroups = cgroup.getTargetGroups();
@@ -352,73 +288,61 @@ public class WsnPolicyMsgCodec {
 				((Element) node).setAttribute("as", "array");
 			}*/
 			Iterator itc = complexGroups.iterator();
-			while(itc.hasNext())
-			{
+			while (itc.hasNext()) {
 				ComplexGroup cg = (ComplexGroup) itc.next();
 				node.appendChild(encodeComplexGroup(cg));
 			}
-			
+
 			Iterator itg = targetGroups.iterator();
-			while(itg.hasNext())
-			{
-				TargetGroup tg = (TargetGroup)itg.next();
+			while (itg.hasNext()) {
+				TargetGroup tg = (TargetGroup) itg.next();
 				Node child = this.document.createElement("TargetGroup");
 				((Element) child).setAttribute("name", tg.getName());
 				node.appendChild(child);
 			}
 		}
-		 
+
 		return node;
 	}
 	
 	
 	/*--------------------------- decode part -----------------------------------------*/
 	/*
-	 * ËùÓĞµÄº¢×Ó½Úµã¶¼·ÅÔÚlistÖĞ.
+	 * æ‰€æœ‰çš„å­©å­èŠ‚ç‚¹éƒ½æ”¾åœ¨listä¸­.
 	 * */
-	
-	@SuppressWarnings({ "unchecked", "rawtypes" })
-	protected void setFieldValue(Object obj, String fieldname, Object value)
-	{
+
+	@SuppressWarnings({"unchecked", "rawtypes"})
+	protected void setFieldValue(Object obj, String fieldname, Object value) {
 		Field field = null;
 
-		try
-		{
+		try {
 			field = getField(obj, fieldname);
 
-			if (field.getType() == Boolean.class)
-			{
+			if (field.getType() == Boolean.class) {
 				value = new Boolean(value.equals("1")
 						|| String.valueOf(value).equalsIgnoreCase("true"));
 			}
 
 			field.set(obj, value);
-		}
-		catch (IllegalAccessException e1)
-		{
-			if (field != null)
-			{
-				try
-				{
-					
-					Method method = getAccessor(obj, field, false);  
+		} catch (IllegalAccessException e1) {
+			if (field != null) {
+				try {
+
+					Method method = getAccessor(obj, field, false);
 					Class type = method.getParameterTypes()[0];
 					value = convertValueFromXml(type, value);
 
 					// Converts collection to a typed array before setting
-					if (type.isArray() && value instanceof Collection)
-					{
+					if (type.isArray() && value instanceof Collection) {
 						Collection coll = (Collection) value;
 						value = coll.toArray((Object[]) Array.newInstance(type
 								.getComponentType(), coll.size()));
 					}
-					
-					//valueÊÇmethod²ÎÊı£¬ÊÇ²»ÊÇ¸ÃÖªµÀ²ÎÊıµÄÀàĞÍÏÈ£¿È»ºóÓÃvalueÀ´Éú³É²ÎÊı
-					if(value != null)
-						method.invoke(obj, new Object[] { value });
-				}
-				catch (Exception e2)
-				{
+
+					//valueæ˜¯methodå‚æ•°ï¼Œæ˜¯ä¸æ˜¯è¯¥çŸ¥é“å‚æ•°çš„ç±»å‹å…ˆï¼Ÿç„¶åç”¨valueæ¥ç”Ÿæˆå‚æ•°
+					if (value != null)
+						method.invoke(obj, new Object[]{value});
+				} catch (Exception e2) {
 					System.err.println("setFieldValue: " + e2 + " on "
 							+ obj.getClass().getSimpleName() + "." + fieldname
 							+ " (" + field.getType().getSimpleName() + ") = "
@@ -426,116 +350,87 @@ public class WsnPolicyMsgCodec {
 							+ ")");
 				}
 			}
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			// ignore
 		}
 	}
-	
+
 	/**
 	 * Converts XML attribute values to object of the given type.
 	 */
 	@SuppressWarnings("rawtypes")
-	protected Object convertValueFromXml(Class type, Object value)
-	{
-		if (value instanceof String && type.isPrimitive())
-		{
+	protected Object convertValueFromXml(Class type, Object value) {
+		if (value instanceof String && type.isPrimitive()) {
 			String tmp = (String) value;
 
-			if (type.equals(boolean.class))
-			{
-				if (tmp.equals("1") || tmp.equals("0"))
-				{
+			if (type.equals(boolean.class)) {
+				if (tmp.equals("1") || tmp.equals("0")) {
 					tmp = (tmp.equals("1")) ? "true" : "false";
 				}
 
 				value = new Boolean(tmp);
-			}
-			else if (type.equals(char.class))
-			{
+			} else if (type.equals(char.class)) {
 				value = new Character(tmp.charAt(0));
-			}
-			else if (type.equals(byte.class))
-			{
+			} else if (type.equals(byte.class)) {
 				value = new Byte(tmp);
-			}
-			else if (type.equals(short.class))
-			{
+			} else if (type.equals(short.class)) {
 				value = new Short(tmp);
-			}
-			else if (type.equals(int.class))
-			{
+			} else if (type.equals(int.class)) {
 				value = new Integer(tmp);
-			}
-			else if (type.equals(long.class))
-			{
+			} else if (type.equals(long.class)) {
 				value = new Long(tmp);
-			}
-			else if (type.equals(float.class))
-			{
+			} else if (type.equals(float.class)) {
 				value = new Float(tmp);
-			}
-			else if (type.equals(double.class))
-			{
+			} else if (type.equals(double.class)) {
 				value = new Double(tmp);
 			}
 		}
-		if(value instanceof String && (value.toString().equals("")||
-				 value.toString().equals("null")) && !type.isPrimitive())
+		if (value instanceof String && (value.toString().equals("") ||
+				value.toString().equals("null")) && !type.isPrimitive())
 			return null;
 
 		return value;
 	}
-	
-	
-	protected void decodePolicyMsg(Node node, Object obj)
-	{
+
+
+	protected void decodePolicyMsg(Node node, Object obj) {
 		decodeAttributes(node, obj);
 		decodeChildren(node, obj);
 	}
-	
-	//±éÀúÊôĞÔ£¬ÔÙµ÷ÓÃsetFieldValue
-	protected void decodeAttributes(Node node, Object obj)
-	{	
-		if(node.hasAttributes())
-		{
+
+	//éå†å±æ€§ï¼Œå†è°ƒç”¨setFieldValue
+	protected void decodeAttributes(Node node, Object obj) {
+		if (node.hasAttributes()) {
 			NamedNodeMap attrs = node.getAttributes();
-			for(int i=0; i<attrs.getLength(); i++)
-			{
+			for (int i = 0; i < attrs.getLength(); i++) {
 				Node attr = attrs.item(i);
 				String fieldname = attr.getNodeName();
 				String value = attr.getNodeValue();
 				setFieldValue(obj, fieldname, value);
 			}
 		}
-		
+
 	}
-	
-	@SuppressWarnings({ "unused", "unchecked", "rawtypes" })
-	protected void decodeChildren(Node node, Object obj)
-	{
-		if(node.hasChildNodes())
-		{
+
+	@SuppressWarnings({"unused", "unchecked", "rawtypes"})
+	protected void decodeChildren(Node node, Object obj) {
+		if (node.hasChildNodes()) {
 			System.out.println(node.getChildNodes().getLength());
 			Node child = node.getFirstChild();
-			while (child != null)
-			{
+			while (child != null) {
 
-				if(child.getNodeType() == Node.TEXT_NODE  && !child.getTextContent().startsWith("\n")) //protectedµÄÊôĞÔ
+				if (child.getNodeType() == Node.TEXT_NODE && !child.getTextContent().startsWith("\n")) //protectedçš„å±æ€§
 				{
-					decodeAttributes(child,obj);
+					decodeAttributes(child, obj);
 				}
-					
-				if (child.getNodeType() == Node.ELEMENT_NODE)
-				{
-					//ÈôobjÊÇwsnPolicyµÄÏà¹ØÀà
-					if(!isPrimitiveValue(obj,child.getNodeName()))
-					{
+
+				if (child.getNodeType() == Node.ELEMENT_NODE) {
+					//è‹¥objæ˜¯wsnPolicyçš„ç›¸å…³ç±»
+					if (!isPrimitiveValue(obj, child.getNodeName())) {
 						Object childObj = null;
 						try {
-							childObj = Class.forName(MSGPACKAGE+child.getNodeName()).newInstance();
-							setFieldValue(obj,childObj);
+							childObj = Class.forName(MSGPACKAGE + child.getNodeName()).newInstance();
+							setFieldValue(obj, childObj);
 						} catch (InstantiationException e) {
 							e.printStackTrace();
 						} catch (IllegalAccessException e) {
@@ -545,54 +440,39 @@ public class WsnPolicyMsgCodec {
 						}
 						decodeAttributes(child, childObj);
 						decodeChildren(child, childObj);
-						if(obj instanceof Collection)
-						{
+						if (obj instanceof Collection) {
 							((Collection) obj).add(childObj);
 						}
-					}
-					else if(child.getNodeName().equals("array"))
-					{
+					} else if (child.getNodeName().equals("array")) {
 						NamedNodeMap attrs = child.getAttributes();
-						for(int i=0; i<attrs.getLength(); i++)
-						{
+						for (int i = 0; i < attrs.getLength(); i++) {
 							Node attr = attrs.item(i);
 							String attrname = attr.getNodeName();
-							if(attrname.equals("as"))
-							{
+							if (attrname.equals("as")) {
 								String fieldname = attr.getNodeValue();
 								Field field = getField(obj, fieldname);
-								
+
 								Object value = null;
-								
+
 								Class type = field.getType();
 								Class type1 = field.getDeclaringClass();
 								String type2 = field.toGenericString();
-								
-								
-								try
-								{
-									if (field != null)
-									{
+
+
+								try {
+									if (field != null) {
 										value = field.get(obj);
 									}
-								}
-								catch (IllegalAccessException e1)
-								{
-									if (field != null)
-									{
-										try
-										{
+								} catch (IllegalAccessException e1) {
+									if (field != null) {
+										try {
 											Method method = getAccessor(obj, field, true);
 											value = method.invoke(obj, (Object[]) null);
-										}
-										catch (Exception e2)
-										{
+										} catch (Exception e2) {
 											// ignore
 										}
 									}
-								}
-								catch (Exception e)
-								{
+								} catch (Exception e) {
 									// ignore
 								}
 								setFieldValue(obj, fieldname, value);
@@ -603,40 +483,35 @@ public class WsnPolicyMsgCodec {
 				}
 				child = child.getNextSibling();
 			}
-		}	
+		}
 	}
-	
+
 	//suppose change the name to setFieldValues
 	@SuppressWarnings("rawtypes")
-	public void setFieldValue(Object obj, Object value)
-	{
+	public void setFieldValue(Object obj, Object value) {
 		Class type = obj.getClass();
-		if(type != null)
-		{
+		if (type != null) {
 			Field[] fields = type.getDeclaredFields();
-			for(int i = 0; i < fields.length; i++)
-			{
+			for (int i = 0; i < fields.length; i++) {
 				Field field = fields[i];
 				try {
 					Object o = getFieldValue(obj, field.getName());
-					if(field.getType().getName().equals(value.getClass().getName()) 
-							&& o==null)
-					{
+					if (field.getType().getName().equals(value.getClass().getName())
+							&& o == null) {
 						this.setFieldValue(obj, field.getName(), value);
 						return;
 					}
 				} catch (IllegalArgumentException e) {
 					e.printStackTrace();
-				} 
+				}
 			}
 		}
 	}
-	
-	protected boolean isPrimitiveValue(Object obj,String value)
-	{
+
+	protected boolean isPrimitiveValue(Object obj, String value) {
 		boolean is = true;
 		try {
-			Class.forName(MSGPACKAGE+value).newInstance();
+			Class.forName(MSGPACKAGE + value).newInstance();
 			is = false;
 		} catch (InstantiationException e) {
 			e.printStackTrace();
@@ -645,42 +520,35 @@ public class WsnPolicyMsgCodec {
 		} catch (ClassNotFoundException e) {
 			return is;
 		}
-		
+
 		return is;
 	}
-	
-	
-	protected ComplexGroup decodeComplexGroup(Node node)
-	{
+
+
+	protected ComplexGroup decodeComplexGroup(Node node) {
 		ComplexGroup cgroup = null;
 		String name = node.getAttributes().getNamedItem("name").getNodeValue();
 		cgroup = new ComplexGroup(name);
 		NodeList children = node.getChildNodes();
-		if(children != null)
-		{
-			for(int i=0; i<children.getLength(); i++)
-			{
+		if (children != null) {
+			for (int i = 0; i < children.getLength(); i++) {
 				Node child = children.item(i);
 				String cName = child.getNodeName();
-				if(cName.equals("ComplexGroup"))
-				{
+				if (cName.equals("ComplexGroup")) {
 					cgroup.getComplexGroups().add(decodeComplexGroup(child));
-				}
-				else if(cName.equals("TargetGroup"))
-				{
+				} else if (cName.equals("TargetGroup")) {
 					cgroup.getTargetGroups().add(decodeTargetGroup(child));
 				}
 			}
 		}
 		return cgroup;
 	}
-	
-	protected TargetGroup decodeTargetGroup(Node node)
-	{
+
+	protected TargetGroup decodeTargetGroup(Node node) {
 		TargetGroup tgroup = null;
 		String name = node.getAttributes().getNamedItem("name").getNodeValue();
-		tgroup = new TargetGroup(name);		
+		tgroup = new TargetGroup(name);
 		return tgroup;
 	}
-	
+
 }

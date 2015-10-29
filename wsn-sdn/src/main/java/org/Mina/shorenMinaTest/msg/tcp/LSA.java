@@ -1,54 +1,55 @@
 package org.Mina.shorenMinaTest.msg.tcp;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.concurrent.ConcurrentHashMap;
-import org.Mina.shorenMinaTest.msg.WsnMsg;
 import org.Mina.shorenMinaTest.handlers.Start;
 import org.Mina.shorenMinaTest.mgr.base.SysInfo;
+import org.Mina.shorenMinaTest.msg.WsnMsg;
 import org.Mina.shorenMinaTest.queues.ForwardMsg;
 import org.Mina.shorenMinaTest.queues.MsgQueueMgr;
 import org.Mina.shorenMinaTest.queues.TCPForwardMsg;
 import org.Mina.shorenMinaTest.router.searchRoute;
 import org.apache.mina.core.session.IoSession;
 
-public class LSA extends WsnMsg implements Serializable{
-	public int seqNum; // ĞòÁĞºÅ
-	public int syn; // 0ÎªÆÕÍ¨LSA£¬1ÎªÍ¬²½LSA
-	public String originator; // ·¢ËÍÔ´Ãû³Æ
-	public ArrayList<String> lostGroup; // ¶ªÊ§¼¯Èº£¬ÈôÎŞ¶ªÊ§ÔòÎª¿Õ
-	public ArrayList<String> subsTopics; // ·¢ËÍÔ´µÄ¶©ÔÄ
-	public ArrayList<String> cancelTopics; //·¢ËÍÔ´È¡ÏûµÄ¶©ÔÄ
-	public  ConcurrentHashMap<String, DistBtnNebr> distBtnNebrs; // ·¢ËÍÔ´ÓëÁÚ¾ÓµÄ¾àÀë
-	public long sendTime; //·¢ËÍÊ±¼ä
-	
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.concurrent.ConcurrentHashMap;
+
+public class LSA extends WsnMsg implements Serializable {
+	public int seqNum; // åºåˆ—å·
+	public int syn; // 0ä¸ºæ™®é€šLSAï¼Œ1ä¸ºåŒæ­¥LSA
+	public String originator; // å‘é€æºåç§°
+	public ArrayList<String> lostGroup; // ä¸¢å¤±é›†ç¾¤ï¼Œè‹¥æ— ä¸¢å¤±åˆ™ä¸ºç©º
+	public ArrayList<String> subsTopics; // å‘é€æºçš„è®¢é˜…
+	public ArrayList<String> cancelTopics; //å‘é€æºå–æ¶ˆçš„è®¢é˜…
+	public ConcurrentHashMap<String, DistBtnNebr> distBtnNebrs; // å‘é€æºä¸é‚»å±…çš„è·ç¦»
+	public long sendTime; //å‘é€æ—¶é—´
+
 	public void initLSA() {
 		this.lostGroup = new ArrayList<String>();
 		this.subsTopics = new ArrayList<String>();
 		this.cancelTopics = new ArrayList<String>();
 		this.distBtnNebrs = new ConcurrentHashMap<String, DistBtnNebr>();
 	}
-	
-	private ArrayList<String> getForwardIp(){
 
-		return Start.forwardIP=searchRoute.calForwardIP("500:3:6:10:15:20:26", "m", Start.testMap);
+	private ArrayList<String> getForwardIp() {
+
+		return Start.forwardIP = searchRoute.calForwardIP("500:3:6:10:15:20:26", "m", Start.testMap);
 	}
-	
-    public void processRegMsg(IoSession session){
-		
+
+	public void processRegMsg(IoSession session) {
+
 		ArrayList<String> forwardIp = getForwardIp();
-		//²ßÂÔ¿âµÄÎ»ÖÃ£¬ÓÉ²ßÂÔ¿âÀ´¹ıÂËip
+		//ç­–ç•¥åº“çš„ä½ç½®ï¼Œç”±ç­–ç•¥åº“æ¥è¿‡æ»¤ip
 		ForwardMsg forwardMsg = new TCPForwardMsg(forwardIp, SysInfo.gettPort(), this);
 		MsgQueueMgr.addTCPMsgInQueue(forwardMsg);
 
 	}
-	
-	public void processRepMsg(IoSession session){
-		
+
+	public void processRepMsg(IoSession session) {
+
 		ArrayList<String> forwardIp = getForwardIp();
-		//²ßÂÔ¿âµÄÎ»ÖÃ£¬ÓÉ²ßÂÔ¿âÀ´¹ıÂËip
+		//ç­–ç•¥åº“çš„ä½ç½®ï¼Œç”±ç­–ç•¥åº“æ¥è¿‡æ»¤ip
 		ForwardMsg forwardMsg = new TCPForwardMsg(forwardIp, SysInfo.gettPort(), this);
 		MsgQueueMgr.addTCPMsgInQueue(forwardMsg);
 	}
-	
+
 }

@@ -1,11 +1,12 @@
 package org.apache.servicemix.wsn;
 
-import org.oasis_open.docs.wsn.b_2.Notify;
 import org.apache.servicemix.wsn.jms.JmsSubscription;
+import org.oasis_open.docs.wsn.b_2.Notify;
 
-public class HandleNotifyThread extends AbstractNotificationBroker implements Runnable{
+public class HandleNotifyThread extends AbstractNotificationBroker implements Runnable {
 
 	private Notify notify = null;
+
 	public HandleNotifyThread(String name, Notify notify) {
 		super(name);
 		this.notify = notify;

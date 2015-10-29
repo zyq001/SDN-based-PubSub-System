@@ -24,19 +24,25 @@ class TargetMsg implements java.io.Serializable
 		this(null);
 	}
 	
+	public static void main(String[] args) {
+		TargetMsg t1 = new TargetMsg("a");
+		TargetMsg t2 = new TargetMsg("a");
+
+		System.out.println(t1.equals(t2));
+	}
+
 	public String getName() {
 		return name;
 	}
-
+	
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+ 
 	public String toString()
 	{
 		return getName();
 	}
- 
 	
 	public boolean equals(Object anObject)
 	{
@@ -56,12 +62,5 @@ class TargetMsg implements java.io.Serializable
 	public void deleteMsg(TargetMsg msg)
 	{
 		//ignore
-	}
-	
-	public static void main(String[] args) {
-		TargetMsg t1 = new TargetMsg("a");
-		TargetMsg t2 = new TargetMsg("a");
-
-		System.out.println(t1.equals(t2));
 	}
 }

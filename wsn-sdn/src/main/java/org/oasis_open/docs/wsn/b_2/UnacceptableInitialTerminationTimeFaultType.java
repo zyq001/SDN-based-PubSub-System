@@ -1,20 +1,16 @@
-
 package org.oasis_open.docs.wsn.b_2;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlSchemaType;
-import javax.xml.bind.annotation.XmlType;
-import javax.xml.datatype.XMLGregorianCalendar;
 import org.oasis_open.docs.wsrf.bf_2.BaseFaultType;
+
+import javax.xml.bind.annotation.*;
+import javax.xml.datatype.XMLGregorianCalendar;
 
 
 /**
  * <p>Java class for UnacceptableInitialTerminationTimeFaultType complex type.
- * 
+ * <p/>
  * <p>The following schema fragment specifies the expected content contained within this class.
- * 
+ * <p/>
  * <pre>
  * &lt;complexType name="UnacceptableInitialTerminationTimeFaultType">
  *   &lt;complexContent>
@@ -28,71 +24,60 @@ import org.oasis_open.docs.wsrf.bf_2.BaseFaultType;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- * 
- * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "UnacceptableInitialTerminationTimeFaultType", propOrder = {
-    "minimumTime",
-    "maximumTime"
+		"minimumTime",
+		"maximumTime"
 })
 public class UnacceptableInitialTerminationTimeFaultType
-    extends BaseFaultType
-{
+		extends BaseFaultType {
 
-    @XmlElement(name = "MinimumTime", required = true)
-    @XmlSchemaType(name = "dateTime")
-    protected XMLGregorianCalendar minimumTime;
-    @XmlElement(name = "MaximumTime")
-    @XmlSchemaType(name = "dateTime")
-    protected XMLGregorianCalendar maximumTime;
+	@XmlElement(name = "MinimumTime", required = true)
+	@XmlSchemaType(name = "dateTime")
+	protected XMLGregorianCalendar minimumTime;
+	@XmlElement(name = "MaximumTime")
+	@XmlSchemaType(name = "dateTime")
+	protected XMLGregorianCalendar maximumTime;
 
-    /**
-     * Gets the value of the minimumTime property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link XMLGregorianCalendar }
-     *     
-     */
-    public XMLGregorianCalendar getMinimumTime() {
-        return minimumTime;
-    }
+	/**
+	 * Gets the value of the minimumTime property.
+	 *
+	 * @return possible object is
+	 * {@link XMLGregorianCalendar }
+	 */
+	public XMLGregorianCalendar getMinimumTime() {
+		return minimumTime;
+	}
 
-    /**
-     * Sets the value of the minimumTime property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link XMLGregorianCalendar }
-     *     
-     */
-    public void setMinimumTime(XMLGregorianCalendar value) {
-        this.minimumTime = value;
-    }
+	/**
+	 * Sets the value of the minimumTime property.
+	 *
+	 * @param value allowed object is
+	 *              {@link XMLGregorianCalendar }
+	 */
+	public void setMinimumTime(XMLGregorianCalendar value) {
+		this.minimumTime = value;
+	}
 
-    /**
-     * Gets the value of the maximumTime property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link XMLGregorianCalendar }
-     *     
-     */
-    public XMLGregorianCalendar getMaximumTime() {
-        return maximumTime;
-    }
+	/**
+	 * Gets the value of the maximumTime property.
+	 *
+	 * @return possible object is
+	 * {@link XMLGregorianCalendar }
+	 */
+	public XMLGregorianCalendar getMaximumTime() {
+		return maximumTime;
+	}
 
-    /**
-     * Sets the value of the maximumTime property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link XMLGregorianCalendar }
-     *     
-     */
-    public void setMaximumTime(XMLGregorianCalendar value) {
-        this.maximumTime = value;
-    }
+	/**
+	 * Sets the value of the maximumTime property.
+	 *
+	 * @param value allowed object is
+	 *              {@link XMLGregorianCalendar }
+	 */
+	public void setMaximumTime(XMLGregorianCalendar value) {
+		this.maximumTime = value;
+	}
 
 }

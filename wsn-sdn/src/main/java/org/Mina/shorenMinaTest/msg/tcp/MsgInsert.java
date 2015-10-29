@@ -1,59 +1,51 @@
 package org.Mina.shorenMinaTest.msg.tcp;
 
-import java.io.IOException;
-import java.io.Serializable;
-import java.net.InetAddress;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.TreeSet;
-import org.Mina.shorenMinaTest.msg.WsnMsg;
-import org.apache.mina.core.session.IoSession;
-import org.Mina.shorenMinaTest.MinaUtil;
 import org.Mina.shorenMinaTest.handlers.Start;
-import org.Mina.shorenMinaTest.mgr.RtMgr;
-import org.Mina.shorenMinaTest.mgr.base.AState;
 import org.Mina.shorenMinaTest.mgr.base.SysInfo;
+import org.Mina.shorenMinaTest.msg.WsnMsg;
 import org.Mina.shorenMinaTest.queues.ForwardMsg;
 import org.Mina.shorenMinaTest.queues.MsgQueueMgr;
 import org.Mina.shorenMinaTest.queues.TCPForwardMsg;
-import org.Mina.shorenMinaTest.queues.UDPForwardMsg;
 import org.Mina.shorenMinaTest.router.searchRoute;
+import org.apache.mina.core.session.IoSession;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 
 
 @SuppressWarnings("serial")
 public class MsgInsert extends WsnMsg implements Serializable {
 
 	public String tagetGroupName;
-	
+
 	//my information
 	public String name;
-	
+
 	public int uPort;
-	
+
 	public String addr;
-	
+
 	public long id;
-	
+
 	public int tPort;
-	
+
 	public boolean needInit;//return group map and group subscriptions if true
-	
-	private ArrayList<String> getForwardIp(){
-		return Start.forwardIP=searchRoute.calForwardIP("500:3:6:10:15:20:26", "m", Start.testMap);
+
+	private ArrayList<String> getForwardIp() {
+		return Start.forwardIP = searchRoute.calForwardIP("500:3:6:10:15:20:26", "m", Start.testMap);
 	}
-	
-    public void processRegMsg(IoSession session){	
+
+	public void processRegMsg(IoSession session) {
 		ArrayList<String> forwardIp = getForwardIp();
-		//策略库的位置，由策略库来过滤ip
+		//绛栫暐搴撶殑浣嶇疆锛岀敱绛栫暐搴撴潵杩囨护ip
 		ForwardMsg forwardMsg = new TCPForwardMsg(forwardIp, SysInfo.gettPort(), this);
 		MsgQueueMgr.addTCPMsgInQueue(forwardMsg);
 
 	}
-	
-	public void processRepMsg(IoSession session){
+
+	public void processRepMsg(IoSession session) {
 		ArrayList<String> forwardIp = getForwardIp();
-		//策略库的位置，由策略库来过滤ip
+		//绛栫暐搴撶殑浣嶇疆锛岀敱绛栫暐搴撴潵杩囨护ip
 		ForwardMsg forwardMsg = new TCPForwardMsg(forwardIp, SysInfo.gettPort(), this);
 		MsgQueueMgr.addTCPMsgInQueue(forwardMsg);
 	}
@@ -80,7 +72,7 @@ public class MsgInsert extends WsnMsg implements Serializable {
 			mg.g.rep.tPort = tPort;
 			mg.g.date = new Date();
 
-			//信息写回
+			//淇℃伅鍐欏洖
 			session.write(mg);
 
 			//tell brokers about this group	
@@ -172,7 +164,7 @@ public class MsgInsert extends WsnMsg implements Serializable {
 			state.nextInsertChild = (state.nextInsertChild + 1) % state.childrenSize;
 		}
 
-		//信息写回
+		//淇℃伅鍐欏洖
 		session.write(mi_);
 
 	}

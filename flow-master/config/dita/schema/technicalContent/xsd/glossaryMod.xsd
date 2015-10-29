@@ -21,14 +21,15 @@
 <!--             All Rights Reserved.                              -->
 <!-- ============================================================= -->
 
- <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns:ditaarch="http://dita.oasis-open.org/architecture/2005/">
-     <!-- ==================== Import Section ======================= -->
-   
-     <!-- NOTE: The glossaryMod.xsd file was misnamed in DITA 1.1. For DITA 1.2, it simply
-          redirects to the correctly-named glossentryMod.xsd file.
-       -->
-     <xs:include schemaLocation="urn:oasis:names:tc:dita:xsd:glossentryMod.xsd:1.2"/>  
-   
-   
- </xs:schema>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified"
+        >
+    <!-- ==================== Import Section ======================= -->
+
+    <!-- NOTE: The glossaryMod.xsd file was misnamed in DITA 1.1. For DITA 1.2, it simply
+         redirects to the correctly-named glossentryMod.xsd file.
+      -->
+    <xs:include schemaLocation="urn:oasis:names:tc:dita:xsd:glossentryMod.xsd:1.2"/>
+
+
+</xs:schema>
  

@@ -1,7 +1,6 @@
 package edu.bupt.wangfu.sdn.router;
 
 import edu.bupt.wangfu.sdn.info.Switch;
-import edu.bupt.wangfu.sdn.info.Switch;
 
 import java.util.List;
 import java.util.Map;
@@ -11,8 +10,7 @@ import java.util.Map;
  */
 public class routeTable {
 
-    private Map<Switch, List<Switch>> routeMap;
-
+	private Map<Switch, List<Switch>> routeMap;
 
 
 }

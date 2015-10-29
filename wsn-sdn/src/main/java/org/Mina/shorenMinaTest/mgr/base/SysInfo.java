@@ -1,254 +1,287 @@
 package org.Mina.shorenMinaTest.mgr.base;
 
+import org.Mina.shorenMinaTest.msg.tcp.BrokerUnit;
+import org.Mina.shorenMinaTest.msg.tcp.GroupUnit;
+
 import java.util.ArrayList;
 import java.util.TreeSet;
 import java.util.concurrent.ConcurrentHashMap;
 
-import org.Mina.shorenMinaTest.MinaUtil;
-import org.Mina.shorenMinaTest.msg.tcp.BrokerUnit;
-import org.Mina.shorenMinaTest.msg.tcp.GroupUnit;
-
 
 public abstract class SysInfo {
 
-	//±¾µØÅäÖÃÏî
-	public static String adminAddr;//¹ÜÀíÕßµÄµØÖ·
-	public static int adminPort;//¹ÜÀíÕßµÃTCP¶Ë¿ÚºÅ
-	public static String groupName;//±¾¼¯ÈºµÄÃû×Ö
-	public static int tPort;//±¾µØTCP¶Ë¿ÚºÅ
-	public static String localAddr;//±¾ÏµÍ³µÄµØÖ·
-	public static int connectCount;//Á¬½Ó³ØÈÝÁ¿
-	public int EnQueueTime;//Èë¶ÓÊ±¼ä
-//	private static long thresholdInitialize;//³õÊ¼»¯¡ª¡ªÅÐ¶ÏÐÄÌø³¬Ê±µÄ·§Öµ
-//	private static long sendPeriodInitialize;//³õÊ¼»¯¡ª¡ª·¢ËÍÐÄÌøµÄÊ±¼ä¼ä¸ô
-//	private static long scanPeriodInitialize;//³õÊ¼»¯¡ª¡ªÉ¨ÃèÐÄÌøµÄÊ±¼ä¼ä¸ô
-//	private static long synPeriodInitialize;//³õÊ¼»¯¡ª¡ª·¢ËÍ¸üÐÂ¶©ÔÄµÄÊ±¼ä¼ä¸ô
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	public static String adminAddr;//ï¿½ï¿½ï¿½ï¿½ï¿½ßµÄµï¿½Ö·
+	public static int adminPort;//ï¿½ï¿½ï¿½ï¿½ï¿½ßµï¿½TCPï¿½Ë¿Úºï¿½
+	public static String groupName;//ï¿½ï¿½ï¿½ï¿½Èºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	public static int tPort;//ï¿½ï¿½ï¿½ï¿½TCPï¿½Ë¿Úºï¿½
+	public static String localAddr;//ï¿½ï¿½ÏµÍ³ï¿½Äµï¿½Ö·
+	public static int connectCount;//ï¿½ï¿½ï¿½Ó³ï¿½ï¿½ï¿½ï¿½ï¿½
+	//Ô¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	public static BrokerUnit rep;//ï¿½ï¿½ï¿½ï¿½Èºï¿½ï¿½ï¿½ï¿½Äµï¿½Ö·
+//	private static long thresholdInitialize;//ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½Ä·ï¿½Öµ
+//	private static long sendPeriodInitialize;//ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½
+//	private static long scanPeriodInitialize;//ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½
+//	private static long synPeriodInitialize;//ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ï¿½Â¶ï¿½ï¿½Äµï¿½Ê±ï¿½ï¿½ï¿½ï¿½
+	public static int childrenSize;//ï¿½ï¿½ï¿½ï¿½Äºï¿½ï¿½Ó½Úµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	public static String multiAddr;//ï¿½é²¥ï¿½ï¿½Ö·
+	public static int uPort;//UDPï¿½Ë¿ÚºÅ£ï¿½Í¬Ê±Ò²ï¿½ï¿½ï¿½é²¥ï¿½Ë¿Úºï¿½
+	public static int queueSize;//Â·ï¿½ï¿½Ä£ï¿½ï¿½ï¿½ï¿½Ð³ï¿½ï¿½ï¿½
+	public static int poolCount;//ï¿½ß³Ì³ï¿½ï¿½ï¿½ï¿½ï¿½
+	public static int joinTimes;//ï¿½ï¿½ï¿½Ô¼ï¿½ï¿½ï¿½Ä´ï¿½ï¿½ï¿½
+	public static long threshold;//ï¿½Ð¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½Ä·ï¿½Öµ
+	public static long sendPeriod;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½
+	public static long scanPeriod;//É¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½
+	public static long synPeriod;//ï¿½ï¿½ï¿½Í¸ï¿½ï¿½Â¶ï¿½ï¿½Äµï¿½Ê±ï¿½ï¿½ï¿½ï¿½
+	//others,ï¿½ï¿½ï¿½Ï¸ï¿½Îªprotected
+	public static ConcurrentHashMap<String, GroupUnit> groupMap;//ï¿½ï¿½ï¿½æµ±Ç°ï¿½ï¿½ï¿½ï¿½ï¿½Ú³ï¿½ï¿½Ë±ï¿½ï¿½ï¿½Èºï¿½ï¿½ï¿½ï¿½ï¿½Ð¼ï¿½Èºï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½keyÎªï¿½ï¿½Èºï¿½ï¿½
+	public static String parent;//ï¿½ï¿½ï¿½Úµã¼¯Èºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	public static ArrayList<String> children;//ï¿½ï¿½ï¿½Ó½ï¿½ã¼¯Èºï¿½ï¿½ï¿½ï¿½ï¿½ÖµÄ¼ï¿½ï¿½ï¿½
+	public static ConcurrentHashMap<String, BrokerUnit> neighbors;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú¼ï¿½Èºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½keyÎªï¿½ï¿½ï¿½ï¿½ï¿½Ö·
+	public static int nextInsertChild;//ï¿½ï¿½ï¿½ï¿½ï¿½Ó½Úµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½childrenSizeÊ±ï¿½ï¿½ï¿½ï¿½ï¿½Ú±ï¿½Ê¶ï¿½Â¼ï¿½Èºï¿½Ã²ï¿½ï¿½ï¿½Äºï¿½ï¿½Ó½ï¿½ï¿½ï¿½ï¿½Â±ï¿½
+	public static boolean joinOK;//ï¿½ï¿½Ê¶ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½É¹ï¿½
+	public static ArrayList<String> wait4Hrt;//ï¿½ï¿½Èºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±Ê±ï¿½ï¿½ï¿½ï¿½ï¿½Ô±ï¿½Ç¸Ã¼ï¿½Èºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½ï¿½ï¿½
+	public static long id;//ï¿½ï¿½ï¿½ï¿½ï¿½idÖµï¿½ï¿½ï¿½ï¿½ï¿½ë¼¯ÈºÊ±ï¿½É´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	//ï¿½ï¿½ï¿½Ä±ï¿½,ï¿½ï¿½ï¿½Ï¸ï¿½Îªprotected
+	public static ArrayList<String> clientTable;//ï¿½ï¿½ï¿½ØµÄ¶ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢,ï¿½ï¿½ï¿½ï¿½brokerï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½
+	public static ConcurrentHashMap<String, TreeSet<String>> brokerTable;//ï¿½ï¿½ï¿½ï¿½Èºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¶ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½keyÎªï¿½ï¿½ï¿½â£¬valueÎªï¿½ï¿½ï¿½Ä´ï¿½ï¿½ï¿½Äµï¿½Ö·
+	public static ConcurrentHashMap<String, TreeSet<String>> groupTable;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Èºï¿½Ä¶ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½keyÎªï¿½ï¿½ï¿½â£¬valueÎªï¿½ï¿½ï¿½Ä¼ï¿½Èºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	public static boolean udpMsgThreadSwitch;//ï¿½ï¿½ï¿½Ú¿ï¿½ï¿½Æ½ï¿½ï¿½ï¿½udpï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ß³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½
+	public static boolean tcpMsgThreadSwitch;//ï¿½ï¿½ï¿½Ú¿ï¿½ï¿½Æ½ï¿½ï¿½ï¿½tcpï¿½ï¿½ï¿½Óµï¿½ï¿½ß³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½
+	public int EnQueueTime;//ï¿½ï¿½ï¿½Ê±ï¿½ï¿½
 
-	//Ô¶³ÌÅäÖÃÏî
-	public static BrokerUnit rep;//±¾¼¯Èº´ú±íµÄµØÖ·
-	public static int childrenSize;//ÔÊÐíµÄº¢×Ó½ÚµãµÄÊýÁ¿
-	public static String multiAddr;//×é²¥µØÖ·
-	public static int uPort;//UDP¶Ë¿ÚºÅ£¬Í¬Ê±Ò²ÊÇ×é²¥¶Ë¿ÚºÅ
-	public static int queueSize;//Â·ÓÉÄ£¿é¶ÓÁÐ³¤¶È
-	public static int poolCount;//Ïß³Ì³ØÈÝÁ¿
-	public static int joinTimes;//³¢ÊÔ¼ÓÈëµÄ´ÎÊý
-	public static long threshold;//ÅÐ¶ÏÐÄÌø³¬Ê±µÄ·§Öµ
-	public static long sendPeriod;//·¢ËÍÐÄÌøµÄÊ±¼ä¼ä¸ô
-	public static long scanPeriod;//É¨ÃèÐÄÌøµÄÊ±¼ä¼ä¸ô
-	public static long synPeriod;//·¢ËÍ¸üÐÂ¶©ÔÄµÄÊ±¼ä¼ä¸ô
-	//others,¼¯ºÏ¸ÄÎªprotected
-	public static ConcurrentHashMap<String, GroupUnit> groupMap;//±£´æµ±Ç°ÍØÆËÄÚ³öÁË±¾¼¯ÈºÍâËùÓÐ¼¯ÈºµÄÐÅÏ¢£¬keyÎª¼¯ÈºÃû
-	public static String parent;//¸¸½Úµã¼¯ÈºµÄÃû×Ö
-	public static ArrayList<String> children;//º¢×Ó½áµã¼¯ÈºµÄÃû×ÖµÄ¼¯ºÏ
-	public static ConcurrentHashMap<String, BrokerUnit> neighbors;//±¾»úËùÔÚ¼¯ÈºµÄÆäËû´úÀí£¬keyÎª´úÀíµØÖ·
-	public static int nextInsertChild;//µ±º¢×Ó½ÚµãÊýÁ¿µÈÓÚchildrenSizeÊ±£¬ÓÃÓÚ±êÊ¶ÐÂ¼¯Èº¸Ã²åÈëµÄº¢×Ó½áµãµÄÏÂ±ê
-	public static boolean joinOK;//±êÊ¶¼ÓÈëÊÇ·ñ³É¹¦
-	public static ArrayList<String> wait4Hrt;//¼¯ÈºÐÄÌø³¬Ê±Ê±£¬ÓÃÒÔ±ê¼Ç¸Ã¼¯ÈºÕýÔÚÖØÑ¡´ú±í
-	public static long id;//´úÀíµÄidÖµ£¬¼ÓÈë¼¯ÈºÊ±ÓÉ´ú±í·ÖÅä
-	//¶©ÔÄ±í,¼¯ºÏ¸ÄÎªprotected
-	public static ArrayList<String> clientTable;//±¾µØµÄ¶©ÔÄÐÅÏ¢,±¾µØbroker¶©ÔÄÖ÷ÌâµÄ¼¯ºÏ
-	public static ConcurrentHashMap<String, TreeSet<String>> brokerTable;//±¾¼¯ÈºÀïÆäËû´úÀíµÄ¶©ÔÄÐÅÏ¢£¬keyÎªÖ÷Ìâ£¬valueÎª¶©ÔÄ´úÀíµÄµØÖ·
-	public static ConcurrentHashMap<String, TreeSet<String>> groupTable;//ÆäËû¼¯ÈºµÄ¶©ÔÄÐÅÏ¢£¬keyÎªÖ÷Ìâ£¬valueÎª¶©ÔÄ¼¯ÈºµÄÃû×Ö
-	public static boolean udpMsgThreadSwitch;//ÓÃÓÚ¿ØÖÆ½ÓÊÕudpÏûÏ¢µÄÏß³ÌÖØÆôµÄ¿ª¹Ø
-	public static boolean tcpMsgThreadSwitch;//ÓÃÓÚ¿ØÖÆ½ÓÊÕtcpÁ¬½ÓµÄÏß³ÌÖØÆôµÄ¿ª¹Ø
-	
 	public static String getGroupName() {
 		return groupName;
 	}
+
 	public static void setGroupName(String groupName) {
 		SysInfo.groupName = groupName;
 	}
-	
+
 	public static int gettPort() {
 		return tPort;
 	}
+
 	public static void settPort(int tPort) {
 		SysInfo.tPort = tPort;
 	}
-	
+
 	public static String getLocalAddr() {
 		return localAddr;
 	}
+
 	public static void setLocalAddr(String localAddr) {
 		SysInfo.localAddr = localAddr;
 	}
-	
+
 	public static int getQueueSize() {
 		return queueSize;
 	}
+
 	public static void setQueueSize(int queueSize) {
 		SysInfo.queueSize = queueSize;
 	}
-	
+
 	public static String getAdminAddr() {
 		return adminAddr;
 	}
+
 	public static void setAdminAddr(String adminAddr) {
 		SysInfo.adminAddr = adminAddr;
 	}
+
 	public static int getAdminPort() {
 		return adminPort;
 	}
+
 	public static void setAdminPort(int adminPort) {
 		SysInfo.adminPort = adminPort;
 	}
+
 	public static int getPoolCount() {
 		return poolCount;
 	}
+
 	public static void setPoolCount(int poolCount) {
 		SysInfo.poolCount = poolCount;
 	}
+
 	public static int getConnectCount() {
 		return connectCount;
 	}
+
 	public static void setConnectCount(int connectCount) {
 		SysInfo.connectCount = connectCount;
 	}
+
 	public static BrokerUnit getRep() {
 		return rep;
 	}
+
 	public static void setRep(BrokerUnit rep) {
 		SysInfo.rep = rep;
 	}
+
 	public static int getChildrenSize() {
 		return childrenSize;
 	}
+
 	public static void setChildrenSize(int childrenSize) {
 		SysInfo.childrenSize = childrenSize;
 	}
+
 	public static int getJoinTimes() {
 		return joinTimes;
 	}
+
 	public static void setJoinTimes(int joinTimes) {
 		SysInfo.joinTimes = joinTimes;
 	}
-	
-	
+
+
 	public static String getMultiAddr() {
 		return multiAddr;
 	}
+
 	public static void setMultiAddr(String multiAddr) {
 		SysInfo.multiAddr = multiAddr;
 	}
-	
+
 	public static int getuPort() {
 		return uPort;
 	}
+
 	public static void setuPort(int uPort) {
 		SysInfo.uPort = uPort;
 	}
-	
+
 	public static long getThreshold() {
 		return threshold;
 	}
+
 	public static void setThreshold(long threshold) {
 		SysInfo.threshold = threshold;
 	}
-	
+
 	public static long getSendPeriod() {
 		return sendPeriod;
 	}
+
 	public static void setSendPeriod(long sendPeriod) {
 		SysInfo.sendPeriod = sendPeriod;
 	}
-	
+
 	public static long getScanPeriod() {
 		return scanPeriod;
 	}
+
 	public static void setScanPeriod(long scanPeriod) {
 		SysInfo.scanPeriod = scanPeriod;
 	}
-	
+
 
 	public static long getSynPeriod() {
 		return synPeriod;
 	}
+
 	public static void setSynPeriod(long synPeriod) {
 		SysInfo.synPeriod = synPeriod;
 	}
-	
+
 	public static ConcurrentHashMap<String, GroupUnit> getGroupMap() {
 		return groupMap;
 	}
+
 	public static void setGroupMap(ConcurrentHashMap<String, GroupUnit> groupMap) {
 		SysInfo.groupMap = groupMap;
 	}
-	
+
 	public static String getParent() {
 		return parent;
 	}
+
 	public static void setParent(String parent) {
 		SysInfo.parent = parent;
 	}
-	
+
 	public static ArrayList<String> getChildren() {
 		return children;
 	}
+
 	public static void setChildren(ArrayList<String> children) {
 		SysInfo.children = children;
 	}
-	
+
 	public static ConcurrentHashMap<String, BrokerUnit> getNeighbors() {
 		return neighbors;
 	}
+
 	public static void setNeighbors(ConcurrentHashMap<String, BrokerUnit> neighbors) {
 		SysInfo.neighbors = neighbors;
 	}
-	
+
 	public static int getNextInsertChild() {
 		return nextInsertChild;
 	}
+
 	public static void setNextInsertChild(int nextInsertChild) {
 		SysInfo.nextInsertChild = nextInsertChild;
 	}
-	
+
 	public static boolean isJoinOK() {
 		return joinOK;
 	}
+
 	public static void setJoinOK(boolean joinOK) {
 		SysInfo.joinOK = joinOK;
 	}
-	
+
 	public static ArrayList<String> getWait4Hrt() {
 		return wait4Hrt;
 	}
+
 	public static void setWait4Hrt(ArrayList<String> wait4Hrt) {
 		SysInfo.wait4Hrt = wait4Hrt;
 	}
-	
+
 
 	public static long getId() {
 		return id;
 	}
+
 	public static void setId(long id) {
 		SysInfo.id = id;
 	}
-	
+
 	public static ArrayList<String> getClientTable() {
 		return clientTable;
 	}
+
 	public static void setClientTable(ArrayList<String> clientTable) {
 		SysInfo.clientTable = clientTable;
 	}
-	
+
 	public static ConcurrentHashMap<String, TreeSet<String>> getBrokerTable() {
 		return brokerTable;
 	}
+
 	public static void setBrokerTable(ConcurrentHashMap<String, TreeSet<String>> brokerTable) {
 		SysInfo.brokerTable = brokerTable;
 	}
-	
+
 
 	public static ConcurrentHashMap<String, TreeSet<String>> getGroupTable() {
 		return groupTable;
 	}
+
 	public static void setGroupTable(ConcurrentHashMap<String, TreeSet<String>> groupTable) {
 		SysInfo.groupTable = groupTable;
 	}
-	
+
 	public static boolean isUdpMsgThreadSwitch() {
 		return udpMsgThreadSwitch;
 	}
+
 	public static void setUdpMsgThreadSwitch(boolean udpMsgThreadSwitch) {
 		SysInfo.udpMsgThreadSwitch = udpMsgThreadSwitch;
 	}
@@ -256,6 +289,7 @@ public abstract class SysInfo {
 	public static boolean isTcpMsgThreadSwitch() {
 		return tcpMsgThreadSwitch;
 	}
+
 	public static void setTcpMsgThreadSwitch(boolean tcpMsgThreadSwitch) {
 		SysInfo.tcpMsgThreadSwitch = tcpMsgThreadSwitch;
 	}

@@ -1,13 +1,5 @@
 package org.apache.servicemix.wsn.router.mgr;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Observable;
-import java.util.Observer;
-import java.util.TreeSet;
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.ExecutorService;
-
 import org.Mina.shorenMinaTest.handlers.Start;
 import org.Mina.shorenMinaTest.msg.WsnMsg;
 import org.Mina.shorenMinaTest.queues.ForwardMsg;
@@ -27,32 +19,28 @@ import org.apache.servicemix.wsn.router.msg.udp.MsgSubs;
 import org.apache.servicemix.wsn.router.router.IRouter;
 import org.apache.servicemix.wsn.router.router.Router;
 
-public class RtMgr extends SysInfo implements IRouter, Observer {
-	private static Log log = LogFactory.getLog(RtMgr.class);
-	private AConfiguration configuration;// 配置系统
+import java.util.*;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.ExecutorService;
 
+public class RtMgr extends SysInfo implements IRouter, Observer {
+	public static ExecutorService pool;// 处理wsn的线程池
+	private static Log log = LogFactory.getLog(RtMgr.class);
+	private static int count;// 允许处理“上交WSN”的并发线程数目
+	private static int poolLimit;// 线程池容量//多次声明的问题//注意编码层次
+	private static RtMgr INSTANCE = new RtMgr();
+	private static Object routeObject;
+	private AConfiguration configuration;// 配置系统
 	private AState regState;// 普通代理状态
 	private AState repState;// 代表状态
 	private AState state;// 当前状态
-
+	// private int Ncount;//计数器，log用，以免多线程后，线程混淆
 	private IDt dt;// 集群内检测模块
 	private IRouter ir;// 路由算法模块
-
-	private static int count;// 允许处理“上交WSN”的并发线程数目
-	public static ExecutorService pool;// 处理wsn的线程池
-	private static int poolLimit;// 线程池容量//多次声明的问题//注意编码层次
-	// private int Ncount;//计数器，log用，以免多线程后，线程混淆
-
 	private ArrayBlockingQueue<MsgNotis> mq;// 通知消息缓存队列
-
 	private Thread tmt;// 监听tcp连接的线程
 	private Thread umt;// 监听udp消息的线程
-
-	private static RtMgr INSTANCE = new RtMgr();
-
 	private Object synObject;
-
-	private static Object routeObject;
 
 	private RtMgr() {
 
@@ -116,6 +104,120 @@ public class RtMgr extends SysInfo implements IRouter, Observer {
 		}
 	}
 
+	public static void main(String[] args) {
+		RtMgr.getInstance();
+	}
+
+	public static RtMgr getInstance() {
+		if (INSTANCE == null)
+			INSTANCE = new RtMgr();
+		return INSTANCE;
+
+	}
+
+	public synchronized static void add() {
+		count++;
+	}
+
+	public synchronized static void subtract() {
+		count--;
+	}
+
+	public synchronized static boolean limitbool() {
+		if (count < poolLimit)
+			return true;
+		else
+			return false;
+	}
+
+	// 根据标题名称和转发源查找要转发的节点
+	public static ArrayList<String> calForwardGroups(String topic,
+	                                                 String originator) {
+		synchronized (routeObject) {
+			ArrayList<String> forwardGroups = new ArrayList<String>();
+			MsgSubsForm msf = groupTableRoot;
+			boolean thisGroup = false;
+			if (originator.equals(groupName) || originator.equals(rep.addr)
+					|| fellows.containsKey(originator))
+				thisGroup = true;
+			String[] splited = topic.split(":");
+			String temp = "";
+			for (int i = 0; i < splited.length; i++) {
+				if (msf.topicChildList.containsKey(splited[i]))
+					msf = msf.topicChildList.get(splited[i]);
+				else
+					break;
+				if (thisGroup && msf.routeRoot != null
+						&& msf.routeRoot.length() > 0) {
+					forwardGroups.add(msf.routeRoot);
+				}
+				if (i > 0)
+					temp += ":";
+				temp += splited[i];
+				if (brokerTable.containsKey(temp) || clientTable.contains(temp)) {
+					if (!msf.routeNext.isEmpty())
+						forwardGroups.addAll(msf.routeNext);
+					if (!thisGroup)
+						break;
+				}
+			}
+			if (forwardGroups.contains(originator)) {
+				forwardGroups.remove(originator);
+			}
+			if (forwardGroups.contains(groupName)) {
+				forwardGroups.remove(groupName);
+			}
+			return forwardGroups;
+		}
+	}
+
+	// 修改主题树名称
+	public static void changeTopicName(String oldName, String newName) {
+		String[] old = oldName.split(":");
+		String[] nw = newName.split(":");
+		MsgSubsForm msf = groupTableRoot;
+		MsgSubsForm pre = msf;
+		int i;
+		for (i = 0; i < old.length; i++) {
+			if (msf.topicChildList.containsKey(old[i])) {
+				pre = msf;
+				msf = msf.topicChildList.get(old[i]);
+			} else {
+				break;
+			}
+		}
+		if (i < oldName.length()) {
+			return;
+		}
+
+		MsgSubsForm nmsf = pre.topicChildList.get(old[i]);
+		pre.topicChildList.remove(old[i]);
+		pre.topicChildList.put(nw[i], nmsf);
+
+		boolean send = false;
+		for (String sub : clientTable) {
+			if (sub.startsWith(oldName)) {
+				clientTable.remove(sub);
+				sub.replace(newName, oldName);
+				clientTable.add(sub);
+				send = true;
+			}
+		}
+		for (String key : brokerTable.keySet()) {
+			if (key.startsWith(oldName)) {
+				TreeSet<String> brokers = brokerTable.get(key);
+				brokerTable.remove(key);
+				key.replace(newName, oldName);
+				brokerTable.put(key, brokers);
+				send = true;
+			}
+		}
+
+		if (send && RtMgr.rep.addr.equals(localAddr)) {
+			RtMgr.getInstance().getState().synLSA();
+		}
+	}
+
 	public AState getRegState() {
 		return regState;
 	}
@@ -125,12 +227,12 @@ public class RtMgr extends SysInfo implements IRouter, Observer {
 		return repState;
 	}
 
-	public void setState(AState state) {
-		this.state = state;
-	}
-
 	public AState getState() {
 		return state;
+	}
+
+	public void setState(AState state) {
+		this.state = state;
 	}
 
 	public int getUPort() {
@@ -188,21 +290,10 @@ public class RtMgr extends SysInfo implements IRouter, Observer {
 		state.sendSbp(obj);
 	}
 
-	public static void main(String[] args) {
-		RtMgr.getInstance();
-	}
-
 	public void route(String topic) {
 		synchronized (routeObject) {
 			ir.route(topic);
 		}
-	}
-
-	public static RtMgr getInstance() {
-		if (INSTANCE == null)
-			INSTANCE = new RtMgr();
-		return INSTANCE;
-
 	}
 
 	public void update(Observable o, Object arg) {// 被上层wsn调用的接口
@@ -288,7 +379,7 @@ public class RtMgr extends SysInfo implements IRouter, Observer {
 							(WsnMsg) mns);
 					MsgQueueMgr.addTCPMsgInQueue(forwardMsg);
 				} else {
-				//	System.out.println("eventType:A:sent" + eventType);
+					//	System.out.println("eventType:A:sent" + eventType);
 					Start.generateHighPrioriyMsg(mns);//rep send to other rep
 
 				}
@@ -372,20 +463,9 @@ public class RtMgr extends SysInfo implements IRouter, Observer {
 		}
 	}
 
-	public synchronized static void add() {
-		count++;
-	}
-
-	public synchronized static void subtract() {
-		count--;
-	}
-
-	public synchronized static boolean limitbool() {
-		if (count < poolLimit)
-			return true;
-		else
-			return false;
-	}
+	// protected synchronized void substractLimit(){
+	// poolLimit--;
+	// }
 
 	protected synchronized boolean countboolten() {
 		if (count < 1)
@@ -394,22 +474,18 @@ public class RtMgr extends SysInfo implements IRouter, Observer {
 			return false;
 	}
 
+	// protected synchronized void limtToHalf() {
+	// poolLimit=poolLimit/2;
+	// }
+
 	protected synchronized void addLimit() {
 		if (poolLimit < poolCount)
 			poolLimit++;
 	}
 
-	// protected synchronized void substractLimit(){
-	// poolLimit--;
-	// }
-
 	protected synchronized void limtTo1() {
 		poolLimit = 1;
 	}
-
-	// protected synchronized void limtToHalf() {
-	// poolLimit=poolLimit/2;
-	// }
 
 	// 添加或删除订阅时总返回ArrayList<String>形式的被改变订阅的标题
 	// 以标题带一堆集群的形式加订阅
@@ -458,7 +534,7 @@ public class RtMgr extends SysInfo implements IRouter, Observer {
 
 	// 删除孩子节点中此订阅集群
 	protected ArrayList<String> DeleteRepeatedSub(String topic,
-			MsgSubsForm msf, String group) {
+	                                              MsgSubsForm msf, String group) {
 		ArrayList<String> changedTopics = new ArrayList<String>();
 		if (!msf.topicChildList.isEmpty())
 			for (MsgSubsForm m : msf.topicChildList.values()) {
@@ -489,7 +565,7 @@ public class RtMgr extends SysInfo implements IRouter, Observer {
 
 	// 删除一个集群的指定订阅
 	public ArrayList<String> DeleteSubsByGroup(String group,
-			ArrayList<String> topics) {
+	                                           ArrayList<String> topics) {
 		ArrayList<String> changedTopics = new ArrayList<String>();
 		for (String topic : topics) {
 			String[] classify = topic.split(":");
@@ -518,7 +594,7 @@ public class RtMgr extends SysInfo implements IRouter, Observer {
 
 	// 删除一个集群的订阅
 	public ArrayList<String> DeleteSubsByGroup(String group, MsgSubsForm root,
-			String topic) {
+	                                           String topic) {
 		ArrayList<String> changedTopics = new ArrayList<String>();
 		if (root.subs.contains(group)) {
 			root.subs.remove(group);
@@ -584,93 +660,5 @@ public class RtMgr extends SysInfo implements IRouter, Observer {
 			for (MsgSubsForm msf : topicRoot.topicChildList.values()) {
 				CalTopicRoute(topic, msf);
 			}
-	}
-
-	// 根据标题名称和转发源查找要转发的节点
-	public static ArrayList<String> calForwardGroups(String topic,
-			String originator) {
-		synchronized (routeObject) {
-			ArrayList<String> forwardGroups = new ArrayList<String>();
-			MsgSubsForm msf = groupTableRoot;
-			boolean thisGroup = false;
-			if (originator.equals(groupName) || originator.equals(rep.addr)
-					|| fellows.containsKey(originator))
-				thisGroup = true;
-			String[] splited = topic.split(":");
-			String temp = "";
-			for (int i = 0; i < splited.length; i++) {
-				if (msf.topicChildList.containsKey(splited[i]))
-					msf = msf.topicChildList.get(splited[i]);
-				else
-					break;
-				if (thisGroup && msf.routeRoot != null
-						&& msf.routeRoot.length() > 0) {
-					forwardGroups.add(msf.routeRoot);
-				}
-				if (i > 0)
-					temp += ":";
-				temp += splited[i];
-				if (brokerTable.containsKey(temp) || clientTable.contains(temp)) {
-					if (!msf.routeNext.isEmpty())
-						forwardGroups.addAll(msf.routeNext);
-					if (!thisGroup)
-						break;
-				}
-			}
-			if (forwardGroups.contains(originator)) {
-				forwardGroups.remove(originator);
-			}
-			if (forwardGroups.contains(groupName)) {
-				forwardGroups.remove(groupName);
-			}
-			return forwardGroups;
-		}
-	}
-
-	// 修改主题树名称
-	public static void changeTopicName(String oldName, String newName) {
-		String[] old = oldName.split(":");
-		String[] nw = newName.split(":");
-		MsgSubsForm msf = groupTableRoot;
-		MsgSubsForm pre = msf;
-		int i;
-		for (i = 0; i < old.length; i++) {
-			if (msf.topicChildList.containsKey(old[i])) {
-				pre = msf;
-				msf = msf.topicChildList.get(old[i]);
-			} else {
-				break;
-			}
-		}
-		if (i < oldName.length()) {
-			return;
-		}
-
-		MsgSubsForm nmsf = pre.topicChildList.get(old[i]);
-		pre.topicChildList.remove(old[i]);
-		pre.topicChildList.put(nw[i], nmsf);
-
-		boolean send = false;
-		for (String sub : clientTable) {
-			if (sub.startsWith(oldName)) {
-				clientTable.remove(sub);
-				sub.replace(newName, oldName);
-				clientTable.add(sub);
-				send = true;
-			}
-		}
-		for (String key : brokerTable.keySet()) {
-			if (key.startsWith(oldName)) {
-				TreeSet<String> brokers = brokerTable.get(key);
-				brokerTable.remove(key);
-				key.replace(newName, oldName);
-				brokerTable.put(key, brokers);
-				send = true;
-			}
-		}
-
-		if (send && RtMgr.rep.addr.equals(localAddr)) {
-			RtMgr.getInstance().getState().synLSA();
-		}
 	}
 }

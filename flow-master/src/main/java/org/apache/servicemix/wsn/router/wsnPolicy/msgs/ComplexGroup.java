@@ -12,13 +12,42 @@ import java.util.Set;
 /**
  *
  */
-public class ComplexGroup extends TargetMsg
-{	
+public class ComplexGroup extends TargetMsg {
 	private static final long serialVersionUID = 1L;
 	protected List<ComplexGroup> complexGroups;
 	protected List<TargetGroup> targetGroups;
 	protected boolean allMsg = false;  //是否包含内部所有成员，若是包括，其列表可为空。
 
+
+	public ComplexGroup() {
+		this(null, null, null);
+	}
+
+	public ComplexGroup(String complexName) {
+		this(complexName, null, null);
+	}
+
+	public ComplexGroup(String complexName, List<ComplexGroup> complexGroups) {
+		this(complexName, complexGroups, null);
+	}
+
+	public ComplexGroup(String complexName, List<ComplexGroup> complexGroups, List<TargetGroup> targetGroups) {
+		this.name = complexName;
+		this.complexGroups = new ArrayList<ComplexGroup>();
+		this.targetGroups = new ArrayList<TargetGroup>();
+
+		if (complexGroups != null) {
+			for (int i = 0; i < complexGroups.size(); i++) {
+				this.complexGroups.add(complexGroups.get(i));
+			}
+		}
+
+		if (targetGroups != null) {
+			for (int i = 0; i < targetGroups.size(); i++) {
+				this.targetGroups.add(targetGroups.get(i));
+			}
+		}
+	}
 
 	public boolean isAllMsg() {
 		return allMsg;
@@ -28,52 +57,14 @@ public class ComplexGroup extends TargetMsg
 		this.allMsg = allMsg;
 	}
 
-	public ComplexGroup()
-	{
-		this(null,null,null);
-	}
-	
-	public ComplexGroup(String complexName)
-	{
-		this(complexName,null,null);
-	}
-	
-	public ComplexGroup(String complexName, List<ComplexGroup> complexGroups)
-	{
-		this(complexName,complexGroups,null);
-	}	
-	
-	public ComplexGroup(String complexName, List<ComplexGroup> complexGroups, List<TargetGroup> targetGroups)
-	{
-		this.name = complexName;
-		this.complexGroups = new ArrayList<ComplexGroup>();
-		this.targetGroups = new ArrayList<TargetGroup>();
-		
-		if(complexGroups != null)
-		{			
-			for(int i=0; i<complexGroups.size(); i++)
-			{
-				this.complexGroups.add(complexGroups.get(i));
-			}
-		}
-		
-		if(targetGroups != null)
-		{			
-			for(int i=0; i<targetGroups.size(); i++)
-			{
-				this.targetGroups.add(targetGroups.get(i));
-			}
-		}		
-	}
-
 	public List<ComplexGroup> getComplexGroups() {
 		return complexGroups;
 	}
-	
+
 	public void setComplexGroups(List<ComplexGroup> complexGroups) {
 		this.complexGroups = complexGroups;
 	}
-	
+
 	public List<TargetGroup> getTargetGroups() {
 		return targetGroups;
 	}
@@ -81,19 +72,15 @@ public class ComplexGroup extends TargetMsg
 	public void setTargetGroups(List<TargetGroup> targetGroups) {
 		this.targetGroups = targetGroups;
 	}
-	
-	protected Set<TargetGroup> getGroups()
-	{
+
+	protected Set<TargetGroup> getGroups() {
 		Set<TargetGroup> tgs = new HashSet<TargetGroup>();
-		if(!complexGroups.isEmpty())
-		{
-			for(int i=0; i<complexGroups.size();i++)
-			{
+		if (!complexGroups.isEmpty()) {
+			for (int i = 0; i < complexGroups.size(); i++) {
 				tgs.addAll(complexGroups.get(i).getGroups());
 			}
 		}
-		if(!targetGroups.isEmpty())
-		{
+		if (!targetGroups.isEmpty()) {
 			tgs.addAll(targetGroups);
 		}
 		return tgs;

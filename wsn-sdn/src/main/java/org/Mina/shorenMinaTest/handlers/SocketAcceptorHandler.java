@@ -4,74 +4,71 @@
  */
 package org.Mina.shorenMinaTest.handlers;
 
+import org.Mina.shorenMinaTest.MinaUtil;
+import org.Mina.shorenMinaTest.mgr.RtMgr;
+import org.Mina.shorenMinaTest.msg.WsnMsg;
 import org.apache.log4j.Logger;
 import org.apache.mina.core.service.IoHandlerAdapter;
 import org.apache.mina.core.session.IdleStatus;
 import org.apache.mina.core.session.IoSession;
-import org.apache.servicemix.wsn.router.msg.tcp.DistBtnNebr;
-import org.Mina.shorenMinaTest.MinaUtil;
-import org.Mina.shorenMinaTest.mgr.RtMgr;
-import org.Mina.shorenMinaTest.msg.WsnMsg;
-import org.Mina.shorenMinaTest.msg.tcp.BrokerUnit;
-import org.Mina.shorenMinaTest.msg.tcp.MsgNotis;
-import org.Mina.shorenMinaTest.queues.MsgQueueMgr;
+
 /**
  *
  */
 
 public class SocketAcceptorHandler extends IoHandlerAdapter {
-	
 
-	  protected static  Logger logger  =  Logger.getLogger(SocketAcceptorHandler.class );
-	  
-	    // µ±Ò»¸öÐÂ¿Í»§¶ËÁ¬½Óºó´¥·¢´Ë·½·¨.
-	    public void sessionCreated(IoSession session) {
-	    	System.out.println("new client accept...");
-			 MinaUtil.iniSessionReferance(session); 
-			 System.out.println("session" + session.toString() +  
-		       		 "###" + "create time:" + System.currentTimeMillis());
-	    }
-	 
-	    // µ±Ò»¸ö¿Í¶Ë¶ËÁ¬½á½øÈëÊ± 
-	    @Override
-	    public void sessionOpened(IoSession session) throws Exception {
-			System.out.println("session" + session.toString() +  
-		       		 "###" + "open time:" + System.currentTimeMillis());
-	    }
-	 
-	    // µ±¿Í»§¶Ë·¢ËÍµÄÏûÏ¢µ½´ïÊ±:
-	    @Override
-	    public void messageReceived(IoSession session, Object message) throws Exception{
-	    	if(message instanceof WsnMsg){
-	    		WsnMsg msg = (WsnMsg)message;
-	    		RtMgr.getInstance().getState().processMsg(session, msg);
-					    	}
-	    	
-	    }
-	 
-	    // µ±ÐÅÏ¢ÒÑ¾­´«ËÍ¸ø¿Í»§¶Ëºó´¥·¢´Ë·½·¨.
-	    @Override
-	    public void messageSent(IoSession session, Object message) {
-	        System.out.println("ÐÅÏ¢ÒÑ¾­´«ËÍ¸ø¿Í»§¶Ë");
-	 
-	    }
-	 
-	    // µ±Ò»¸ö¿Í»§¶Ë¹Ø±ÕÊ±
-	    @Override
-	    public void sessionClosed(IoSession session) {
-	        System.out.println("one Clinet Disconnect !");
-	    }
-	 
-	    // µ±Á¬½Ó¿ÕÏÐÊ±´¥·¢´Ë·½·¨.
-	    @Override
-	    public void sessionIdle(IoSession session, IdleStatus status) {
 
-	    }
-	 
-	    // µ±½Ó¿ÚÖÐÆäËû·½·¨Å×³öÒì³£Î´±»²¶»ñÊ±´¥·¢´Ë·½·¨
-	    @Override
-	    public void exceptionCaught(IoSession session, Throwable cause) {
-	    	System.out.println("ÆäËû·½·¨Å×³öÒì³£+TCP" + session.toString() + cause.toString());
-	    	cause.printStackTrace();
-	    }
+	protected static Logger logger = Logger.getLogger(SocketAcceptorHandler.class);
+
+	// ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Â¿Í»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Óºó´¥·ï¿½ï¿½Ë·ï¿½ï¿½ï¿½.
+	public void sessionCreated(IoSession session) {
+		System.out.println("new client accept...");
+		MinaUtil.iniSessionReferance(session);
+		System.out.println("session" + session.toString() +
+				"###" + "create time:" + System.currentTimeMillis());
+	}
+
+	// ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Í¶Ë¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±
+	@Override
+	public void sessionOpened(IoSession session) throws Exception {
+		System.out.println("session" + session.toString() +
+				"###" + "open time:" + System.currentTimeMillis());
+	}
+
+	// ï¿½ï¿½ï¿½Í»ï¿½ï¿½Ë·ï¿½ï¿½Íµï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½Ê±:
+	@Override
+	public void messageReceived(IoSession session, Object message) throws Exception {
+		if (message instanceof WsnMsg) {
+			WsnMsg msg = (WsnMsg) message;
+			RtMgr.getInstance().getState().processMsg(session, msg);
+		}
+
+	}
+
+	// ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ï¿½Í»ï¿½ï¿½Ëºó´¥·ï¿½ï¿½Ë·ï¿½ï¿½ï¿½.
+	@Override
+	public void messageSent(IoSession session, Object message) {
+		System.out.println("ï¿½ï¿½Ï¢ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ï¿½Í»ï¿½ï¿½ï¿½");
+
+	}
+
+	// ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Í»ï¿½ï¿½Ë¹Ø±ï¿½Ê±
+	@Override
+	public void sessionClosed(IoSession session) {
+		System.out.println("one Clinet Disconnect !");
+	}
+
+	// ï¿½ï¿½ï¿½ï¿½ï¿½Ó¿ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½Ë·ï¿½ï¿½ï¿½.
+	@Override
+	public void sessionIdle(IoSession session, IdleStatus status) {
+
+	}
+
+	// ï¿½ï¿½ï¿½Ó¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×³ï¿½ï¿½ì³£Î´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½Ë·ï¿½ï¿½ï¿½
+	@Override
+	public void exceptionCaught(IoSession session, Throwable cause) {
+		System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×³ï¿½ï¿½ì³£+TCP" + session.toString() + cause.toString());
+		cause.printStackTrace();
+	}
 }

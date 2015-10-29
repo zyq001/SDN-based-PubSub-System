@@ -16,152 +16,139 @@
  */
 package org.apache.servicemix.wsn.jms;
 
-import java.net.URI;
-
-import javax.jms.Connection;
-import javax.jms.ConnectionFactory;
-import javax.jms.Destination;
-import javax.jms.JMSException;
-import javax.jms.Message;
-import javax.jms.MessageConsumer;
-import javax.jms.MessageListener;
-import javax.jms.Session;
-import javax.jms.TextMessage;
-import javax.xml.namespace.QName;
-import javax.xml.bind.JAXBElement;
+import org.apache.servicemix.application.WsnProcessImpl;
 import org.apache.servicemix.wsn.AbstractNotificationBroker;
 import org.apache.servicemix.wsn.AbstractPublisher;
-import org.apache.servicemix.wsn.AbstractSubscription;
 import org.oasis_open.docs.wsrf.rp_2.GetResourcePropertyResponse;
+import org.oasis_open.docs.wsrf.rpw_2.InvalidResourcePropertyQNameFault;
 import org.oasis_open.docs.wsrf.rw_2.ResourceUnavailableFault;
 import org.oasis_open.docs.wsrf.rw_2.ResourceUnknownFault;
-import org.oasis_open.docs.wsrf.rpw_2.InvalidResourcePropertyQNameFault;
 
-import org.apache.servicemix.application.WsnProcessImpl;
+import javax.jms.*;
+import javax.xml.bind.JAXBElement;
+import javax.xml.namespace.QName;
+import java.net.URI;
 
 public abstract class JmsNotificationBroker extends AbstractNotificationBroker {
 
-    private ConnectionFactory connectionFactory;
+	private static ConnectionFactory connectionFactoryWp;
+	private ConnectionFactory connectionFactory;
+	private Connection connection;
 
-    private Connection connection;
-    
-    private static ConnectionFactory connectionFactoryWp;
+	public JmsNotificationBroker(String name) {
+		super(name);
+	}
 
-    public JmsNotificationBroker(String name) {
-        super(name);
-    }
+	public static ConnectionFactory getConnectionFactoryWp() {
+		return connectionFactoryWp;
+	}
 
-    public void init() throws Exception {
-        if (connection == null) {
-            connection = connectionFactory.createConnection();
-            connection.start();
-        }
-        super.init();
-    }
+	public void init() throws Exception {
+		if (connection == null) {
+			connection = connectionFactory.createConnection();
+			connection.start();
+		}
+		super.init();
+	}
 
-    public void destroy() throws Exception {
-        if (connection != null) {
-            connection.close();
-        }
-        super.destroy();
-    }
+	public void destroy() throws Exception {
+		if (connection != null) {
+			connection.close();
+		}
+		super.destroy();
+	}
 
-    @Override
-    protected AbstractPublisher createPublisher(String name) {
-        JmsPublisher publisher = createJmsPublisher(name);
-        publisher.setManager(getManager());
-        publisher.setConnection(connection);
-        return publisher;
-    }
+	@Override
+	protected AbstractPublisher createPublisher(String name) {
+		JmsPublisher publisher = createJmsPublisher(name);
+		publisher.setManager(getManager());
+		publisher.setConnection(connection);
+		return publisher;
+	}
 
-    @Override
-    protected JmsSubscription createSubcription(String name) {
-        JmsSubscription subscription = createJmsSubscription(name);
-        subscription.setManager(getManager());
-        subscription.setConnection(connection);
-        return subscription;
-    }
+	@Override
+	protected JmsSubscription createSubcription(String name) {
+		JmsSubscription subscription = createJmsSubscription(name);
+		subscription.setManager(getManager());
+		subscription.setConnection(connection);
+		return subscription;
+	}
 
-    protected abstract JmsSubscription createJmsSubscription(String name);
+	protected abstract JmsSubscription createJmsSubscription(String name);
 
-    protected abstract JmsPublisher createJmsPublisher(String name);
+	protected abstract JmsPublisher createJmsPublisher(String name);
 
-    public ConnectionFactory getConnectionFactory() {
-        return connectionFactory;
-    }
+	public ConnectionFactory getConnectionFactory() {
+		return connectionFactory;
+	}
 
-    public void setConnectionFactory(ConnectionFactory connectionFactory) {
-        this.connectionFactory = connectionFactory;
+	public void setConnectionFactory(ConnectionFactory connectionFactory) {
+		this.connectionFactory = connectionFactory;
 //        this.connectionFactoryWp = connectionFactory;
-		//³õÊ¼»¯JMSÏûÏ¢½ÓÊÕ¶Ë
+		//ï¿½ï¿½Ê¼ï¿½ï¿½JMSï¿½ï¿½Ï¢ï¿½ï¿½ï¿½Õ¶ï¿½
 		try {
 			JmsMessage(connectionFactory);
 		} catch (JMSException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-    }
-    
-    public static ConnectionFactory getConnectionFactoryWp(){
-    	return connectionFactoryWp;
-    }
+	}
 
-    protected GetResourcePropertyResponse handleGetResourceProperty(QName property)
-            throws ResourceUnavailableFault, ResourceUnknownFault, InvalidResourcePropertyQNameFault {
-        if (TOPIC_EXPRESSION_QNAME.equals(property)) {
-            // TODO
-        } else if (FIXED_TOPIC_SET_QNAME.equals(property)) {
-            // TODO
-        } else if (TOPIC_EXPRESSION_DIALECT_QNAME.equals(property)) {
-            GetResourcePropertyResponse r = new GetResourcePropertyResponse();
-            r.getAny().add(new JAXBElement(TOPIC_EXPRESSION_DIALECT_QNAME, URI.class, JmsTopicExpressionConverter.SIMPLE_DIALECT));
-            return r;
-        } else if (TOPIC_SET_QNAME.equals(property)) {
-            // TODO
-        }
-        return super.handleGetResourceProperty(property);
-    }
-    
-    
-    
-    public void JmsMessage(ConnectionFactory connectionFactory) throws JMSException{
-    	TextMessage message = null;
+	protected GetResourcePropertyResponse handleGetResourceProperty(QName property)
+			throws ResourceUnavailableFault, ResourceUnknownFault, InvalidResourcePropertyQNameFault {
+		if (TOPIC_EXPRESSION_QNAME.equals(property)) {
+			// TODO
+		} else if (FIXED_TOPIC_SET_QNAME.equals(property)) {
+			// TODO
+		} else if (TOPIC_EXPRESSION_DIALECT_QNAME.equals(property)) {
+			GetResourcePropertyResponse r = new GetResourcePropertyResponse();
+			r.getAny().add(new JAXBElement(TOPIC_EXPRESSION_DIALECT_QNAME, URI.class, JmsTopicExpressionConverter.SIMPLE_DIALECT));
+			return r;
+		} else if (TOPIC_SET_QNAME.equals(property)) {
+			// TODO
+		}
+		return super.handleGetResourceProperty(property);
+	}
+
+
+	public void JmsMessage(ConnectionFactory connectionFactory) throws JMSException {
+		TextMessage message = null;
 //        ConnectionFactory connectionFactory = JmsNotificationBroker.getConnectionFactoryWp();
-        //JMS ¿Í»§¶Ëµ½JMS Provider µÄÁ¬½Ó 
-        Connection connection = connectionFactory.createConnection(); 
-        if(connection != null)
-        	System.out.println("connection is not empty!!!");
-        connection.start(); 
-        // Session£º Ò»¸ö·¢ËÍ»ò½ÓÊÕÏûÏ¢µÄÏß³Ì 
-        Session session = connection.createSession(Boolean.TRUE, Session.AUTO_ACKNOWLEDGE); 
-        // Destination £ºÏûÏ¢µÄÄ¿µÄµØ;ÏûÏ¢·¢ËÍ¸øË­. 
-        // »ñÈ¡session×¢Òâ²ÎÊýÖµxingbo.xu-queueÊÇÒ»¸ö·þÎñÆ÷µÄqueue£¬ÐëÔÚÔÚActiveMqµÄconsoleÅäÖÃ 
-        Destination destination = session.createQueue("Notify-Queue"); 
-        if(destination != null)
-        	System.out.println("destination is not empty!!!");
-        // Ïû·ÑÕß£¬ÏûÏ¢½ÓÊÕÕß 
-        MessageConsumer consumer = session.createConsumer(destination); 
-        consumer.setMessageListener(new MessageListener() {
-				
+		//JMS ï¿½Í»ï¿½ï¿½Ëµï¿½JMS Provider ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		Connection connection = connectionFactory.createConnection();
+		if (connection != null)
+			System.out.println("connection is not empty!!!");
+		connection.start();
+		// Sessionï¿½ï¿½ Ò»ï¿½ï¿½ï¿½ï¿½ï¿½Í»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ß³ï¿½
+		Session session = connection.createSession(Boolean.TRUE, Session.AUTO_ACKNOWLEDGE);
+		// Destination ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½Ä¿ï¿½Äµï¿½;ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½Í¸ï¿½Ë­.
+		// ï¿½ï¿½È¡session×¢ï¿½ï¿½ï¿½ï¿½ï¿½Öµxingbo.xu-queueï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½queueï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ActiveMqï¿½ï¿½consoleï¿½ï¿½ï¿½ï¿½
+		Destination destination = session.createQueue("Notify-Queue");
+		if (destination != null)
+			System.out.println("destination is not empty!!!");
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ß£ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		MessageConsumer consumer = session.createConsumer(destination);
+		consumer.setMessageListener(new MessageListener() {
+
 			public void onMessage(Message arg0) {
 				// TODO Auto-generated method stub
 				TextMessage message = (TextMessage) arg0;
-				if(message != null){
+				if (message != null) {
 					String str = null;
-					try{
-						System.out.println("ÊÕµ½ÏûÏ¢£º" + message.getText());
+					try {
+						System.out.println("ï¿½Õµï¿½ï¿½ï¿½Ï¢ï¿½ï¿½" + message.getText());
 						str = message.getText();
-					}catch(JMSException e){
+					} catch (JMSException e) {
 						e.printStackTrace();
-					}				
-					if(str.indexOf("NotificationMessage") > 0){
+					}
+					if (str.indexOf("NotificationMessage") > 0) {
 						WsnProcessImpl.mes.offer(str);
 					}
 				}
 			}
 		});
-        session.close(); 
-        connection.close(); 
-    } 
+		session.close();
+		connection.close();
+	}
 
 }

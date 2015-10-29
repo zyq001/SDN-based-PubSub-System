@@ -2,14 +2,14 @@ package org.apache.servicemix.wsn.router.msg.tcp;
 
 import java.io.Serializable;
 
-public class MsgTreeChange implements Serializable{
+public class MsgTreeChange implements Serializable {
 
 	/**
-	 * 管理员通知主题树改变
+	 * 锟斤拷锟斤拷员通知锟斤拷锟斤拷锟斤拷锟侥憋拷
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	public String topicName;
-	
+
 	public int change; // 0 for change, 1 for delete
 }

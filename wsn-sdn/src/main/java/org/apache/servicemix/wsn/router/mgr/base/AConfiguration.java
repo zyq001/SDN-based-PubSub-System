@@ -3,6 +3,6 @@ package org.apache.servicemix.wsn.router.mgr.base;
 
 public abstract class AConfiguration extends SysInfo {
 
-	abstract public boolean configure();//配置系统
-	
+	abstract public boolean configure();//锟斤拷锟斤拷系统
+
 }

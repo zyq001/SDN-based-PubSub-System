@@ -4,10 +4,10 @@ import java.io.Serializable;
 
 public class BrokerUnit implements Serializable {
 
-	public String addr;//´úÀíµÄµØÖ·
-	
-	public long id;//ÓÉ´ú±í·ÖÅä
-	
-	public int tPort;//tcpÁ¬½Ó¶Ë¿ÚºÅ
-	
+	public String addr;//ï¿½ï¿½ï¿½ï¿½Äµï¿½Ö·
+
+	public long id;//ï¿½É´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+
+	public int tPort;//tcpï¿½ï¿½ï¿½Ó¶Ë¿Úºï¿½
+
 }

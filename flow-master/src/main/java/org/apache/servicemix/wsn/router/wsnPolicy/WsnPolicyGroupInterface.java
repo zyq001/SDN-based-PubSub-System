@@ -4,68 +4,142 @@
  */
 package org.apache.servicemix.wsn.router.wsnPolicy;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
+import edu.bupt.wangfu.ldap.Ldap;
+import edu.bupt.wangfu.ldap.TopicEntry;
+import org.apache.servicemix.wsn.router.admin.AdminBase;
+import org.apache.servicemix.wsn.router.wsnPolicy.msgs.*;
 
 import javax.naming.NamingException;
-import javax.swing.BorderFactory;
-import javax.swing.Box;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JSplitPane;
-import javax.swing.JTree;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.*;
+import java.util.List;
 
-import edu.bupt.wangfu.ldap.Ldap;
-import edu.bupt.wangfu.ldap.TopicEntry;
-import org.apache.servicemix.wsn.router.admin.AdminBase;
-import org.apache.servicemix.wsn.router.wsnPolicy.msgs.ComplexGroup;
-import org.apache.servicemix.wsn.router.wsnPolicy.msgs.TargetGroup;
-import org.apache.servicemix.wsn.router.wsnPolicy.msgs.TargetHost;
-import org.apache.servicemix.wsn.router.wsnPolicy.msgs.TargetMsg;
-import org.apache.servicemix.wsn.router.wsnPolicy.msgs.TargetRep;
-import org.apache.servicemix.wsn.router.wsnPolicy.msgs.WsnPolicyMsg;
 /**
  *
  */
-public class WsnPolicyGroupInterface extends JFrame implements ActionListener{
+public class WsnPolicyGroupInterface extends JFrame implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
 	private static Toolkit kit;
 	private static Dimension screenSize;
 	private static String RESULT = "result";
 	private static String CHOOSE = "choose";
+
+	static {
+		kit = Toolkit.getDefaultToolkit();
+		screenSize = kit.getScreenSize();
+	}
+
+	public TopicEntry currentTopic = null;
 	private JButton okayBtn = createBtn("????");
 	private JButton cancelBtn = createBtn("????");
 	private JButton addBtn = createBtn("????");
 	private JButton deleteBtn = createBtn("????");
 	private JButton newGroupBtn = createBtn("????????????");
 	private JButton deleGroupBtn = createBtn("????????????");
-	public TopicEntry currentTopic = null;
 	private TopicEntry complexGroupEntry = new TopicEntry();
-	
-	private HashMap<String,JTree>name_Tree = new HashMap<String,JTree>();
+	private HashMap<String, JTree> name_Tree = new HashMap<String, JTree>();
 	private boolean isAdd;
 	private JTree chooseTree;
-	private JTree resultTree;	
-
+	private JTree resultTree;
 	private WsnPolicyInterface parentFrame;
+
+	public WsnPolicyGroupInterface(TopicEntry targetTopic, boolean isAdd) {
+		super("????????????");
+		this.isAdd = isAdd;
+		if (targetTopic == null || targetTopic.getTopicName() == null || targetTopic.getTopicName().length() == 1) {
+			return;
+		}
+		//??????Panel
+		add(createMsgPanel(), BorderLayout.CENTER);
+		add(createButtonPanel(), BorderLayout.SOUTH);
+
+		currentTopic = targetTopic;
+		iniTrees(targetTopic.getTopicName());
+
+		complexGroupEntry.setTopicName("complexGroup");
+		complexGroupEntry.setTopicPath("ou=complexGroup,dc=wsn,dc=com");
+
+		//????????????????????????????????????????????????????????????????????????????
+		if (!ShorenUtils.isWholeMsg()) {
+			newGroupBtn.setEnabled(false);
+			deleGroupBtn.setEnabled(false);
+		}
+
+		//frame conf
+		setBounds(screenSize.width / 4, screenSize.height / 8,
+				screenSize.width / 2, 5 * screenSize.height / 8);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setAlwaysOnTop(false);
+		setResizable(false);
+		setVisible(true);
+	}
+
+	public static void main(String[] args) throws NamingException {
+
+		Ldap lu = new Ldap();
+		try {
+			lu.connectLdap("10.109.253.6", "cn=Manager,dc=wsn,dc=com", "123456");
+		} catch (NamingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (InstantiationException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		} catch (UnsupportedLookAndFeelException e) {
+			e.printStackTrace();
+		}
+		//ShorenUtils.setWholeMsg(false);
+		TopicEntry newtopic = new TopicEntry();
+		newtopic.setTopicName("complexGroup");
+		newtopic.setTopicPath("ou=complexGroup,dc=wsn,dc=com");
+		WsnPolicyMsg newWsnPolicyMsg = new WsnPolicyMsg();
+
+		List<TargetHost> targethostlist = new ArrayList<TargetHost>();
+		TargetHost targethost1 = new TargetHost();
+		targethost1.setHostIp("127.0.0.1");
+		targethost1.setName("host1");
+		targethostlist.add(targethost1);
+
+		List<TargetRep> targetreplist = new ArrayList<TargetRep>();
+		TargetRep targetrep1 = new TargetRep();
+		targetrep1.setName("rep1");
+		targetrep1.setRepIp("10.108.166.236");
+		targetrep1.setTargetClients(targethostlist);
+		targetreplist.add(targetrep1);
+
+		List<TargetGroup> targetgrouplist = new ArrayList<TargetGroup>();
+		TargetGroup targetgroup1 = new TargetGroup();
+		targetgroup1.setName("G1");
+		targetgroup1.setTargetList(targetreplist);
+		targetgrouplist.add(targetgroup1);
+		newWsnPolicyMsg.setTargetGroups(targetgrouplist);
+
+		newtopic.setWsnpolicymsg(newWsnPolicyMsg);
+
+
+		lu.create(newtopic);
+
+//		TopicEntry temp = lu.getByDN("ou=complexGroup,dc=wsn,dc=com");
+//		TargetGroup tempGroup = temp.getWsnpolicymsg().getTargetGroups().get(0);
+//		System.out.println(tempGroup.getName());
+		//new WsnPolicyGroupInterface(newtopic);
+
+	}
 
 	public WsnPolicyInterface getParentFrame() {
 		return parentFrame;
@@ -75,50 +149,10 @@ public class WsnPolicyGroupInterface extends JFrame implements ActionListener{
 		this.parentFrame = parentFrame;
 	}
 
-	static
-	{
-		kit = Toolkit.getDefaultToolkit();  
-        screenSize = kit.getScreenSize();
-	}
-	
-	public WsnPolicyGroupInterface(TopicEntry targetTopic, boolean isAdd)
-	{
-		super("????????????");
-		this.isAdd = isAdd;
-		if(targetTopic == null || targetTopic.getTopicName() == null || targetTopic.getTopicName().length() == 1) {
-			return;
-		}
-		//??????Panel
-		add(createMsgPanel(), BorderLayout.CENTER);
-		add(createButtonPanel(), BorderLayout.SOUTH);
-		
-		currentTopic = targetTopic;
-		iniTrees(targetTopic.getTopicName());
-		
-		complexGroupEntry.setTopicName("complexGroup");
-		complexGroupEntry.setTopicPath("ou=complexGroup,dc=wsn,dc=com");
-		
-		//????????????????????????????????????????????????????????????????????????????
-		if(!ShorenUtils.isWholeMsg())
-		{
-			newGroupBtn.setEnabled(false);
-			deleGroupBtn.setEnabled(false);
-		}
-		
-		//frame conf
-		setBounds(screenSize.width/4 , screenSize.height/8,
-				screenSize.width/2 ,5*screenSize.height/8);
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setAlwaysOnTop(false);
-		setResizable(false);
-		setVisible(true);
-	}
-	
-	protected void iniTrees(String targetTopic)
-	{
-		//test	
+	protected void iniTrees(String targetTopic) {
+		//test
 		chooseTree = name_Tree.get(CHOOSE);
-		DefaultMutableTreeNode root = (DefaultMutableTreeNode) chooseTree.getModel().getRoot();			
+		DefaultMutableTreeNode root = (DefaultMutableTreeNode) chooseTree.getModel().getRoot();
 		WsnPolicyMsg wpm = new WsnPolicyMsg();
 //		if(ShorenUtils.isWholeMsg())
 //		{
@@ -129,47 +163,45 @@ public class WsnPolicyGroupInterface extends JFrame implements ActionListener{
 //			//??policyMsg.xml????????????
 //			wpm = ShorenUtils.decodePolicyMsg(currentTopic);
 //		}
-		
+
 		//??????????????????????????????????????
-		if(isAdd) {
+		if (isAdd) {
 			Set groupSet = AdminBase.groups.keySet();
-			Iterator iterator=groupSet.iterator();
+			Iterator iterator = groupSet.iterator();
 			while (iterator.hasNext()) {
-				String groupName=(String)iterator.next();
+				String groupName = (String) iterator.next();
 				TargetGroup t = new TargetGroup(groupName);
 				wpm.getTargetGroups().add(t);
 			}
 		} else {
 			wpm = ShorenUtils.decodePolicyMsg(currentTopic);
 		}
-		
-		ShorenUtils.showPolicyMsg(root,wpm);
+
+		ShorenUtils.showPolicyMsg(root, wpm);
 		root.setUserObject(wpm);
 		TreePath rp = new TreePath(root);
 		chooseTree.expandPath(rp);
-		
-		
+
+
 		resultTree = name_Tree.get(RESULT);
 		DefaultMutableTreeNode root1 = (DefaultMutableTreeNode) resultTree.getModel().getRoot();
 		TreePath rp1 = new TreePath(root1);
 		resultTree.expandPath(rp1);
 	}
-	
-	protected JPanel createMsgPanel()
-	{
+
+	protected JPanel createMsgPanel() {
 		JPanel msgPanel = new JPanel();
 		JSplitPane inner = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,
-				createGroupTree(CHOOSE,"????????"),createMidPanel());
+				createGroupTree(CHOOSE, "????????"), createMidPanel());
 		JSplitPane outer = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,
-				inner,createGroupTree(RESULT,"????????"));
+				inner, createGroupTree(RESULT, "????????"));
 		msgPanel.add(outer, BorderLayout.CENTER);
 		Border border = BorderFactory.createTitledBorder("????????");
 		msgPanel.setBorder(border);
 		return msgPanel;
 	}
-	
-	protected JPanel createMidPanel()
-	{
+
+	protected JPanel createMidPanel() {
 		JPanel panel = new JPanel();
 		Box box = Box.createVerticalBox();
 		box.add(Box.createHorizontalStrut(30));
@@ -183,26 +215,24 @@ public class WsnPolicyGroupInterface extends JFrame implements ActionListener{
 		deleteBtn.addActionListener(this);
 		return panel;
 	}
-	
-	protected JScrollPane createGroupTree(String name, String title)
-	{
+
+	protected JScrollPane createGroupTree(String name, String title) {
 		//??????????root??
-		JTree groupTree = new JTree(new DefaultTreeModel(new DefaultMutableTreeNode()));		
+		JTree groupTree = new JTree(new DefaultTreeModel(new DefaultMutableTreeNode()));
 		ShorenNodeRenderer ren = new ShorenNodeRenderer();
 		groupTree.setCellRenderer(ren);
 		groupTree.setShowsRootHandles(true);  //????????????????
-		groupTree.setRootVisible(false);		 //????????????
-		name_Tree.put(name, groupTree);		
-		
+		groupTree.setRootVisible(false);         //????????????
+		name_Tree.put(name, groupTree);
+
 		JScrollPane listScrollPane = new JScrollPane(groupTree);
-        listScrollPane.setPreferredSize(new Dimension(200, 380));
-        listScrollPane.setMinimumSize(new Dimension(150, 300));
-        listScrollPane.setBorder(BorderFactory.createTitledBorder(title));
-        return listScrollPane;
+		listScrollPane.setPreferredSize(new Dimension(200, 380));
+		listScrollPane.setMinimumSize(new Dimension(150, 300));
+		listScrollPane.setBorder(BorderFactory.createTitledBorder(title));
+		return listScrollPane;
 	}
-	
-	protected JPanel createButtonPanel()
-	{
+
+	protected JPanel createButtonPanel() {
 		JPanel btnPanel = new JPanel();
 		Box box = Box.createHorizontalBox();
 		box.add(Box.createHorizontalStrut(100));
@@ -219,230 +249,153 @@ public class WsnPolicyGroupInterface extends JFrame implements ActionListener{
 		cancelBtn.addActionListener(this);
 		newGroupBtn.addActionListener(this);
 		deleGroupBtn.addActionListener(this);
-		return btnPanel;	
+		return btnPanel;
 	}
-	
-	protected JButton createBtn(String btnName)
-	{
+
+	protected JButton createBtn(String btnName) {
 		JButton btn = new JButton(btnName);
-		btn.setSize(80, 30);	
-		btn.setPreferredSize(new Dimension(80,30));
+		btn.setSize(80, 30);
+		btn.setPreferredSize(new Dimension(80, 30));
 		return btn;
 	}
 
-
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if(e.getSource() == okayBtn)
-		{
+		if (e.getSource() == okayBtn) {
 			//return the result
-			if(resultTree != null && getParentFrame() != null)
-			{
+			if (resultTree != null && getParentFrame() != null) {
 				JTree gtree = getParentFrame().getGroupTree();
 				//????????????????????????????????.
 				DefaultMutableTreeNode root1 = (DefaultMutableTreeNode) resultTree.getModel().getRoot();
 				DefaultMutableTreeNode root = (DefaultMutableTreeNode) gtree.getModel().getRoot();
-				if(root1.getChildCount() == 0) {
+				if (root1.getChildCount() == 0) {
 					this.dispose();
 					return;
 				}
 				root.removeAllChildren();
 				int count = root1.getChildCount();
-				for(int i=0; i<count; i++)
-				{
-					DefaultMutableTreeNode child = (DefaultMutableTreeNode)root1.getChildAt(i);
-					TargetMsg msg = (TargetMsg)child.getUserObject();
-					
+				for (int i = 0; i < count; i++) {
+					DefaultMutableTreeNode child = (DefaultMutableTreeNode) root1.getChildAt(i);
+					TargetMsg msg = (TargetMsg) child.getUserObject();
+
 					//??????????????????????????????????????????????????????
-					if(!ShorenUtils.isInNode(root, msg))
+					if (!ShorenUtils.isInNode(root, msg))
 						root.add(ShorenUtils.showTargetMsg(msg));
 				}
 				TreePath rp = new TreePath(root);
 				gtree.expandPath(rp);
 				gtree.updateUI();
-				
-				getParentFrame().updateBtns();	
-			}			   
-			
+
+				getParentFrame().updateBtns();
+			}
+
 			this.dispose();
-			
-		}else if(e.getSource() == cancelBtn)
-		{
+
+		} else if (e.getSource() == cancelBtn) {
 			this.dispose();
-		}else if(e.getSource() == addBtn)
-		{
+		} else if (e.getSource() == addBtn) {
 			//????????????????????????resultTree????
 			TreePath[] tp = chooseTree.getSelectionPaths();
-			if(tp == null) return;
-			
-			int len = tp.length;			
-			DefaultMutableTreeNode root = (DefaultMutableTreeNode) resultTree.getModel().getRoot();		
-			for(int i =0; i<len; i++)
-			{
+			if (tp == null) return;
+
+			int len = tp.length;
+			DefaultMutableTreeNode root = (DefaultMutableTreeNode) resultTree.getModel().getRoot();
+			for (int i = 0; i < len; i++) {
 				//????????????????????????resultTree
-				TargetMsg msg = (TargetMsg)((ShorenTreeNode)tp[i].getLastPathComponent()).getUserObject();
-				
+				TargetMsg msg = (TargetMsg) ((ShorenTreeNode) tp[i].getLastPathComponent()).getUserObject();
+
 				//??????????????????????????????????????????????????????
-				if(!ShorenUtils.isInNode(root, msg))
+				if (!ShorenUtils.isInNode(root, msg))
 					root.add(ShorenUtils.showTargetMsg(msg));
 			}
-			
+
 			TreePath rp = new TreePath(root);
 			resultTree.expandPath(rp);
 			resultTree.updateUI();
-			
-		}else if(e.getSource() == deleteBtn)
-		{
+
+		} else if (e.getSource() == deleteBtn) {
 			TreePath[] tp = resultTree.getSelectionPaths();
-			if(tp == null) return;
-			
+			if (tp == null) return;
+
 			int len = tp.length;
-			for(int i =0; i<len; i++)
-			{
-				DefaultMutableTreeNode node = (ShorenTreeNode)tp[i].getLastPathComponent();
+			for (int i = 0; i < len; i++) {
+				DefaultMutableTreeNode node = (ShorenTreeNode) tp[i].getLastPathComponent();
 				node.removeFromParent();
 			}
 			resultTree.updateUI();
-		}else if(e.getSource() == newGroupBtn)
-		{	
-			TreePath[] tp = chooseTree.getSelectionPaths();			
-			if(tp != null)
-			{
+		} else if (e.getSource() == newGroupBtn) {
+			TreePath[] tp = chooseTree.getSelectionPaths();
+			if (tp != null) {
 				int len = tp.length;
 				String name = JOptionPane.showInputDialog("??????????????????????");
-				if( (name == null) || name.equals(""))
+				if ((name == null) || name.equals(""))
 					return;
 				//????????????????
 				DefaultMutableTreeNode root = (DefaultMutableTreeNode) chooseTree.getModel().getRoot();
-				if(ShorenUtils.hasNameExisted(root, name))
-				{
-					JOptionPane.showMessageDialog(this , "????????????????????^_^");
+				if (ShorenUtils.hasNameExisted(root, name)) {
+					JOptionPane.showMessageDialog(this, "????????????????????^_^");
 					return;
 				}
-				
+
 				List<ComplexGroup> complexGroups = new ArrayList<ComplexGroup>();
 				List<TargetGroup> targetGroups = new ArrayList<TargetGroup>();
-				for(int i =0; i<len; i++)
-				{
+				for (int i = 0; i < len; i++) {
 					//????????????????????????
-					TargetMsg msg = (TargetMsg)((ShorenTreeNode)tp[i].getLastPathComponent()).getUserObject();
-					if(msg instanceof ComplexGroup)
-						complexGroups.add((ComplexGroup)msg);
-					else if(msg instanceof TargetGroup)
-						targetGroups.add((TargetGroup)msg);
+					TargetMsg msg = (TargetMsg) ((ShorenTreeNode) tp[i].getLastPathComponent()).getUserObject();
+					if (msg instanceof ComplexGroup)
+						complexGroups.add((ComplexGroup) msg);
+					else if (msg instanceof TargetGroup)
+						targetGroups.add((TargetGroup) msg);
 				}
-				ComplexGroup cgroup = new ComplexGroup(name,complexGroups,targetGroups);
-				DefaultMutableTreeNode croot = (DefaultMutableTreeNode) chooseTree.getModel().getRoot();	
-				WsnPolicyMsg policy = (WsnPolicyMsg)croot.getUserObject();
+				ComplexGroup cgroup = new ComplexGroup(name, complexGroups, targetGroups);
+				DefaultMutableTreeNode croot = (DefaultMutableTreeNode) chooseTree.getModel().getRoot();
+				WsnPolicyMsg policy = (WsnPolicyMsg) croot.getUserObject();
 				policy.getComplexGroups().add(cgroup);
 				complexGroupEntry.setWsnpolicymsg(policy);
 				//????????????????????????????????????????????????
 				ShorenUtils.encodeAllComplexGroups(complexGroupEntry);
-				
-				//????chooseTree????
-				ShorenUtils.showPolicyMsg(croot,policy);
-				chooseTree.updateUI();
-				
-				
-			}else{
-				JOptionPane.showMessageDialog(null , "????????????????^_^");
-			}
-	
-		}else if(e.getSource() == deleGroupBtn)
-		{
-			TreePath[] tp = chooseTree.getSelectionPaths();			
-			if(tp != null)
-			{
-				int len = tp.length;
-				DefaultMutableTreeNode croot = (DefaultMutableTreeNode) chooseTree.getModel().getRoot();	
-				WsnPolicyMsg policy = (WsnPolicyMsg)croot.getUserObject();
 
-				for(int i =0; i<len; i++)
-				{
+				//????chooseTree????
+				ShorenUtils.showPolicyMsg(croot, policy);
+				chooseTree.updateUI();
+
+
+			} else {
+				JOptionPane.showMessageDialog(null, "????????????????^_^");
+			}
+
+		} else if (e.getSource() == deleGroupBtn) {
+			TreePath[] tp = chooseTree.getSelectionPaths();
+			if (tp != null) {
+				int len = tp.length;
+				DefaultMutableTreeNode croot = (DefaultMutableTreeNode) chooseTree.getModel().getRoot();
+				WsnPolicyMsg policy = (WsnPolicyMsg) croot.getUserObject();
+
+				for (int i = 0; i < len; i++) {
 					//delete????????????????????????????????
-					ShorenTreeNode node = (ShorenTreeNode)tp[i].getLastPathComponent();
-					TargetMsg group = (TargetMsg)node.getUserObject();
-					if(group instanceof ComplexGroup)
-					{
-						Object parent = ((DefaultMutableTreeNode)node.getParent()).getUserObject();
-						if(parent instanceof WsnPolicyMsg)
-							((WsnPolicyMsg)parent).getComplexGroups().remove(group);
-						if(parent instanceof ComplexGroup)
-							((ComplexGroup)parent).getComplexGroups().remove(group);
+					ShorenTreeNode node = (ShorenTreeNode) tp[i].getLastPathComponent();
+					TargetMsg group = (TargetMsg) node.getUserObject();
+					if (group instanceof ComplexGroup) {
+						Object parent = ((DefaultMutableTreeNode) node.getParent()).getUserObject();
+						if (parent instanceof WsnPolicyMsg)
+							((WsnPolicyMsg) parent).getComplexGroups().remove(group);
+						if (parent instanceof ComplexGroup)
+							((ComplexGroup) parent).getComplexGroups().remove(group);
 					}
-				}				
-				
+				}
+
 				//delete????????????????????????????????????????????
 				complexGroupEntry.setWsnpolicymsg(policy);
 				ShorenUtils.encodeAllComplexGroups(complexGroupEntry);
-				
+
 				//????chooseTree????
-				ShorenUtils.showPolicyMsg(croot,policy);
+				ShorenUtils.showPolicyMsg(croot, policy);
 				chooseTree.updateUI();
-				
-			}else{
-				JOptionPane.showMessageDialog(null , "????????????????^_^");
+
+			} else {
+				JOptionPane.showMessageDialog(null, "????????????????^_^");
 			}
 		}
-		
-	}
-	
-	public static void main(String[] args) throws NamingException {
-		
-		Ldap lu = new Ldap();
-		try {
-			lu.connectLdap("10.109.253.6", "cn=Manager,dc=wsn,dc=com", "123456");
-		} catch (NamingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		try {
-			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());			
-			
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} catch (InstantiationException e) {
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-		} catch (UnsupportedLookAndFeelException e) {
-			e.printStackTrace();
-		}
-		//ShorenUtils.setWholeMsg(false);
-		TopicEntry newtopic = new TopicEntry();
-		newtopic.setTopicName("complexGroup");
-		newtopic.setTopicPath("ou=complexGroup,dc=wsn,dc=com");
-		WsnPolicyMsg newWsnPolicyMsg = new WsnPolicyMsg();
-		
-		List <TargetHost> targethostlist = new ArrayList<TargetHost>();
-		TargetHost targethost1 = new TargetHost();
-		targethost1.setHostIp("127.0.0.1");
-		targethost1.setName("host1");
-		targethostlist.add(targethost1);
-		
-		List <TargetRep> targetreplist = new ArrayList<TargetRep>();
-		TargetRep targetrep1 = new TargetRep();
-		targetrep1.setName("rep1");
-		targetrep1.setRepIp("10.108.166.236");
-		targetrep1.setTargetClients(targethostlist);
-		targetreplist.add(targetrep1);
-		
-		List <TargetGroup> targetgrouplist = new ArrayList<TargetGroup>();
-		TargetGroup targetgroup1 = new TargetGroup();
-		targetgroup1.setName("G1");
-		targetgroup1.setTargetList(targetreplist);
-		targetgrouplist.add(targetgroup1);
-		newWsnPolicyMsg.setTargetGroups(targetgrouplist);
-		
-		newtopic.setWsnpolicymsg(newWsnPolicyMsg);
-		
-		
-		lu.create(newtopic);
-		
-//		TopicEntry temp = lu.getByDN("ou=complexGroup,dc=wsn,dc=com");
-//		TargetGroup tempGroup = temp.getWsnpolicymsg().getTargetGroups().get(0);
-//		System.out.println(tempGroup.getName());
-		//new WsnPolicyGroupInterface(newtopic);
 
 	}
 }

@@ -1,25 +1,23 @@
 package org.Mina.shorenMinaTest.test;
 
+import org.Mina.shorenMinaTest.MinaUtil;
+import org.apache.mina.core.future.ConnectFuture;
+import org.apache.mina.transport.socket.nio.NioSocketConnector;
+
 import java.net.InetSocketAddress;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Random;
-import java.util.Set;
-
-import org.apache.mina.core.future.ConnectFuture;
-import org.apache.mina.transport.socket.nio.NioSocketConnector;
-import org.Mina.shorenMinaTest.MinaUtil;
 
 public class Admin {
 
-	
+
 	public static void main(String[] args) {
 //		timeAdjust();
 		fireMsg();
 //		randomData();
 	}
-	
+
 	//adjust time for client
 	/*	public static void TCPMessageReceived(IoSession session, Object message){
 			System.out.println("**** receive time : " + message);
@@ -28,11 +26,11 @@ public class Admin {
 			System.out.println("**** adjust time : " + (t2 - t1));
 		}
 		*/
-	
-	public static void timeAdjust(){
-		NioSocketConnector connector1 = MinaUtil.createSocketConnector();	
-		ConnectFuture cf1 = connector1.connect(new InetSocketAddress("10.109.253.29", 30001));//½¨Á¢Á¬½Ó
-		cf1.awaitUninterruptibly();//µÈ´ýÁ¬½Ó´´½¨Íê³É 
+
+	public static void timeAdjust() {
+		NioSocketConnector connector1 = MinaUtil.createSocketConnector();
+		ConnectFuture cf1 = connector1.connect(new InetSocketAddress("10.109.253.29", 30001));//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		cf1.awaitUninterruptibly();//ï¿½È´ï¿½ï¿½ï¿½ï¿½Ó´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
 		long t1 = System.currentTimeMillis();
 		cf1.getSession().write(t1);
 		System.out.println(t1);
@@ -45,46 +43,45 @@ public class Admin {
 		cf1.getSession().write(t1);
 		System.out.println(t1);
 	}
-	
 
-	
-	public static void fireMsg(){
+
+	public static void fireMsg() {
 		String message = "Ready?Go!";
-		NioSocketConnector connector1 = MinaUtil.createSocketConnector();	
-		ConnectFuture cf1 = connector1.connect(new InetSocketAddress("10.109.253.31", 30001));//½¨Á¢Á¬½Ó
-		cf1.awaitUninterruptibly();//µÈ´ýÁ¬½Ó´´½¨Íê³É   
-		
-		NioSocketConnector connector2 = MinaUtil.createSocketConnector();	
-		ConnectFuture cf2 = connector2.connect(new InetSocketAddress("10.109.253.13", 30001));//½¨Á¢Á¬½Ó
-		cf2.awaitUninterruptibly();//µÈ´ýÁ¬½Ó´´½¨Íê³É
+		NioSocketConnector connector1 = MinaUtil.createSocketConnector();
+		ConnectFuture cf1 = connector1.connect(new InetSocketAddress("10.109.253.31", 30001));//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		cf1.awaitUninterruptibly();//ï¿½È´ï¿½ï¿½ï¿½ï¿½Ó´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½   
 
-		NioSocketConnector connector3 = MinaUtil.createSocketConnector();	
-		ConnectFuture cf3 = connector3.connect(new InetSocketAddress("10.109.253.14", 30001));//½¨Á¢Á¬½Ó
-		cf3.awaitUninterruptibly();//µÈ´ýÁ¬½Ó´´½¨Íê³É
-		
-		NioSocketConnector connector4 = MinaUtil.createSocketConnector();	
-		ConnectFuture cf4 = connector4.connect(new InetSocketAddress("10.109.253.18", 30001));//½¨Á¢Á¬½Ó
-		cf4.awaitUninterruptibly();//µÈ´ýÁ¬½Ó´´½¨Íê³É
+		NioSocketConnector connector2 = MinaUtil.createSocketConnector();
+		ConnectFuture cf2 = connector2.connect(new InetSocketAddress("10.109.253.13", 30001));//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		cf2.awaitUninterruptibly();//ï¿½È´ï¿½ï¿½ï¿½ï¿½Ó´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+
+		NioSocketConnector connector3 = MinaUtil.createSocketConnector();
+		ConnectFuture cf3 = connector3.connect(new InetSocketAddress("10.109.253.14", 30001));//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		cf3.awaitUninterruptibly();//ï¿½È´ï¿½ï¿½ï¿½ï¿½Ó´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+
+		NioSocketConnector connector4 = MinaUtil.createSocketConnector();
+		ConnectFuture cf4 = connector4.connect(new InetSocketAddress("10.109.253.18", 30001));//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		cf4.awaitUninterruptibly();//ï¿½È´ï¿½ï¿½ï¿½ï¿½Ó´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		
 /*		NioSocketConnector connector5 = MinaUtil.createSocketConnector();	
-		ConnectFuture cf5 = connector5.connect(new InetSocketAddress("10.109.253.14", 30001));//½¨Á¢Á¬½Ó
-		cf5.awaitUninterruptibly();//µÈ´ýÁ¬½Ó´´½¨Íê³É
+		ConnectFuture cf5 = connector5.connect(new InetSocketAddress("10.109.253.14", 30001));//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		cf5.awaitUninterruptibly();//ï¿½È´ï¿½ï¿½ï¿½ï¿½Ó´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 */		
 		/*NioSocketConnector connector6 = MinaUtil.createSocketConnector();	
-		ConnectFuture cf6 = connector6.connect(new InetSocketAddress("10.109.253.26", 30001));//½¨Á¢Á¬½Ó
-		cf5.awaitUninterruptibly();//µÈ´ýÁ¬½Ó´´½¨Íê³É
+		ConnectFuture cf6 = connector6.connect(new InetSocketAddress("10.109.253.26", 30001));//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		cf5.awaitUninterruptibly();//ï¿½È´ï¿½ï¿½ï¿½ï¿½Ó´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 */				
 		/*NioSocketConnector connector6 = MinaUtil.createSocketConnector();	
-		ConnectFuture cf6 = connector6.connect(new InetSocketAddress("10.109.253.14", 30001));//½¨Á¢Á¬½Ó
-		cf6.awaitUninterruptibly();//µÈ´ýÁ¬½Ó´´½¨Íê³É
+		ConnectFuture cf6 = connector6.connect(new InetSocketAddress("10.109.253.14", 30001));//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		cf6.awaitUninterruptibly();//ï¿½È´ï¿½ï¿½ï¿½ï¿½Ó´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 */		
 		/*NioSocketConnector connector7 = MinaUtil.createSocketConnector();	
-		ConnectFuture cf7 = connector7.connect(new InetSocketAddress("10.109.253.32", 30001));//½¨Á¢Á¬½Ó
-		cf7.awaitUninterruptibly();//µÈ´ýÁ¬½Ó´´½¨Íê³É
+		ConnectFuture cf7 = connector7.connect(new InetSocketAddress("10.109.253.32", 30001));//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		cf7.awaitUninterruptibly();//ï¿½È´ï¿½ï¿½ï¿½ï¿½Ó´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 */				
 /*		NioSocketConnector connector8 = MinaUtil.createSocketConnector();	
-		ConnectFuture cf8 = connector8.connect(new InetSocketAddress("10.109.254.65", 30001));//½¨Á¢Á¬½Ó
-		cf8.awaitUninterruptibly();//µÈ´ýÁ¬½Ó´´½¨Íê³É
+		ConnectFuture cf8 = connector8.connect(new InetSocketAddress("10.109.254.65", 30001));//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		cf8.awaitUninterruptibly();//ï¿½È´ï¿½ï¿½ï¿½ï¿½Ó´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		*/
 		try {
 			Thread.sleep(1000);
@@ -92,7 +89,7 @@ public class Admin {
 			e.printStackTrace();
 		}
 		cf1.getSession().write(message);
- //       cf2.getSession().write(message);
+		//       cf2.getSession().write(message);
 //		cf3.getSession().write(message);
 //		cf4.getSession().write(message);
 //		cf5.getSession().write(message);
@@ -102,10 +99,10 @@ public class Admin {
 	}
 
 
-	public static void randomData(){
-		HashMap<Integer,ArrayList<Integer>>map = new HashMap<Integer, ArrayList<Integer>>();
+	public static void randomData() {
+		HashMap<Integer, ArrayList<Integer>> map = new HashMap<Integer, ArrayList<Integer>>();
 		Random rd = new Random();
-		for(int i=0;i<5;i++){
+		for (int i = 0; i < 5; i++) {
 			System.out.println(rd.nextInt(8));
 		}
 /*		for(int i=0;i<45;i++){
@@ -125,7 +122,7 @@ public class Admin {
 			Integer key = (Integer) it.next();
 			ArrayList<Integer> arr = map.get(key);
 			System.out.println(key + "-------" + arr.toString());
-		}*/		
+		}*/
 	}
 }
 

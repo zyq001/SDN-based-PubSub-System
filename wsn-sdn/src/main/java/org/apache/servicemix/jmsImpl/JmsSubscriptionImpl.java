@@ -1,70 +1,46 @@
 package org.apache.servicemix.jmsImpl;
 
-import java.util.LinkedList;
-
-import javax.jms.Message;
-import javax.xml.bind.JAXBContext;
-import javax.xml.namespace.QName;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.transform.dom.DOMSource;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.servicemix.application.WSNTopicObject;
-import org.apache.servicemix.application.WsnProcessImpl;
-import org.apache.servicemix.jmsImpl.JmsSubscriptionImpl;
 import org.apache.servicemix.wsn.jms.JmsSubscription;
-import org.apache.servicemix.wsn.push.ListItem;
 import org.apache.servicemix.wsn.push.NotifyObserver;
-import org.apache.servicemix.wsn.router.mgr.RtMgr;
 import org.oasis_open.docs.wsn.b_2.Subscribe;
 import org.oasis_open.docs.wsn.b_2.SubscribeCreationFailedFaultType;
-import org.oasis_open.docs.wsn.bw_2.InvalidFilterFault;
-import org.oasis_open.docs.wsn.bw_2.InvalidMessageContentExpressionFault;
-import org.oasis_open.docs.wsn.bw_2.InvalidProducerPropertiesExpressionFault;
-import org.oasis_open.docs.wsn.bw_2.InvalidTopicExpressionFault;
-import org.oasis_open.docs.wsn.bw_2.SubscribeCreationFailedFault;
-import org.oasis_open.docs.wsn.bw_2.TopicExpressionDialectUnknownFault;
-import org.oasis_open.docs.wsn.bw_2.TopicNotSupportedFault;
-import org.oasis_open.docs.wsn.bw_2.UnacceptableInitialTerminationTimeFault;
-import org.oasis_open.docs.wsn.bw_2.UnrecognizedPolicyRequestFault;
-import org.oasis_open.docs.wsn.bw_2.UnsupportedPolicyRequestFault;
-import org.w3c.dom.Document;
-import org.w3c.dom.DocumentFragment;
+import org.oasis_open.docs.wsn.bw_2.*;
 import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
 
-public class JmsSubscriptionImpl extends JmsSubscription{
+import javax.jms.Message;
+
+public class JmsSubscriptionImpl extends JmsSubscription {
 	private static Log log = LogFactory.getLog(JmsSubscriptionImpl.class);
-    
-    private NotifyObserver notifyObserver ;
-    
-    public JmsSubscriptionImpl(String name) {
-        super(name);
-        notifyObserver = new NotifyObserver();
-    }
-    
-    
-    @Override
-    protected void start() throws SubscribeCreationFailedFault {
-        super.start();
-    }
 
-    @Override
-    protected void validateSubscription(Subscribe subscribeRequest) throws InvalidFilterFault,
-            InvalidMessageContentExpressionFault, InvalidProducerPropertiesExpressionFault,
-            InvalidTopicExpressionFault, SubscribeCreationFailedFault, TopicExpressionDialectUnknownFault,
-            TopicNotSupportedFault, UnacceptableInitialTerminationTimeFault,
-            UnsupportedPolicyRequestFault, UnrecognizedPolicyRequestFault {
-        super.validateSubscription(subscribeRequest);
-        System.out.println("validateSubscription1");
-        try {
-            //endpoint = resolveConsumer(subscribeRequest);
-           } catch (Exception e) {
-            SubscribeCreationFailedFaultType fault = new SubscribeCreationFailedFaultType();
-            throw new SubscribeCreationFailedFault("Unable to resolve consumer reference endpoint", fault, e);
-        }
+	private NotifyObserver notifyObserver;
+
+	public JmsSubscriptionImpl(String name) {
+		super(name);
+		notifyObserver = new NotifyObserver();
+	}
+
+
+	@Override
+	protected void start() throws SubscribeCreationFailedFault {
+		super.start();
+	}
+
+	@Override
+	protected void validateSubscription(Subscribe subscribeRequest) throws InvalidFilterFault,
+			InvalidMessageContentExpressionFault, InvalidProducerPropertiesExpressionFault,
+			InvalidTopicExpressionFault, SubscribeCreationFailedFault, TopicExpressionDialectUnknownFault,
+			TopicNotSupportedFault, UnacceptableInitialTerminationTimeFault,
+			UnsupportedPolicyRequestFault, UnrecognizedPolicyRequestFault {
+		super.validateSubscription(subscribeRequest);
+		System.out.println("validateSubscription1");
+		try {
+			//endpoint = resolveConsumer(subscribeRequest);
+		} catch (Exception e) {
+			SubscribeCreationFailedFaultType fault = new SubscribeCreationFailedFaultType();
+			throw new SubscribeCreationFailedFault("Unable to resolve consumer reference endpoint", fault, e);
+		}
 //        if (endpoint == null) {
 //            SubscribeCreationFailedFaultType fault = new SubscribeCreationFailedFaultType();
 //            throw new SubscribeCreationFailedFault("Unable to resolve consumer reference endpoint", fault);
@@ -75,10 +51,10 @@ public class JmsSubscriptionImpl extends JmsSubscription{
         	System.out.println("*****************************convert topicName" + topicName);
 
         	*//**========================================================================================
-        	 * topic tree subscribe
-        	 * new added at 2013/12/1
-        	 *//*
-        	String[] topicPath = topicName.split(":");
+		 * topic tree subscribe
+		 * new added at 2013/12/1
+		 *//*
+	    	String[] topicPath = topicName.split(":");
         	WSNTopicObject current = WsnProcessImpl.topicTree;
         	int flag = 0;
         	for(int i=0;i<topicPath.length-1;i++){
@@ -99,7 +75,7 @@ public class JmsSubscriptionImpl extends JmsSubscription{
         	}
         	System.out.println("match time is: " + flag + "path.length is: " + topicPath.length);
         	if(flag == topicPath.length-1){
-        		//ÅÐ¶Ï¶©ÔÄÊÇ·ñÒÑ¾­´æÔÚ
+        		//ï¿½Ð¶Ï¶ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½ï¿½
         		int i;
         		for(i=0;i<current.getSubscribeAddress().size();i++){
         			if(current.getSubscribeAddress().get(i).equals(subscriberAddress)){
@@ -108,7 +84,7 @@ public class JmsSubscriptionImpl extends JmsSubscription{
         				break;
         			}
         		}
-        		//Èô¶©ÔÄ²»´æÔÚ£¬ÔòÌí¼Ó¶©ÔÄ
+        		//ï¿½ï¿½ï¿½ï¿½ï¿½Ä²ï¿½ï¿½ï¿½ï¿½Ú£ï¿½ï¿½ï¿½ï¿½ï¿½Ó¶ï¿½ï¿½ï¿½
         		if(i == current.getSubscribeAddress().size())
         			current.getSubscribeAddress().add(subscriberAddress);
         	}
@@ -160,8 +136,8 @@ public class JmsSubscriptionImpl extends JmsSubscription{
         		}
         	}
         }*/
-        
-    }
+
+	}
 
 
 //    protected ServiceEndpoint resolveConsumer(Subscribe subscribeRequest) throws Exception {
@@ -188,23 +164,23 @@ public class JmsSubscriptionImpl extends JmsSubscription{
 //        return ep;
 //    }
 
-    protected String[] split(String uri) {
-        char sep;
-        if (uri.indexOf('/') > 0) {
-            sep = '/';
-        } else {
-            sep = ':';
-        }
-        int idx1 = uri.lastIndexOf(sep);
-        int idx2 = uri.lastIndexOf(sep, idx1 - 1);
-        String epName = uri.substring(idx1 + 1);
-        String svcName = uri.substring(idx2 + 1, idx1);
-        String nsUri = uri.substring(0, idx2);
-        return new String[] {nsUri, svcName, epName };
-    }
+	protected String[] split(String uri) {
+		char sep;
+		if (uri.indexOf('/') > 0) {
+			sep = '/';
+		} else {
+			sep = ':';
+		}
+		int idx1 = uri.lastIndexOf(sep);
+		int idx2 = uri.lastIndexOf(sep, idx1 - 1);
+		String epName = uri.substring(idx1 + 1);
+		String svcName = uri.substring(idx2 + 1, idx1);
+		String nsUri = uri.substring(0, idx2);
+		return new String[]{nsUri, svcName, epName};
+	}
 
-    @Override
-    protected void doNotify(final Element content) {
+	@Override
+	protected void doNotify(final Element content) {
 //        try {
 //        	
 //        	MessageExchangeFactory factory = context.getDeliveryChannel().createExchangeFactory(endpoint);
@@ -216,13 +192,13 @@ public class JmsSubscriptionImpl extends JmsSubscription{
 //        } catch (JBIException e) {
 //            log.warn("Could not deliver notification", e);
 //        }
-    }
+	}
 
 
 	@Override
 	public void onMessage(Message arg0) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 //    public ComponentContext getContext() {

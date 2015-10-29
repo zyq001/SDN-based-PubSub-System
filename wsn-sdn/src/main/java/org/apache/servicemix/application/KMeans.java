@@ -1,47 +1,40 @@
 package org.apache.servicemix.application;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 
-//K-meansËã·¨ÊµÏÖ
+//K-meansï¿½ã·¨Êµï¿½ï¿½
 
 public class KMeans {
-	// ¾ÛÀàµÄÊýÄ¿
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿
 	final static int ClassCount = 2;
-	// Ñù±¾ÊýÄ¿£¨²âÊÔ¼¯£©
-	static int InstanceNumber = 0;
-	// Ñù±¾ÊôÐÔÊýÄ¿£¨²âÊÔ£©
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½ï¿½ï¿½Ô£ï¿½
 	final static int FieldCount = 3;
-
-	// ÉèÖÃÒì³£µããÐÖµ²ÎÊý£¨Ã¿Ò»Àà³õÊ¼µÄ×îÐ¡ÊýÄ¿ÎªInstanceNumber/ClassCount^t£©
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ì³£ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã¿Ò»ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½Ð¡ï¿½ï¿½Ä¿ÎªInstanceNumber/ClassCount^tï¿½ï¿½
 	final static double t = -1.0;
-	// ´æ·ÅÊý¾ÝµÄ¾ØÕó
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½ï¿½ï¿½Ô¼ï¿½ï¿½ï¿½
+	static int InstanceNumber = 0;
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÝµÄ¾ï¿½ï¿½ï¿½
 	private float[][] data;
 
-	// Ã¿¸öÀàµÄ¾ùÖµÖÐÐÄ
+	// Ã¿ï¿½ï¿½ï¿½ï¿½Ä¾ï¿½Öµï¿½ï¿½ï¿½ï¿½
 	private float[][] classData;
 
-	// ÔëÉù¼¯ºÏË÷Òý
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	private ArrayList<Integer> noises;
 
-	// ´æ·ÅÃ¿´Î±ä»»½á¹ûµÄ¾ØÕó
+	// ï¿½ï¿½ï¿½Ã¿ï¿½Î±ä»»ï¿½ï¿½ï¿½ï¿½Ä¾ï¿½ï¿½ï¿½
 	private ArrayList<ArrayList<Integer>> result;
-	
+
 	private int state;
-	
+
 	private boolean isZero = true;
 
-	// ¹¹Ôìº¯Êý£¬³õÊ¼»¯
+	// ï¿½ï¿½ï¿½ìº¯ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½
 	public KMeans(int INumber) {
 		InstanceNumber = INumber;
-		// ×îºóÒ»Î»ÓÃÀ´´¢´æ½á¹û
+		// ï¿½ï¿½ï¿½Ò»Î»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		data = new float[InstanceNumber][FieldCount + 1];
 		classData = new float[ClassCount][FieldCount];
 		result = new ArrayList<ArrayList<Integer>>(ClassCount);
@@ -50,32 +43,32 @@ public class KMeans {
 	}
 
 	/**
-	 * Ö÷º¯ÊýÈë¿Ú ²âÊÔ¼¯µÄÎÄ¼þÃû³ÆÎª¡°²âÊÔ¼¯.data¡±,ÆäÖÐÓÐ1000*57´óÐ¡µÄÊý¾Ý Ã¿Ò»ÐÐÎªÒ»¸öÑù±¾£¬ÓÐ57¸öÊôÐÔ Ö÷Òª·ÖÎªÁ½¸ö²½Öè 1.¶ÁÈ¡Êý¾Ý
-	 * 2.½øÐÐ¾ÛÀà ×îºóÍ³¼ÆÔËÐÐÊ±¼äºÍÏûºÄµÄÄÚ´æ
-	 * 
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ô¼ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½Ô¼ï¿½.dataï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1000*57ï¿½ï¿½Ð¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã¿Ò»ï¿½ï¿½ÎªÒ»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½57ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Òªï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 1.ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½
+	 * 2.ï¿½ï¿½ï¿½Ð¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Í³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Äµï¿½ï¿½Ú´ï¿½
+	 *
 	 * @param args
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		long startTime = System.currentTimeMillis();
 		KMeans cluster = new KMeans(5);
-		// ¶ÁÈ¡Êý¾Ý
+		// ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½
 		cluster.readData("D:/test.txt");
-		// ¾ÛÀà¹ý³Ì
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		cluster.cluster();
-		// Êä³ö½á¹û
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		cluster.printResult("D:/clusterResult.data");
 		long endTime = System.currentTimeMillis();
 		System.out.println("Total Time:" + (endTime - startTime) / 1000 + "s");
 		System.out.println("Memory Consuming:"
 				+ (float) (Runtime.getRuntime().totalMemory() - Runtime
-						.getRuntime().freeMemory()) / 1000000 + "MB");
+				.getRuntime().freeMemory()) / 1000000 + "MB");
 	}
 
 	/*
-	 * ¶ÁÈ¡²âÊÔ¼¯µÄÊý¾Ý
+	 * ï¿½ï¿½È¡ï¿½ï¿½ï¿½Ô¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	 * 
-	 * @param dataMap Êý¾Ý
+	 * @param dataMap ï¿½ï¿½ï¿½ï¿½
 	 */
 	public void readData(HashMap<String, ArrayList<Double>> dataMap) {
 		int line = 0;
@@ -89,7 +82,7 @@ public class KMeans {
 				} else if (dataMap.get(k).get(i).toString()
 						.startsWith("Iris-virginica")) {
 					data[line][i] = (float) 3.0;
-				} else { // ½«Êý¾Ý½ØÈ¡Ö®ºó·Å½øÊý×é
+				} else { // ï¿½ï¿½ï¿½ï¿½ï¿½Ý½ï¿½È¡Ö®ï¿½ï¿½Å½ï¿½ï¿½ï¿½ï¿½ï¿½
 					data[line][i] = Float.parseFloat(dataMap.get(k).get(i)
 							.toString());
 				}
@@ -99,9 +92,9 @@ public class KMeans {
 	}
 
 	/*
-	 * ¶ÁÈ¡²âÊÔ¼¯µÄÊý¾Ý
+	 * ï¿½ï¿½È¡ï¿½ï¿½ï¿½Ô¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	 * 
-	 * @param dataMap Êý¾Ý
+	 * @param dataMap ï¿½ï¿½ï¿½ï¿½
 	 */
 	public void readData(HashMap<String, ArrayList<Double>> dataMap, ArrayList<Double> newzuobiao, String newsubscribeaddree) {
 //		for (int i = 0; i < newzuobiao.size(); i++) {
@@ -113,34 +106,33 @@ public class KMeans {
 //			} else if (newzuobiao.get(i).toString()
 //					.startsWith("Iris-virginica")) {
 //				data[0][i] = (float) 3.0;
-//			} else { // ½«Êý¾Ý½ØÈ¡Ö®ºó·Å½øÊý×é
+//			} else { // ï¿½ï¿½ï¿½ï¿½ï¿½Ý½ï¿½È¡Ö®ï¿½ï¿½Å½ï¿½ï¿½ï¿½ï¿½ï¿½
 //				data[0][i] = Float.parseFloat(newzuobiao.get(i)
 //						.toString());
 //			}
 //		}
 		int line = 0;
 		for (String k : dataMap.keySet()) {
-			if(newsubscribeaddree.equals(k)){
+			if (newsubscribeaddree.equals(k)) {
 				for (int i = 0; i < newzuobiao.size(); i++) {
 					data[line][i] = Float.parseFloat(newzuobiao.get(i)
-								.toString());
+							.toString());
 					state = line;
 				}
-			}
-			else{
-				
+			} else {
+
 				for (int i = 0; i < dataMap.get(k).size(); i++) {
-	//				
-	//				if (dataMap.get(k).get(i).toString().startsWith("Iris-setosa")) {
-	//					data[line][i] = (float) 1.0;
-	//				} else if (dataMap.get(k).get(i).toString()
-	//						.startsWith("Iris-versicolor")) {
-	//					data[line][i] = (float) 2.0;
-	//				} else if (dataMap.get(k).get(i).toString()
-	//						.startsWith("Iris-virginica")) {
-	//					data[line][i] = (float) 3.0;
-	//				} else { // ½«Êý¾Ý½ØÈ¡Ö®ºó·Å½øÊý×é
-					
+					//
+					//				if (dataMap.get(k).get(i).toString().startsWith("Iris-setosa")) {
+					//					data[line][i] = (float) 1.0;
+					//				} else if (dataMap.get(k).get(i).toString()
+					//						.startsWith("Iris-versicolor")) {
+					//					data[line][i] = (float) 2.0;
+					//				} else if (dataMap.get(k).get(i).toString()
+					//						.startsWith("Iris-virginica")) {
+					//					data[line][i] = (float) 3.0;
+					//				} else { // ï¿½ï¿½ï¿½ï¿½ï¿½Ý½ï¿½È¡Ö®ï¿½ï¿½Å½ï¿½ï¿½ï¿½ï¿½ï¿½
+
 					data[line][i] = Float.parseFloat(dataMap.get(k).get(i)
 							.toString());
 				}
@@ -148,26 +140,26 @@ public class KMeans {
 			line++;
 		}
 	}
-	
+
 	/*
-	 * ¶ÁÈ¡²âÊÔ¼¯µÄÊý¾Ý
+	 * ï¿½ï¿½È¡ï¿½ï¿½ï¿½Ô¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	 * 
-	 * @param trainingFileName ²âÊÔ¼¯ÎÄ¼þÃû
+	 * @param trainingFileName ï¿½ï¿½ï¿½Ô¼ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½
 	 */
 	public void readData(String trainingFileName) {
 		try {
 			FileReader fr = new FileReader(trainingFileName);
 			BufferedReader br = new BufferedReader(fr);
-			// ´æ·ÅÊý¾ÝµÄÁÙÊ±±äÁ¿
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ýµï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½
 			String lineData = null;
 			String[] splitData = null;
 			int line = 0;
-			// °´ÐÐ¶ÁÈ¡
+			// ï¿½ï¿½ï¿½Ð¶ï¿½È¡
 			while (br.ready()) {
-				// µÃµ½Ô­Ê¼µÄ×Ö·û´®
+				// ï¿½Ãµï¿½Ô­Ê¼ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½
 				lineData = br.readLine();
 				splitData = lineData.split(",");
-				// ×ª»¯ÎªÊý¾Ý
+				// ×ªï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½
 				// System.out.println("length:"+splitData.length);
 				if (splitData.length > 1) {
 					for (int i = 0; i < splitData.length; i++) {
@@ -179,7 +171,7 @@ public class KMeans {
 							data[line][i] = (float) 2.0;
 						} else if (splitData[i].startsWith("Iris-virginica")) {
 							data[line][i] = (float) 3.0;
-						} else { // ½«Êý¾Ý½ØÈ¡Ö®ºó·Å½øÊý×é
+						} else { // ï¿½ï¿½ï¿½ï¿½ï¿½Ý½ï¿½È¡Ö®ï¿½ï¿½Å½ï¿½ï¿½ï¿½ï¿½ï¿½
 							data[line][i] = Float.parseFloat(splitData[i]);
 						}
 					}
@@ -193,29 +185,29 @@ public class KMeans {
 	}
 
 	/*
-	 * ¾ÛÀà¹ý³Ì£¬Ö÷Òª·ÖÎªÁ½²½ 1.Ñ­»·ÕÒ³õÊ¼µã 2.²»¶Ïµ÷ÕûÖ±µ½·ÖÀà²»ÔÙ·¢Éú±ä»¯
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì£ï¿½ï¿½ï¿½Òªï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ 1.Ñ­ï¿½ï¿½ï¿½Ò³ï¿½Ê¼ï¿½ï¿½ 2.ï¿½ï¿½ï¿½Ïµï¿½ï¿½ï¿½Ö±ï¿½ï¿½ï¿½ï¿½ï¿½à²»ï¿½Ù·ï¿½ï¿½ï¿½ï¿½ä»¯
 	 */
 	public void cluster() {
-		// Êý¾Ý¹éÒ»»¯
+		// ï¿½ï¿½ï¿½Ý¹ï¿½Ò»ï¿½ï¿½
 		normalize();
-		// ±ê¼ÇÊÇ·ñÐèÒªÖØÐÂÕÒ³õÊ¼µã
+		// ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½Ò³ï¿½Ê¼ï¿½ï¿½
 		boolean needUpdataInitials = true;
 
-		// ÕÒ³õÊ¼µãµÄµü´ú´ÎÊý
+		// ï¿½Ò³ï¿½Ê¼ï¿½ï¿½Äµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		int times = 1;
-		// ÕÒ³õÊ¼µã
+		// ï¿½Ò³ï¿½Ê¼ï¿½ï¿½
 		while (needUpdataInitials) {
 			needUpdataInitials = false;
 			result.clear();
 			System.out.println("Find Initials Iteration" + (times++)
 					+ "time(s)");
 
-			// Ò»´ÎÕÒ³õÊ¼µãµÄ³¢ÊÔºÍ¸ù¾Ý³õÊ¼µãµÄ·ÖÀà
+			// Ò»ï¿½ï¿½ï¿½Ò³ï¿½Ê¼ï¿½ï¿½Ä³ï¿½ï¿½ÔºÍ¸ï¿½ï¿½Ý³ï¿½Ê¼ï¿½ï¿½Ä·ï¿½ï¿½ï¿½
 			findInitials();
 			firstClassify();
 
-			// Èç¹ûÄ³¸ö·ÖÀàµÄÊýÄ¿Ð¡ÓÚÌØ¶¨µÄãÐÖµ£¬ÔòÈÏÎªÕâ¸ö·ÖÀàÖÐµÄËùÓÐÑù±¾¶¼ÊÇÔëÉùµã
-			// ÐèÒªÖØÐÂÕÒ³õÊ¼µã
+			// ï¿½ï¿½ï¿½Ä³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿Ð¡ï¿½ï¿½ï¿½Ø¶ï¿½ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ðµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+			// ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½Ò³ï¿½Ê¼ï¿½ï¿½
 			// for(int i = 0;i < result.size();i++)
 			// {
 			// if(result.get(i).size() < InstanceNumber/Math.pow(ClassCount,t))
@@ -226,16 +218,16 @@ public class KMeans {
 			// }
 		}
 
-		// ÕÒµ½ºÏÊÊµÄ³õÊ¼µãºó
-		// ²»¶ÏµÄµ÷Õû¾ùÖµÖÐÐÄºÍ·ÖÀà£¬Ö±µ½²»ÔÙ·¢ÉúÈÎºÎ±ä»¯
+		// ï¿½Òµï¿½ï¿½ï¿½ï¿½ÊµÄ³ï¿½Ê¼ï¿½ï¿½ï¿½
+		// ï¿½ï¿½ï¿½ÏµÄµï¿½ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ÄºÍ·ï¿½ï¿½à£¬Ö±ï¿½ï¿½ï¿½ï¿½ï¿½Ù·ï¿½ï¿½ï¿½ï¿½ÎºÎ±ä»¯
 		Adjust();
 	}
 
 	/*
-	 * ¶ÔÊý¾Ý½øÐÐ¹éÒ»»¯ 1.ÕÒÃ¿Ò»¸öÊôÐÔµÄ×î´óÖµ 2.¶ÔÄ³¸öÑù±¾µÄÃ¿¸öÊôÐÔ³ýÒÔÆä×î´óÖµ
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½Ý½ï¿½ï¿½Ð¹ï¿½Ò»ï¿½ï¿½ 1.ï¿½ï¿½Ã¿Ò»ï¿½ï¿½ï¿½ï¿½ï¿½Ôµï¿½ï¿½ï¿½ï¿½Öµ 2.ï¿½ï¿½Ä³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã¿ï¿½ï¿½ï¿½ï¿½ï¿½Ô³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµ
 	 */
 	public void normalize() {
-		// ÕÒ×î´óÖµ
+		// ï¿½ï¿½ï¿½ï¿½ï¿½Öµ
 		float[] max = new float[FieldCount];
 
 		for (int i = 0; i < InstanceNumber; i++) {
@@ -245,7 +237,7 @@ public class KMeans {
 			}
 		}
 
-		// ¹éÒ»»¯
+		// ï¿½ï¿½Ò»ï¿½ï¿½
 		for (int i = 0; i < InstanceNumber; i++) {
 			for (int j = 0; j < FieldCount; j++) {
 				data[i][j] = data[i][j] / max[j];
@@ -253,33 +245,33 @@ public class KMeans {
 		}
 	}
 
-	// ¹ØÓÚ³õÊ¼ÏòÁ¿µÄÒ»´ÎÕÒÑ°³¢ÊÔ
+	// ï¿½ï¿½ï¿½Ú³ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½Ñ°ï¿½ï¿½ï¿½ï¿½
 	public void findInitials() {
-		// a,bÎª±êÖ¾¾àÀë×îÔ¶µÄÁ½¸öÏòÁ¿µÄË÷Òý
+		// a,bÎªï¿½ï¿½Ö¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		int i, j, a, b;
 		i = j = a = b = 0;
 
-		// ×îÔ¶¾àÀë
+		// ï¿½ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½
 		float maxDis = 0;
 
-		// ÒÑ¾­ÕÒµ½µÄ³õÊ¼µã¸öÊý
+		// ï¿½Ñ¾ï¿½ï¿½Òµï¿½ï¿½Ä³ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½
 		int alreadyCls = 2;
 
-		// ´æ·ÅÒÑ¾­±ê¼ÇÎª³õÊ¼µãµÄÏòÁ¿Ë÷Òý
+		// ï¿½ï¿½ï¿½ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		ArrayList<Integer> initials = new ArrayList<Integer>();
 
-		// ´ÓÁ½¸ö¿ªÊ¼
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼
 		for (; i < InstanceNumber; i++) {
-			// ÔëÉùµã
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			if (noises.contains(i))
 				continue;
 			// long startTime = System.currentTimeMillis();
 			j = i + 1;
 			for (; j < InstanceNumber; j++) {
-				// ÔëÉùµã
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 				if (noises.contains(j))
 					continue;
-				// ÕÒ³ö×î´óµÄ¾àÀë²¢¼ÇÂ¼ÏÂÀ´
+				// ï¿½Ò³ï¿½ï¿½ï¿½ï¿½Ä¾ï¿½ï¿½ë²¢ï¿½ï¿½Â¼ï¿½ï¿½ï¿½ï¿½
 				float newDis = calDis(data[i], data[j]);
 				if (maxDis < newDis) {
 					a = i;
@@ -292,13 +284,13 @@ public class KMeans {
 			// "Vector Caculation Time:"+(endTime-startTime)+"ms");
 		}
 
-		// ½«Ç°Á½¸ö³õÊ¼µã¼ÇÂ¼ÏÂÀ´
+		// ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½Â¼ï¿½ï¿½ï¿½ï¿½
 		initials.add(a);
 		initials.add(b);
 		classData[0] = data[a];
 		classData[1] = data[b];
 
-		// ÔÚ½á¹ûÖÐÐÂ½¨´æ·ÅÄ³Ñù±¾Ë÷ÒýµÄ¶ÔÏó£¬²¢°Ñ³õÊ¼µãÌí¼Ó½øÈ¥
+		// ï¿½Ú½ï¿½ï¿½ï¿½ï¿½ï¿½Â½ï¿½ï¿½ï¿½ï¿½Ä³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¶ï¿½ï¿½ó£¬²ï¿½ï¿½Ñ³ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½Ó½ï¿½È¥
 		ArrayList<Integer> resultOne = new ArrayList<Integer>();
 		ArrayList<Integer> resultTwo = new ArrayList<Integer>();
 		resultOne.add(a);
@@ -306,20 +298,20 @@ public class KMeans {
 		result.add(resultOne);
 		result.add(resultTwo);
 
-		// ÕÒµ½Ê£ÓàµÄ¼¸¸ö³õÊ¼µã
+		// ï¿½Òµï¿½Ê£ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½
 		while (alreadyCls < ClassCount) {
 			i = j = 0;
 			float maxMin = 0;
 			int newClass = -1;
 
-			// ÕÒ×îÐ¡ÖµÖÐµÄ×î´óÖµ
+			// ï¿½ï¿½ï¿½ï¿½Ð¡Öµï¿½Ðµï¿½ï¿½ï¿½ï¿½Öµ
 			for (; i < InstanceNumber; i++) {
 				float min = 0;
 				float newMin = 0;
-				// ÕÒºÍÒÑÓÐÀàµÄ×îÐ¡Öµ
+				// ï¿½Òºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¡Öµ
 				if (initials.contains(i))
 					continue;
-				// ÔëÉùµãÈ¥³ý
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¥ï¿½ï¿½
 				if (noises.contains(i))
 					continue;
 				for (j = 0; j < alreadyCls; j++) {
@@ -328,13 +320,13 @@ public class KMeans {
 						min = newMin;
 				}
 
-				// ÐÂ×îÐ¡¾àÀë½Ï´ó
+				// ï¿½ï¿½ï¿½ï¿½Ð¡ï¿½ï¿½ï¿½ï¿½Ï´ï¿½
 				if (min > maxMin) {
 					maxMin = min;
 					newClass = i;
 				}
 			}
-			// Ìí¼Óµ½¾ùÖµ¼¯ºÏºÍ½á¹û¼¯ºÏÖÐ
+			// ï¿½ï¿½Óµï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ÏºÍ½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			// System.out.println("NewClass"+newClass);
 			initials.add(newClass);
 			classData[alreadyCls++] = data[newClass];
@@ -344,14 +336,14 @@ public class KMeans {
 		}
 	}
 
-	// µÚÒ»´Î·ÖÀà
+	// ï¿½ï¿½Ò»ï¿½Î·ï¿½ï¿½ï¿½
 	public void firstClassify() {
-		// ¸ù¾Ý³õÊ¼ÏòÁ¿·ÖÀà
+		// ï¿½ï¿½ï¿½Ý³ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		for (int i = 0; i < InstanceNumber; i++) {
 			float min = 0f;
 			int clsId = -1;
 			for (int j = 0; j < classData.length; j++) {
-				// Å·Ê½¾àÀë
+				// Å·Ê½ï¿½ï¿½ï¿½ï¿½
 				float newMin = calDis(classData[j], data[i]);
 				if (clsId == -1 || newMin < min) {
 					clsId = j;
@@ -359,33 +351,33 @@ public class KMeans {
 				}
 
 			}
-			// ±¾Éí²»ÔÙÌí¼Ó
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			if (!result.get(clsId).contains(i))
 				result.get(clsId).add(i);
 		}
 	}
 
-	// µü´ú·ÖÀà£¬Ö±µ½¸÷¸öÀàµÄÊý¾Ý²»ÔÙ±ä»¯
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½à£¬Ö±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý²ï¿½ï¿½Ù±ä»¯
 	public void Adjust() {
-		// ¼ÇÂ¼ÊÇ·ñ·¢Éú±ä»¯
+		// ï¿½ï¿½Â¼ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ä»¯
 		boolean change = true;
 
-		// Ñ­»·µÄ´ÎÊý
+		// Ñ­ï¿½ï¿½ï¿½Ä´ï¿½ï¿½ï¿½
 		int times = 1;
 		while (change) {
-			// ¸´Î»
+			// ï¿½ï¿½Î»
 			change = false;
 			System.out.println("Adjust Iteration" + (times++) + "time(s)");
 
-			// ÖØÐÂ¼ÆËãÃ¿¸öÀàµÄ¾ùÖµ
+			// ï¿½ï¿½ï¿½Â¼ï¿½ï¿½ï¿½Ã¿ï¿½ï¿½ï¿½ï¿½Ä¾ï¿½Öµ
 			for (int i = 0; i < ClassCount; i++) {
-				// Ô­ÓÐµÄÊý¾Ý
+				// Ô­ï¿½Ðµï¿½ï¿½ï¿½ï¿½ï¿½
 				ArrayList<Integer> cls = result.get(i);
 
-				// ÐÂµÄ¾ùÖµ
+				// ï¿½ÂµÄ¾ï¿½Öµ
 				float[] newMean = new float[FieldCount];
 
-				// ¼ÆËã¾ùÖµ
+				// ï¿½ï¿½ï¿½ï¿½ï¿½Öµ
 				for (Integer index : cls) {
 					for (int j = 0; j < FieldCount; j++)
 						newMean[j] += data[index][j];
@@ -397,11 +389,11 @@ public class KMeans {
 					change = true;
 				}
 			}
-			// Çå¿ÕÖ®Ç°µÄÊý¾Ý
+			// ï¿½ï¿½ï¿½Ö®Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			for (ArrayList<Integer> cls : result)
 				cls.clear();
 
-			// ÖØÐÂ·ÖÅä
+			// ï¿½ï¿½ï¿½Â·ï¿½ï¿½ï¿½
 			for (int i = 0; i < InstanceNumber; i++) {
 				float min = 0f;
 				int clsId = -1;
@@ -416,7 +408,7 @@ public class KMeans {
 				result.get(clsId).add(i);
 			}
 
-			// ²âÊÔ¾ÛÀàÐ§¹û(ÑµÁ·¼¯)
+			// ï¿½ï¿½ï¿½Ô¾ï¿½ï¿½ï¿½Ð§ï¿½ï¿½(Ñµï¿½ï¿½ï¿½ï¿½)
 			for (int i = 0; i < ClassCount; i++) {
 				int negatives = 0;
 				int positives = 0;
@@ -435,18 +427,16 @@ public class KMeans {
 	}
 
 	/**
-	 * ¼ÆËãaÑù±¾ºÍbÑù±¾µÄÅ·Ê½¾àÀë×÷Îª²»ÏàËÆ¶È
-	 * 
-	 * @param a
-	 *            Ñù±¾a
-	 * @param b
-	 *            Ñù±¾b
-	 * @return Å·Ê½¾àÀë³¤¶È
+	 * ï¿½ï¿½ï¿½ï¿½aï¿½ï¿½ï¿½ï¿½ï¿½ï¿½bï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å·Ê½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½Æ¶ï¿½
+	 *
+	 * @param a ï¿½ï¿½ï¿½ï¿½a
+	 * @param b ï¿½ï¿½ï¿½ï¿½b
+	 * @return Å·Ê½ï¿½ï¿½ï¿½ë³¤ï¿½ï¿½
 	 */
 	private float calDis(float[] aVector, float[] bVector) {
 		double dis = 0;
 		int i = 0;
-		/* ×îºóÒ»¸öÊý¾ÝÔÚÑµÁ·¼¯ÖÐÎª½á¹û£¬ËùÒÔ²»¿¼ÂÇ */
+		/* ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô²ï¿½ï¿½ï¿½ï¿½ï¿½ */
 		for (; i < aVector.length; i++)
 			dis += Math.pow(bVector[i] - aVector[i], 2);
 		dis = Math.pow(dis, 0.5);
@@ -454,12 +444,10 @@ public class KMeans {
 	}
 
 	/**
-	 * ÅÐ¶ÏÁ½¸ö¾ùÖµÏòÁ¿ÊÇ·ñÏàµÈ
-	 * 
-	 * @param a
-	 *            ÏòÁ¿a
-	 * @param b
-	 *            ÏòÁ¿b
+	 * ï¿½Ð¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½
+	 *
+	 * @param a ï¿½ï¿½ï¿½ï¿½a
+	 * @param b ï¿½ï¿½ï¿½ï¿½b
 	 * @return
 	 */
 	private boolean compareMean(float[] a, float[] b) {
@@ -474,8 +462,8 @@ public class KMeans {
 	}
 
 	/**
-	 * ½«½á¹ûÊä³öµ½Ò»¸öÎÄ¼þÖÐ
-	 * 
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½
+	 *
 	 * @param fileName
 	 */
 	public void printResult(String fileName) {
@@ -484,33 +472,33 @@ public class KMeans {
 		try {
 			fw = new FileWriter(fileName);
 			bw = new BufferedWriter(fw);
-			// Ð´ÈëÎÄ¼þ
+			// Ð´ï¿½ï¿½ï¿½Ä¼ï¿½
 			for (int i = 0; i < InstanceNumber; i++) {
 				bw.write(String.valueOf(data[i][FieldCount]).substring(0, 1));
 				bw.newLine();
 			}
 			int good = 0;
 			int bad = 0;
-			// Í³¼ÆÃ¿ÀàµÄÊýÄ¿£¬´òÓ¡µ½¿ØÖÆÌ¨
+			// Í³ï¿½ï¿½Ã¿ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½ï¿½Ó¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì¨
 			for (int i = 0; i < ClassCount; i++) {
-				if(i==0)
+				if (i == 0)
 					good = result.get(i).size();
 				else
 					bad = result.get(i).size();
 			}
-			if(good < bad){
+			if (good < bad) {
 				int temp = bad;
 				bad = good;
 				good = temp;
 				isZero = false;
 			}
-			System.out.println("ÆÕÍ¨ÓÃ»§ÊýÄ¿£º" + good);
-			System.out.println("¿ÉÒÉÓÃ»§ÊýÄ¿£º" + bad);
+			System.out.println("ï¿½ï¿½Í¨ï¿½Ã»ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½" + good);
+			System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½" + bad);
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {
 
-			// ¹Ø±Õ×ÊÔ´
+			// ï¿½Ø±ï¿½ï¿½ï¿½Ô´
 			if (bw != null)
 				try {
 					bw.close();
@@ -526,20 +514,20 @@ public class KMeans {
 		}
 
 	}
-	
-	
-	public boolean getResult(){
+
+
+	public boolean getResult() {
 		printResult("E:/abc.txt");
-		if("1".equals(String.valueOf(data[state][FieldCount]).substring(0, 1)) && isZero){
-			System.out.println("¿ÉÒÉÓÃ»§£¬ÐèÒªÏÞÖÆ");
+		if ("1".equals(String.valueOf(data[state][FieldCount]).substring(0, 1)) && isZero) {
+			System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½");
 			return true;
-		}else if("0".equals(String.valueOf(data[state][FieldCount]).substring(0, 1)) && !isZero){
-			System.out.println("¿ÉÒÉÓÃ»§£¬ÐèÒªÏÞÖÆ");
+		} else if ("0".equals(String.valueOf(data[state][FieldCount]).substring(0, 1)) && !isZero) {
+			System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½");
 			return true;
 		}
-		System.out.println("Õý³£ÓÃ»§£¬²»ÐèÒªÏÞÖÆ");
+		System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½");
 		return false;
 	}
-	
-	
+
+
 }

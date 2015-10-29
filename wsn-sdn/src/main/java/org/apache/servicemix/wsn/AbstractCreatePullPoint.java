@@ -16,143 +16,141 @@
  */
 package org.apache.servicemix.wsn;
 
-import java.util.Iterator;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-import org.apache.servicemix.application.DOMUtil;
-
-import javax.jws.WebMethod;
-import javax.jws.WebParam;
-import javax.jws.WebResult;
-import javax.jws.WebService;
-
-import org.w3c.dom.Element;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.servicemix.application.IdGenerator;
 import org.apache.servicemix.application.AbstractWSAClient;
+import org.apache.servicemix.application.DOMUtil;
+import org.apache.servicemix.application.IdGenerator;
 import org.oasis_open.docs.wsn.b_2.CreatePullPointResponse;
 import org.oasis_open.docs.wsn.b_2.UnableToCreatePullPointFaultType;
 import org.oasis_open.docs.wsn.bw_2.CreatePullPoint;
 import org.oasis_open.docs.wsn.bw_2.UnableToCreatePullPointFault;
 import org.oasis_open.docs.wsn.bw_2.UnableToDestroyPullPointFault;
+import org.w3c.dom.Element;
+
+import javax.jws.WebMethod;
+import javax.jws.WebParam;
+import javax.jws.WebResult;
+import javax.jws.WebService;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 @WebService(endpointInterface = "org.oasis_open.docs.wsn.bw_2.CreatePullPoint")
 public abstract class AbstractCreatePullPoint extends AbstractEndpoint implements CreatePullPoint {
 
-    private static Log log = LogFactory.getLog(AbstractCreatePullPoint.class);
+	private static Log log = LogFactory.getLog(AbstractCreatePullPoint.class);
 
-    private IdGenerator idGenerator;
+	private IdGenerator idGenerator;
 
-    private Map<String, AbstractPullPoint> pullPoints;
+	private Map<String, AbstractPullPoint> pullPoints;
 
-    public AbstractCreatePullPoint(String name) {
-        super(name);
-        idGenerator = new IdGenerator();
-        pullPoints = new ConcurrentHashMap<String, AbstractPullPoint>();
-    }
+	public AbstractCreatePullPoint(String name) {
+		super(name);
+		idGenerator = new IdGenerator();
+		pullPoints = new ConcurrentHashMap<String, AbstractPullPoint>();
+	}
 
-    public void init() throws Exception {
-        //register();
-    }
+	public void init() throws Exception {
+		//register();
+	}
 
-    public void destroy() throws Exception {
-        unregister();
-    }
+	public void destroy() throws Exception {
+		unregister();
+	}
 
-    @Override
-    protected String createAddress() {
-        return "http://servicemix.org/wsnotification/CreatePullPoint/" + getName();
-    }
+	@Override
+	protected String createAddress() {
+		return "http://servicemix.org/wsnotification/CreatePullPoint/" + getName();
+	}
 
-    @WebMethod(operationName = "CreatePullPoint")
-    @WebResult(name = "CreatePullPointResponse", 
-               targetNamespace = "http://docs.oasis-open.org/wsn/b-2", 
-               partName = "CreatePullPointResponse")
-    public CreatePullPointResponse createPullPoint(
-            @WebParam(name = "CreatePullPoint", 
-                      targetNamespace = "http://docs.oasis-open.org/wsn/b-2", 
-                      partName = "CreatePullPointRequest")
-            org.oasis_open.docs.wsn.b_2.CreatePullPoint createPullPointRequest) throws UnableToCreatePullPointFault {
+	@WebMethod(operationName = "CreatePullPoint")
+	@WebResult(name = "CreatePullPointResponse",
+			targetNamespace = "http://docs.oasis-open.org/wsn/b-2",
+			partName = "CreatePullPointResponse")
+	public CreatePullPointResponse createPullPoint(
+			@WebParam(name = "CreatePullPoint",
+					targetNamespace = "http://docs.oasis-open.org/wsn/b-2",
+					partName = "CreatePullPointRequest")
+			org.oasis_open.docs.wsn.b_2.CreatePullPoint createPullPointRequest) throws UnableToCreatePullPointFault {
 
-        log.debug("CreatePullEndpoint");
-        return handleCreatePullPoint(createPullPointRequest, null);
-    }
+		log.debug("CreatePullEndpoint");
+		return handleCreatePullPoint(createPullPointRequest, null);
+	}
 
-    public CreatePullPointResponse handleCreatePullPoint(
-            org.oasis_open.docs.wsn.b_2.CreatePullPoint createPullPointRequest, 
-            EndpointManager manager) throws UnableToCreatePullPointFault {
-        AbstractPullPoint pullPoint = null;
-        boolean success = false;
-        try {
-            pullPoint = createPullPoint(createPullPointName(createPullPointRequest));
-            for (Iterator it = createPullPointRequest.getAny().iterator(); it.hasNext();) {
-                Element el = (Element) it.next();
-            
-                if ("address".equals(el.getLocalName())
-                        && "http://servicemix.apache.org/wsn2005/1.0".equals(el.getNamespaceURI())) {
-                    String address = DOMUtil.getElementText(el).trim();
-                    pullPoint.setAddress(address);
-                }
-            }
-            pullPoint.setCreatePullPoint(this);
-     //       System.out.println("pullPoint.getAddress()----------------------"+pullPoint.getAddress());
-            
-            pullPoints.put(pullPoint.getAddress(), pullPoint);
-            pullPoint.create(createPullPointRequest);
-            if (manager != null) {
-                pullPoint.setManager(manager);
-            }
-            //pullPoint.register();
-            CreatePullPointResponse response = new CreatePullPointResponse();
-            response.setPullPoint(AbstractWSAClient.createWSA(pullPoint.getAddress()));
-            System.out.println(response.getPullPoint().toString());
-            success = true;
-            return response;
-        } catch (Exception e) {
-            log.warn("Unable to register new endpoint", e);
-            UnableToCreatePullPointFaultType fault = new UnableToCreatePullPointFaultType();
-            throw new UnableToCreatePullPointFault("Unable to register new endpoint", fault, e);
-        } finally {
-            if (!success && pullPoint != null) {
-                pullPoints.remove(pullPoint.getAddress());
-                try {
-                    pullPoint.destroy();
-                } catch (UnableToDestroyPullPointFault e) {
-                    log.info("Error destroying pullPoint", e);
-                }
-            }
-        }
-    }
+	public CreatePullPointResponse handleCreatePullPoint(
+			org.oasis_open.docs.wsn.b_2.CreatePullPoint createPullPointRequest,
+			EndpointManager manager) throws UnableToCreatePullPointFault {
+		AbstractPullPoint pullPoint = null;
+		boolean success = false;
+		try {
+			pullPoint = createPullPoint(createPullPointName(createPullPointRequest));
+			for (Iterator it = createPullPointRequest.getAny().iterator(); it.hasNext(); ) {
+				Element el = (Element) it.next();
 
-    protected String createPullPointName(org.oasis_open.docs.wsn.b_2.CreatePullPoint createPullPointRequest) {
-        // Let the creator decide which pull point name to use
-        String name = null;
-        for (Iterator it = createPullPointRequest.getAny().iterator(); it.hasNext();) {
-            Element el = (Element) it.next();
-           // System.out.println("el()----------------------"+el);
-            if ("name".equals(el.getLocalName())
-                    && "http://servicemix.apache.org/wsn2005/1.0".equals(el.getNamespaceURI())) {
-                name = DOMUtil.getElementText(el).trim();
-            }
-           // System.out.println("name1()----------------------"+name);
-        }
-        if (name == null) {
-            // If no name is given, just generate one
-            name = idGenerator.generateSanitizedId();
-           // System.out.println("name2()----------------------"+name);
-        }
-        return name;
-    }
+				if ("address".equals(el.getLocalName())
+						&& "http://servicemix.apache.org/wsn2005/1.0".equals(el.getNamespaceURI())) {
+					String address = DOMUtil.getElementText(el).trim();
+					pullPoint.setAddress(address);
+				}
+			}
+			pullPoint.setCreatePullPoint(this);
+			//       System.out.println("pullPoint.getAddress()----------------------"+pullPoint.getAddress());
 
-    public void destroyPullPoint(String address) throws UnableToDestroyPullPointFault {
-        AbstractPullPoint pullPoint = pullPoints.remove(address);
-        if (pullPoint != null) {
-            pullPoint.destroy();
-        }
-    }
+			pullPoints.put(pullPoint.getAddress(), pullPoint);
+			pullPoint.create(createPullPointRequest);
+			if (manager != null) {
+				pullPoint.setManager(manager);
+			}
+			//pullPoint.register();
+			CreatePullPointResponse response = new CreatePullPointResponse();
+			response.setPullPoint(AbstractWSAClient.createWSA(pullPoint.getAddress()));
+			System.out.println(response.getPullPoint().toString());
+			success = true;
+			return response;
+		} catch (Exception e) {
+			log.warn("Unable to register new endpoint", e);
+			UnableToCreatePullPointFaultType fault = new UnableToCreatePullPointFaultType();
+			throw new UnableToCreatePullPointFault("Unable to register new endpoint", fault, e);
+		} finally {
+			if (!success && pullPoint != null) {
+				pullPoints.remove(pullPoint.getAddress());
+				try {
+					pullPoint.destroy();
+				} catch (UnableToDestroyPullPointFault e) {
+					log.info("Error destroying pullPoint", e);
+				}
+			}
+		}
+	}
 
-    protected abstract AbstractPullPoint createPullPoint(String name);
+	protected String createPullPointName(org.oasis_open.docs.wsn.b_2.CreatePullPoint createPullPointRequest) {
+		// Let the creator decide which pull point name to use
+		String name = null;
+		for (Iterator it = createPullPointRequest.getAny().iterator(); it.hasNext(); ) {
+			Element el = (Element) it.next();
+			// System.out.println("el()----------------------"+el);
+			if ("name".equals(el.getLocalName())
+					&& "http://servicemix.apache.org/wsn2005/1.0".equals(el.getNamespaceURI())) {
+				name = DOMUtil.getElementText(el).trim();
+			}
+			// System.out.println("name1()----------------------"+name);
+		}
+		if (name == null) {
+			// If no name is given, just generate one
+			name = idGenerator.generateSanitizedId();
+			// System.out.println("name2()----------------------"+name);
+		}
+		return name;
+	}
+
+	public void destroyPullPoint(String address) throws UnableToDestroyPullPointFault {
+		AbstractPullPoint pullPoint = pullPoints.remove(address);
+		if (pullPoint != null) {
+			pullPoint.destroy();
+		}
+	}
+
+	protected abstract AbstractPullPoint createPullPoint(String name);
 
 }

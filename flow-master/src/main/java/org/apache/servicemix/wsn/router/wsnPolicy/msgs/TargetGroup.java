@@ -19,31 +19,15 @@ public class TargetGroup extends TargetMsg
 	protected boolean allMsg = true;
 
 
-	public boolean isAllMsg() {
-		return allMsg;
-	}
-
-	public void setAllMsg(boolean allMsg) {
-		this.allMsg = allMsg;
-	}
-	public List<TargetRep> getTargetList() {
-		return targetList;
-	}
-
-	public void setTargetList(List<TargetRep> targetList) {
-		this.targetList = targetList;
-	}
-
 	public TargetGroup()
 	{
 		this(null, null);
 	}
-	
+
 	public TargetGroup(String groupName)
 	{
 		this(groupName, null);
 	}
-	
 	public TargetGroup(String groupName, List<TargetRep> targetList)
 	{
 		this.name = groupName;
@@ -54,7 +38,30 @@ public class TargetGroup extends TargetMsg
 			{
 				this.targetList.add(targetList.get(i));
 			}
-		}		
+		}
+	}
+
+	public static void main(String[] args) {
+		TargetGroup t1 = new TargetGroup("ab");
+		TargetGroup t2 = new TargetGroup("ab");
+
+		System.out.println(t1.equals(t2));
+	}
+
+	public boolean isAllMsg() {
+		return allMsg;
+	}
+	
+	public void setAllMsg(boolean allMsg) {
+		this.allMsg = allMsg;
+	}
+	
+	public List<TargetRep> getTargetList() {
+		return targetList;
+	}
+	
+	public void setTargetList(List<TargetRep> targetList) {
+		this.targetList = targetList;
 	}
 	
 	public void mergeMsg(TargetGroup tg)
@@ -74,7 +81,7 @@ public class TargetGroup extends TargetMsg
 		if(trs.isEmpty()){
 				return;
 		}
-			
+
 		if(trs.size() == 1)
 		{
 			TargetRep tr = trs.get(0);
@@ -125,13 +132,5 @@ public class TargetGroup extends TargetMsg
 				}
 			}
 		}
-	}
-	
-	
-	public static void main(String[] args) {
-		TargetGroup t1 = new TargetGroup("ab");
-		TargetGroup t2 = new TargetGroup("ab");
-
-		System.out.println(t1.equals(t2));
 	}
 }

@@ -1,28 +1,21 @@
 package org.apache.servicemix.wsn.router.mgr;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.apache.servicemix.wsn.router.mgr.base.AConfiguration;
+import org.apache.servicemix.wsn.router.mgr.base.MsgSubsForm;
+import org.apache.servicemix.wsn.router.msg.tcp.GroupUnit;
+import org.apache.servicemix.wsn.router.msg.tcp.LSA;
+import org.apache.servicemix.wsn.router.msg.tcp.MsgConf;
+import org.apache.servicemix.wsn.router.msg.tcp.MsgConf_;
+
+import java.io.*;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Properties;
 import java.util.TreeSet;
 import java.util.concurrent.ConcurrentHashMap;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.apache.servicemix.wsn.router.mgr.base.AConfiguration;
-import org.apache.servicemix.wsn.router.mgr.base.MsgSubsForm;
-import org.apache.servicemix.wsn.router.msg.tcp.MsgConf;
-import org.apache.servicemix.wsn.router.msg.tcp.MsgConf_;
-import org.apache.servicemix.wsn.router.msg.tcp.LSA;
-import org.apache.servicemix.wsn.router.msg.tcp.GroupUnit;
 
 public class Configuration extends AConfiguration {
 	private static Log log = LogFactory.getLog(Configuration.class);
@@ -38,8 +31,8 @@ public class Configuration extends AConfiguration {
 		String adminAddr1 = "";//存放配置的主从管理员地址
 		String adminAddr2 = "";//存放配置的主从管理员地址
 		props = new Properties();
-    	String propertiesPath = "confige.properties";
-        try {
+		String propertiesPath = "confige.properties";
+		try {
 			props.load(new FileInputStream(propertiesPath));
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -50,10 +43,10 @@ public class Configuration extends AConfiguration {
 //			e.printStackTrace();
 			System.out.println("读取公共配置文件时发生ioEception");
 
-		}  
-        
+		}
+
 //        props.getProperty ("ip");
-        
+
 //		File file = new File("configure.txt");//读取本地配置文件
 //
 //		BufferedReader reader = null;
@@ -71,29 +64,29 @@ public class Configuration extends AConfiguration {
 //				s[0] = s[0].trim();
 
 //				if (s[0].equals("administrator's address1"))
-					adminAddr1 = props.getProperty ("adminAddress1");
+		adminAddr1 = props.getProperty("adminAddress1");
 //				else if (s[0].equals("administrator's address2"))
-					adminAddr2 = props.getProperty ("adminAddress2");
+		adminAddr2 = props.getProperty("adminAddress2");
 //				else if (s[0].equals("administrator's port"))
-					adminPort = Integer.valueOf(props.getProperty ("adminPort"));
+		adminPort = Integer.valueOf(props.getProperty("adminPort"));
 //				else if (s[0].equals("queueSize"))
-					queueSize = Integer.valueOf(props.getProperty ("queueSize"));
+		queueSize = Integer.valueOf(props.getProperty("queueSize"));
 //				else if (s[0].equals("poolCount"))
-					poolCount = Integer.valueOf(props.getProperty ("poolCount"));
+		poolCount = Integer.valueOf(props.getProperty("poolCount"));
 //				else if (s[0].equals("connectCount"))
-					connectCount = Integer.valueOf(props.getProperty ("connectCount"));
+		connectCount = Integer.valueOf(props.getProperty("connectCount"));
 //				else if (s[0].equals("local group name"))
-					groupName = props.getProperty ("localGroupName");
+		groupName = props.getProperty("localGroupName");
 //				else if (s[0].equals("local address"))
-					localAddr = props.getProperty ("localAddress");
+		localAddr = props.getProperty("localAddress");
 //				else if(s[0].equals("local netmask"))
-					localNetmask = props.getProperty ("localNetmask");
+		localNetmask = props.getProperty("localNetmask");
 //				else if (s[0].equals("local port"))
-					tPort = Integer.valueOf(props.getProperty ("localPort"));
-				
-					groupController = props.getProperty ("groupController");
-					
-					globalController = props.getProperty ("globalController");
+		tPort = Integer.valueOf(props.getProperty("localPort"));
+
+		groupController = props.getProperty("groupController");
+
+		globalController = props.getProperty("globalController");
 //				else if (s[0].equals("thresholdInitialize"))
 //					thresholdInitialize = Long.parseLong(s[1].trim());
 //				else if (s[0].equals("sendPeriodInitialize"))
@@ -172,9 +165,9 @@ public class Configuration extends AConfiguration {
 						joinTimes = conf_.joinTimes;
 
 						threshold = conf_.lostThreshold;
-						System.out.println("lostthreshold:"+threshold);
+						System.out.println("lostthreshold:" + threshold);
 						sendPeriod = conf_.sendPeriod;
-						System.out.println("sendPeriod:"+sendPeriod);
+						System.out.println("sendPeriod:" + sendPeriod);
 						scanPeriod = conf_.scanPeriod;
 						synPeriod = conf_.synPeriod;
 					}//if	
@@ -212,11 +205,11 @@ public class Configuration extends AConfiguration {
 		fellows = new ConcurrentHashMap<String, BrokerUnit>();
 
 		waitHello = new ArrayList<String>();
-		
+
 		lsdb = new ConcurrentHashMap<String, LSA>();
-		
+
 		neighbors = new ArrayList<String>();
-		
+
 		groupTableRoot = new MsgSubsForm();
 
 		udpMsgThreadSwitch = true;

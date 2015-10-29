@@ -1,19 +1,17 @@
 package org.apache.servicemix.wsn.router.msg.tcp;
 
 import java.io.Serializable;
-import java.util.HashMap;
-import java.util.TreeSet;
 
 public class MsgInsert_ implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
-	public boolean isOK;//ÊÇ·ñ²åÈë³É¹¦
-	
-	public String name;//¼¯ÈºÃû×Ö
-	
-	public int uPort;//±¾¼¯ÈºµÄudp¶Ë¿ÚºÅ
-	
+
+	public boolean isOK;//ï¿½Ç·ï¿½ï¿½ï¿½ï¿½É¹ï¿½
+
+	public String name;//ï¿½ï¿½Èºï¿½ï¿½ï¿½ï¿½
+
+	public int uPort;//ï¿½ï¿½ï¿½ï¿½Èºï¿½ï¿½udpï¿½Ë¿Úºï¿½
+
 	public long id;
-	
+
 }

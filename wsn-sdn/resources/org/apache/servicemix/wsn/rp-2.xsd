@@ -15,380 +15,380 @@ This document and the information contained herein is provided on an "AS IS" bas
 
 -->
 <xsd:schema
-  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-  xmlns:wsrf-rp="http://docs.oasis-open.org/wsrf/rp-2"
-  xmlns:wsrf-bf="http://docs.oasis-open.org/wsrf/bf-2"
-  elementFormDefault="qualified" attributeFormDefault="unqualified"
-  targetNamespace="http://docs.oasis-open.org/wsrf/rp-2"
->
-  <xsd:import
-       namespace="http://docs.oasis-open.org/wsrf/bf-2"
-       schemaLocation="bf-2.xsd"
-   />
-<!-- =============== Resource Property Related  =================== -->
-<!-- ====== Resource Properties for QueryResourceProperties ======= -->
-   <xsd:element name="QueryExpressionDialect" type="xsd:anyURI"/>
+        xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+        xmlns:wsrf-rp="http://docs.oasis-open.org/wsrf/rp-2"
+        xmlns:wsrf-bf="http://docs.oasis-open.org/wsrf/bf-2"
+        elementFormDefault="qualified" attributeFormDefault="unqualified"
+        targetNamespace="http://docs.oasis-open.org/wsrf/rp-2"
+        >
+    <xsd:import
+            namespace="http://docs.oasis-open.org/wsrf/bf-2"
+            schemaLocation="bf-2.xsd"
+            />
+    <!-- =============== Resource Property Related  =================== -->
+    <!-- ====== Resource Properties for QueryResourceProperties ======= -->
+    <xsd:element name="QueryExpressionDialect" type="xsd:anyURI"/>
 
-   <xsd:element name="QueryExpressionRPDocument">
-      <xsd:complexType>
-         <xsd:sequence>
-            <xsd:element ref="wsrf-rp:QueryExpressionDialect"
-                         minOccurs="0" maxOccurs="unbounded" />
-         </xsd:sequence>
-      </xsd:complexType>
-   </xsd:element>
-
-<!-- ======= Global Attribute Declaration for WSDL 1.1 portType==== -->
-  <xsd:attribute name="ResourceProperties" type="xsd:QName" />
-
-<!-- = Notification Message for ResourceProperties value change === -->
-  <xsd:complexType name="ResourcePropertyValueChangeNotificationType">
-    <xsd:sequence>
-      <xsd:element name="OldValues" nillable="true"
-                   minOccurs="0" maxOccurs="1" >
+    <xsd:element name="QueryExpressionRPDocument">
         <xsd:complexType>
-          <xsd:sequence>
-            <xsd:any minOccurs="1" maxOccurs="unbounded" />
-          </xsd:sequence>
+            <xsd:sequence>
+                <xsd:element ref="wsrf-rp:QueryExpressionDialect"
+                             minOccurs="0" maxOccurs="unbounded"/>
+            </xsd:sequence>
         </xsd:complexType>
-      </xsd:element>
-      <xsd:element name="NewValues" nillable="true"
-                   minOccurs="1" maxOccurs="1" >
+    </xsd:element>
+
+    <!-- ======= Global Attribute Declaration for WSDL 1.1 portType==== -->
+    <xsd:attribute name="ResourceProperties" type="xsd:QName"/>
+
+    <!-- = Notification Message for ResourceProperties value change === -->
+    <xsd:complexType name="ResourcePropertyValueChangeNotificationType">
+        <xsd:sequence>
+            <xsd:element name="OldValues" nillable="true"
+                         minOccurs="0" maxOccurs="1">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:any minOccurs="1" maxOccurs="unbounded"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="NewValues" nillable="true"
+                         minOccurs="1" maxOccurs="1">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:any minOccurs="1" maxOccurs="unbounded"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:element name="ResourcePropertyValueChangeNotification"
+                 type="wsrf-rp:ResourcePropertyValueChangeNotificationType"/>
+
+    <xsd:complexType name="QueryExpressionType" mixed="true">
+        <xsd:sequence>
+            <xsd:any minOccurs="0" maxOccurs="1" processContents="lax"/>
+        </xsd:sequence>
+        <xsd:attribute name="Dialect" type="xsd:anyURI"/>
+    </xsd:complexType>
+
+    <xsd:element name="QueryExpression" type="wsrf-rp:QueryExpressionType"/>
+
+    <!-- ======= Message Types for GetResourcePropertyDocument  ======= -->
+
+    <xsd:element name="GetResourcePropertyDocument">
+        <xsd:complexType/>
+    </xsd:element>
+
+    <xsd:element name="GetResourcePropertyDocumentResponse">
         <xsd:complexType>
-          <xsd:sequence>
-            <xsd:any minOccurs="1" maxOccurs="unbounded" />
-          </xsd:sequence>
+            <xsd:sequence>
+                <xsd:any minOccurs="1" maxOccurs="1"/>
+            </xsd:sequence>
         </xsd:complexType>
-      </xsd:element>
-    </xsd:sequence>
-  </xsd:complexType>
+    </xsd:element>
 
-  <xsd:element name="ResourcePropertyValueChangeNotification"
-        type="wsrf-rp:ResourcePropertyValueChangeNotificationType" />
+    <!-- ========== Message Types for GetResourceProperty  ============ -->
 
-  <xsd:complexType name="QueryExpressionType" mixed="true">
-    <xsd:sequence>
-      <xsd:any minOccurs="0" maxOccurs="1" processContents="lax" />
-    </xsd:sequence>
-    <xsd:attribute name="Dialect" type="xsd:anyURI" />
-  </xsd:complexType>
+    <xsd:element name="GetResourceProperty"
+                 type="xsd:QName"/>
 
-  <xsd:element name="QueryExpression" type="wsrf-rp:QueryExpressionType" />
+    <xsd:element name="GetResourcePropertyResponse">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:any minOccurs="0" maxOccurs="unbounded"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
 
-<!-- ======= Message Types for GetResourcePropertyDocument  ======= -->
-
-  <xsd:element name="GetResourcePropertyDocument">
-    <xsd:complexType/>
-  </xsd:element>
-
-  <xsd:element name="GetResourcePropertyDocumentResponse">
-    <xsd:complexType>
-      <xsd:sequence>
-        <xsd:any minOccurs="1" maxOccurs="1"/>
-      </xsd:sequence>
+    <xsd:complexType name="InvalidResourcePropertyQNameFaultType">
+        <xsd:complexContent>
+            <xsd:extension base="wsrf-bf:BaseFaultType"/>
+        </xsd:complexContent>
     </xsd:complexType>
-  </xsd:element>
+    <xsd:element name="InvalidResourcePropertyQNameFault"
+                 type="wsrf-rp:InvalidResourcePropertyQNameFaultType"/>
 
-<!-- ========== Message Types for GetResourceProperty  ============ -->
+    <!-- ====== Message Types for GetMultipleResourceProperties ======= -->
+    <xsd:element name="GetMultipleResourceProperties">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="ResourceProperty" type="xsd:QName"
+                             minOccurs="1" maxOccurs="unbounded"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
 
-  <xsd:element name="GetResourceProperty"
-               type="xsd:QName" />
+    <xsd:element name="GetMultipleResourcePropertiesResponse">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:any minOccurs="0" maxOccurs="unbounded"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
 
-  <xsd:element name="GetResourcePropertyResponse" >
-    <xsd:complexType>
-      <xsd:sequence>
-        <xsd:any  minOccurs="0" maxOccurs="unbounded" />
-      </xsd:sequence>
-    </xsd:complexType>
-  </xsd:element>
+    <!-- ========== Message Types for PutResourceProperty  ============ -->
 
-  <xsd:complexType name="InvalidResourcePropertyQNameFaultType">
-    <xsd:complexContent>
-      <xsd:extension base="wsrf-bf:BaseFaultType"/>
-    </xsd:complexContent>
-  </xsd:complexType>
-  <xsd:element name="InvalidResourcePropertyQNameFault"
-               type="wsrf-rp:InvalidResourcePropertyQNameFaultType"/>
+    <xsd:element name="PutResourcePropertyDocument">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:any minOccurs="1" maxOccurs="1"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
 
-<!-- ====== Message Types for GetMultipleResourceProperties ======= -->
-  <xsd:element name="GetMultipleResourceProperties">
-    <xsd:complexType>
-      <xsd:sequence>
-        <xsd:element name="ResourceProperty" type="xsd:QName"
-                     minOccurs="1" maxOccurs="unbounded" />
-      </xsd:sequence>
-    </xsd:complexType>
-  </xsd:element>
+    <xsd:element name="PutResourcePropertyDocumentResponse">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:any minOccurs="0" maxOccurs="1"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
 
-  <xsd:element name="GetMultipleResourcePropertiesResponse">
-    <xsd:complexType>
-      <xsd:sequence>
-        <xsd:any  minOccurs="0" maxOccurs="unbounded" />
-      </xsd:sequence>
-    </xsd:complexType>
-  </xsd:element>
-
-<!-- ========== Message Types for PutResourceProperty  ============ -->
-
-  <xsd:element name="PutResourcePropertyDocument">
-    <xsd:complexType>
-      <xsd:sequence>
-        <xsd:any minOccurs="1" maxOccurs="1"/>
-      </xsd:sequence>
-    </xsd:complexType>
-  </xsd:element>
-
-  <xsd:element name="PutResourcePropertyDocumentResponse">
-    <xsd:complexType>
-      <xsd:sequence>
-        <xsd:any minOccurs="0" maxOccurs="1"/>
-      </xsd:sequence>
-    </xsd:complexType>
-  </xsd:element>
-
-  <xsd:complexType name="ResourcePropertyChangeFailureType">
-         <xsd:sequence>
-         <xsd:element name="CurrentValue" minOccurs="0" maxOccurs="1">
-           <xsd:complexType>
-             <xsd:sequence>
-               <xsd:any minOccurs="1" maxOccurs="unbounded" />
-             </xsd:sequence>
-           </xsd:complexType>
-         </xsd:element>
-         <xsd:element name="RequestedValue" minOccurs="0" maxOccurs="1">
-           <xsd:complexType>
-             <xsd:sequence>
-               <xsd:any minOccurs="1" maxOccurs="unbounded" />
-             </xsd:sequence>
-           </xsd:complexType>
-         </xsd:element>
-     </xsd:sequence>
-     <xsd:attribute name="Restored" type="xsd:boolean"/>
-  </xsd:complexType>
-
-  <xsd:complexType
-      name="UnableToPutResourcePropertyDocumentFaultType">
-    <xsd:complexContent>
-      <xsd:extension base="wsrf-bf:BaseFaultType">
+    <xsd:complexType name="ResourcePropertyChangeFailureType">
         <xsd:sequence>
-          <xsd:element name="ResourcePropertyChangeFailure" type=
-                                                      "wsrf-rp:ResourcePropertyChangeFailureType"/>
+            <xsd:element name="CurrentValue" minOccurs="0" maxOccurs="1">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:any minOccurs="1" maxOccurs="unbounded"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="RequestedValue" minOccurs="0" maxOccurs="1">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:any minOccurs="1" maxOccurs="unbounded"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
         </xsd:sequence>
-      </xsd:extension>
-    </xsd:complexContent>
-  </xsd:complexType>
-  <xsd:element name="UnableToPutResourcePropertyDocumentFault"
-               type=
-      "wsrf-rp:UnableToPutResourcePropertyDocumentFaultType"/>
-
-<!-- ========= Message Types for SetResourceProperties =========== -->
-
-  <xsd:complexType name="InsertType">
-    <xsd:sequence>
-      <xsd:any processContents="lax"
-               minOccurs="1" maxOccurs="unbounded" />
-    </xsd:sequence>
-  </xsd:complexType>
-  <xsd:element name="Insert" type="wsrf-rp:InsertType"/>
-
-  <xsd:complexType name="UpdateType">
-    <xsd:sequence>
-      <xsd:any processContents="lax"
-               minOccurs="1" maxOccurs="unbounded" />
-    </xsd:sequence>
-  </xsd:complexType>
-  <xsd:element name="Update" type="wsrf-rp:UpdateType"/>
-
-  <xsd:complexType name="DeleteType">
-    <xsd:attribute name="ResourceProperty"
-                   type="xsd:QName" use="required" />
-  </xsd:complexType>
-  <xsd:element name="Delete" type="wsrf-rp:DeleteType"/>
-
-  <xsd:element name="SetResourceProperties">
-    <xsd:complexType>
-      <xsd:choice minOccurs="1" maxOccurs="unbounded">
-        <xsd:element ref="wsrf-rp:Insert"/>
-        <xsd:element ref="wsrf-rp:Update"/>
-        <xsd:element ref="wsrf-rp:Delete"/>
-      </xsd:choice>
+        <xsd:attribute name="Restored" type="xsd:boolean"/>
     </xsd:complexType>
-  </xsd:element>
 
-  <xsd:element name="SetResourcePropertiesResponse" >
-    <xsd:complexType />
-  </xsd:element>
-
-  <xsd:complexType
-          name="InvalidModificationFaultType">
-    <xsd:complexContent>
-      <xsd:extension base="wsrf-bf:BaseFaultType">
-        <xsd:sequence>
-          <xsd:element name="ResourcePropertyChangeFailure" type=
-                                                      "wsrf-rp:ResourcePropertyChangeFailureType"/>
-        </xsd:sequence>
-      </xsd:extension>
-    </xsd:complexContent>
-  </xsd:complexType>
-  <xsd:element name=
-      "InvalidModificationFault"
-               type=
-      "wsrf-rp:InvalidModificationFaultType"/>
-
-  <xsd:complexType name="UnableToModifyResourcePropertyFaultType">
-    <xsd:complexContent>
-      <xsd:extension base="wsrf-bf:BaseFaultType">
-        <xsd:sequence>
-          <xsd:element name="ResourcePropertyChangeFailure" type=
-                                                      "wsrf-rp:ResourcePropertyChangeFailureType"/>
-        </xsd:sequence>
-      </xsd:extension>
-    </xsd:complexContent>
-  </xsd:complexType>
-  <xsd:element name="UnableToModifyResourcePropertyFault"
-               type="wsrf-rp:UnableToModifyResourcePropertyFaultType"/>
-
-  <xsd:complexType name="SetResourcePropertyRequestFailedFaultType">
-    <xsd:complexContent>
-      <xsd:extension base="wsrf-bf:BaseFaultType">
-        <xsd:sequence>
-          <xsd:element name="ResourcePropertyChangeFailure" type=
-                                                      "wsrf-rp:ResourcePropertyChangeFailureType"/>
-        </xsd:sequence>
-      </xsd:extension>
-    </xsd:complexContent>
-  </xsd:complexType>
-  <xsd:element name="SetResourcePropertyRequestFailedFault"
-               type=
-          "wsrf-rp:SetResourcePropertyRequestFailedFaultType"/>
-
-  <xsd:complexType name="InsertResourcePropertiesRequestFailedFaultType">
-    <xsd:complexContent>
-      <xsd:extension base="wsrf-bf:BaseFaultType">
-        <xsd:sequence>
-          <xsd:element name="ResourcePropertyChangeFailure" type=
-                                                      "wsrf-rp:ResourcePropertyChangeFailureType"/>
-        </xsd:sequence>
-      </xsd:extension>
-    </xsd:complexContent>
-  </xsd:complexType>
-  <xsd:element name="InsertResourcePropertiesRequestFailedFault"
-               type=
-          "wsrf-rp:InsertResourcePropertiesRequestFailedFaultType"/>
-
-  <xsd:complexType name="UpdateResourcePropertiesRequestFailedFaultType">
-    <xsd:complexContent>
-      <xsd:extension base="wsrf-bf:BaseFaultType">
-        <xsd:sequence>
-          <xsd:element name="ResourcePropertyChangeFailure" type=
-                                                      "wsrf-rp:ResourcePropertyChangeFailureType"/>
-        </xsd:sequence>
-      </xsd:extension>
-    </xsd:complexContent>
-  </xsd:complexType>
-  <xsd:element
-     name="UpdateResourcePropertiesRequestFailedFault"
-     type="wsrf-rp:UpdateResourcePropertiesRequestFailedFaultType"/>
-
-  <xsd:complexType name="DeleteResourcePropertiesRequestFailedFaultType">
-    <xsd:complexContent>
-      <xsd:extension base="wsrf-bf:BaseFaultType">
-        <xsd:sequence>
-          <xsd:element name="ResourcePropertyChangeFailure" type=
-                                                      "wsrf-rp:ResourcePropertyChangeFailureType"/>
-        </xsd:sequence>
-      </xsd:extension>
-    </xsd:complexContent>
-  </xsd:complexType>
-  <xsd:element
-     name="DeleteResourcePropertiesRequestFailedFault"
-     type="wsrf-rp:DeleteResourcePropertiesRequestFailedFaultType"/>
-
-<!-- ======== Message Types for InsertResourceProperties ========== -->
-  <xsd:element name="InsertResourceProperties">
-    <xsd:complexType>
-      <xsd:sequence>
-        <xsd:element ref="wsrf-rp:Insert"/>
-      </xsd:sequence>
+    <xsd:complexType
+            name="UnableToPutResourcePropertyDocumentFaultType">
+        <xsd:complexContent>
+            <xsd:extension base="wsrf-bf:BaseFaultType">
+                <xsd:sequence>
+                    <xsd:element name="ResourcePropertyChangeFailure" type=
+                            "wsrf-rp:ResourcePropertyChangeFailureType"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
     </xsd:complexType>
-  </xsd:element>
+    <xsd:element name="UnableToPutResourcePropertyDocumentFault"
+                 type=
+                         "wsrf-rp:UnableToPutResourcePropertyDocumentFaultType"/>
 
-  <xsd:element name="InsertResourcePropertiesResponse" >
-    <xsd:complexType />
-  </xsd:element>
+    <!-- ========= Message Types for SetResourceProperties =========== -->
 
-<!-- ======== Message Types for UpdateResourceProperties ========== -->
-  <xsd:element name="UpdateResourceProperties">
-    <xsd:complexType>
-      <xsd:sequence>
-        <xsd:element ref="wsrf-rp:Update"/>
-      </xsd:sequence>
-    </xsd:complexType>
-  </xsd:element>
-
-  <xsd:element name="UpdateResourcePropertiesResponse" >
-    <xsd:complexType />
-  </xsd:element>
-
-<!-- ======== Message Types for DeleteResourceProperties ========== -->
-  <xsd:element name="DeleteResourceProperties">
-    <xsd:complexType>
-      <xsd:sequence>
-        <xsd:element ref="wsrf-rp:Delete"/>
-      </xsd:sequence>
-    </xsd:complexType>
-  </xsd:element>
-
-  <xsd:element name="DeleteResourcePropertiesResponse" >
-    <xsd:complexType />
-  </xsd:element>
-
-<!-- ========= Message Types for QueryResourceProperties ========== -->
-
-  <xsd:element name="QueryResourceProperties" >
-    <xsd:complexType>
-      <xsd:sequence>
-        <xsd:element ref="wsrf-rp:QueryExpression"
-                     minOccurs="1" maxOccurs="1"/>
-      </xsd:sequence>
-    </xsd:complexType>
-  </xsd:element>
-
-  <xsd:element name="QueryResourcePropertiesResponse" >
-    <xsd:complexType>
-      <xsd:complexContent mixed="true">
-        <xsd:restriction base="xsd:anyType">
-          <xsd:sequence>
+    <xsd:complexType name="InsertType">
+        <xsd:sequence>
             <xsd:any processContents="lax"
                      minOccurs="1" maxOccurs="unbounded"/>
-          </xsd:sequence>
-        </xsd:restriction>
-      </xsd:complexContent>
+        </xsd:sequence>
     </xsd:complexType>
-  </xsd:element>
+    <xsd:element name="Insert" type="wsrf-rp:InsertType"/>
 
-  <xsd:complexType name="UnknownQueryExpressionDialectFaultType">
-    <xsd:complexContent>
-      <xsd:extension base="wsrf-bf:BaseFaultType"/>
-    </xsd:complexContent>
-  </xsd:complexType>
-  <xsd:element name="UnknownQueryExpressionDialectFault"
-               type="wsrf-rp:UnknownQueryExpressionDialectFaultType"/>
+    <xsd:complexType name="UpdateType">
+        <xsd:sequence>
+            <xsd:any processContents="lax"
+                     minOccurs="1" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="Update" type="wsrf-rp:UpdateType"/>
 
-  <xsd:complexType name="InvalidQueryExpressionFaultType">
-    <xsd:complexContent>
-      <xsd:extension base="wsrf-bf:BaseFaultType"/>
-    </xsd:complexContent>
-  </xsd:complexType>
-  <xsd:element name="InvalidQueryExpressionFault"
-               type="wsrf-rp:InvalidQueryExpressionFaultType"/>
+    <xsd:complexType name="DeleteType">
+        <xsd:attribute name="ResourceProperty"
+                       type="xsd:QName" use="required"/>
+    </xsd:complexType>
+    <xsd:element name="Delete" type="wsrf-rp:DeleteType"/>
 
-  <xsd:complexType name="QueryEvaluationErrorFaultType">
-    <xsd:complexContent>
-      <xsd:extension base="wsrf-bf:BaseFaultType"/>
-    </xsd:complexContent>
-  </xsd:complexType>
-  <xsd:element name="QueryEvaluationErrorFault"
-               type="wsrf-rp:QueryEvaluationErrorFaultType"/>
+    <xsd:element name="SetResourceProperties">
+        <xsd:complexType>
+            <xsd:choice minOccurs="1" maxOccurs="unbounded">
+                <xsd:element ref="wsrf-rp:Insert"/>
+                <xsd:element ref="wsrf-rp:Update"/>
+                <xsd:element ref="wsrf-rp:Delete"/>
+            </xsd:choice>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="SetResourcePropertiesResponse">
+        <xsd:complexType/>
+    </xsd:element>
+
+    <xsd:complexType
+            name="InvalidModificationFaultType">
+        <xsd:complexContent>
+            <xsd:extension base="wsrf-bf:BaseFaultType">
+                <xsd:sequence>
+                    <xsd:element name="ResourcePropertyChangeFailure" type=
+                            "wsrf-rp:ResourcePropertyChangeFailureType"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:element name=
+                         "InvalidModificationFault"
+                 type=
+                         "wsrf-rp:InvalidModificationFaultType"/>
+
+    <xsd:complexType name="UnableToModifyResourcePropertyFaultType">
+        <xsd:complexContent>
+            <xsd:extension base="wsrf-bf:BaseFaultType">
+                <xsd:sequence>
+                    <xsd:element name="ResourcePropertyChangeFailure" type=
+                            "wsrf-rp:ResourcePropertyChangeFailureType"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:element name="UnableToModifyResourcePropertyFault"
+                 type="wsrf-rp:UnableToModifyResourcePropertyFaultType"/>
+
+    <xsd:complexType name="SetResourcePropertyRequestFailedFaultType">
+        <xsd:complexContent>
+            <xsd:extension base="wsrf-bf:BaseFaultType">
+                <xsd:sequence>
+                    <xsd:element name="ResourcePropertyChangeFailure" type=
+                            "wsrf-rp:ResourcePropertyChangeFailureType"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:element name="SetResourcePropertyRequestFailedFault"
+                 type=
+                         "wsrf-rp:SetResourcePropertyRequestFailedFaultType"/>
+
+    <xsd:complexType name="InsertResourcePropertiesRequestFailedFaultType">
+        <xsd:complexContent>
+            <xsd:extension base="wsrf-bf:BaseFaultType">
+                <xsd:sequence>
+                    <xsd:element name="ResourcePropertyChangeFailure" type=
+                            "wsrf-rp:ResourcePropertyChangeFailureType"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:element name="InsertResourcePropertiesRequestFailedFault"
+                 type=
+                         "wsrf-rp:InsertResourcePropertiesRequestFailedFaultType"/>
+
+    <xsd:complexType name="UpdateResourcePropertiesRequestFailedFaultType">
+        <xsd:complexContent>
+            <xsd:extension base="wsrf-bf:BaseFaultType">
+                <xsd:sequence>
+                    <xsd:element name="ResourcePropertyChangeFailure" type=
+                            "wsrf-rp:ResourcePropertyChangeFailureType"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:element
+            name="UpdateResourcePropertiesRequestFailedFault"
+            type="wsrf-rp:UpdateResourcePropertiesRequestFailedFaultType"/>
+
+    <xsd:complexType name="DeleteResourcePropertiesRequestFailedFaultType">
+        <xsd:complexContent>
+            <xsd:extension base="wsrf-bf:BaseFaultType">
+                <xsd:sequence>
+                    <xsd:element name="ResourcePropertyChangeFailure" type=
+                            "wsrf-rp:ResourcePropertyChangeFailureType"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:element
+            name="DeleteResourcePropertiesRequestFailedFault"
+            type="wsrf-rp:DeleteResourcePropertiesRequestFailedFaultType"/>
+
+    <!-- ======== Message Types for InsertResourceProperties ========== -->
+    <xsd:element name="InsertResourceProperties">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="wsrf-rp:Insert"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="InsertResourcePropertiesResponse">
+        <xsd:complexType/>
+    </xsd:element>
+
+    <!-- ======== Message Types for UpdateResourceProperties ========== -->
+    <xsd:element name="UpdateResourceProperties">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="wsrf-rp:Update"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="UpdateResourcePropertiesResponse">
+        <xsd:complexType/>
+    </xsd:element>
+
+    <!-- ======== Message Types for DeleteResourceProperties ========== -->
+    <xsd:element name="DeleteResourceProperties">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="wsrf-rp:Delete"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="DeleteResourcePropertiesResponse">
+        <xsd:complexType/>
+    </xsd:element>
+
+    <!-- ========= Message Types for QueryResourceProperties ========== -->
+
+    <xsd:element name="QueryResourceProperties">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="wsrf-rp:QueryExpression"
+                             minOccurs="1" maxOccurs="1"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="QueryResourcePropertiesResponse">
+        <xsd:complexType>
+            <xsd:complexContent mixed="true">
+                <xsd:restriction base="xsd:anyType">
+                    <xsd:sequence>
+                        <xsd:any processContents="lax"
+                                 minOccurs="1" maxOccurs="unbounded"/>
+                    </xsd:sequence>
+                </xsd:restriction>
+            </xsd:complexContent>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:complexType name="UnknownQueryExpressionDialectFaultType">
+        <xsd:complexContent>
+            <xsd:extension base="wsrf-bf:BaseFaultType"/>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:element name="UnknownQueryExpressionDialectFault"
+                 type="wsrf-rp:UnknownQueryExpressionDialectFaultType"/>
+
+    <xsd:complexType name="InvalidQueryExpressionFaultType">
+        <xsd:complexContent>
+            <xsd:extension base="wsrf-bf:BaseFaultType"/>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:element name="InvalidQueryExpressionFault"
+                 type="wsrf-rp:InvalidQueryExpressionFaultType"/>
+
+    <xsd:complexType name="QueryEvaluationErrorFaultType">
+        <xsd:complexContent>
+            <xsd:extension base="wsrf-bf:BaseFaultType"/>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:element name="QueryEvaluationErrorFault"
+                 type="wsrf-rp:QueryEvaluationErrorFaultType"/>
 
 </xsd:schema>

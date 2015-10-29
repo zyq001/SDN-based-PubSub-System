@@ -5,39 +5,37 @@ package org.apache.servicemix.wsn.router.wsnPolicy;
  * @date 2013-3-5
  */
 
-import java.awt.Component;
+import org.apache.servicemix.wsn.router.wsnPolicy.msgs.TargetMsg;
 
-import javax.swing.JTree;
+import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
-
-import org.apache.servicemix.wsn.router.wsnPolicy.msgs.TargetMsg;
+import java.awt.*;
 
 /**
  *
  */
-public class ShorenNodeRenderer extends DefaultTreeCellRenderer{
-	
+public class ShorenNodeRenderer extends DefaultTreeCellRenderer {
+
 	private static final long serialVersionUID = 1L;
 
-	public Component getTreeCellRendererComponent(JTree tree, Object value,boolean sel, boolean expanded, boolean leaf, int row,boolean hasFocus) {  
-		  
-		super.getTreeCellRendererComponent(tree, value, sel, expanded, leaf,row, hasFocus);    
-		  
-		DefaultMutableTreeNode node=(DefaultMutableTreeNode)value;
-		//StringValueÊÇvalueµ÷ÓÃtoString()ºóµÄ×ªÀ´µÄÃèÊöĞÔÎÄ×Ö£¬ËùÒÔÔÚ½ÚµãÖĞ°ü×°µÄ
-		//¶ÔÏóÓ¦×Ô¼ºÖØĞ´toString·½·¨À´ÊµÏÖ×Ô¼ºÏëÒªµÄ½á¹û  	  
-	//	String stringValue = tree.convertValueToText(value, sel, expanded, leaf, row, hasFocus); 
-	//	setText(stringValue);
-		//ÓëÉÏÊö·½·¨µÈ¼Û
-		if(!node.isRoot())
-		{
-			TargetMsg msg = (TargetMsg)node.getUserObject();
+	public Component getTreeCellRendererComponent(JTree tree, Object value, boolean sel, boolean expanded, boolean leaf, int row, boolean hasFocus) {
+
+		super.getTreeCellRendererComponent(tree, value, sel, expanded, leaf, row, hasFocus);
+
+		DefaultMutableTreeNode node = (DefaultMutableTreeNode) value;
+		//StringValueæ˜¯valueè°ƒç”¨toString()åçš„è½¬æ¥çš„æè¿°æ€§æ–‡å­—ï¼Œæ‰€ä»¥åœ¨èŠ‚ç‚¹ä¸­åŒ…è£…çš„
+		//å¯¹è±¡åº”è‡ªå·±é‡å†™toStringæ–¹æ³•æ¥å®ç°è‡ªå·±æƒ³è¦çš„ç»“æœ  	  
+		//	String stringValue = tree.convertValueToText(value, sel, expanded, leaf, row, hasFocus);
+		//	setText(stringValue);
+		//ä¸ä¸Šè¿°æ–¹æ³•ç­‰ä»·
+		if (!node.isRoot()) {
+			TargetMsg msg = (TargetMsg) node.getUserObject();
 			setText(msg.getName());
 			setIcon(null);
 		}
-		
-		return this;  
-		  
-		}//end of getTreeCellRendererComponent  
+
+		return this;
+
+	}//end of getTreeCellRendererComponent
 }

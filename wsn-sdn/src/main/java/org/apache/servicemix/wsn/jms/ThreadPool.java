@@ -2,98 +2,110 @@ package org.apache.servicemix.wsn.jms;
 
 import java.util.LinkedList;
 
-public class ThreadPool extends ThreadGroup{
-	private boolean isClosed = false;  //Ïß³Ì³ØÊÇ·ñ¹Ø±Õ    
-    private LinkedList workQueue;      //¹¤×÷¶ÓÁĞ   
-    private static int threadPoolID = 1;  //Ïß³Ì³ØµÄid   
-    public ThreadPool(int poolSize) {  //poolSize ±íÊ¾Ïß³Ì³ØÖĞµÄ¹¤×÷Ïß³ÌµÄÊıÁ¿   
-  
-        super(threadPoolID + "");      //Ö¸¶¨ThreadGroupµÄÃû³Æ   
-        setDaemon(true);               //¼Ì³Ğµ½µÄ·½·¨£¬ÉèÖÃÊÇ·ñÊØ»¤Ïß³Ì³Ø   
-        workQueue = new LinkedList();  //´´½¨¹¤×÷¶ÓÁĞ   
-        for(int i = 0; i < poolSize; i++) {   
-            new WorkThread(i).start();   //´´½¨²¢Æô¶¯¹¤×÷Ïß³Ì,Ïß³Ì³ØÊıÁ¿ÊÇ¶àÉÙ¾Í´´½¨¶àÉÙ¸ö¹¤×÷Ïß³Ì   
-        }   
-    }   
-       
-    /** Ïò¹¤×÷¶ÓÁĞÖĞ¼ÓÈëÒ»¸öĞÂÈÎÎñ,ÓÉ¹¤×÷Ïß³ÌÈ¥Ö´ĞĞ¸ÃÈÎÎñ*/  
-    public synchronized void execute(Runnable task) {   
-        if(isClosed) {   
-            throw new IllegalStateException();   
-        }   
-        if(task != null) {   
-            workQueue.add(task);//Ïò¶ÓÁĞÖĞ¼ÓÈëÒ»¸öÈÎÎñ   
-            notify();           //»½ĞÑÒ»¸öÕıÔÚgetTask()·½·¨ÖĞ´ıÈÎÎñµÄ¹¤×÷Ïß³Ì   
-        }   
-    }   
-       
-    /** ´Ó¹¤×÷¶ÓÁĞÖĞÈ¡³öÒ»¸öÈÎÎñ,¹¤×÷Ïß³Ì»áµ÷ÓÃ´Ë·½·¨*/  
-    private synchronized Runnable getTask(int threadid) throws InterruptedException {   
-        while(workQueue.size() == 0) {   
-            if(isClosed) return null;   
-//            System.out.println("¹¤×÷Ïß³Ì"+threadid+"µÈ´ıÈÎÎñ...");   
-            wait();             //Èç¹û¹¤×÷¶ÓÁĞÖĞÃ»ÓĞÈÎÎñ,¾ÍµÈ´ıÈÎÎñ   
-        }   
-//        System.out.println("¹¤×÷Ïß³Ì"+threadid+"¿ªÊ¼Ö´ĞĞÈÎÎñ...");   
-        return (Runnable) workQueue.removeFirst(); //·´»Ø¶ÓÁĞÖĞµÚÒ»¸öÔªËØ,²¢´Ó¶ÓÁĞÖĞÉ¾³ı   
-    }   
-       
-    /** ¹Ø±ÕÏß³Ì³Ø */  
-    public synchronized void closePool() {   
-        if(! isClosed) {   
-            waitFinish();        //µÈ´ı¹¤×÷Ïß³ÌÖ´ĞĞÍê±Ï   
-            isClosed = true;   
-            workQueue.clear();  //Çå¿Õ¹¤×÷¶ÓÁĞ   
-            interrupt();        //ÖĞ¶ÏÏß³Ì³ØÖĞµÄËùÓĞµÄ¹¤×÷Ïß³Ì,´Ë·½·¨¼Ì³Ğ×ÔThreadGroupÀà   
-        }   
-    }   
-       
-    /** µÈ´ı¹¤×÷Ïß³Ì°ÑËùÓĞÈÎÎñÖ´ĞĞÍê±Ï*/  
-    public void waitFinish() {   
-        synchronized (this) {   
-            isClosed = true;   
-            notifyAll();            //»½ĞÑËùÓĞ»¹ÔÚgetTask()·½·¨ÖĞµÈ´ıÈÎÎñµÄ¹¤×÷Ïß³Ì   
-        }   
-        Thread[] threads = new Thread[activeCount()]; //activeCount() ·µ»Ø¸ÃÏß³Ì×éÖĞ»î¶¯Ïß³ÌµÄ¹À¼ÆÖµ¡£   
-        int count = enumerate(threads); //enumerate()·½·¨¼Ì³Ğ×ÔThreadGroupÀà£¬¸ù¾İ»î¶¯Ïß³ÌµÄ¹À¼ÆÖµ»ñµÃÏß³Ì×éÖĞµ±Ç°ËùÓĞ»î¶¯µÄ¹¤×÷Ïß³Ì   
-        for(int i =0; i < count; i++) { //µÈ´ıËùÓĞ¹¤×÷Ïß³Ì½áÊø   
-            try {   
-                threads[i].join();  //µÈ´ı¹¤×÷Ïß³Ì½áÊø   
-            }catch(InterruptedException ex) {   
-                ex.printStackTrace();   
-            }   
-        }   
-    }   
-  
-    /**  
-     * ÄÚ²¿Àà,¹¤×÷Ïß³Ì,¸ºÔğ´Ó¹¤×÷¶ÓÁĞÖĞÈ¡³öÈÎÎñ,²¢Ö´ĞĞ  
-     * @author sunnylocus  
-     */  
-    private class WorkThread extends Thread {   
-        private int id;   
-        public WorkThread(int id) {   
-            //¸¸Àà¹¹Ôì·½·¨,½«Ïß³Ì¼ÓÈëµ½µ±Ç°ThreadPoolÏß³Ì×éÖĞ   
-            super(ThreadPool.this,id+"");   
-            this.id =id;   
-        }   
-        public void run() {   
-            while(! isInterrupted()) {  //isInterrupted()·½·¨¼Ì³Ğ×ÔThreadÀà£¬ÅĞ¶ÏÏß³ÌÊÇ·ñ±»ÖĞ¶Ï   
-                Runnable task = null;   
-                try {   
-                    task = getTask(id);     //È¡³öÈÎÎñ   
-                }catch(InterruptedException ex) {   
-                    ex.printStackTrace();   
-                }   
-                //Èç¹ûgetTask()·µ»Ønull»òÕßÏß³ÌÖ´ĞĞgetTask()Ê±±»ÖĞ¶Ï£¬Ôò½áÊø´ËÏß³Ì   
-                if(task == null) return;   
-                   
-                try {   
-                    task.run();  //ÔËĞĞÈÎÎñ   
-                }catch(Throwable t) {   
-                    t.printStackTrace();   
-                }   
-            }//  end while   
-        }//  end run   
-    }// end workThread   
+public class ThreadPool extends ThreadGroup {
+	private static int threadPoolID = 1;  //ï¿½ß³Ì³Øµï¿½id
+	private boolean isClosed = false;  //ï¿½ß³Ì³ï¿½ï¿½Ç·ï¿½Ø±ï¿½
+	private LinkedList workQueue;      //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+
+	public ThreadPool(int poolSize) {  //poolSize ï¿½ï¿½Ê¾ï¿½ß³Ì³ï¿½ï¿½ĞµÄ¹ï¿½ï¿½ï¿½ï¿½ß³Ìµï¿½ï¿½ï¿½ï¿½ï¿½
+
+		super(threadPoolID + "");      //Ö¸ï¿½ï¿½ThreadGroupï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		setDaemon(true);               //ï¿½Ì³Ğµï¿½ï¿½Ä·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½Ø»ï¿½ï¿½ß³Ì³ï¿½
+		workQueue = new LinkedList();  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		for (int i = 0; i < poolSize; i++) {
+			new WorkThread(i).start();   //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß³ï¿½,ï¿½ß³Ì³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç¶ï¿½ï¿½Ù¾Í´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ù¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß³ï¿½
+		}
+	}
+
+	/**
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ğ¼ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½É¹ï¿½ï¿½ï¿½ï¿½ß³ï¿½È¥Ö´ï¿½Ğ¸ï¿½ï¿½ï¿½ï¿½ï¿½
+	 */
+	public synchronized void execute(Runnable task) {
+		if (isClosed) {
+			throw new IllegalStateException();
+		}
+		if (task != null) {
+			workQueue.add(task);//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ğ¼ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+			notify();           //ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½getTask()ï¿½ï¿½ï¿½ï¿½ï¿½Ğ´ï¿½ï¿½ï¿½ï¿½ï¿½Ä¹ï¿½ï¿½ï¿½ï¿½ß³ï¿½
+		}
+	}
+
+	/**
+	 * ï¿½Ó¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ß³Ì»ï¿½ï¿½ï¿½Ã´Ë·ï¿½ï¿½ï¿½
+	 */
+	private synchronized Runnable getTask(int threadid) throws InterruptedException {
+		while (workQueue.size() == 0) {
+			if (isClosed) return null;
+//            System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ß³ï¿½"+threadid+"ï¿½È´ï¿½ï¿½ï¿½ï¿½ï¿½...");   
+			wait();             //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ÍµÈ´ï¿½ï¿½ï¿½ï¿½ï¿½
+		}
+//        System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ß³ï¿½"+threadid+"ï¿½ï¿½Ê¼Ö´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½...");   
+		return (Runnable) workQueue.removeFirst(); //ï¿½ï¿½ï¿½Ø¶ï¿½ï¿½ï¿½ï¿½Ğµï¿½Ò»ï¿½ï¿½Ôªï¿½ï¿½,ï¿½ï¿½ï¿½Ó¶ï¿½ï¿½ï¿½ï¿½ï¿½É¾ï¿½ï¿½
+	}
+
+	/**
+	 * ï¿½Ø±ï¿½ï¿½ß³Ì³ï¿½
+	 */
+	public synchronized void closePool() {
+		if (!isClosed) {
+			waitFinish();        //ï¿½È´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß³ï¿½Ö´ï¿½ï¿½ï¿½ï¿½ï¿½
+			isClosed = true;
+			workQueue.clear();  //ï¿½ï¿½Õ¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+			interrupt();        //ï¿½Ğ¶ï¿½ï¿½ß³Ì³ï¿½ï¿½Ğµï¿½ï¿½ï¿½ï¿½ĞµÄ¹ï¿½ï¿½ï¿½ï¿½ß³ï¿½,ï¿½Ë·ï¿½ï¿½ï¿½ï¿½Ì³ï¿½ï¿½ï¿½ThreadGroupï¿½ï¿½
+		}
+	}
+
+	/**
+	 * ï¿½È´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß³Ì°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ï¿½ï¿½ï¿½ï¿½
+	 */
+	public void waitFinish() {
+		synchronized (this) {
+			isClosed = true;
+			notifyAll();            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ğ»ï¿½ï¿½ï¿½getTask()ï¿½ï¿½ï¿½ï¿½ï¿½ĞµÈ´ï¿½ï¿½ï¿½ï¿½ï¿½Ä¹ï¿½ï¿½ï¿½ï¿½ß³ï¿½
+		}
+		Thread[] threads = new Thread[activeCount()]; //activeCount() ï¿½ï¿½ï¿½Ø¸ï¿½ï¿½ß³ï¿½ï¿½ï¿½ï¿½Ğ»î¶¯ï¿½ß³ÌµÄ¹ï¿½ï¿½ï¿½Öµï¿½ï¿½
+		int count = enumerate(threads); //enumerate()ï¿½ï¿½ï¿½ï¿½ï¿½Ì³ï¿½ï¿½ï¿½ThreadGroupï¿½à£¬ï¿½ï¿½ï¿½İ»î¶¯ï¿½ß³ÌµÄ¹ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½ß³ï¿½ï¿½ï¿½ï¿½Ğµï¿½Ç°ï¿½ï¿½ï¿½Ğ»î¶¯ï¿½Ä¹ï¿½ï¿½ï¿½ï¿½ß³ï¿½
+		for (int i = 0; i < count; i++) { //ï¿½È´ï¿½ï¿½ï¿½ï¿½Ğ¹ï¿½ï¿½ï¿½ï¿½ß³Ì½ï¿½ï¿½ï¿½
+			try {
+				threads[i].join();  //ï¿½È´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß³Ì½ï¿½ï¿½ï¿½
+			} catch (InterruptedException ex) {
+				ex.printStackTrace();
+			}
+		}
+	}
+
+	/**
+	 * ï¿½Ú²ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ß³ï¿½,ï¿½ï¿½ï¿½ï¿½Ó¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½Ö´ï¿½ï¿½
+	 *
+	 * @author sunnylocus
+	 */
+	private class WorkThread extends Thread {
+		private int id;
+
+		public WorkThread(int id) {
+			//ï¿½ï¿½ï¿½à¹¹ï¿½ì·½ï¿½ï¿½,ï¿½ï¿½ï¿½ß³Ì¼ï¿½ï¿½ëµ½ï¿½ï¿½Ç°ThreadPoolï¿½ß³ï¿½ï¿½ï¿½ï¿½ï¿½
+			super(ThreadPool.this, id + "");
+			this.id = id;
+		}
+
+		public void run() {
+			while (!isInterrupted()) {  //isInterrupted()ï¿½ï¿½ï¿½ï¿½ï¿½Ì³ï¿½ï¿½ï¿½Threadï¿½à£¬ï¿½Ğ¶ï¿½ï¿½ß³ï¿½ï¿½Ç·ï¿½ï¿½Ğ¶ï¿½
+				Runnable task = null;
+				try {
+					task = getTask(id);     //È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+				} catch (InterruptedException ex) {
+					ex.printStackTrace();
+				}
+				//ï¿½ï¿½ï¿½getTask()ï¿½ï¿½ï¿½ï¿½nullï¿½ï¿½ï¿½ï¿½ï¿½ß³ï¿½Ö´ï¿½ï¿½getTask()Ê±ï¿½ï¿½ï¿½Ğ¶Ï£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß³ï¿½
+				if (task == null) return;
+
+				try {
+					task.run();  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+				} catch (Throwable t) {
+					t.printStackTrace();
+				}
+			}//  end while
+		}//  end run
+	}// end workThread
 
 }

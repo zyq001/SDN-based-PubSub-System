@@ -1,47 +1,42 @@
 package org.apache.servicemix.wsn.router.msg.tcp;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
+import org.apache.servicemix.wsn.router.mgr.RtMgr;
+import org.apache.servicemix.wsn.router.mgr.base.AState;
+
+import java.io.*;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.Socket;
-import java.util.ArrayList;
 import java.util.Date;
-
-import org.apache.servicemix.wsn.router.mgr.RtMgr;
-import org.apache.servicemix.wsn.router.mgr.base.AState;
 
 public class MsgInsert implements Serializable {
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1L;
 
 	public String tagetGroupName;
-	
+
 	//my information
 	public String name;
-	
+
 	public int uPort;
-	
+
 	public String addr;
-	
+
 	public long id;
-	
+
 	public int tPort;
-	
+
 	public String netmask;
-	
+
 	public boolean needInit; //if need to spread the insert message
-	
+
 	@SuppressWarnings("static-access")
 	public void processRepMsg(ObjectInputStream ois,
-			ObjectOutputStream oos, Socket s, MsgInsert mi) {
+	                          ObjectOutputStream oos, Socket s, MsgInsert mi) {
 		AState state = RtMgr.getInstance().getState();
 
 		System.out.println("insert message: "
@@ -98,7 +93,7 @@ public class MsgInsert implements Serializable {
 				state.sendObjectToNeighbors(gu);
 			}
 			state.addNeighbor(mi.name);
-			
+
 		} else {
 			// set one child for it to insert
 			mi_.isOK = false;
@@ -110,7 +105,7 @@ public class MsgInsert implements Serializable {
 			e.printStackTrace();
 		}
 	}
-	
+
 	@SuppressWarnings("static-access")
 	private boolean insertOK(String group) {
 		AState state = RtMgr.getInstance().getState();

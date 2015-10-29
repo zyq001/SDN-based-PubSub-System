@@ -40,62 +40,61 @@
      -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
-  <xs:group name="table">
-      <xs:sequence>
-         <xs:choice>
-            <xs:element ref="table"/>
-         </xs:choice>
-      </xs:sequence>
-   </xs:group>
+    <xs:group name="table">
+        <xs:sequence>
+            <xs:choice>
+                <xs:element ref="table"/>
+            </xs:choice>
+        </xs:sequence>
+    </xs:group>
 
-   <xs:group name="tgroup">
-      <xs:sequence>
-         <xs:choice>
-            <xs:element ref="tgroup"/>
-         </xs:choice>
-      </xs:sequence>
-   </xs:group>
+    <xs:group name="tgroup">
+        <xs:sequence>
+            <xs:choice>
+                <xs:element ref="tgroup"/>
+            </xs:choice>
+        </xs:sequence>
+    </xs:group>
 
-   <xs:group name="colspec">
-      <xs:sequence>
-         <xs:choice>
-            <xs:element ref="colspec"/>
-         </xs:choice>
-      </xs:sequence>
-   </xs:group>
+    <xs:group name="colspec">
+        <xs:sequence>
+            <xs:choice>
+                <xs:element ref="colspec"/>
+            </xs:choice>
+        </xs:sequence>
+    </xs:group>
 
-   <xs:group name="thead">
-      <xs:sequence>
-         <xs:choice>
-            <xs:element ref="thead"/>
-         </xs:choice>
-      </xs:sequence>
-   </xs:group>
+    <xs:group name="thead">
+        <xs:sequence>
+            <xs:choice>
+                <xs:element ref="thead"/>
+            </xs:choice>
+        </xs:sequence>
+    </xs:group>
 
-   <xs:group name="tbody">
-      <xs:sequence>
-         <xs:choice>
-            <xs:element ref="tbody"/>
-         </xs:choice>
-      </xs:sequence>
-   </xs:group>
+    <xs:group name="tbody">
+        <xs:sequence>
+            <xs:choice>
+                <xs:element ref="tbody"/>
+            </xs:choice>
+        </xs:sequence>
+    </xs:group>
 
-   <xs:group name="row">
-      <xs:sequence>
-         <xs:choice>
-            <xs:element ref="row"/>
-         </xs:choice>
-      </xs:sequence>
-   </xs:group>
+    <xs:group name="row">
+        <xs:sequence>
+            <xs:choice>
+                <xs:element ref="row"/>
+            </xs:choice>
+        </xs:sequence>
+    </xs:group>
 
-   <xs:group name="entry">
-      <xs:sequence>
-         <xs:choice>
-            <xs:element ref="entry"/>
-         </xs:choice>
-      </xs:sequence>
-   </xs:group>
-
+    <xs:group name="entry">
+        <xs:sequence>
+            <xs:choice>
+                <xs:element ref="entry"/>
+            </xs:choice>
+        </xs:sequence>
+    </xs:group>
 
 
 </xs:schema>

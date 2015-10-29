@@ -4,112 +4,112 @@
  */
 package org.Mina.shorenMinaTest.filters;
 
-import java.nio.charset.Charset;
-import java.nio.charset.CharsetDecoder;
-
+import org.Mina.shorenMinaTest.msg.WsnMsg;
 import org.apache.mina.core.buffer.IoBuffer;
 import org.apache.mina.core.session.AttributeKey;
 import org.apache.mina.core.session.IoSession;
 import org.apache.mina.filter.codec.ProtocolDecoderAdapter;
 import org.apache.mina.filter.codec.ProtocolDecoderOutput;
-import org.Mina.shorenMinaTest.msg.WsnMsg;
+
+import java.nio.charset.Charset;
+import java.nio.charset.CharsetDecoder;
 
 
 /**
  *
  */
-public class WsnMsgDecoder extends ProtocolDecoderAdapter{
+public class WsnMsgDecoder extends ProtocolDecoderAdapter {
 
 	private final Charset charset;
-	private final AttributeKey CONTEXT = new AttributeKey(getClass(),"context");
+	private final AttributeKey CONTEXT = new AttributeKey(getClass(), "context");
 	private int maxPackLength = 10000;
-	
-	
-	public WsnMsgDecoder(Charset charset){
+
+
+	public WsnMsgDecoder(Charset charset) {
 		this.charset = charset;
 	}
-	
+
 	/**
-	 * ½âÎö°üµÄÇ°Á½ÌõÐÅÏ¢£¬ÀàÃû¼°ÄÚÈÝ³¤¶È.Í¨¹ýÀàÃûµÃµ½ÐÅÏ¢µÄÊµÀý£¬¸ù¾Ý³¤¶ÈÖµ£¬¶ÁÈ¡ËùÓÐµÄÐÅÏ¢ÄÚÈÝ¡£
-	 * È»ºóµ÷ÓÃÊµÀýµÄStringToMsg·½·¨£¨Ä¬ÈÏÊÇµ÷ÓÃMinaUtilÖÐµÄÊ¹ÓÃ·´ÉäµÄ·½·¨£©£¬ÎªÊµÀýµÄ¸÷¸öÓò¸³Öµ¡£
-	 * ÔõÃ´¶Á×Ö½ÚÁ÷ÕÒ±ß½çÄØ£¿£¿£¿£¿£¿£¿£¿£¿£¿
-	 * */
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý³ï¿½ï¿½ï¿½.Í¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ãµï¿½ï¿½ï¿½Ï¢ï¿½ï¿½Êµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý³ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½Ðµï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½Ý¡ï¿½
+	 * È»ï¿½ï¿½ï¿½ï¿½ï¿½Êµï¿½ï¿½ï¿½ï¿½StringToMsgï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¬ï¿½ï¿½ï¿½Çµï¿½ï¿½ï¿½MinaUtilï¿½Ðµï¿½Ê¹ï¿½Ã·ï¿½ï¿½ï¿½Ä·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÎªÊµï¿½ï¿½ï¿½Ä¸ï¿½ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½
+	 * ï¿½ï¿½Ã´ï¿½ï¿½ï¿½Ö½ï¿½ï¿½ï¿½ï¿½Ò±ß½ï¿½ï¿½Ø£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	 */
 	@Override
 	public void decode(IoSession session, IoBuffer in, ProtocolDecoderOutput out) throws Exception {
 //		System.out.println("enter in WsnMsgDecoder");  
-		
-		final int packHeadLength = 4;     
-	        //ÏÈ»ñÈ¡ÉÏ´ÎµÄ´¦ÀíÉÏÏÂÎÄ£¬ÆäÖÐ¿ÉÄÜÓÐÎ´´¦ÀíÍêµÄÊý¾Ý     
-	        Context ctx = getContext(session);     
-	        // ÏÈ°Ñµ±Ç°bufferÖÐµÄÊý¾Ý×·¼Óµ½ContextµÄbufferµ±ÖÐ      
-	        ctx.append(in);      
-	        //°ÑpositionÖ¸Ïò0Î»ÖÃ£¬°ÑlimitÖ¸ÏòÔ­À´µÄpositionÎ»ÖÃ     
-	        IoBuffer buf = ctx.getBuffer();  	        
-	        buf.flip();  
 
-	        // È»ºó°´Êý¾Ý°üµÄÐ­Òé½øÐÐ¶ÁÈ¡     
-	        while (buf.remaining() >= packHeadLength) {     
-	            buf.mark();     
-	            // ¶ÁÈ¡ÏûÏ¢Í·²¿·Ö     
-	            int length = buf.getInt();     //nice  
-	             
-	            //¼ì²é¶ÁÈ¡µÄ°üÍ·ÊÇ·ñÕý³££¬²»Õý³£µÄ»°Çå¿Õbuffer     
-	            if (length<0 ||length > maxPackLength) {     
-	                buf.clear();      
-	                break;     
-	            }      
-	            //¶ÁÈ¡Õý³£µÄÏûÏ¢°ü£¬²¢Ð´ÈëÊä³öÁ÷ÖÐ£¬ÒÔ±ãIoHandler½øÐÐ´¦Àí     
-	            else if (length <= buf.remaining()) {   //length±íÊ¾µÄÊÇºóÃæÄÚÈÝµÄ³¤¶È   
-	                int oldLimit2 = buf.limit();     
-	                buf.limit(buf.position() + length);     
-	                String content = buf.getString(ctx.getDecoder());     
-	                buf.limit(oldLimit2);     
+		final int packHeadLength = 4;
+		//ï¿½È»ï¿½È¡ï¿½Ï´ÎµÄ´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä£ï¿½ï¿½ï¿½ï¿½Ð¿ï¿½ï¿½ï¿½ï¿½ï¿½Î´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		Context ctx = getContext(session);
+		// ï¿½È°Ñµï¿½Ç°bufferï¿½Ðµï¿½ï¿½ï¿½ï¿½ï¿½×·ï¿½Óµï¿½Contextï¿½ï¿½bufferï¿½ï¿½ï¿½ï¿½
+		ctx.append(in);
+		//ï¿½ï¿½positionÖ¸ï¿½ï¿½0Î»ï¿½Ã£ï¿½ï¿½ï¿½limitÖ¸ï¿½ï¿½Ô­ï¿½ï¿½ï¿½ï¿½positionÎ»ï¿½ï¿½
+		IoBuffer buf = ctx.getBuffer();
+		buf.flip();
+
+		// È»ï¿½ï¿½ï¿½ï¿½ï¿½Ý°ï¿½ï¿½ï¿½Ð­ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½È¡
+		while (buf.remaining() >= packHeadLength) {
+			buf.mark();
+			// ï¿½ï¿½È¡ï¿½ï¿½Ï¢Í·ï¿½ï¿½ï¿½ï¿½
+			int length = buf.getInt();     //nice
+
+			//ï¿½ï¿½ï¿½ï¿½È¡ï¿½Ä°ï¿½Í·ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä»ï¿½ï¿½ï¿½ï¿½buffer
+			if (length < 0 || length > maxPackLength) {
+				buf.clear();
+				break;
+			}
+			//ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð£ï¿½ï¿½Ô±ï¿½IoHandlerï¿½ï¿½ï¿½Ð´ï¿½ï¿½ï¿½
+			else if (length <= buf.remaining()) {   //lengthï¿½ï¿½Ê¾ï¿½ï¿½ï¿½Çºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÝµÄ³ï¿½ï¿½ï¿½
+				int oldLimit2 = buf.limit();
+				buf.limit(buf.position() + length);
+				String content = buf.getString(ctx.getDecoder());
+				buf.limit(oldLimit2);
 //	                System.out.println(content); //logger record it
-	                if(content.contains("className=")){
-	                	//Éú³ÉÏûÏ¢ÊµÀý
-		                int index1 = content.indexOf("=");
-		                int index2 = content.indexOf(";");
-		                String className = content.substring(index1+1, index2);
-		                content = content.substring(index2+1);  //ÏûÏ¢ÀàÈÝ
-		                
-		                WsnMsg msg = (WsnMsg) Class.forName(className).newInstance(); //µÃµ½ÊµÀý
-		                
-		                if(content!=null && content != "" && content.length() != 0){
-		                	msg.stringToMsg(content);  //Îª¸÷¸öÓò¸³Öµ
-		                }		                	
-		                out.write(msg);       //Ð´ÈëÍ¨µÀ
-	                }else{
-	                	out.write(content);
-	                }
-	                	
-	               
-	            } else {     
-	                // Èç¹ûÏûÏ¢°ü²»ÍêÕû     
-	                // ½«Ö¸ÕëÖØÐÂÒÆ¶¯ÏûÏ¢Í·µÄÆðÊ¼Î»ÖÃ      
-	                buf.reset();      
-	                break;     
-	            }     
-	        }     
-	        if (buf.hasRemaining()) {     
-	            // ½«Êý¾ÝÒÆµ½bufferµÄ×îÇ°Ãæ      
-	                IoBuffer temp = IoBuffer.allocate(maxPackLength).setAutoExpand(true);     
-	                temp.put(buf);     
-	                temp.flip();     
-	                buf.clear();     
-	                buf.put(temp);    
-	        //        String con = buf.getString(ctx.getDecoder());
-	                      
-	        } else {// Èç¹ûÊý¾ÝÒÑ¾­´¦ÀíÍê±Ï£¬½øÐÐÇå¿Õ     
-	            buf.clear();      
-	        } 
-		
-		
+				if (content.contains("className=")) {
+					//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢Êµï¿½ï¿½
+					int index1 = content.indexOf("=");
+					int index2 = content.indexOf(";");
+					String className = content.substring(index1 + 1, index2);
+					content = content.substring(index2 + 1);  //ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½
+
+					WsnMsg msg = (WsnMsg) Class.forName(className).newInstance(); //ï¿½Ãµï¿½Êµï¿½ï¿½
+
+					if (content != null && content != "" && content.length() != 0) {
+						msg.stringToMsg(content);  //Îªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµ
+					}
+					out.write(msg);       //Ð´ï¿½ï¿½Í¨ï¿½ï¿½
+				} else {
+					out.write(content);
+				}
+
+
+			} else {
+				// ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+				// ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¶ï¿½ï¿½ï¿½Ï¢Í·ï¿½ï¿½ï¿½ï¿½Ê¼Î»ï¿½ï¿½
+				buf.reset();
+				break;
+			}
+		}
+		if (buf.hasRemaining()) {
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æµï¿½bufferï¿½ï¿½ï¿½ï¿½Ç°ï¿½ï¿½
+			IoBuffer temp = IoBuffer.allocate(maxPackLength).setAutoExpand(true);
+			temp.put(buf);
+			temp.flip();
+			buf.clear();
+			buf.put(temp);
+			//        String con = buf.getString(ctx.getDecoder());
+
+		} else {// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+			buf.clear();
+		}
+
+
 	}
-	
-	 
+
+
 	/**
-	 * ¼ÇÂ¼ÉÏÏÂÎÄ£¬ÒòÎªÊý¾Ý´¥·¢Ã»ÓÐ¹æÄ££¬ºÜ¿ÉÄÜÖ»ÊÕµ½Êý¾Ý°üµÄÒ»°ë.	ËùÒÔ£¬ÐèÒªÉÏÏÂÎÄÆ´ÆðÀ´²ÅÄÜÍêÕûµÄ´¦Àí .	
-	*/
+	 * ï¿½ï¿½Â¼ï¿½ï¿½ï¿½ï¿½ï¿½Ä£ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½Ý´ï¿½ï¿½ï¿½Ã»ï¿½Ð¹ï¿½Ä£ï¿½ï¿½ï¿½Ü¿ï¿½ï¿½ï¿½Ö»ï¿½Õµï¿½ï¿½ï¿½ï¿½Ý°ï¿½ï¿½ï¿½Ò»ï¿½ï¿½.	ï¿½ï¿½ï¿½Ô£ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä´ï¿½ï¿½ï¿½ .
+	 */
 	private Context getContext(IoSession session) {
 		Context context = (Context) session.getAttribute(CONTEXT);
 		if (context == null) {
@@ -118,23 +118,23 @@ public class WsnMsgDecoder extends ProtocolDecoderAdapter{
 		}
 		return context;
 	}
-	
+
 	private class Context {
 		private final IoBuffer innerBuffer;
+		private final CharsetDecoder decoder;
 		private String sms = "";
 		private int matchCount = 0;
-		private final CharsetDecoder decoder; 
-		
-		
+
+
 		public Context() {
 			decoder = charset.newDecoder();
 			innerBuffer = IoBuffer.allocate(100).setAutoExpand(true);
 		}
-		
-		public CharsetDecoder getDecoder() {  
-            return decoder;  
-        }
-		
+
+		public CharsetDecoder getDecoder() {
+			return decoder;
+		}
+
 		public int getMatchCount() {
 			return matchCount;
 		}
@@ -148,14 +148,14 @@ public class WsnMsgDecoder extends ProtocolDecoderAdapter{
 			this.matchCount = 0;
 			this.sms = "";
 		}
-		
-		public IoBuffer getBuffer(){
+
+		public IoBuffer getBuffer() {
 			return innerBuffer;
 		}
-		
-		public void append(IoBuffer in) {   
-            getBuffer().put(in);              
-        }
+
+		public void append(IoBuffer in) {
+			getBuffer().put(in);
+		}
 	}
 
 }

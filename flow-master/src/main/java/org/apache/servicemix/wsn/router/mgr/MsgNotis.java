@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class MsgNotis implements Serializable {
-	
+
 	private static final long serialVersionUID = 1L;
 
 	public String sender;// 转发者的信息

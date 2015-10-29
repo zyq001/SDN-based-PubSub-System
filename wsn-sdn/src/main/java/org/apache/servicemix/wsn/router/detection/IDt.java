@@ -1,17 +1,17 @@
 package org.apache.servicemix.wsn.router.detection;
 
-public interface IDt{
+public interface IDt {
 
-	//Ìí¼ÓÁÚ¾Ó¼ì²âµÄÄ¿±ê
+	//ï¿½ï¿½ï¿½ï¿½Ú¾Ó¼ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½
 	public void addTarget(String indicator);
-	
+
 	// remove the detection of a neighbor
 	public void removeTarget(String indicator);
 
-	//ÉèÖÃÊ§Ð§µÄ·§Öµ
+	//ï¿½ï¿½ï¿½ï¿½Ê§Ð§ï¿½Ä·ï¿½Öµ
 	public void setThreshold(long value);
-	
+
 	public void setSendPeriod(long value);
-	
+
 	public void onMsg(Object msg);
 }

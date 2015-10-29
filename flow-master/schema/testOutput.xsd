@@ -1,11 +1,12 @@
-<?xml version="1.0" encoding="UTF-8"?><schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.example.org/xsd/" targetNamespace="http://www.example.org/xsd/">
-  <topic xmlns="" name="all:Test:newTestOutput" type="tns:ComplexType"/>
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns:tns="http://www.example.org/xsd/" xmlns="http://www.w3.org/2001/XMLSchema"
+        targetNamespace="http://www.example.org/xsd/">
+    <topic xmlns="" name="all:Test:newTestOutput" type="tns:ComplexType"/>
 
-  <values xmlns="" name="http://www.test.org/Class/Individual/newTestOutput">
-    <test1 type="int"/>
-    <test2 type="int"/>   
-  </values>
- 
+    <values xmlns="" name="http://www.test.org/Class/Individual/newTestOutput">
+        <test1 type="int"/>
+        <test2 type="int"/>
+    </values>
 
 
 </schema>

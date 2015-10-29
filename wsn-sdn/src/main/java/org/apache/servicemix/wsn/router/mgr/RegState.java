@@ -1,5 +1,19 @@
 package org.apache.servicemix.wsn.router.mgr;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.apache.servicemix.wsn.push.SendNotification;
+import org.apache.servicemix.wsn.router.detection.IDt;
+import org.apache.servicemix.wsn.router.mgr.base.AState;
+import org.apache.servicemix.wsn.router.msg.tcp.GroupUnit;
+import org.apache.servicemix.wsn.router.msg.tcp.*;
+import org.apache.servicemix.wsn.router.msg.udp.MsgHello;
+import org.apache.servicemix.wsn.router.msg.udp.MsgLost;
+import org.apache.servicemix.wsn.router.msg.udp.MsgNewBroker;
+import org.apache.servicemix.wsn.router.msg.udp.MsgSubs;
+import org.apache.servicemix.wsn.router.wsnPolicy.ShorenUtils;
+import org.apache.servicemix.wsn.router.wsnPolicy.msgs.WsnPolicyMsg;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -8,39 +22,7 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.TreeSet;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.apache.servicemix.wsn.push.SendNotification;
-import org.apache.servicemix.wsn.router.detection.IDt;
-import org.apache.servicemix.wsn.router.mgr.base.AState;
-import org.apache.servicemix.wsn.router.mgr.MsgNotis;
-import org.apache.servicemix.wsn.router.msg.tcp.GroupUnit;
-import org.apache.servicemix.wsn.router.msg.tcp.LSA;
-import org.apache.servicemix.wsn.router.msg.tcp.MsgAdminChange;
-import org.apache.servicemix.wsn.router.msg.tcp.MsgGroupJunk;
-import org.apache.servicemix.wsn.router.msg.tcp.MsgInfoChange;
-import org.apache.servicemix.wsn.router.msg.tcp.MsgJoinGroup;
-import org.apache.servicemix.wsn.router.msg.tcp.MsgJoinGroup_;
-import org.apache.servicemix.wsn.router.msg.tcp.MsgLookupMemberSubscriptions;
-import org.apache.servicemix.wsn.router.msg.tcp.MsgLookupMemberSubscriptions_;
-import org.apache.servicemix.wsn.router.msg.tcp.MsgNewRep;
-import org.apache.servicemix.wsn.router.msg.tcp.MsgSetAddr;
-import org.apache.servicemix.wsn.router.msg.tcp.MsgSetConf;
-import org.apache.servicemix.wsn.router.msg.tcp.MsgSynSubs;
-import org.apache.servicemix.wsn.router.msg.tcp.PolicyDB;
-import org.apache.servicemix.wsn.router.msg.tcp.UpdateTree;
-import org.apache.servicemix.wsn.router.msg.udp.MsgHello;
-import org.apache.servicemix.wsn.router.msg.udp.MsgLost;
-import org.apache.servicemix.wsn.router.msg.udp.MsgNewBroker;
-import org.apache.servicemix.wsn.router.msg.udp.MsgSubs;
-import org.apache.servicemix.wsn.router.wsnPolicy.ShorenUtils;
-import org.apache.servicemix.wsn.router.wsnPolicy.msgs.WsnPolicyMsg;
+import java.util.*;
 
 public class RegState extends AState {
 	private static Log log = LogFactory.getLog(RegState.class);
@@ -158,15 +140,6 @@ public class RegState extends AState {
 	public void setClock(boolean isRep) {
 		timer.schedule(new SynTask(), RtMgr.synPeriod * 60 * 1000,
 				RtMgr.synPeriod * 60 * 1000);
-	}
-
-	class SynTask extends TimerTask {
-
-		@Override
-		public void run() {
-			synSubs();
-		}
-
 	}
 
 	// judge if the mother is the mother of the child
@@ -504,8 +477,7 @@ public class RegState extends AState {
 			timer.cancel();
 			mgr.setState(mgr.getRepState());// change state
 			mgr.setClock(false);
-		}
-		else {
+		} else {
 			rep = tmp;
 
 			dt.addTarget(groupName);
@@ -802,7 +774,7 @@ public class RegState extends AState {
 	}
 
 	private boolean processKindTcpMsg(ObjectInputStream ois,
-									  ObjectOutputStream oos, Socket s, Object msg) {
+	                                  ObjectOutputStream oos, Socket s, Object msg) {
 		if (msg instanceof MsgSetAddr) {
 			MsgSetAddr msa = (MsgSetAddr) msg;
 			processSpecificTcpMsg(ois, oos, s, msa);
@@ -867,7 +839,7 @@ public class RegState extends AState {
 	}
 
 	private void processSpecificTcpMsg(ObjectInputStream ois,
-									   ObjectOutputStream oos, Socket s, MsgSetAddr msa) {
+	                                   ObjectOutputStream oos, Socket s, MsgSetAddr msa) {
 		System.out.println("set address: " + msa.addr);
 		log.info("set address: " + msa.addr);
 
@@ -909,7 +881,7 @@ public class RegState extends AState {
 	}
 
 	private void processSpecificTcpMsg(ObjectInputStream ois,
-									   ObjectOutputStream oos, Socket s, MsgInfoChange mic) {
+	                                   ObjectOutputStream oos, Socket s, MsgInfoChange mic) {
 		if (rep.addr.equals(mic.originator)) {
 			// inside
 			dt.removeTarget(rep.addr);
@@ -931,7 +903,7 @@ public class RegState extends AState {
 	}
 
 	private void processSpecificTcpMsg(ObjectInputStream ois,
-									   ObjectOutputStream oos, Socket s, MsgSetConf msc) {
+	                                   ObjectOutputStream oos, Socket s, MsgSetConf msc) {
 		System.out.println("set configurations");
 		log.info("set configurations");
 
@@ -965,7 +937,7 @@ public class RegState extends AState {
 	}
 
 	private void processSpecificTcpMsg(ObjectInputStream ois,
-									   ObjectOutputStream oos, Socket s, MsgLookupMemberSubscriptions mlms) {
+	                                   ObjectOutputStream oos, Socket s, MsgLookupMemberSubscriptions mlms) {
 		System.out.println("look up member Subscriptions");
 		log.info("look up member Subscriptions");
 
@@ -1009,6 +981,15 @@ public class RegState extends AState {
 	@Override
 	public void spreadLSAInLocalGroup(LSA lsa) {
 		// TODO Auto-generated method stub
+
+	}
+
+	class SynTask extends TimerTask {
+
+		@Override
+		public void run() {
+			synSubs();
+		}
 
 	}
 

@@ -9,65 +9,72 @@
                 version='1.0'>
 
 
-<!-- =================== start of prolog and metadata ====================== -->
+    <!-- =================== start of prolog and metadata ====================== -->
 
-<!-- prolog data is placed all in brown background indicating content that
-     will not show when output to print. -->
+    <!-- prolog data is placed all in brown background indicating content that
+         will not show when output to print. -->
 
-<xsl:template match="*[contains(@class,' topic/prolog ')]">
-  <fo:block background-color="#f0f0d0">
-    <xsl:attribute name="border-style">solid</xsl:attribute>
-    <xsl:attribute name="border-color">black</xsl:attribute>
-    <xsl:attribute name="border-width">thin</xsl:attribute>
-    <xsl:attribute name="start-indent"><xsl:value-of select="$basic-start-indent"/></xsl:attribute>
-    <xsl:attribute name="start-indent"><xsl:value-of select="$basic-start-indent"/></xsl:attribute>
-    <xsl:apply-templates/>
-  </fo:block>
-</xsl:template>
-
-
-<!-- metadata in prolog is displayed using element names as field labels, and
-     indented boxes for nested values.  Good for 2 deep, at least. -->
-
-<xsl:template match="*[contains(@class,' topic/prolog ')]/*">
-  <fo:block>
-    <fo:inline font-weight="bold"><xsl:value-of select="name()"/>: </fo:inline>
-    <xsl:apply-templates/>
-  </fo:block>
-</xsl:template>
-
-<xsl:template match="*[contains(@class,' topic/prolog ')]/*/*">
-  <fo:block background-color="white"
-           start-indent="{$basic-start-indent} + 1em">
-    <xsl:attribute name="end-indent">6pt</xsl:attribute>
-    <fo:inline font-weight="bold"><xsl:value-of select="name()"/>: </fo:inline>
-    <xsl:apply-templates/>
-  </fo:block>
-</xsl:template>
-
-<xsl:template match="*[contains(@class,' topic/prolog ')]/*/*/*">
-  <fo:block background-color="#fafafa"
-           start-indent="{$basic-start-indent} + 2em">
-    <xsl:attribute name="end-indent">6pt</xsl:attribute>
-    <fo:inline font-weight="bold"><xsl:value-of select="name()"/>: </fo:inline>
-    <xsl:apply-templates/>
-  </fo:block>
-</xsl:template>
-
-<xsl:template match="*[contains(@class,' topic/prolog ')]/*/*/*/*">
-  <fo:block background-color="#f0f0f0"
-           start-indent="{$basic-start-indent} + 3em">
-    <xsl:attribute name="end-indent">6pt</xsl:attribute>
-    <fo:inline font-weight="bold"><xsl:value-of select="name()"/>: </fo:inline>
-    <xsl:apply-templates/>
-  </fo:block>
-</xsl:template>
+    <xsl:template match="*[contains(@class,' topic/prolog ')]">
+        <fo:block background-color="#f0f0d0">
+            <xsl:attribute name="border-style">solid</xsl:attribute>
+            <xsl:attribute name="border-color">black</xsl:attribute>
+            <xsl:attribute name="border-width">thin</xsl:attribute>
+            <xsl:attribute name="start-indent">
+                <xsl:value-of select="$basic-start-indent"/>
+            </xsl:attribute>
+            <xsl:attribute name="start-indent">
+                <xsl:value-of select="$basic-start-indent"/>
+            </xsl:attribute>
+            <xsl:apply-templates/>
+        </fo:block>
+    </xsl:template>
 
 
-<!-- not applicable yet within FO -->
+    <!-- metadata in prolog is displayed using element names as field labels, and
+         indented boxes for nested values.  Good for 2 deep, at least. -->
 
-<!-- =================== end of prolog and metadata ====================== -->
+    <xsl:template match="*[contains(@class,' topic/prolog ')]/*">
+        <fo:block>
+            <fo:inline font-weight="bold"><xsl:value-of select="name()"/>:
+            </fo:inline>
+            <xsl:apply-templates/>
+        </fo:block>
+    </xsl:template>
 
+    <xsl:template match="*[contains(@class,' topic/prolog ')]/*/*">
+        <fo:block background-color="white"
+                  start-indent="{$basic-start-indent} + 1em">
+            <xsl:attribute name="end-indent">6pt</xsl:attribute>
+            <fo:inline font-weight="bold"><xsl:value-of select="name()"/>:
+            </fo:inline>
+            <xsl:apply-templates/>
+        </fo:block>
+    </xsl:template>
+
+    <xsl:template match="*[contains(@class,' topic/prolog ')]/*/*/*">
+        <fo:block background-color="#fafafa"
+                  start-indent="{$basic-start-indent} + 2em">
+            <xsl:attribute name="end-indent">6pt</xsl:attribute>
+            <fo:inline font-weight="bold"><xsl:value-of select="name()"/>:
+            </fo:inline>
+            <xsl:apply-templates/>
+        </fo:block>
+    </xsl:template>
+
+    <xsl:template match="*[contains(@class,' topic/prolog ')]/*/*/*/*">
+        <fo:block background-color="#f0f0f0"
+                  start-indent="{$basic-start-indent} + 3em">
+            <xsl:attribute name="end-indent">6pt</xsl:attribute>
+            <fo:inline font-weight="bold"><xsl:value-of select="name()"/>:
+            </fo:inline>
+            <xsl:apply-templates/>
+        </fo:block>
+    </xsl:template>
+
+
+    <!-- not applicable yet within FO -->
+
+    <!-- =================== end of prolog and metadata ====================== -->
 
 
 </xsl:stylesheet>

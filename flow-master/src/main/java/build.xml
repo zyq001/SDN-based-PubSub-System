@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<!-- build.xml for jaxe - contributed by bdelacretaz@codeconsult.ch --> 
+<!-- build.xml for jaxe - contributed by bdelacretaz@codeconsult.ch -->
 
 <!--
 $Id: build.xml,v 1.29 2011/06/09 12:25:13 damieng Exp $
@@ -121,12 +121,12 @@ build.xml added, does not work yet under linux (missing quicktime libs)
     <target name="compile" depends="init" description="compile everyting but MacOS classes">
         <!-- make sure we don't have MacOS-specific classes -->
         <delete quiet="true" dir="${build.classes}/jaxe/macjaxe/macos"/>
-        
+
         <mkdir dir="${build.classes}"/>
         <javac source="1.5" target="1.5" encoding="ISO-8859-1" srcdir="${src}" destdir="${build.classes}">
             <compilerarg line="-Xlint:unchecked -Xlint:deprecation"/>
             <classpath refid="compile.classpath"/>
-            
+
             <!-- exclude MacOS stuff -->
             <exclude name="**/macos/*"/>
         </javac>
@@ -145,7 +145,7 @@ build.xml added, does not work yet under linux (missing quicktime libs)
             <fileset dir="${src}">
                 <patternset id="props">
                     <include name="**/*.properties"/>
-            </patternset>
+                </patternset>
             </fileset>
             <fileset dir=".">
                 <include name="images/**"/>
@@ -155,14 +155,15 @@ build.xml added, does not work yet under linux (missing quicktime libs)
             </fileset>
         </copy>
     </target>
-    
+
     <target name="dist" depends="compile,copy-resources" description="build platform-neutral distribution files">
         <mkdir dir="${dist-pc}/lib"/>
         <jar destfile="${dist-pc}/lib/Jaxe.jar" basedir="${build.classes}">
             <manifest>
                 <attribute name="Built-By" value="${user.name}"/>
                 <attribute name="Main-Class" value="jaxe.Jaxe"/>
-                <attribute name="Class-Path" value="Jaxe.jar avalon-framework-4.2.0.jar batik-all-1.7.jar commons-io-1.3.1.jar commons-logging-1.0.4.jar fop-0.95.jar jazzy.jar jing.jar log4j-1.2.14.jar resolver-1.2.jar saxon9he.jar serializer-2.7.1.jar xalan-2.7.1.jar xercesImpl-2.9.0.jar xml-apis-1.3.04.jar xml-apis-ext-1.3.04.jar xmlgraphics-commons-1.3.1.jar xsltc-2.7.1.jar ../config/"/>
+                <attribute name="Class-Path"
+                           value="Jaxe.jar avalon-framework-4.2.0.jar batik-all-1.7.jar commons-io-1.3.1.jar commons-logging-1.0.4.jar fop-0.95.jar jazzy.jar jing.jar log4j-1.2.14.jar resolver-1.2.jar saxon9he.jar serializer-2.7.1.jar xalan-2.7.1.jar xercesImpl-2.9.0.jar xml-apis-1.3.04.jar xml-apis-ext-1.3.04.jar xmlgraphics-commons-1.3.1.jar xsltc-2.7.1.jar ../config/"/>
             </manifest>
         </jar>
         <copy todir="${dist-pc}/lib">
@@ -178,8 +179,8 @@ build.xml added, does not work yet under linux (missing quicktime libs)
     </target>
 
     <target name="dist-mac" depends="compile-mac,copy-resources" description="build distribution files for MacOS">
-    <!-- warning: the JavaApplicationStub files are not backward compatible, so an application created
-           on MacOS X 10.3 will not run under MacOS X 10.1 -->
+        <!-- warning: the JavaApplicationStub files are not backward compatible, so an application created
+               on MacOS X 10.3 will not run under MacOS X 10.1 -->
         <mkdir dir="${dist-mac}/Jaxe.app/Contents/MacOS"/>
         <mkdir dir="${dist-mac}/Jaxe.app/Contents/Resources/en.lproj"/>
         <mkdir dir="${dist-mac}/Jaxe.app/Contents/Resources/fr.lproj"/>
@@ -195,7 +196,7 @@ build.xml added, does not work yet under linux (missing quicktime libs)
         <copy file="source/macos/Info.plist" todir="${dist-mac}/Jaxe.app/Contents"/>
         <copy file="source/macos/PkgInfo" todir="${dist-mac}/Jaxe.app/Contents"/>
         <copy file="/System/Library/Frameworks/JavaVM.framework/Versions/Current/Resources/MacOS/JavaApplicationStub"
-            tofile="${dist-mac}/Jaxe.app/Contents/MacOS/Jaxe"/>
+              tofile="${dist-mac}/Jaxe.app/Contents/MacOS/Jaxe"/>
         <chmod file="${dist-mac}/Jaxe.app/Contents/MacOS/Jaxe" perm="ugo+x"/>
         <copy todir="${dist-mac}/Jaxe.app/Contents/Resources">
             <fileset dir="source/macos" includes="**/*.icns"/>
@@ -206,13 +207,13 @@ build.xml added, does not work yet under linux (missing quicktime libs)
     </target>
 
     <target name="dist-resources" description="copy application resources folders for distribution">
-    <!-- parameter: dir: where to put the folders -->
+        <!-- parameter: dir: where to put the folders -->
         <copy todir="${dir}/symboles">
             <fileset dir="symboles"/>
         </copy>
-<!--        <copy todir="${dir}/images_Jaxe">
-            <fileset dir="images_Jaxe"/>
-        </copy>-->
+        <!--        <copy todir="${dir}/images_Jaxe">
+                    <fileset dir="images_Jaxe"/>
+                </copy>-->
         <copy todir="${dir}/config">
             <fileset dir="config"/>
         </copy>
@@ -251,15 +252,15 @@ build.xml added, does not work yet under linux (missing quicktime libs)
     <target name="javadoc" description="build program documentation using javadoc">
         <mkdir dir="${build.javadocs}"/>
         <javadoc packagenames="jaxe.*"
-                sourcepath="${src}"
-                destdir="${build.javadocs}"
-                author="true"
-                version="true"
-                use="false"
-                noindex="true"
-                windowtitle="jaxe"
-                doctitle="jaxe"
-                package="true">
+                 sourcepath="${src}"
+                 destdir="${build.javadocs}"
+                 author="true"
+                 version="true"
+                 use="false"
+                 noindex="true"
+                 windowtitle="jaxe"
+                 doctitle="jaxe"
+                 package="true">
             <classpath refid="macos.classpath"/>
         </javadoc>
     </target>

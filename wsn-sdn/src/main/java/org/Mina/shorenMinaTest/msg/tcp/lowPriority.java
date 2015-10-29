@@ -1,49 +1,37 @@
 package org.Mina.shorenMinaTest.msg.tcp;
 
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
-import java.net.Socket;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.Vector;
 import org.Mina.shorenMinaTest.msg.WsnMsg;
-import org.apache.mina.core.session.IoSession;
-import org.Mina.shorenMinaTest.MinaUtil;
-import org.Mina.shorenMinaTest.handlers.Start;
-import org.Mina.shorenMinaTest.mgr.RtMgr;
-import org.Mina.shorenMinaTest.mgr.base.AState;
-import org.Mina.shorenMinaTest.mgr.base.SysInfo;
 import org.Mina.shorenMinaTest.queues.ForwardMsg;
 import org.Mina.shorenMinaTest.queues.MsgQueueMgr;
 import org.Mina.shorenMinaTest.queues.TCPForwardMsg;
-import org.Mina.shorenMinaTest.queues.UDPForwardMsg;
-import org.Mina.shorenMinaTest.router.searchRoute;
+import org.apache.mina.core.session.IoSession;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 
 @SuppressWarnings("serial")
 public class lowPriority extends WsnMsg implements Serializable {
 
-	public String sender;//×ª·¢ÕßµÄÐÅÏ¢
-	
-	public String originatorGroup;//Ìá¹©Í¨ÖªµÄbrokerËùÔÚ¼¯ÈºÃû×Ö
-	
-	public String originatorAddr;//Ìá¹©Í¨ÖªµÄbrokerµÄIPµØÖ·
-	
-	public String topicName;//Í¨ÖªÖ÷Ìâ
-	
-	public String doc;//Í¨ÖªÄÚÈÝ
-	
-	
-	public String sendDate;//ÏûÏ¢²úÉúµÄÊ±¼ä
+	public String sender;//×ªï¿½ï¿½ï¿½ßµï¿½ï¿½ï¿½Ï¢
+
+	public String originatorGroup;//ï¿½á¹©Í¨Öªï¿½ï¿½brokerï¿½ï¿½ï¿½Ú¼ï¿½Èºï¿½ï¿½ï¿½ï¿½
+
+	public String originatorAddr;//ï¿½á¹©Í¨Öªï¿½ï¿½brokerï¿½ï¿½IPï¿½ï¿½Ö·
+
+	public String topicName;//Í¨Öªï¿½ï¿½ï¿½ï¿½
+
+	public String doc;//Í¨Öªï¿½ï¿½ï¿½ï¿½
+
+
+	public String sendDate;//ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½
 //
-//	public int Ccount;//¼ÆÊýÐÅÏ¢
-	
-	private ArrayList<String> getForwardIp(){
-		
-		ArrayList<String> ret =  org.apache.servicemix.wsn.router.mgr.RtMgr.calForwardGroups(this.topicName,
+//	public int Ccount;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
+
+	private ArrayList<String> getForwardIp() {
+
+		ArrayList<String> ret = org.apache.servicemix.wsn.router.mgr.RtMgr.calForwardGroups(this.topicName,
 				this.originatorGroup);
 		Iterator<String> it = ret.iterator();
 		ArrayList<String> forwardIP = new ArrayList<String>();
@@ -56,19 +44,19 @@ public class lowPriority extends WsnMsg implements Serializable {
 
 		return forwardIP;//Start.forwardIP=searchRoute.calForwardIP("500:3:6:10:15:20:26", "m", Start.testMap);
 	}
-	
-    public void processRegMsg(IoSession session){	
+
+	public void processRegMsg(IoSession session) {
 		ArrayList<String> forwardIp = getForwardIp();
-		//²ßÂÔ¿âµÄÎ»ÖÃ£¬ÓÉ²ßÂÔ¿âÀ´¹ýÂËip
+		//ï¿½ï¿½ï¿½Ô¿ï¿½ï¿½Î»ï¿½Ã£ï¿½ï¿½É²ï¿½ï¿½Ô¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ip
 		ForwardMsg forwardMsg = new TCPForwardMsg(forwardIp, 30008, this);
 		MsgQueueMgr.addTCPMsgInQueue(forwardMsg);
 	}
-	
-	public void processRepMsg(IoSession session){
+
+	public void processRepMsg(IoSession session) {
 		ArrayList<String> forwardIp = getForwardIp();
-		//²ßÂÔ¿âµÄÎ»ÖÃ£¬ÓÉ²ßÂÔ¿âÀ´¹ýÂËip
+		//ï¿½ï¿½ï¿½Ô¿ï¿½ï¿½Î»ï¿½Ã£ï¿½ï¿½É²ï¿½ï¿½Ô¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ip
 		ForwardMsg forwardMsg = new TCPForwardMsg(forwardIp, 30008, this);
 		MsgQueueMgr.addTCPMsgInQueue(forwardMsg);
 	}
-	
+
 }

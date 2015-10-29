@@ -7,57 +7,62 @@ import java.util.TreeMap;
 public class NotificationBuilder {
 	private String hashCode;
 	private String tempMessage;
-	
+
 	private String before;
 	private String after;
 	private String fragment;
 	private String[] splitFragment;
 	private String packageString;
-	
+
 	private int total;
 	private Map<Integer, String> notification = new HashMap<Integer, String>(3000);
-	
-	
-	public void setHashCode(String _hashCode){
-		hashCode = _hashCode;
-	}
-	public String getHashCode(){
+
+	public String getHashCode() {
 		return hashCode;
 	}
-	public void setTempMessage(String _tempMessage){
+
+	public void setHashCode(String _hashCode) {
+		hashCode = _hashCode;
+	}
+
+	public void setTempMessage(String _tempMessage) {
 		tempMessage = _tempMessage;
 	}
-	//²ðµô·Ö°üÏûÏ¢£¬»ñÈ¡ÏûÏ¢µÄ°ü¹ü²ã£¬ÒÔ±ãÔÚ×é°üÊ±Ê¹ÓÃ
-	public void breakMessage(){
-		if(tempMessage != null){
+
+	//ï¿½ï¿½ï¿½ï¿½Ö°ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½Ï¢ï¿½Ä°ï¿½ï¿½ï¿½ï¿½ã£¬ï¿½Ô±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±Ê¹ï¿½ï¿½
+	public void breakMessage() {
+		if (tempMessage != null) {
 			before = tempMessage.split("<wsnt:Package>")[0] + "<wsnt:Message>";
 			after = "</wsnt:Message>" + tempMessage.split("</wsnt:Message>")[1];
 		}
-	} 
-	//½âÎö·Ö°ü
-	public void parse(){
+	}
+
+	//ï¿½ï¿½ï¿½ï¿½ï¿½Ö°ï¿½
+	public void parse() {
 		packageString = tempMessage.split("<wsnt:Message>")[1].split("</wsnt:Message>")[0];
 		fragment = tempMessage.split("<Fragment>")[1].split("</Fragment>")[0];
 		splitFragment = fragment.split("-");
-		if(Integer.parseInt(splitFragment[1]) == 0)
+		if (Integer.parseInt(splitFragment[1]) == 0)
 			total = Integer.parseInt(splitFragment[3]) + 1;
 		notification.put(Integer.parseInt(splitFragment[3]), packageString);
 	}
-	//¼ì²éÊÇ·ñ½ÓÊÕµ½×ã¹»µÄ·Ö°ü
-	public boolean isReadyToBuild(){
+
+	//ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½Õµï¿½ï¿½ã¹»ï¿½Ä·Ö°ï¿½
+	public boolean isReadyToBuild() {
 		System.out.println("[Map:] " + notification.toString());
 		System.out.println("isReadyToBuild: sizeof: " + notification.size() + " total: " + total);
-		if(notification.size() == total)
+		if (notification.size() == total)
 			return true;
 		else
 			return false;
 	}
-	//×é°ü
-	public String build(){
+
+	//ï¿½ï¿½ï¿½
+	public String build() {
 		System.out.println("enter build!!!!!");
 		TreeMap tm = new TreeMap(notification);
 		StringBuilder sb = new StringBuilder(before);
-		for(int j=0;j<tm.size();j++){
+		for (int j = 0; j < tm.size(); j++) {
 			sb.append(tm.get(Integer.valueOf(j)));
 		}
 		sb.append(after);

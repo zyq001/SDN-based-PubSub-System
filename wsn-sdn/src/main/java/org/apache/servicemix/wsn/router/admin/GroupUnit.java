@@ -5,21 +5,21 @@ import java.util.Date;
 
 public class GroupUnit implements Serializable {
 
-	//±£´ægroupµÄ»ù±¾ÐÅÏ¢
-	
-	public String addr;//groupµÄµØÖ·
-	
-	public String name;//groupµÄÃû×Ö
-	
-	public int port;//groupµÄTCP¶Ë¿ÚºÅ
-	
-	public Date date;//¼ÓÈëÊ±¼ä
-	
+	//ï¿½ï¿½ï¿½ï¿½groupï¿½Ä»ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
+
+	public String addr;//groupï¿½Äµï¿½Ö·
+
+	public String name;//groupï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+
+	public int port;//groupï¿½ï¿½TCPï¿½Ë¿Úºï¿½
+
+	public Date date;//ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½
+
 	public GroupUnit(String addr, int port, String name) {
 		this.addr = addr;
 		this.name = name;
 		this.port = port;
 		date = new Date();
 	}
-	
+
 }

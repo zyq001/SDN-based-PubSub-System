@@ -4,32 +4,32 @@
  */
 package org.Mina.shorenMinaTest.queues;
 
-import java.util.ArrayList;
-
 import org.Mina.shorenMinaTest.msg.WsnMsg;
+
+import java.util.ArrayList;
 
 
 /**
  *
  */
-public class TCPForwardMsg extends ForwardMsg{
+public class TCPForwardMsg extends ForwardMsg {
 
 	public TCPForwardMsg(Destination dest, WsnMsg msg) {
 		super(dest, msg);
 
 	}
-	
-	public TCPForwardMsg(String addr, int port, WsnMsg msg){
+
+	public TCPForwardMsg(String addr, int port, WsnMsg msg) {
 		super(addr, port, msg);
 	}
-	
-	public TCPForwardMsg(ArrayList<String> forwardip, int port, WsnMsg msg){
+
+	public TCPForwardMsg(ArrayList<String> forwardip, int port, WsnMsg msg) {
 		super(forwardip, port, msg);
 	}
-	
-	//Á¬½ÓÍ¬Ò»µØÖ··¢ËÍµÄÍ¨µÀ£¬ÓÐTCPºÍUDP
-	public String getKeyDest(){
-		return super.getKeyDest()+"TCP";
+
+	//ï¿½ï¿½ï¿½ï¿½Í¬Ò»ï¿½ï¿½Ö·ï¿½ï¿½ï¿½Íµï¿½Í¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½TCPï¿½ï¿½UDP
+	public String getKeyDest() {
+		return super.getKeyDest() + "TCP";
 	}
-	
+
 }

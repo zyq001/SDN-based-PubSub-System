@@ -1,5 +1,5 @@
 package org.apache.servicemix.wsn.jms;
 
-public class SendPushMSG{
+public class SendPushMSG {
 	private String pushAddr;
 }

@@ -1,16 +1,16 @@
 package org.apache.servicemix.wsn.router.mgr.calNeighbor;
 
-class RNG extends UDN{
+class RNG extends UDN {
 
-	
+
 	public RNG(int downVexNum, int downArcNum) {
 		super(downVexNum, downArcNum);
 		// TODO Auto-generated constructor stub
-		
+
 	}
-	
-//	½«¶ÔÓ¦±ßµÄÈ¨ÖµÖÃÎÞÇî´ó
-	public void delete(int m, int n){
+
+	//	ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½ßµï¿½È¨Öµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	public void delete(int m, int n) {
 		arcs[m][n] = NeigSelect.getINFINITY();
 		arcs[n][m] = arcs[m][n];
 	}

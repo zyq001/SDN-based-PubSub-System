@@ -1,57 +1,47 @@
 package org.Mina.shorenMinaTest.handlers;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
-import java.net.DatagramPacket;
-import java.net.DatagramSocket;
-import java.net.InetAddress;
-import java.net.InetSocketAddress;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.concurrent.ConcurrentHashMap;
-
-import javax.xml.bind.JAXBException;
-import javax.xml.ws.Endpoint;
-import org.apache.log4j.PropertyConfigurator;
-import org.apache.mina.core.future.ConnectFuture;
-import org.apache.mina.core.session.IoSession;
-import org.apache.mina.transport.socket.nio.NioSocketConnector;
-import org.apache.servicemix.application.WsnProcessImpl;
-import org.apache.servicemix.wsn.CrossGroupMsgForwardQueue;
-import org.apache.servicemix.wsn.push.SendNotification;
-import org.apache.servicemix.wsn.router.wsnPolicy.ShorenUtils;
-import org.apache.servicemix.wsn.router.wsnPolicy.msgs.TargetGroup;
-import org.apache.servicemix.wsn.router.wsnPolicy.msgs.WsnPolicyMsg;
-
 import org.Mina.shorenMinaTest.MinaUtil;
 import org.Mina.shorenMinaTest.mgr.RtMgr;
 import org.Mina.shorenMinaTest.msg.WsnMsg;
 import org.Mina.shorenMinaTest.msg.tcp.MsgNotis;
 import org.Mina.shorenMinaTest.msg.tcp.highPriority;
 import org.Mina.shorenMinaTest.msg.tcp.lowPriority;
-//import org.Mina.shorenMinaTest.queues.Destination;
 import org.Mina.shorenMinaTest.queues.ForwardMsg;
 import org.Mina.shorenMinaTest.queues.MsgQueueMgr;
-import org.Mina.shorenMinaTest.queues.TCPForwardMsg;
 import org.Mina.shorenMinaTest.queues.UDPForwardMsg;
 import org.Mina.shorenMinaTest.router.MsgSubsForm;
 import org.Mina.shorenMinaTest.router.generateNode;
+import org.apache.log4j.PropertyConfigurator;
+import org.apache.servicemix.application.WsnProcessImpl;
+import org.apache.servicemix.wsn.CrossGroupMsgForwardQueue;
+
+import javax.xml.bind.JAXBException;
+import javax.xml.ws.Endpoint;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
+import java.util.ArrayList;
+import java.util.concurrent.ConcurrentHashMap;
+
+//import org.Mina.shorenMinaTest.queues.Destination;
 
 public class Start {
 	public static RtMgr mgr = RtMgr.getInstance();
-    public static ArrayList<String> forwardIP = new ArrayList<String>();//存储转发目的ip的变量
+	public static ArrayList<String> forwardIP = new ArrayList<String>();//存储转发目的ip的变量
 	public static ArrayList<MsgSubsForm> nodeList = new ArrayList<MsgSubsForm>();
 	public static MsgSubsForm groupTableRoot = null;
 	public static generateNode gN = new generateNode();
 	public static ConcurrentHashMap<String, MsgSubsForm> testMap = new ConcurrentHashMap<String, MsgSubsForm>();
-	
+
 	private static int UDPtotalCount = 0;
 	private static int totalCount = 0;
-	
+
 	public static void main(String[] args) {
 		PropertyConfigurator.configure("log4j.properties");
-		
+
 		WsnProcessImpl wsnprocess = new WsnProcessImpl();
 		try {
 			wsnprocess.init();
@@ -60,59 +50,61 @@ public class Start {
 			e.printStackTrace();
 		}
 		Endpoint.publish(args[0], wsnprocess);
-		
+
 		RtMgr.getInstance();
 		initNode();
 		MsgQueueMgr.getInstance();
 	}
 
-	public static void initNode(){
+	public static void initNode() {
 		generateNode.generateNodeList(nodeList);
 		groupTableRoot = nodeList.get(0);
-		
-        for(int i=0;i<10000;i++){			
-			if(i==500){
+
+		for (int i = 0; i < 10000; i++) {
+			if (i == 500) {
 				testMap.put("500", groupTableRoot);
-			}else{
-			    MsgSubsForm tempNode = generateNode.generateTestNode(Integer.toString(i));
-			    testMap.put(tempNode.topicComponent, tempNode);
+			} else {
+				MsgSubsForm tempNode = generateNode.generateTestNode(Integer.toString(i));
+				testMap.put(tempNode.topicComponent, tempNode);
 			}
 		}
 	}
-	
-    public static void removeAimAddr(String ip){
-		for(int i = 0; i<forwardIP.size(); i++){
-			if(forwardIP.get(i).equals(ip)){
+
+	public static void removeAimAddr(String ip) {
+		for (int i = 0; i < forwardIP.size(); i++) {
+			if (forwardIP.get(i).equals(ip)) {
 				//System.out.println("要移除的ip是："+ip);
 				forwardIP.remove(i);
 				//System.out.println("移除后的forwardip为："+forwardIP.toString());
 			}
 		}
 	}
-    
+
 	//获取收到的TCP消息数量
-	public static int GetTCPRecievedCount(){
+	public static int GetTCPRecievedCount() {
 		return totalCount;
 	}
+
 	//获取收到的UDP消息数量
-	public static int GetUDPRecievedCount(){
+	public static int GetUDPRecievedCount() {
 		return UDPtotalCount;
 	}
+
 	//将计数器置为零
-	public static void SetTCPRecievedCountToZero(){
+	public static void SetTCPRecievedCountToZero() {
 		totalCount = 0;
 	}
-	
-	public static void SetUDPRecievedToZero(){
+
+	public static void SetUDPRecievedToZero() {
 		UDPtotalCount = 0;
 	}
-	
-  	public static void generateMsgNoticeMsg(MsgNotis msg){
+
+	public static void generateMsgNoticeMsg(MsgNotis msg) {
 		ArrayList<String> fwIP = new ArrayList<String>();
 
 		String v6MutiAddr = getv6MutiAddr(msg);
 		fwIP.add(v6MutiAddr);
-		ForwardMsg forwardMsg = new UDPForwardMsg(fwIP, MinaUtil.uPort, (WsnMsg)msg);
+		ForwardMsg forwardMsg = new UDPForwardMsg(fwIP, MinaUtil.uPort, (WsnMsg) msg);
 		CrossGroupMsgForwardQueue.grtInstance().enqueque(forwardMsg);
 		//ArrayList<String> forwardIp = getForwardIp(topicStr, origin);
 //		ArrayList<String> ret = org.apache.servicemix.wsn.router.mgr.RtMgr.calForwardGroups(msg.topicName,
@@ -205,9 +197,7 @@ public class Start {
 	}
 
 
-
-	
-	public static void generateHighPrioriyMsg(highPriority msg){
+	public static void generateHighPrioriyMsg(highPriority msg) {
 		//ArrayList<String> forwardIp = getForwardIp(topicStr, origin);
 //		ArrayList<String> ret = org.apache.servicemix.wsn.router.mgr.RtMgr.calForwardGroups(msg.topicName,
 //				msg.originatorGroup);
@@ -273,10 +263,10 @@ public class Start {
 //		fwIP.add("192.168.1.11");
 		String v6MutiAddr = getv6MutiAddr(msg);
 		fwIP.add(v6MutiAddr);
-		ForwardMsg forwardMsg = new UDPForwardMsg(fwIP, MinaUtil.highUPort, (WsnMsg)msg);
+		ForwardMsg forwardMsg = new UDPForwardMsg(fwIP, MinaUtil.highUPort, (WsnMsg) msg);
 		CrossGroupMsgForwardQueue.grtInstance().enqueque(forwardMsg);
-		
-		
+
+
 //		ForwardMsg forwardMsg = new TCPForwardMsg(forwardIp, 30008, (WsnMsg)msg);
 //		MsgQueueMgr.addTCPMsgInQueue(forwardMsg);
 		
@@ -319,7 +309,7 @@ public class Start {
 	}
 
 
-	public static void generateLowPrioriyMsg(lowPriority msg){
+	public static void generateLowPrioriyMsg(lowPriority msg) {
 
 		ArrayList<String> fwIP = new ArrayList<String>();
 //		fwIP.add("fe80::5054:ff:feb4:4640");
@@ -327,7 +317,7 @@ public class Start {
 //		fwIP.add("192.168.1.11");
 		String v6MutiAddr = getv6MutiAddr(msg);
 		fwIP.add(v6MutiAddr);
-		ForwardMsg forwardMsg = new UDPForwardMsg(fwIP, MinaUtil.lowUPort, (WsnMsg)msg);
+		ForwardMsg forwardMsg = new UDPForwardMsg(fwIP, MinaUtil.lowUPort, (WsnMsg) msg);
 		CrossGroupMsgForwardQueue.grtInstance().enqueque(forwardMsg);
 
 		//ArrayList<String> forwardIp = getForwardIp(topicStr, origin);
@@ -421,7 +411,7 @@ public class Start {
 		    session.close(true);
 		}*/
 	}
-	
+
 	public static boolean isIncluded(String mother, String child) {
 		String splited[] = mother.split(":");
 		String spliCh[] = child.split(":");
@@ -435,8 +425,8 @@ public class Start {
 		else
 			return false;
 	}
-	
-	
+
+
 	public static void spreadInLocalGroup(Object obj) {
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		ObjectOutputStream doos = null;
@@ -452,12 +442,12 @@ public class Start {
 
 			// multicast it in this group
 			p = new DatagramPacket(buf, buf.length,
-					InetAddress.getByName(org.apache.servicemix.wsn.router.mgr.base.SysInfo.multiAddr), 
+					InetAddress.getByName(org.apache.servicemix.wsn.router.mgr.base.SysInfo.multiAddr),
 					org.apache.servicemix.wsn.router.mgr.base.SysInfo.uPort);
 			s.send(p);
-			
+
 			//System.out.println("组播地址是:"+org.apache.servicemix.wsn.router.mgr.base.SysInfo.multiAddr);
-			
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

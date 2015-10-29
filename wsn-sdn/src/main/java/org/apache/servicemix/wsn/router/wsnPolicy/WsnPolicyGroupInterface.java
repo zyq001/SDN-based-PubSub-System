@@ -5,58 +5,91 @@ package org.apache.servicemix.wsn.router.wsnPolicy;
  * @date 2013-3-4
  */
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.Toolkit;
+import org.apache.servicemix.wsn.router.wsnPolicy.msgs.ComplexGroup;
+import org.apache.servicemix.wsn.router.wsnPolicy.msgs.TargetGroup;
+import org.apache.servicemix.wsn.router.wsnPolicy.msgs.TargetMsg;
+import org.apache.servicemix.wsn.router.wsnPolicy.msgs.WsnPolicyMsg;
+
+import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreePath;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import javax.swing.BorderFactory;
-import javax.swing.Box;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JSplitPane;
-import javax.swing.JTree;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
-import javax.swing.border.Border;
-import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.DefaultTreeModel;
-import javax.swing.tree.TreePath;
-
-import org.apache.servicemix.wsn.router.wsnPolicy.msgs.ComplexGroup;
-import org.apache.servicemix.wsn.router.wsnPolicy.msgs.TargetGroup;
-import org.apache.servicemix.wsn.router.wsnPolicy.msgs.TargetMsg;
-import org.apache.servicemix.wsn.router.wsnPolicy.msgs.WsnPolicyMsg;
-
 /**
  *
  */
-public class WsnPolicyGroupInterface extends JFrame implements ActionListener{
+public class WsnPolicyGroupInterface extends JFrame implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
 	private static Toolkit kit;
 	private static Dimension screenSize;
 	private static String RESULT = "result";
 	private static String CHOOSE = "choose";
-	private JButton okayBtn = createBtn("È·¶¨");
-	private JButton cancelBtn = createBtn("È¡Ïû");
-	private JButton addBtn = createBtn("Ìí¼Ó");
-	private JButton deleteBtn = createBtn("É¾³ý");
-	private JButton newGroupBtn = createBtn("ÐÂ½¨¸´ºÏ¼¯Èº");
-	private JButton deleGroupBtn = createBtn("É¾³ý¸´ºÏ¼¯Èº");
-	
-	private HashMap<String,JTree>name_Tree = new HashMap<String,JTree>();
-	private JTree chooseTree;
-	private JTree resultTree;	
 
+	static {
+		kit = Toolkit.getDefaultToolkit();
+		screenSize = kit.getScreenSize();
+	}
+
+	private JButton okayBtn = createBtn("È·ï¿½ï¿½");
+	private JButton cancelBtn = createBtn("È¡ï¿½ï¿½");
+	private JButton addBtn = createBtn("ï¿½ï¿½ï¿½");
+	private JButton deleteBtn = createBtn("É¾ï¿½ï¿½");
+	private JButton newGroupBtn = createBtn("ï¿½Â½ï¿½ï¿½ï¿½ï¿½Ï¼ï¿½Èº");
+	private JButton deleGroupBtn = createBtn("É¾ï¿½ï¿½ï¿½ï¿½ï¿½Ï¼ï¿½Èº");
+	private HashMap<String, JTree> name_Tree = new HashMap<String, JTree>();
+	private JTree chooseTree;
+	private JTree resultTree;
 	private WsnPolicyInterface parentFrame;
+
+	public WsnPolicyGroupInterface(String targetTopic) {
+		super("ï¿½ï¿½ï¿½Ô¼ï¿½Èºï¿½ï¿½ï¿½ï¿½");
+		//ï¿½ï¿½Ó¸ï¿½Panel
+		add(createMsgPanel(), BorderLayout.CENTER);
+		add(createButtonPanel(), BorderLayout.SOUTH);
+
+		iniTrees(targetTopic);
+
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½Ãµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½Èºï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½ï¿½Ç²Å¿ï¿½ï¿½ï¿½ï¿½Â½ï¿½ï¿½ï¿½É¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Èºï¿½ï¿½
+		if (!ShorenUtils.isWholeMsg()) {
+			newGroupBtn.setEnabled(false);
+			deleGroupBtn.setEnabled(false);
+		}
+
+		//frame conf
+		setBounds(screenSize.width / 4, screenSize.height / 8,
+				screenSize.width / 2, 5 * screenSize.height / 8);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setAlwaysOnTop(true);
+		setResizable(false);
+		setVisible(true);
+	}
+
+	public static void main(String[] args) {
+
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (InstantiationException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		} catch (UnsupportedLookAndFeelException e) {
+			e.printStackTrace();
+		}
+		ShorenUtils.setWholeMsg(false);
+		new WsnPolicyGroupInterface("test");
+
+	}
 
 	public WsnPolicyInterface getParentFrame() {
 		return parentFrame;
@@ -66,81 +99,45 @@ public class WsnPolicyGroupInterface extends JFrame implements ActionListener{
 		this.parentFrame = parentFrame;
 	}
 
-	static
-	{
-		kit = Toolkit.getDefaultToolkit();  
-        screenSize = kit.getScreenSize();
-	}
-	
-	public WsnPolicyGroupInterface(String targetTopic)
-	{
-		super("²ßÂÔ¼¯Èº²Ù×÷");
-		//Ìí¼Ó¸÷Panel
-		add(createMsgPanel(), BorderLayout.CENTER);
-		add(createButtonPanel(), BorderLayout.SOUTH);
-		
-		iniTrees(targetTopic);
-		
-		//Èç¹ûÊÇÐÂ½¨²ßÂÔÐÅÏ¢£¬µÃµ½µÄÊÇÕû¸öÍøÂçµÄ¼¯ÈºÐÅÏ¢£¬ÕâÊÇ²Å¿ÉÒÔÐÂ½¨¡¢É¾³ý¸´ºÏÈº¡£
-		if(!ShorenUtils.isWholeMsg())
-		{
-			newGroupBtn.setEnabled(false);
-			deleGroupBtn.setEnabled(false);
-		}
-		
-		//frame conf
-		setBounds(screenSize.width/4 , screenSize.height/8, 
-				screenSize.width/2 ,5*screenSize.height/8);
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setAlwaysOnTop(true);
-		setResizable(false);
-		setVisible(true);
-	}
-	
-	protected void iniTrees(String targetTopic)
-	{
-		//test	
+	protected void iniTrees(String targetTopic) {
+		//test
 		chooseTree = name_Tree.get(CHOOSE);
-		DefaultMutableTreeNode root = (DefaultMutableTreeNode) chooseTree.getModel().getRoot();			
+		DefaultMutableTreeNode root = (DefaultMutableTreeNode) chooseTree.getModel().getRoot();
 		WsnPolicyMsg wpm = null;
-		if(ShorenUtils.isWholeMsg())
-		{
-			//´ÓcomplexGroupsMsgs.xml¶ÁÈ¡ÐÅÏ¢
+		if (ShorenUtils.isWholeMsg()) {
+			//ï¿½ï¿½complexGroupsMsgs.xmlï¿½ï¿½È¡ï¿½ï¿½Ï¢
 			wpm = ShorenUtils.decodeAllComplexGroups();   //.decodePolicyMsg();  ;
-			
-		}else
-		{
-			//´ÓpolicyMsg.xml¶ÁÈ¡ÏàÓ¦ÐÅÏ¢
+
+		} else {
+			//ï¿½ï¿½policyMsg.xmlï¿½ï¿½È¡ï¿½ï¿½Ó¦ï¿½ï¿½Ï¢
 			wpm = ShorenUtils.decodePolicyMsg(targetTopic);
 		}
-		
-		ShorenUtils.showPolicyMsg(root,wpm);
+
+		ShorenUtils.showPolicyMsg(root, wpm);
 		root.setUserObject(wpm);
 		TreePath rp = new TreePath(root);
 		chooseTree.expandPath(rp);
-		
-		
+
+
 		resultTree = name_Tree.get(RESULT);
 		DefaultMutableTreeNode root1 = (DefaultMutableTreeNode) resultTree.getModel().getRoot();
 		TreePath rp1 = new TreePath(root1);
 		resultTree.expandPath(rp1);
 	}
-	
-	protected JPanel createMsgPanel()
-	{
+
+	protected JPanel createMsgPanel() {
 		JPanel msgPanel = new JPanel();
 		JSplitPane inner = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,
-				createGroupTree(CHOOSE,"Ñ¡Ôñ·¶Î§"),createMidPanel());
+				createGroupTree(CHOOSE, "Ñ¡ï¿½ï¿½Î§"), createMidPanel());
 		JSplitPane outer = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,
-				inner,createGroupTree(RESULT,"ÒÑÑ¡½á¹û"));
+				inner, createGroupTree(RESULT, "ï¿½ï¿½Ñ¡ï¿½ï¿½ï¿½"));
 		msgPanel.add(outer, BorderLayout.CENTER);
-		Border border = BorderFactory.createTitledBorder("¼¯ÈºÐÅÏ¢");
+		Border border = BorderFactory.createTitledBorder("ï¿½ï¿½Èºï¿½ï¿½Ï¢");
 		msgPanel.setBorder(border);
 		return msgPanel;
 	}
-	
-	protected JPanel createMidPanel()
-	{
+
+	protected JPanel createMidPanel() {
 		JPanel panel = new JPanel();
 		Box box = Box.createVerticalBox();
 		box.add(Box.createHorizontalStrut(30));
@@ -154,26 +151,24 @@ public class WsnPolicyGroupInterface extends JFrame implements ActionListener{
 		deleteBtn.addActionListener(this);
 		return panel;
 	}
-	
-	protected JScrollPane createGroupTree(String name, String title)
-	{
-		//¼ÇµÃÒªÉèÖÃroot¹þ
-		JTree groupTree = new JTree(new DefaultTreeModel(new DefaultMutableTreeNode()));		
+
+	protected JScrollPane createGroupTree(String name, String title) {
+		//ï¿½Çµï¿½Òªï¿½ï¿½ï¿½ï¿½rootï¿½ï¿½
+		JTree groupTree = new JTree(new DefaultTreeModel(new DefaultMutableTreeNode()));
 		ShorenNodeRenderer ren = new ShorenNodeRenderer();
 		groupTree.setCellRenderer(ren);
-		groupTree.setShowsRootHandles(true);  //ÏÔÊ¾Ç°ÃæµÄ·ÖÖ§Ïß
-		groupTree.setRootVisible(false);		 //²»ÏÔÊ¾¸ù½Úµã
-		name_Tree.put(name, groupTree);		
-		
+		groupTree.setShowsRootHandles(true);  //ï¿½ï¿½Ê¾Ç°ï¿½ï¿½Ä·ï¿½Ö§ï¿½ï¿½
+		groupTree.setRootVisible(false);         //ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½Úµï¿½
+		name_Tree.put(name, groupTree);
+
 		JScrollPane listScrollPane = new JScrollPane(groupTree);
-        listScrollPane.setPreferredSize(new Dimension(250, 380));
-        listScrollPane.setMinimumSize(new Dimension(150, 300));
-        listScrollPane.setBorder(BorderFactory.createTitledBorder(title));
-        return listScrollPane;
+		listScrollPane.setPreferredSize(new Dimension(250, 380));
+		listScrollPane.setMinimumSize(new Dimension(150, 300));
+		listScrollPane.setBorder(BorderFactory.createTitledBorder(title));
+		return listScrollPane;
 	}
-	
-	protected JPanel createButtonPanel()
-	{
+
+	protected JPanel createButtonPanel() {
 		JPanel btnPanel = new JPanel();
 		Box box = Box.createHorizontalBox();
 		box.add(Box.createHorizontalStrut(100));
@@ -190,194 +185,157 @@ public class WsnPolicyGroupInterface extends JFrame implements ActionListener{
 		cancelBtn.addActionListener(this);
 		newGroupBtn.addActionListener(this);
 		deleGroupBtn.addActionListener(this);
-		return btnPanel;	
+		return btnPanel;
 	}
-	
-	protected JButton createBtn(String btnName)
-	{
+
+	protected JButton createBtn(String btnName) {
 		JButton btn = new JButton(btnName);
-		btn.setSize(80, 30);	
-		btn.setPreferredSize(new Dimension(80,30));
+		btn.setSize(80, 30);
+		btn.setPreferredSize(new Dimension(80, 30));
 		return btn;
 	}
 
-
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if(e.getSource() == okayBtn)
-		{
+		if (e.getSource() == okayBtn) {
 			//return the result
-			if(resultTree != null && getParentFrame() != null)
-			{
+			if (resultTree != null && getParentFrame() != null) {
 				JTree gtree = getParentFrame().getGroupTree();
-				//ÐèÒªÖðµã¸³Öµ£¬²»ÄÜÖ±½Ó¸³ÖµÕû¿ÃÊ÷.
+				//ï¿½ï¿½Òªï¿½ï¿½ã¸³Öµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö±ï¿½Ó¸ï¿½Öµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 				DefaultMutableTreeNode root1 = (DefaultMutableTreeNode) resultTree.getModel().getRoot();
 				DefaultMutableTreeNode root = (DefaultMutableTreeNode) gtree.getModel().getRoot();
-				if(root1.getChildCount() == 0) {
+				if (root1.getChildCount() == 0) {
 					this.dispose();
 					return;
 				}
 				root.removeAllChildren();
 				int count = root1.getChildCount();
-				for(int i=0; i<count; i++)
-				{
-					DefaultMutableTreeNode child = (DefaultMutableTreeNode)root1.getChildAt(i);
-					TargetMsg msg = (TargetMsg)child.getUserObject();
-					
-					//Õâ±ßÐèÒª¹ýÂËÒ»ÏÂ£¬Èç¹ûÖ®Ç°ÒÑ¾­Ìí¼ÓÁË£¬¾Í²»ÒªÔÙ¼Ó½øÀ´¡£
-					if(!ShorenUtils.isInNode(root, msg))
+				for (int i = 0; i < count; i++) {
+					DefaultMutableTreeNode child = (DefaultMutableTreeNode) root1.getChildAt(i);
+					TargetMsg msg = (TargetMsg) child.getUserObject();
+
+					//ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½Ò»ï¿½Â£ï¿½ï¿½ï¿½ï¿½Ö®Ç°ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½ï¿½Ë£ï¿½ï¿½Í²ï¿½Òªï¿½Ù¼Ó½ï¿½ï¿½ï¿½ï¿½ï¿½
+					if (!ShorenUtils.isInNode(root, msg))
 						root.add(ShorenUtils.showTargetMsg(msg));
 				}
 				TreePath rp = new TreePath(root);
 				gtree.expandPath(rp);
 				gtree.updateUI();
-				
-				getParentFrame().updateBtns();	
-			}			   
-			
+
+				getParentFrame().updateBtns();
+			}
+
 			this.dispose();
-			
-		}else if(e.getSource() == cancelBtn)
-		{
+
+		} else if (e.getSource() == cancelBtn) {
 			this.dispose();
-		}else if(e.getSource() == addBtn)
-		{
-			//»ñÈ¡Ñ¡È¡µÄ½Úµã£¬²¢Ìí¼Óµ½resultTreeÖÐ¡£
+		} else if (e.getSource() == addBtn) {
+			//ï¿½ï¿½È¡Ñ¡È¡ï¿½Ä½Úµã£¬ï¿½ï¿½ï¿½ï¿½Óµï¿½resultTreeï¿½Ð¡ï¿½
 			TreePath[] tp = chooseTree.getSelectionPaths();
-			if(tp == null) return;
-			
-			int len = tp.length;			
-			DefaultMutableTreeNode root = (DefaultMutableTreeNode) resultTree.getModel().getRoot();		
-			for(int i =0; i<len; i++)
-			{
-				//±éÀúÑ¡È¡µÄ¼¯Èº£¬²¢Ìí¼ÓÔÚresultTree
-				TargetMsg msg = (TargetMsg)((ShorenTreeNode)tp[i].getLastPathComponent()).getUserObject();
-				
-				//Õâ±ßÐèÒª¹ýÂËÒ»ÏÂ£¬Èç¹ûÖ®Ç°ÒÑ¾­Ìí¼ÓÁË£¬¾Í²»ÒªÔÙ¼Ó½øÀ´¡£
-				if(!ShorenUtils.isInNode(root, msg))
+			if (tp == null) return;
+
+			int len = tp.length;
+			DefaultMutableTreeNode root = (DefaultMutableTreeNode) resultTree.getModel().getRoot();
+			for (int i = 0; i < len; i++) {
+				//ï¿½ï¿½ï¿½ï¿½Ñ¡È¡ï¿½Ä¼ï¿½Èºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½resultTree
+				TargetMsg msg = (TargetMsg) ((ShorenTreeNode) tp[i].getLastPathComponent()).getUserObject();
+
+				//ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½Ò»ï¿½Â£ï¿½ï¿½ï¿½ï¿½Ö®Ç°ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½ï¿½Ë£ï¿½ï¿½Í²ï¿½Òªï¿½Ù¼Ó½ï¿½ï¿½ï¿½ï¿½ï¿½
+				if (!ShorenUtils.isInNode(root, msg))
 					root.add(ShorenUtils.showTargetMsg(msg));
 			}
-			
+
 			TreePath rp = new TreePath(root);
 			resultTree.expandPath(rp);
 			resultTree.updateUI();
-			
+
 			System.out.println("test");
-		}else if(e.getSource() == deleteBtn)
-		{
+		} else if (e.getSource() == deleteBtn) {
 			TreePath[] tp = resultTree.getSelectionPaths();
-			if(tp == null) return;
-			
+			if (tp == null) return;
+
 			int len = tp.length;
-			for(int i =0; i<len; i++)
-			{
-				DefaultMutableTreeNode node = (ShorenTreeNode)tp[i].getLastPathComponent();
+			for (int i = 0; i < len; i++) {
+				DefaultMutableTreeNode node = (ShorenTreeNode) tp[i].getLastPathComponent();
 				node.removeFromParent();
 			}
 			resultTree.updateUI();
 			System.out.println("test");
-		}else if(e.getSource() == newGroupBtn)
-		{	
-			
-			TreePath[] tp = chooseTree.getSelectionPaths();			
-			if(tp != null)
-			{
+		} else if (e.getSource() == newGroupBtn) {
+
+			TreePath[] tp = chooseTree.getSelectionPaths();
+			if (tp != null) {
 				int len = tp.length;
-				String name = JOptionPane.showInputDialog("ÇëÊäÈë¸´ºÏ¼¯ÈºµÄÃû×Ö£º");
-				if( (name == null) || name.equals(""))
+				String name = JOptionPane.showInputDialog("ï¿½ï¿½ï¿½ï¿½ï¿½ë¸´ï¿½Ï¼ï¿½Èºï¿½ï¿½ï¿½ï¿½ï¿½Ö£ï¿½");
+				if ((name == null) || name.equals(""))
 					return;
-				//Õâ¸öÃû×ÖÓ¦¸ÃÎ¨Ò»
+				//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½Î¨Ò»
 				DefaultMutableTreeNode root = (DefaultMutableTreeNode) chooseTree.getModel().getRoot();
-				if(ShorenUtils.hasNameExisted(root, name))
-				{
-					JOptionPane.showMessageDialog(this , "Õâ¸öÃû×ÖÒÑ¾­´æÔÚÁË£¡^_^");
+				if (ShorenUtils.hasNameExisted(root, name)) {
+					JOptionPane.showMessageDialog(this, "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë£ï¿½^_^");
 					return;
 				}
-				
+
 				List<ComplexGroup> complexGroups = new ArrayList<ComplexGroup>();
 				List<TargetGroup> targetGroups = new ArrayList<TargetGroup>();
-				for(int i =0; i<len; i++)
-				{
-					//½«Ñ¡È¡µÄ¼¯Èº×é³É¸´ºÏ¼¯Èº
-					TargetMsg msg = (TargetMsg)((ShorenTreeNode)tp[i].getLastPathComponent()).getUserObject();
-					if(msg instanceof ComplexGroup)
-						complexGroups.add((ComplexGroup)msg);
-					else if(msg instanceof TargetGroup)
-						targetGroups.add((TargetGroup)msg);
+				for (int i = 0; i < len; i++) {
+					//ï¿½ï¿½Ñ¡È¡ï¿½Ä¼ï¿½Èºï¿½ï¿½É¸ï¿½ï¿½Ï¼ï¿½Èº
+					TargetMsg msg = (TargetMsg) ((ShorenTreeNode) tp[i].getLastPathComponent()).getUserObject();
+					if (msg instanceof ComplexGroup)
+						complexGroups.add((ComplexGroup) msg);
+					else if (msg instanceof TargetGroup)
+						targetGroups.add((TargetGroup) msg);
 				}
-				ComplexGroup cgroup = new ComplexGroup(name,complexGroups,targetGroups);
-				DefaultMutableTreeNode croot = (DefaultMutableTreeNode) chooseTree.getModel().getRoot();	
-				WsnPolicyMsg policy = (WsnPolicyMsg)croot.getUserObject();
+				ComplexGroup cgroup = new ComplexGroup(name, complexGroups, targetGroups);
+				DefaultMutableTreeNode croot = (DefaultMutableTreeNode) chooseTree.getModel().getRoot();
+				WsnPolicyMsg policy = (WsnPolicyMsg) croot.getUserObject();
 				policy.getComplexGroups().add(cgroup);
-				//ÐÂ½¨¸´ºÏ¼¯ÈºÊ±£¬±ØÊÇÕ¹Ê¾ÏµÍ³ËùÓÐ¸´ºÏ¼¯Èº£¬±£´æ¡£
+				//ï¿½Â½ï¿½ï¿½ï¿½ï¿½Ï¼ï¿½ÈºÊ±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õ¹Ê¾ÏµÍ³ï¿½ï¿½ï¿½Ð¸ï¿½ï¿½Ï¼ï¿½Èºï¿½ï¿½ï¿½ï¿½ï¿½æ¡£
 				ShorenUtils.encodeAllComplexGroups(policy);
-				
-				//¸üÐÂchooseTreeÄÚÈÝ
-				ShorenUtils.showPolicyMsg(croot,policy);
-				chooseTree.updateUI();
-				
-				System.out.println("test");
-				
-			}else{
-				JOptionPane.showMessageDialog(null , "ÒªÑ¡Ôñ¼¯ÈºµÄÈö£¡^_^");
-			}
-	
-		}else if(e.getSource() == deleGroupBtn)
-		{
-			TreePath[] tp = chooseTree.getSelectionPaths();			
-			if(tp != null)
-			{
-				int len = tp.length;
-				DefaultMutableTreeNode croot = (DefaultMutableTreeNode) chooseTree.getModel().getRoot();	
-				WsnPolicyMsg policy = (WsnPolicyMsg)croot.getUserObject();
 
-				for(int i =0; i<len; i++)
-				{
-					//deleteÑ¡È¡µÄ¸´ºÏ¼¯Èº£¬Ö»ÄÜÉ¾³ý¸´ºÏ¼¯Èº
-					ShorenTreeNode node = (ShorenTreeNode)tp[i].getLastPathComponent();
-					TargetMsg group = (TargetMsg)node.getUserObject();
-					if(group instanceof ComplexGroup)
-					{
-						Object parent = ((DefaultMutableTreeNode)node.getParent()).getUserObject();
-						if(parent instanceof WsnPolicyMsg)
-							((WsnPolicyMsg)parent).getComplexGroups().remove(group);
-						if(parent instanceof ComplexGroup)
-							((ComplexGroup)parent).getComplexGroups().remove(group);
-					}
-				}				
-				
-				//delete¸´ºÏ¼¯ÈºÊ±£¬±ØÊÇÕ¹Ê¾ÏµÍ³ËùÓÐ¸´ºÏ¼¯Èº£¬±£´æ¡£
-				ShorenUtils.encodeAllComplexGroups(policy);
-				
-				//¸üÐÂchooseTreeÄÚÈÝ
-				ShorenUtils.showPolicyMsg(croot,policy);
+				//ï¿½ï¿½ï¿½ï¿½chooseTreeï¿½ï¿½ï¿½ï¿½
+				ShorenUtils.showPolicyMsg(croot, policy);
 				chooseTree.updateUI();
-				
+
 				System.out.println("test");
-				
-			}else{
-				JOptionPane.showMessageDialog(null , "ÒªÑ¡Ôñ¼¯ÈºµÄÈö£¡^_^");
+
+			} else {
+				JOptionPane.showMessageDialog(null, "ÒªÑ¡ï¿½ï¿½Èºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½^_^");
+			}
+
+		} else if (e.getSource() == deleGroupBtn) {
+			TreePath[] tp = chooseTree.getSelectionPaths();
+			if (tp != null) {
+				int len = tp.length;
+				DefaultMutableTreeNode croot = (DefaultMutableTreeNode) chooseTree.getModel().getRoot();
+				WsnPolicyMsg policy = (WsnPolicyMsg) croot.getUserObject();
+
+				for (int i = 0; i < len; i++) {
+					//deleteÑ¡È¡ï¿½Ä¸ï¿½ï¿½Ï¼ï¿½Èºï¿½ï¿½Ö»ï¿½ï¿½É¾ï¿½ï¿½ï¿½ï¿½ï¿½Ï¼ï¿½Èº
+					ShorenTreeNode node = (ShorenTreeNode) tp[i].getLastPathComponent();
+					TargetMsg group = (TargetMsg) node.getUserObject();
+					if (group instanceof ComplexGroup) {
+						Object parent = ((DefaultMutableTreeNode) node.getParent()).getUserObject();
+						if (parent instanceof WsnPolicyMsg)
+							((WsnPolicyMsg) parent).getComplexGroups().remove(group);
+						if (parent instanceof ComplexGroup)
+							((ComplexGroup) parent).getComplexGroups().remove(group);
+					}
+				}
+
+				//deleteï¿½ï¿½ï¿½Ï¼ï¿½ÈºÊ±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õ¹Ê¾ÏµÍ³ï¿½ï¿½ï¿½Ð¸ï¿½ï¿½Ï¼ï¿½Èºï¿½ï¿½ï¿½ï¿½ï¿½æ¡£
+				ShorenUtils.encodeAllComplexGroups(policy);
+
+				//ï¿½ï¿½ï¿½ï¿½chooseTreeï¿½ï¿½ï¿½ï¿½
+				ShorenUtils.showPolicyMsg(croot, policy);
+				chooseTree.updateUI();
+
+				System.out.println("test");
+
+			} else {
+				JOptionPane.showMessageDialog(null, "ÒªÑ¡ï¿½ï¿½Èºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½^_^");
 			}
 		}
-		
-	}
-	
-	public static void main(String[] args) {
-		
-		try {
-			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());			
-			
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} catch (InstantiationException e) {
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-		} catch (UnsupportedLookAndFeelException e) {
-			e.printStackTrace();
-		}
-		ShorenUtils.setWholeMsg(false);
-		new WsnPolicyGroupInterface("test");
 
 	}
 }

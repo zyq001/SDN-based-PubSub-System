@@ -1,14 +1,13 @@
 package org.apache.servicemix.wsn.router.mgr;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.apache.servicemix.wsn.router.mgr.base.SysInfo;
+
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.apache.servicemix.wsn.router.mgr.base.AState;
-import org.apache.servicemix.wsn.router.mgr.base.SysInfo;
 
 public class TcpMsgThread extends SysInfo implements Runnable {
 	private static Log log = LogFactory.getLog(TcpMsgThread.class);
@@ -33,7 +32,7 @@ public class TcpMsgThread extends SysInfo implements Runnable {
 		while (tcpMsgThreadSwitch) {
 			try {
 				Socket s = ss.accept();
-				s.setReceiveBufferSize(1024*1024);
+				s.setReceiveBufferSize(1024 * 1024);
 				rt.getState().processTcpMsg(s);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block

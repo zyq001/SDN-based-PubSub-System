@@ -1,29 +1,29 @@
 package org.apache.servicemix.wsn.router.msg.tcp;
 
+import org.apache.servicemix.wsn.router.mgr.BrokerUnit;
+import org.apache.servicemix.wsn.router.mgr.RtMgr;
+import org.apache.servicemix.wsn.router.mgr.base.AState;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.net.Socket;
 
-import org.apache.servicemix.wsn.router.mgr.BrokerUnit;
-import org.apache.servicemix.wsn.router.mgr.RtMgr;
-import org.apache.servicemix.wsn.router.mgr.base.AState;
-
 public class MsgSetConf implements Serializable {
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1L;
 
 	public String address;//specify the broker, all if null
-	
+
 	public MsgConf_ conf_;
-	
+
 	@SuppressWarnings("static-access")
 	public void processRepMsg(ObjectInputStream ois,
-			ObjectOutputStream oos, Socket s, MsgSetConf msc) {
+	                          ObjectOutputStream oos, Socket s, MsgSetConf msc) {
 		AState state = RtMgr.getInstance().getState();
 		System.out.println("set configurations");
 		Socket s1 = null;
@@ -67,5 +67,5 @@ public class MsgSetConf implements Serializable {
 		}
 		System.out.println("configuration updated");
 	}
-	
+
 }

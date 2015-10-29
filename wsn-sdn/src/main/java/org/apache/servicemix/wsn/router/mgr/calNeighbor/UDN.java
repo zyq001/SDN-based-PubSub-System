@@ -4,35 +4,35 @@ class UDN {
 
 	double[][] arcs;
 	int vexNum, arcNum;
-	
-	public UDN(int downVexNum, int downArcNum){
+
+	public UDN(int downVexNum, int downArcNum) {
 		vexNum = downVexNum;
 		arcNum = downArcNum;
 		arcs = new double[vexNum][arcNum];
 		initUND();
 	}
-	
-	//≥ı ºªØUDN
-	private void initUND(){
-		for (int i=0; i<vexNum; i++)
-			for(int j=0; j<vexNum; j++){
+
+	//ÔøΩÔøΩ ºÔøΩÔøΩUDN
+	private void initUND() {
+		for (int i = 0; i < vexNum; i++)
+			for (int j = 0; j < vexNum; j++) {
 				arcs[i][j] = NeigSelect.getINFINITY();
 			}
 	}
-	
-	//ππ‘Ï¡⁄Ω”æÿ’Û	
-	public void creactUND(int m,int n, double d){
 
-			arcs[m][n] = d;
-			arcs[n][m] = arcs[m][n];
+	//ÔøΩÔøΩÔøΩÔøΩÔøΩ⁄Ω”æÔøΩÔøΩÔøΩ	
+	public void creactUND(int m, int n, double d) {
+
+		arcs[m][n] = d;
+		arcs[n][m] = arcs[m][n];
 
 	}
-	
-	
-	//Ω´RNG∂‘”¶±ﬂµƒ»®÷µ÷√Œﬁ«Ó¥Û
-	public void delete(int m, int n){
+
+
+	//ÔøΩÔøΩRNGÔøΩÔøΩ”¶ÔøΩﬂµÔøΩ»®÷µÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩ
+	public void delete(int m, int n) {
 		arcs[m][n] = NeigSelect.getINFINITY();
 		arcs[n][m] = arcs[m][n];
 	}
-	
+
 }

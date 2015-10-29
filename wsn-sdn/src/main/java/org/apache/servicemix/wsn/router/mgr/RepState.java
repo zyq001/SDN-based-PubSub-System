@@ -1,60 +1,25 @@
 package org.apache.servicemix.wsn.router.mgr;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.net.DatagramPacket;
-import java.net.DatagramSocket;
-import java.net.InetAddress;
-import java.net.Socket;
-import java.net.UnknownHostException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Random;
-import java.util.Scanner;
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.TreeSet;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.servicemix.wsn.push.SendNotification;
 import org.apache.servicemix.wsn.router.detection.IDt;
 import org.apache.servicemix.wsn.router.mgr.base.AState;
-import org.apache.servicemix.wsn.router.mgr.MsgNotis;
-import org.apache.servicemix.wsn.router.msg.tcp.AskForGroupMap;
-import org.apache.servicemix.wsn.router.msg.tcp.DistBtnNebr;
-import org.apache.servicemix.wsn.router.msg.tcp.GroupMap;
+import org.apache.servicemix.wsn.router.msg.tcp.*;
 import org.apache.servicemix.wsn.router.msg.tcp.GroupUnit;
-import org.apache.servicemix.wsn.router.msg.tcp.LSDB;
-import org.apache.servicemix.wsn.router.msg.tcp.MsgAdReboot;
-import org.apache.servicemix.wsn.router.msg.tcp.MsgAdminChange;
-import org.apache.servicemix.wsn.router.msg.tcp.MsgAskForLSDB;
-import org.apache.servicemix.wsn.router.msg.tcp.MsgGroupJunk;
-import org.apache.servicemix.wsn.router.msg.tcp.MsgGroupLost;
-import org.apache.servicemix.wsn.router.msg.tcp.MsgInfoChange;
-import org.apache.servicemix.wsn.router.msg.tcp.MsgInsert;
-import org.apache.servicemix.wsn.router.msg.tcp.MsgInsert_;
-import org.apache.servicemix.wsn.router.msg.tcp.MsgJoinGroup;
-import org.apache.servicemix.wsn.router.msg.tcp.MsgLookupGroupMember;
-import org.apache.servicemix.wsn.router.msg.tcp.MsgLookupGroupSubscriptions;
-import org.apache.servicemix.wsn.router.msg.tcp.MsgLookupMemberSubscriptions;
-import org.apache.servicemix.wsn.router.msg.tcp.MsgNewGroup;
-import org.apache.servicemix.wsn.router.msg.tcp.MsgNewGroup_;
-import org.apache.servicemix.wsn.router.msg.tcp.MsgNewRep;
-import org.apache.servicemix.wsn.router.msg.tcp.MsgSetAddr;
-import org.apache.servicemix.wsn.router.msg.tcp.MsgSetConf;
-import org.apache.servicemix.wsn.router.msg.tcp.MsgSynSubs;
-import org.apache.servicemix.wsn.router.msg.tcp.LSA;
-import org.apache.servicemix.wsn.router.msg.tcp.PolicyDB;
-import org.apache.servicemix.wsn.router.msg.tcp.UpdateTree;
 import org.apache.servicemix.wsn.router.msg.udp.MsgHello;
 import org.apache.servicemix.wsn.router.msg.udp.MsgLost;
 import org.apache.servicemix.wsn.router.msg.udp.MsgNewBroker;
 import org.apache.servicemix.wsn.router.msg.udp.MsgSubs;
 import org.apache.servicemix.wsn.router.wsnPolicy.ShorenUtils;
 import org.apache.servicemix.wsn.router.wsnPolicy.msgs.WsnPolicyMsg;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.*;
+import java.util.*;
 
 public class RepState extends AState {
 	private static Log log = LogFactory.getLog(RepState.class);
@@ -72,7 +37,10 @@ public class RepState extends AState {
 		synCache = new Object();
 		addLSA = new Object();
 	}
-	
+
+	public static void topicAvoid(String groupIP) {
+
+	}
 
 	@Override
 	public void join() {
@@ -176,7 +144,7 @@ public class RepState extends AState {
 						list.remove(g);
 					} // for
 				} // if
-					// 将groupMap交给拓扑计算，返回已经建立好的邻居
+				// 将groupMap交给拓扑计算，返回已经建立好的邻居
 				ArrayList<String> nbs;
 				nbs = nb.BuildAGetNeigs();
 				if (nbs.size() > 0) {
@@ -237,34 +205,6 @@ public class RepState extends AState {
 			groupName = sc.next();
 			log.info("try again now");
 			joinOK = false;
-		}
-	}
-
-	public class Init implements Runnable {
-		boolean needClear;
-
-		public Init(boolean needClear) {
-			this.needClear = needClear;
-		}
-
-		@Override
-		public void run() {
-			if (needClear) {
-				lsaSeqNum = lsdb.get(groupName).seqNum + 1;
-				MsgSubs mss = new MsgSubs();
-				mss.topics.addAll(lsdb.get(groupName).subsTopics);
-				mss.type = 1;
-				mss.originator = localAddr;
-				sendSbp(mss);
-			}
-			MsgNewRep mnr = new MsgNewRep();
-			mnr.addr = localAddr;
-			mnr.id = System.currentTimeMillis();
-			mnr.name = groupName;
-			mnr.netmask = localNetmask;
-			mnr.tPort = tPort;
-			mnr.uPort = uPort;
-			spreadInLocalGroup(mnr);
 		}
 	}
 
@@ -463,7 +403,7 @@ public class RepState extends AState {
 			for (String nbr : lsa.distBtnNebrs.keySet()) {
 				if ((!old.distBtnNebrs.containsKey(nbr))
 						|| (old.distBtnNebrs.get(nbr).dist != lsa.distBtnNebrs
-								.get(nbr).dist)) {
+						.get(nbr).dist)) {
 					calAll = true;
 					break;
 				}
@@ -519,7 +459,7 @@ public class RepState extends AState {
 					return false;
 				System.out
 						.println("add lsa from " + lsa.originator + "to lsdb");
-				
+
 				if (lsa.syn == 1) { // 同步LSA
 					addSynLSAToLSDB(lsa);
 					return true;
@@ -536,7 +476,7 @@ public class RepState extends AState {
 
 					old = addTopicsToLSA(old, lsa.subsTopics, 0);
 				} // else lsa.syn!=1
-					// the originator of lsa lost its neighbor
+				// the originator of lsa lost its neighbor
 				if (!lsa.lostGroup.isEmpty()) {
 					for (String lost : lsa.lostGroup) {
 						this.deleteLineFromLSDB(lost, lsa.originator);
@@ -623,7 +563,7 @@ public class RepState extends AState {
 						for (String s : brokerTable.keySet()) {
 							if (this.isIncluded(s, sub)
 									&& !brokerTable.get(s).contains(
-											mss.originator)) {
+									mss.originator)) {
 								remove.add(sub);
 							}
 						}
@@ -658,7 +598,7 @@ public class RepState extends AState {
 		// spread mss in local group if this is the originator
 		if (mss.originator != null
 				&& (mss.originator.equals(groupName) || mss.originator
-						.equals(localAddr))) {
+				.equals(localAddr))) {
 			mss.originator = localAddr;
 			this.spreadInLocalGroup(mss);
 		}
@@ -712,147 +652,6 @@ public class RepState extends AState {
 		if (needInit) {
 			Timer timer = new Timer();
 			timer.schedule(new SendTask(), 5000);
-		}
-	}
-
-	class SynTask extends TimerTask {
-
-		@Override
-		public void run() {
-			synLSA();
-		}
-
-	}
-
-	class CheckTask extends TimerTask {
-
-		@Override
-		public void run() {
-			for (LSA lsa : lsdb.values()) {
-				if ((System.currentTimeMillis() - lsa.sendTime) > synPeriod * 60 * 1000 * 1.5) {
-					System.out.println("集群 " + lsa.originator + " LSA超时");
-					boolean invalid = true;
-					for (String n : lsa.distBtnNebrs.keySet()) {
-						if (lsdb.contains(n)
-								&& (System.currentTimeMillis() - lsdb.get(n).sendTime) < synPeriod * 60 * 1000 * 1.5) {
-							invalid = false;
-						}
-					}
-
-					if (neighbors.contains(lsa.originator)
-							&& !waitHello.contains(lsa.originator)) {
-						dt.removeTarget(lsa.originator);
-						lost(lsa.originator);
-					}
-
-					lsdb.remove(lsa.originator);
-					ArrayList<String> topics = mgr
-							.DeleteAllSubsOfGroup(lsa.originator);
-					for (String topic : topics) {
-						mgr.route(topic);
-					}
-					if (invalid) {
-						groupMap.remove(lsa.originator);
-						MsgLost ml = new MsgLost();
-						ml.indicator = lsa.originator;
-						ml.inside = false;
-
-						spreadInLocalGroup(ml);
-						int dist = groupName
-								.compareToIgnoreCase(lsa.originator);
-						int num = 0;
-						boolean send = true;
-						for (String gu : groupMap.keySet()) {
-							if (gu.compareToIgnoreCase(lsa.originator) < dist) {
-								num++;
-							}
-							if (num > 2) {
-								send = false;
-								break;
-							}
-						}
-						if (send) {
-							System.out.println("MsgGroupLost message of "
-									+ lsa.originator
-									+ " is sent to administrator");
-							MsgGroupLost mgl = new MsgGroupLost();
-							mgl.name = lsa.originator;
-							mgl.sender = groupName;
-
-							sendObjectToAdministrator(mgl);
-						}
-					}
-				}
-			}
-		}
-	}
-
-	class SendTask extends TimerTask {
-
-		@Override
-		public void run() {
-			// send the messages in cacheLSA to all of the neighbors
-			if (cacheLSA != null) {
-				cacheLSA.seqNum = lsaSeqNum++;
-				cacheLSA.originator = groupName;
-				cacheLSA.sendTime = System.currentTimeMillis();
-
-				System.out.println("send cacheLSA");
-				LSA send = new LSA();
-				// spread the cacheLSA to the agents of the local group
-				synchronized (synCache) {
-					send.copyLSA(cacheLSA);
-					if (cacheLSA != null)
-						cacheLSA = null;
-				}
-				spreadLSAInLocalGroup(send);
-
-				// send the cacheLSA to the neighbors
-				sendObjectToNeighbors(send);
-
-				addLSAToLSDB(send);
-			}
-		}
-	}
-
-	class LostTask extends TimerTask {
-
-		String name;
-
-		public LostTask(String name) {
-			this.name = name;
-		}
-
-		@Override
-		public void run() {
-			if (waitHello.contains(name)) {
-				waitHello.remove(name);
-				if (cacheLSA == null) {
-					synchronized (synCache) {
-						if (cacheLSA == null) {
-							cacheLSA = new LSA();
-							Timer timer = new Timer();
-							timer.schedule(new SendTask(), RtMgr.sendPeriod);
-						}
-					}
-					if (!cacheLSA.lostGroup.contains(name))
-						cacheLSA.lostGroup.add(name);
-					if (cacheLSA.distBtnNebrs.containsKey(name))
-						cacheLSA.distBtnNebrs.remove(name);
-				} else {
-					if (!cacheLSA.lostGroup.contains(name))
-						cacheLSA.lostGroup.add(name);
-					if (cacheLSA.distBtnNebrs.containsKey(name))
-						cacheLSA.distBtnNebrs.remove(name);
-				}
-				if (neighbors.contains(name)) {
-					neighbors.remove(name);
-					neighborReduced(1);
-				}
-
-				System.out.println("The neighbor " + name + " is invalid!");
-				log.info("The neighbor " + name + " is invalid!");
-			}
 		}
 	}
 
@@ -1049,10 +848,6 @@ public class RepState extends AState {
 		timer.schedule(new CheckTask(), scanPeriod, scanPeriod);
 	}
 
-	public static void topicAvoid(String groupIP) {
-
-	}
-
 	@Override
 	public void lost(String indicator) {
 
@@ -1159,7 +954,7 @@ public class RepState extends AState {
 	}
 
 	//group subs changes, notify mgr
-	public boolean send2Mgr(MsgSubs msg){
+	public boolean send2Mgr(MsgSubs msg) {
 		boolean success = false;
 		Socket s = null;
 		ObjectInputStream ois = null;
@@ -1267,16 +1062,16 @@ public class RepState extends AState {
 							}
 						}
 					} else if (mss.type == 0) {// if not exists and the type is
-												// 0
+						// 0
 						TreeSet<String> ts = new TreeSet<String>();
 						ts.add(mss.originator);
 						brokerTable.put(t, ts);
 
 						if (!clientTable.contains(t)) {
 							spreadTopics.add(t);
-							if(!send2Mgr(mss)){
+							if (!send2Mgr(mss)) {
 								send2Mgr(mss);
-							}else{
+							} else {
 								//send2Mgr failed twice, calc locally
 
 							}
@@ -1418,7 +1213,7 @@ public class RepState extends AState {
 					oos = new ObjectOutputStream(s.getOutputStream());
 					while (true) {
 						msg = ois.readObject();// read 阻塞了，如果对方关闭了socket
-												// 系统会抛出io异常，从而关闭此方的socket，因为socket全双工，双方都要关
+						// 系统会抛出io异常，从而关闭此方的socket，因为socket全双工，双方都要关
 						if ((msg != null)) {
 							boolean isLong = processKindTcpMsg(ois, oos, s, msg);
 							if (!isLong) {
@@ -1466,7 +1261,7 @@ public class RepState extends AState {
 	}
 
 	private boolean processKindTcpMsg(ObjectInputStream ois,
-			ObjectOutputStream oos, Socket s, Object msg) throws IOException {
+	                                  ObjectOutputStream oos, Socket s, Object msg) throws IOException {
 		if (msg instanceof MsgJoinGroup) {
 			// 有代理请求加入到本集群中
 			MsgJoinGroup mjg = (MsgJoinGroup) msg;
@@ -1633,5 +1428,174 @@ public class RepState extends AState {
 		this.spreadLSAInLocalGroup(lsa);
 
 		this.addLSAToLSDB(lsa);
+	}
+
+	public class Init implements Runnable {
+		boolean needClear;
+
+		public Init(boolean needClear) {
+			this.needClear = needClear;
+		}
+
+		@Override
+		public void run() {
+			if (needClear) {
+				lsaSeqNum = lsdb.get(groupName).seqNum + 1;
+				MsgSubs mss = new MsgSubs();
+				mss.topics.addAll(lsdb.get(groupName).subsTopics);
+				mss.type = 1;
+				mss.originator = localAddr;
+				sendSbp(mss);
+			}
+			MsgNewRep mnr = new MsgNewRep();
+			mnr.addr = localAddr;
+			mnr.id = System.currentTimeMillis();
+			mnr.name = groupName;
+			mnr.netmask = localNetmask;
+			mnr.tPort = tPort;
+			mnr.uPort = uPort;
+			spreadInLocalGroup(mnr);
+		}
+	}
+
+	class SynTask extends TimerTask {
+
+		@Override
+		public void run() {
+			synLSA();
+		}
+
+	}
+
+	class CheckTask extends TimerTask {
+
+		@Override
+		public void run() {
+			for (LSA lsa : lsdb.values()) {
+				if ((System.currentTimeMillis() - lsa.sendTime) > synPeriod * 60 * 1000 * 1.5) {
+					System.out.println("集群 " + lsa.originator + " LSA超时");
+					boolean invalid = true;
+					for (String n : lsa.distBtnNebrs.keySet()) {
+						if (lsdb.contains(n)
+								&& (System.currentTimeMillis() - lsdb.get(n).sendTime) < synPeriod * 60 * 1000 * 1.5) {
+							invalid = false;
+						}
+					}
+
+					if (neighbors.contains(lsa.originator)
+							&& !waitHello.contains(lsa.originator)) {
+						dt.removeTarget(lsa.originator);
+						lost(lsa.originator);
+					}
+
+					lsdb.remove(lsa.originator);
+					ArrayList<String> topics = mgr
+							.DeleteAllSubsOfGroup(lsa.originator);
+					for (String topic : topics) {
+						mgr.route(topic);
+					}
+					if (invalid) {
+						groupMap.remove(lsa.originator);
+						MsgLost ml = new MsgLost();
+						ml.indicator = lsa.originator;
+						ml.inside = false;
+
+						spreadInLocalGroup(ml);
+						int dist = groupName
+								.compareToIgnoreCase(lsa.originator);
+						int num = 0;
+						boolean send = true;
+						for (String gu : groupMap.keySet()) {
+							if (gu.compareToIgnoreCase(lsa.originator) < dist) {
+								num++;
+							}
+							if (num > 2) {
+								send = false;
+								break;
+							}
+						}
+						if (send) {
+							System.out.println("MsgGroupLost message of "
+									+ lsa.originator
+									+ " is sent to administrator");
+							MsgGroupLost mgl = new MsgGroupLost();
+							mgl.name = lsa.originator;
+							mgl.sender = groupName;
+
+							sendObjectToAdministrator(mgl);
+						}
+					}
+				}
+			}
+		}
+	}
+
+	class SendTask extends TimerTask {
+
+		@Override
+		public void run() {
+			// send the messages in cacheLSA to all of the neighbors
+			if (cacheLSA != null) {
+				cacheLSA.seqNum = lsaSeqNum++;
+				cacheLSA.originator = groupName;
+				cacheLSA.sendTime = System.currentTimeMillis();
+
+				System.out.println("send cacheLSA");
+				LSA send = new LSA();
+				// spread the cacheLSA to the agents of the local group
+				synchronized (synCache) {
+					send.copyLSA(cacheLSA);
+					if (cacheLSA != null)
+						cacheLSA = null;
+				}
+				spreadLSAInLocalGroup(send);
+
+				// send the cacheLSA to the neighbors
+				sendObjectToNeighbors(send);
+
+				addLSAToLSDB(send);
+			}
+		}
+	}
+
+	class LostTask extends TimerTask {
+
+		String name;
+
+		public LostTask(String name) {
+			this.name = name;
+		}
+
+		@Override
+		public void run() {
+			if (waitHello.contains(name)) {
+				waitHello.remove(name);
+				if (cacheLSA == null) {
+					synchronized (synCache) {
+						if (cacheLSA == null) {
+							cacheLSA = new LSA();
+							Timer timer = new Timer();
+							timer.schedule(new SendTask(), RtMgr.sendPeriod);
+						}
+					}
+					if (!cacheLSA.lostGroup.contains(name))
+						cacheLSA.lostGroup.add(name);
+					if (cacheLSA.distBtnNebrs.containsKey(name))
+						cacheLSA.distBtnNebrs.remove(name);
+				} else {
+					if (!cacheLSA.lostGroup.contains(name))
+						cacheLSA.lostGroup.add(name);
+					if (cacheLSA.distBtnNebrs.containsKey(name))
+						cacheLSA.distBtnNebrs.remove(name);
+				}
+				if (neighbors.contains(name)) {
+					neighbors.remove(name);
+					neighborReduced(1);
+				}
+
+				System.out.println("The neighbor " + name + " is invalid!");
+				log.info("The neighbor " + name + " is invalid!");
+			}
+		}
 	}
 }

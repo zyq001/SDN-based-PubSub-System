@@ -16,72 +16,67 @@
  */
 package org.apache.servicemix.application;
 
+import org.oasis_open.docs.wsn.b_2.Subscribe;
+import org.oasis_open.docs.wsn.br_2.RegisterPublisher;
+import org.oasis_open.docs.wsrf.rp_2.GetResourcePropertyResponse;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
+
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
-import javax.xml.bind.util.JAXBSource;
-import javax.xml.namespace.QName;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.Source;
 import javax.xml.transform.dom.DOMResult;
-import javax.xml.transform.dom.DOMSource;
 import javax.xml.ws.wsaddressing.W3CEndpointReference;
-
-import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
-import org.w3c.dom.Document;
-
-import org.oasis_open.docs.wsn.b_2.Subscribe;
-import org.oasis_open.docs.wsn.br_2.RegisterPublisher;
-import org.oasis_open.docs.wsrf.rp_2.GetResourcePropertyResponse;
 
 public abstract class AbstractWSAClient {
 
-    private static JAXBContext jaxbContext;
+	private static JAXBContext jaxbContext;
 
-    private W3CEndpointReference endpoint;
+	private W3CEndpointReference endpoint;
 
-    private boolean jbiWrapped;
+	private boolean jbiWrapped;
 
-    public AbstractWSAClient() {
-    }
+	public AbstractWSAClient() {
+	}
 
-    public AbstractWSAClient(W3CEndpointReference endpoint) {
-        this.endpoint = endpoint;
-    }
+	public AbstractWSAClient(W3CEndpointReference endpoint) {
+		this.endpoint = endpoint;
+	}
 
-    public boolean isJbiWrapped() {
-        return jbiWrapped;
-    }
+	public static W3CEndpointReference createWSA(String address) {
+		Source src = new StringSource("<EndpointReference xmlns='http://www.w3.org/2005/08/addressing'><Address>"
+				+ address + "</Address></EndpointReference>");
+		return new W3CEndpointReference(src);
+	}
 
-    public void setJbiWrapped(boolean jbiWrapped) {
-        this.jbiWrapped = jbiWrapped;
-    }
+	public static String getWSAAddress(W3CEndpointReference ref) {
+		try {
+			DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+			Element element = builder.newDocument().createElement("elem");
+			ref.writeTo(new DOMResult(element));
+			ref.toString();
 
-    public static W3CEndpointReference createWSA(String address) {
-        Source src = new StringSource("<EndpointReference xmlns='http://www.w3.org/2005/08/addressing'><Address>"
-                                        + address + "</Address></EndpointReference>");
-        return new W3CEndpointReference(src);
-    }
+			NodeList nl = element.getElementsByTagNameNS("http://www.w3.org/2005/08/addressing", "Address");
+			if (nl != null && nl.getLength() > 0) {
+				Element e = (Element) nl.item(0);
+				return DOMUtil.getElementText(e).trim();
+			}
+		} catch (ParserConfigurationException e) {
+			// Ignore
+		}
+		return null;
+	}
 
-    public static String getWSAAddress(W3CEndpointReference ref) {
-        try {
-        	DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-            Element element = builder.newDocument().createElement("elem");
-            ref.writeTo(new DOMResult(element));
-            ref.toString();
-            
-            NodeList nl = element.getElementsByTagNameNS("http://www.w3.org/2005/08/addressing", "Address");
-            if (nl != null && nl.getLength() > 0) {
-                Element e = (Element) nl.item(0);
-                return DOMUtil.getElementText(e).trim();
-            }
-        } catch (ParserConfigurationException e) {
-            // Ignore
-        }
-        return null;
-    }
+	public boolean isJbiWrapped() {
+		return jbiWrapped;
+	}
+
+	public void setJbiWrapped(boolean jbiWrapped) {
+		this.jbiWrapped = jbiWrapped;
+	}
 
 //    public static ServiceEndpoint resolveWSA(W3CEndpointReference ref, ComponentContext context) {
 //        String[] parts = URIResolver.split3(getWSAAddress(ref));
@@ -182,11 +177,11 @@ public abstract class AbstractWSAClient {
 //        }
 //    }
 
-    private synchronized JAXBContext getJAXBContext() throws JAXBException {
-        if (jaxbContext == null) {
-            jaxbContext = JAXBContext.newInstance(Subscribe.class, RegisterPublisher.class, GetResourcePropertyResponse.class);
-        }
-        return jaxbContext;
-    }
+	private synchronized JAXBContext getJAXBContext() throws JAXBException {
+		if (jaxbContext == null) {
+			jaxbContext = JAXBContext.newInstance(Subscribe.class, RegisterPublisher.class, GetResourcePropertyResponse.class);
+		}
+		return jaxbContext;
+	}
 
 }

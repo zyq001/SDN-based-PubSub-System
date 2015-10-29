@@ -3,11 +3,11 @@ package org.Mina.shorenMinaTest.mgr.base;
 
 public abstract class AConfiguration extends SysInfo {
 
-	abstract public boolean configure();//ÅäÖÃÏµÍ³
+	abstract public boolean configure();//ï¿½ï¿½ï¿½ï¿½ÏµÍ³
 
 	public boolean configure2() {
 		// TODO Auto-generated method stub
 		return false;
 	}
-	
+
 }

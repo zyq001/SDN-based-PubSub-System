@@ -1,11 +1,11 @@
 package org.apache.servicemix.wsn.router.mgr;
 
 public class Subscription {
-	
-	private String subscriberURI;//¶©ÔÄÕßµÄµØÖ·
-	private String topicName;//Ö÷Ìâ
-	private String brokerAddress;//´úÀíµØÖ·
-	private int type;//0Îª¶©ÔÄ£¬1ÎªÈ¡Ïû¶©ÔÄ
+
+	private String subscriberURI;//ï¿½ï¿½ï¿½ï¿½ï¿½ßµÄµï¿½Ö·
+	private String topicName;//ï¿½ï¿½ï¿½ï¿½
+	private String brokerAddress;//ï¿½ï¿½ï¿½ï¿½ï¿½Ö·
+	private int type;//0Îªï¿½ï¿½ï¿½Ä£ï¿½1ÎªÈ¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 	public Subscription(String topicName, String subscriberURI, String brokerAddress, int type) {
 		this.subscriberURI = subscriberURI;
@@ -13,19 +13,19 @@ public class Subscription {
 		this.brokerAddress = brokerAddress;
 		this.type = type;
 	}
-	
+
 	public String getSubscriberURI() {
 		return subscriberURI;
 	}
-	
+
 	public String getTopicName() {
 		return topicName;
 	}
-	
+
 	public String getBrokerAddress() {
 		return brokerAddress;
 	}
-	
+
 	public int getType() {
 		return type;
 	}

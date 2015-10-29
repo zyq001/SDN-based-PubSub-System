@@ -22,15 +22,15 @@ public class TcpMsgThread implements Runnable {
 		}
 	}
 
-	
+
 	public void run() {
 		// TODO Auto-generated method stub
 		while (true) {
 			try {
 
 				Socket s = ss.accept();
-				if (Amgr.getState()!= null){
-				Amgr.getState().processTcpMsg(s);
+				if (Amgr.getState() != null) {
+					Amgr.getState().processTcpMsg(s);
 				}
 				try {
 					s.close();

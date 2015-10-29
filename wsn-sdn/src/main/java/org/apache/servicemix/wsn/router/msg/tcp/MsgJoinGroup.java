@@ -1,5 +1,11 @@
 package org.apache.servicemix.wsn.router.msg.tcp;
 
+import org.apache.servicemix.wsn.router.mgr.BrokerUnit;
+import org.apache.servicemix.wsn.router.mgr.RtMgr;
+import org.apache.servicemix.wsn.router.mgr.base.AState;
+import org.apache.servicemix.wsn.router.msg.udp.MsgNewBroker;
+import org.apache.servicemix.wsn.router.wsnPolicy.ShorenUtils;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -8,29 +14,23 @@ import java.net.Socket;
 import java.util.Date;
 import java.util.TreeSet;
 
-import org.apache.servicemix.wsn.router.mgr.BrokerUnit;
-import org.apache.servicemix.wsn.router.mgr.RtMgr;
-import org.apache.servicemix.wsn.router.mgr.base.AState;
-import org.apache.servicemix.wsn.router.msg.udp.MsgNewBroker;
-import org.apache.servicemix.wsn.router.wsnPolicy.ShorenUtils;
-
 public class MsgJoinGroup implements Serializable {
 
-	//ÐÂ´úÀíÆô¶¯Ê±£¬Ïò¼¯Èº´ú±í·¢ËÍ
-	
+	//ï¿½Â´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½Èºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1L;
 
 	public String name;//group name
 
 	public int tPort;//sender's TCP port
-	
+
 	@SuppressWarnings("static-access")
 	public void processRepMsg(ObjectInputStream ois,
-			ObjectOutputStream oos, Socket s, MsgJoinGroup mjg) {
-		// ÓÐ´úÀíÇëÇó¼ÓÈëµ½±¾¼¯ÈºÖÐ
+	                          ObjectOutputStream oos, Socket s, MsgJoinGroup mjg) {
+		// ï¿½Ð´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ëµ½ï¿½ï¿½ï¿½ï¿½Èºï¿½ï¿½
 		AState state = RtMgr.getInstance().getState();
 		System.out.println("join group message: "
 				+ s.getInetAddress().getHostAddress());
@@ -93,9 +93,9 @@ public class MsgJoinGroup implements Serializable {
 			// send heart to new broker
 			RtMgr.getInstance().addTarget(b.addr);
 
-			// ½«¸Ã´úÀíÌí¼Ó½øÀ´
+			// ï¿½ï¿½ï¿½Ã´ï¿½ï¿½ï¿½ï¿½ï¿½Ó½ï¿½ï¿½ï¿½
 			state.getFellows().put(b.addr, b);
 		}
 	}
-	
+
 }

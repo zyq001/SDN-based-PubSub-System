@@ -1,45 +1,45 @@
 package org.Mina.shorenMinaTest.msg.tcp;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-
-import org.Mina.shorenMinaTest.msg.WsnMsg;
 import org.Mina.shorenMinaTest.handlers.Start;
 import org.Mina.shorenMinaTest.mgr.base.SysInfo;
+import org.Mina.shorenMinaTest.msg.WsnMsg;
 import org.Mina.shorenMinaTest.queues.ForwardMsg;
 import org.Mina.shorenMinaTest.queues.MsgQueueMgr;
 import org.Mina.shorenMinaTest.queues.TCPForwardMsg;
 import org.Mina.shorenMinaTest.router.searchRoute;
 import org.apache.mina.core.session.IoSession;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+
 public class BrokerUnit extends WsnMsg implements Serializable {
 
-	public String addr;//´úÀíµÄµØÖ·
-	
-	public long id;//ÓÉ´ú±í·ÖÅä
-	
-	public int tPort;//tcpÁ¬½Ó¶Ë¿ÚºÅ
-	
-	private ArrayList<String> getForwardIp(){
+	public String addr;//ï¿½ï¿½ï¿½ï¿½Äµï¿½Ö·
 
-		return Start.forwardIP=searchRoute.calForwardIP("500:3:6:10:15:20:26", "m", Start.testMap);
+	public long id;//ï¿½É´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+
+	public int tPort;//tcpï¿½ï¿½ï¿½Ó¶Ë¿Úºï¿½
+
+	private ArrayList<String> getForwardIp() {
+
+		return Start.forwardIP = searchRoute.calForwardIP("500:3:6:10:15:20:26", "m", Start.testMap);
 	}
-	
-    public void processRegMsg(IoSession session){
-		
+
+	public void processRegMsg(IoSession session) {
+
 		ArrayList<String> forwardIp = getForwardIp();
-		//²ßÂÔ¿âµÄÎ»ÖÃ£¬ÓÉ²ßÂÔ¿âÀ´¹ýÂËip
+		//ï¿½ï¿½ï¿½Ô¿ï¿½ï¿½Î»ï¿½Ã£ï¿½ï¿½É²ï¿½ï¿½Ô¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ip
 		ForwardMsg forwardMsg = new TCPForwardMsg(forwardIp, SysInfo.gettPort(), this);
 		MsgQueueMgr.addTCPMsgInQueue(forwardMsg);
 
 	}
-	
-	public void processRepMsg(IoSession session){
-		
+
+	public void processRepMsg(IoSession session) {
+
 		ArrayList<String> forwardIp = getForwardIp();
-		//²ßÂÔ¿âµÄÎ»ÖÃ£¬ÓÉ²ßÂÔ¿âÀ´¹ýÂËip
+		//ï¿½ï¿½ï¿½Ô¿ï¿½ï¿½Î»ï¿½Ã£ï¿½ï¿½É²ï¿½ï¿½Ô¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ip
 		ForwardMsg forwardMsg = new TCPForwardMsg(forwardIp, SysInfo.gettPort(), this);
 		MsgQueueMgr.addTCPMsgInQueue(forwardMsg);
 	}
-	
+
 }

@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <GroupMsgs>
-  <ComplexGroup name="complexGroup">
+    <ComplexGroup name="complexGroup">
+        <TargetGroup name="test0"/>
+        <TargetGroup name="test1"/>
+        <TargetGroup name="test2"/>
+    </ComplexGroup>
+    <ComplexGroup name="shoren">
+        <TargetGroup name="test1"/>
+        <TargetGroup name="test2"/>
+    </ComplexGroup>
+    <ComplexGroup name="sss">
+        <TargetGroup name="test0"/>
+        <TargetGroup name="test1"/>
+    </ComplexGroup>
     <TargetGroup name="test0"/>
-    <TargetGroup name="test1"/>
-    <TargetGroup name="test2"/>
-  </ComplexGroup>
-  <ComplexGroup name="shoren">
-    <TargetGroup name="test1"/>
-    <TargetGroup name="test2"/>
-  </ComplexGroup>
-  <ComplexGroup name="sss">
-    <TargetGroup name="test0"/>
-    <TargetGroup name="test1"/>
-  </ComplexGroup>
-  <TargetGroup name="test0"/>
-  <TargetGroup name="G1"/>
-  <TargetGroup name="G2"/>
+    <TargetGroup name="G1"/>
+    <TargetGroup name="G2"/>
 </GroupMsgs>

@@ -62,20 +62,20 @@
 <!-- ...................................................................... -->
 <!-- Notation declarations ................................................ -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
-  <xs:include schemaLocation="dbnotnx.xsd"/>
-  <xs:include schemaLocation="dbpoolx.xsd"/>
-  <xs:include schemaLocation="dbhierx.xsd"/>
-  <xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd"/>
-  <!-- ...................................................................... -->
-  <!-- ISO character entity sets ............................................ -->
-  <!-- euro sign, U+20AC NEW -->
-  <!-- ...................................................................... -->
-  <!-- DTD modules .......................................................... -->
-  <!-- Information pool .............. -->
-  <!-- Redeclaration placeholder ..... -->
-  <!-- Document hierarchy ............ -->
+    <xs:include schemaLocation="dbnotnx.xsd"/>
+    <xs:include schemaLocation="dbpoolx.xsd"/>
+    <xs:include schemaLocation="dbhierx.xsd"/>
+    <xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd"/>
+    <!-- ...................................................................... -->
+    <!-- ISO character entity sets ............................................ -->
+    <!-- euro sign, U+20AC NEW -->
+    <!-- ...................................................................... -->
+    <!-- DTD modules .......................................................... -->
+    <!-- Information pool .............. -->
+    <!-- Redeclaration placeholder ..... -->
+    <!-- Document hierarchy ............ -->
 </xs:schema>
-<!-- ...................................................................... -->
-<!-- Other general entities ............................................... -->
-<!-- End of DocBook XML DTD V4.5 .......................................... -->
-<!-- ...................................................................... -->
+        <!-- ...................................................................... -->
+        <!-- Other general entities ............................................... -->
+        <!-- End of DocBook XML DTD V4.5 .......................................... -->
+        <!-- ...................................................................... -->

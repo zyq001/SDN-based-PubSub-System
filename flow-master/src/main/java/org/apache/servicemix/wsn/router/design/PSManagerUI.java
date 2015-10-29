@@ -5,11 +5,6 @@ import edu.bupt.wangfu.sdn.floodlight.RestProcess;
 import edu.bupt.wangfu.sdn.info.DevInfo;
 import edu.bupt.wangfu.sdn.info.Flow;
 import edu.bupt.wangfu.sdn.info.MemoryInfo;
-//import demo.network.miscellaneous.office.*;
-//import demo.network.miscellaneous.office.OfficeDemo;
-//import jaxe.Jaxe;
-//import jaxe.JaxeFrame;
-//import jaxe.JaxeResourceBundle;
 import org.apache.servicemix.wsn.router.admin.AdminMgr;
 import org.apache.servicemix.wsn.router.mgr.BrokerUnit;
 import org.apache.servicemix.wsn.router.msg.tcp.GroupUnit;
@@ -32,23 +27,39 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.io.File;
 import java.util.*;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
+//import demo.network.miscellaneous.office.*;
+//import demo.network.miscellaneous.office.OfficeDemo;
+//import jaxe.Jaxe;
+//import jaxe.JaxeFrame;
+//import jaxe.JaxeResourceBundle;
+
 public class PSManagerUI implements IAdminUI {
 
+	public static TopicTreeManager topicTreeManager = null;// 主题树
+	public static JPanel topicTreeM;// 主题树管理
+	public static String currentGroupName = null;
+	public JTabbedPane visualManagement;// "可视化管理"
+	public JTextArea text;// 控制台文本
+	public JComboBox comboBox;// 根主题
+	public JComboBox comboBox_1;
+	public JComboBox comboBox_2;
+	public JComboBox comboBox_3;
+	public JComboBox comboBox_4;
+	public JComboBox comboBox_5;
+	public JLabel lblNewLabel_5;
+	public JTable suber;
+	protected TopicEntry currentTopicEntry = new TopicEntry();
+	ArrayList<WsnPolicyMsg> policyList;
 	// private Text text;
 	private Data data = new Data();// 数据类
 	private FileOperation configFile = new FileOperation();// 配置文件管理
 	private AdminMgr interactIF;// 系统管理员
-	public static TopicTreeManager topicTreeManager = null;// 主题树
-
 	private JFrame frame;// 主窗口
 	private JTabbedPane tabbedPane_1;// 顶层tab窗体，分为图形化管理，控制台，系统设置等
-
-	public JTabbedPane visualManagement;// "可视化管理"
 	private JPanel groupsMgmt;// 集群信息管理
 	private JScrollPane allGroupsScrollPane;// 所有集群 可滚动窗口容器
 	private JPanel allGroupsPane;// 所有集群
@@ -59,16 +70,10 @@ public class PSManagerUI implements IAdminUI {
 	private DefaultTableModel groupSubsModel;
 	private JTextField groupsNameOrIPInput;// “按集群或ip地址查询”输入框
 	private JPanel groupConf;// 集群配置信息
-
-	public static JPanel topicTreeM;// 主题树管理
-
 	private JPanel policyM;// 策略管理
 	private JPanel devConf;// 设备信息
 	private JPanel flowConf;// 流量信息
-
 	private JPanel consol;// 控制台
-	public JTextArea text;// 控制台文本
-
 	private JPanel sys;// 系统
 	private JPanel currentConf;
 	private JPanel defaultConf;
@@ -101,12 +106,6 @@ public class PSManagerUI implements IAdminUI {
 	private JLabel newPolicylabel;
 	private JLabel currentPolicyLabel;
 	private JPanel editPolicy;
-	public JComboBox comboBox;// 根主题
-	public JComboBox comboBox_1;
-	public JComboBox comboBox_2;
-	public JComboBox comboBox_3;
-	public JComboBox comboBox_4;
-	public JComboBox comboBox_5;
 	private JScrollPane scrollPane_1;
 	// private String selectedTopic;
 	private JCheckBox chckbxNewCheckBox;
@@ -115,13 +114,12 @@ public class PSManagerUI implements IAdminUI {
 	private JPanel schemaPanel_2;
 	private JLabel lblNewLabel_1;
 	private JTable table;
+	;
 	private JButton currentPolicyReflash;
 	private JPanel panel_4;
-	ArrayList<WsnPolicyMsg> policyList;
 	private DefaultTableModel currentPolicyTableModel;
-	protected TopicEntry currentTopicEntry = new TopicEntry();;
 	private List<TargetGroup> currentTargetGroups = new ArrayList<TargetGroup>();// 受限集群框内
-																					// 被选中的集群名称和
+	// 被选中的集群名称和
 	private JPanel fbdnGroups;
 	private JPanel topicsPanel;
 	private JPanel currentPolicyPanel;
@@ -140,49 +138,15 @@ public class PSManagerUI implements IAdminUI {
 	private JPanel allGroupsPanel;
 	private JScrollPane fbdnGroupsScrollPane;
 	private JPanel chooseTopic;
-
-//	private Jaxe jaxe;
+	//	private Jaxe jaxe;
 //	private JaxeFrame schemaFrame;
 	private JPanel panel;
 	private JButton btnNewButton;
 	private JButton btnNewButton_1;
 	private JButton btnNewButton_2;
 	private JButton btnNewButton_3;
-	public JLabel lblNewLabel_5;
-	public JTable suber;
-	public static String currentGroupName = null;
 
 	// private JList<? extends E> list;
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-
-					JFrame.setDefaultLookAndFeelDecorated(true);
-					/**
-					 * com.jtattoo.plaf.aluminium.AluminiumLookAndFeel
-					 * 椭圆按钮+翠绿色按钮背景+金属质感
-					 * 
-					 */
-					//
-					UIManager
-							.setLookAndFeel("com.jtattoo.plaf.aluminium.AluminiumLookAndFeel");
-					PSManagerUI window = new PSManagerUI();
-
-					window.open();
-					/*
-					 * while(true){ //new Thread.sleep(10);
-					 * window.text.setText("集群"+"代表地址为"+"端口号"+"注册成功\r\n"); }
-					 */
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the application.
@@ -194,7 +158,7 @@ public class PSManagerUI implements IAdminUI {
 		JFrame.setDefaultLookAndFeelDecorated(true);
 		/**
 		 * com.jtattoo.plaf.aluminium.AluminiumLookAndFeel 椭圆按钮+翠绿色按钮背景+金属质感
-		 * 
+		 *
 		 */
 		//
 //		try {
@@ -224,14 +188,45 @@ public class PSManagerUI implements IAdminUI {
 	}
 
 	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+
+					JFrame.setDefaultLookAndFeelDecorated(true);
+					/**
+					 * com.jtattoo.plaf.aluminium.AluminiumLookAndFeel
+					 * 椭圆按钮+翠绿色按钮背景+金属质感
+					 *
+					 */
+					//
+					UIManager
+							.setLookAndFeel("com.jtattoo.plaf.aluminium.AluminiumLookAndFeel");
+					PSManagerUI window = new PSManagerUI();
+
+					window.open();
+					/*
+					 * while(true){ //new Thread.sleep(10);
+					 * window.text.setText("集群"+"代表地址为"+"端口号"+"注册成功\r\n"); }
+					 */
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
 	 * Initialize the contents of the frame.
 	 */
-	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@SuppressWarnings({"unchecked", "rawtypes"})
 	public void open() {
 		frame = new JFrame();// 主窗口
 		frame.setIconImage(Toolkit.getDefaultToolkit().getImage(
 				PSManagerUI.class
-						.getResource("/edu/bupt/wangfu/Swing/res/INT25.png")));
+						.getResource("./edu/bupt/wangfu/Swing/res/INT25.png")));
 		frame.setResizable(false);
 		frame.setTitle("发布订阅管理器");
 		frame.setBounds(100, 100, 800, 600);
@@ -252,7 +247,7 @@ public class PSManagerUI implements IAdminUI {
 		visualManagement.addTab(
 				"",
 				new ImageIcon(PSManagerUI.class
-						.getResource("/edu/bupt/wangfu/Swing/res/GroupM.png")),
+						.getResource("./edu/bupt/wangfu/Swing/res/GroupM.png")),
 				groupsMgmt, null);
 		groupsMgmt.setLayout(new GridLayout(0, 1, 0, 0));
 
@@ -413,8 +408,8 @@ public class PSManagerUI implements IAdminUI {
 //				
 //			}
 //			   });
-		
-		
+
+
 		subsTable = new JTable();
 		subsTable.setVerifyInputWhenFocusTarget(false);
 		// subsTable.setSize(new Dimension(200, 230));
@@ -441,29 +436,29 @@ public class PSManagerUI implements IAdminUI {
 		JButton checkButton = new JButton("查询");
 		checkButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+
 				String searchInput = groupsNameOrIPInput.getText();
-				if(searchInput.equals("")){
-					JOptionPane.showMessageDialog( null, "输入为空！请输入要查询的集群名称或代表ip");
-				}else{
-					
-					Map<String,ArrayList<String>>groupSubs = interactIF.lookupMemberSubscriptions(currentGroup,searchInput);
-					System.out.println("查询"+"currentGroup:"+currentGroup+"成员"+searchInput+"订阅");
-					if(groupSubs!=null){
+				if (searchInput.equals("")) {
+					JOptionPane.showMessageDialog(null, "输入为空！请输入要查询的集群名称或代表ip");
+				} else {
+
+					Map<String, ArrayList<String>> groupSubs = interactIF.lookupMemberSubscriptions(currentGroup, searchInput);
+					System.out.println("查询" + "currentGroup:" + currentGroup + "成员" + searchInput + "订阅");
+					if (groupSubs != null) {
 						int count = 0;
 						Set<String> groupsubers = groupSubs.keySet();
-						for(String temp:groupsubers){
-							count +=groupSubs.get(temp).size();
+						for (String temp : groupsubers) {
+							count += groupSubs.get(temp).size();
 						}
 						String[][] groupSubData = new String[count][1];
 //							String[][] groupSubData = new String[groupSubs.length][1];
-						
-						for(String temp:groupsubers){
-							ArrayList<String> temptopics =groupSubs.get(temp);
-							for(int j=0; j<temptopics.size(); j++){
+
+						for (String temp : groupsubers) {
+							ArrayList<String> temptopics = groupSubs.get(temp);
+							for (int j = 0; j < temptopics.size(); j++) {
 								groupSubData[j][0] = temptopics.get(j);
 							}
-							
+
 						}
 //						for(int i=0;i<groupSubs.length;i++){
 //							
@@ -478,20 +473,22 @@ public class PSManagerUI implements IAdminUI {
 //								groupSubData[i][0] = groupSubs[i];
 //								
 //							}
-							//System.arraycopy(groupSubs, 0, groupSubData[0],0, groupSubs.length);
+						//System.arraycopy(groupSubs, 0, groupSubData[0],0, groupSubs.length);
 						//	System.arraycopy(src, srcPos, dest, destPos, length)
 //						}
-						String[] columnNames = {"集群" +currentGroup+"成员"+ searchInput +"的订阅"};
-						groupSubsModel = new DefaultTableModel(groupSubData,columnNames);
+						String[] columnNames = {"集群" + currentGroup + "成员" + searchInput + "的订阅"};
+						groupSubsModel = new DefaultTableModel(groupSubData, columnNames);
 						subsTable.setModel(groupSubsModel);
-						
+
 						//显示查询成员的订阅用户						
-						
-						
-					}else{JOptionPane.showMessageDialog( null, "该集群无此成员，请先选中集群");}
+
+
+					} else {
+						JOptionPane.showMessageDialog(null, "该集群无此成员，请先选中集群");
+					}
 				}
 			}
-			});
+		});
 		checkButton.setBounds(498, 73, 93, 23);
 		subscbs.add(checkButton);
 
@@ -845,7 +842,7 @@ public class PSManagerUI implements IAdminUI {
 				.addTab("",
 						new ImageIcon(
 								PSManagerUI.class
-										.getResource("/edu/bupt/wangfu/Swing/res/TopicTree.png")),
+										.getResource("./edu/bupt/wangfu/Swing/res/TopicTree.png")),
 						topicTreeM, null);
 
 		try {
@@ -871,7 +868,7 @@ public class PSManagerUI implements IAdminUI {
 		visualManagement.addTab(
 				"",
 				new ImageIcon(PSManagerUI.class
-						.getResource("/edu/bupt/wangfu/Swing/res/policy.png")),
+						.getResource("./edu/bupt/wangfu/Swing/res/policy.png")),
 				policyM, null);
 		policyM.setLayout(new GridLayout(0, 1, 0, 5));
 
@@ -1391,11 +1388,10 @@ public class PSManagerUI implements IAdminUI {
 				String selectedTopic = comboBox.getSelectedItem().toString();
 
 				TopicEntry currentChosenTopicEntry = new TopicEntry();
-				
+
 				currentChosenTopicEntry.setTopicName(selectedTopic);
-				
-				
-				
+
+
 				String chosenTopicPath = "ou=" + selectedTopic
 						+ ",ou=all_test,dc=wsn,dc=com";
 				try {
@@ -1476,7 +1472,7 @@ public class PSManagerUI implements IAdminUI {
 
 		// 初始化当前所有策略信息
 		String[][] tPolicy = new String[policyList.size()][2];
-		String[] columnNames = { "主题", "对应策略" };
+		String[] columnNames = {"主题", "对应策略"};
 
 		for (int i = 0; i < policyList.size(); i++) {
 			tPolicy[i][0] = policyList.get(i).getTargetTopic();
@@ -1486,7 +1482,7 @@ public class PSManagerUI implements IAdminUI {
 		System.out.println(tPolicy);
 		currentPolicyTableModel = new DefaultTableModel(tPolicy, columnNames) {
 			/**
-			 * 
+			 *
 			 */
 			private static final long serialVersionUID = 1L;
 
@@ -1540,13 +1536,13 @@ public class PSManagerUI implements IAdminUI {
 		//
 		lblNewLabel_2 = new JLabel("");
 		lblNewLabel_2.setIcon(new ImageIcon(PSManagerUI.class
-				.getResource("/edu/bupt/wangfu/Swing/res/INT100.png")));
+				.getResource("./edu/bupt/wangfu/Swing/res/INT100.png")));
 		lblNewLabel_2.setBounds(162, 250, 106, 105);
 		sys.add(lblNewLabel_2);
 
 		lblNewLabel_3 = new JLabel("");
 		lblNewLabel_3.setIcon(new ImageIcon(PSManagerUI.class
-				.getResource("/edu/bupt/wangfu/Swing/res/bupt.png")));
+				.getResource("./edu/bupt/wangfu/Swing/res/bupt.png")));
 		lblNewLabel_3.setBounds(290, 246, 532, 110);
 		sys.add(lblNewLabel_3);
 
@@ -1761,9 +1757,9 @@ public class PSManagerUI implements IAdminUI {
 			// tPolicy[i][0] = policyList.get(i).getTargetTopic();
 			// tPolicy[i][1] = policyList.get(i).getTargetGroups().toString();
 
-			tableModel.addRow(new Object[] {
+			tableModel.addRow(new Object[]{
 					policyList.get(i).getTargetTopic(),
-					policyList.get(i).getTargetGroups().toString() });
+					policyList.get(i).getTargetGroups().toString()});
 
 		}
 
@@ -1775,7 +1771,7 @@ public class PSManagerUI implements IAdminUI {
 		// currentPolicyPanel.add(table);
 	}
 
-//	@Override
+	//	@Override
 	public void newGroup(final GroupUnit newGroup) {
 		// TODO Auto-generated method stub
 		GroupInfo aGroupItem = new GroupInfo();
@@ -2031,7 +2027,7 @@ public class PSManagerUI implements IAdminUI {
 
 	}
 
-//	@Override
+	//	@Override
 	public void removeGroup(final String name, String address) {
 		// TODO Auto-generated method stub
 		int stat = data.removeGroup(name);
@@ -2094,124 +2090,125 @@ public class PSManagerUI implements IAdminUI {
 		}
 	}
 
-	public void reloadAllGroup(){
-		
+	public void reloadAllGroup() {
+
 		//清空所有集群面板和受限集群面板
-		
-		if(allGroupsPane!=null)allGroupsPane.removeAll();
-		if(fbdnGroupsPanel!=null)fbdnGroupsPanel.removeAll();
-		
-		if(interactIF.groups!=null &&interactIF.groups.size()>0){
-			
+
+		if (allGroupsPane != null) allGroupsPane.removeAll();
+		if (fbdnGroupsPanel != null) fbdnGroupsPanel.removeAll();
+
+		if (interactIF.groups != null && interactIF.groups.size() > 0) {
+
 			Iterator itr = AdminMgr.groups.keySet().iterator();
-			while(itr.hasNext()){//遍历当前所有集群
-				final String groupName = (String)itr.next();
-				
+			while (itr.hasNext()) {//遍历当前所有集群
+				final String groupName = (String) itr.next();
+
 				final JButton buttonName1 = new JButton(groupName);
-				
+
 				buttonName1.setToolTipText(groupName);
-				buttonName1.setSelectedIcon(new ImageIcon(PSManagerUI.class.getResource("/edu/bupt/wangfu/Swing/res/01_sys_cskin_btn.png")));
-							
+				buttonName1.setSelectedIcon(new ImageIcon(PSManagerUI.class.getResource("./edu/bupt/wangfu/Swing/res/01_sys_cskin_btn.png")));
+
 				buttonName1.setPreferredSize(new Dimension(80, 80));
 				buttonName1.setSize(new Dimension(80, 80));
 				buttonName1.setHorizontalTextPosition(SwingConstants.CENTER);
 				buttonName1.setVerticalTextPosition(SwingConstants.BOTTOM);
-				allGroupsPane.add(buttonName1);	
-				buttonName1.setIcon(new ImageIcon(PSManagerUI.class.getResource("/edu/bupt/wangfu/Swing/res/01_sys_cskin_btn.png")));
+				allGroupsPane.add(buttonName1);
+				buttonName1.setIcon(new ImageIcon(PSManagerUI.class.getResource("./edu/bupt/wangfu/Swing/res/01_sys_cskin_btn.png")));
 				buttonName1.addActionListener(new ActionListener() {
 					private DefaultTableModel memSubsModel;
 					private String[][] memsubs;
 					private ConcurrentHashMap<String, ArrayList<String>> groupSubs;
 
 					public void actionPerformed(ActionEvent e) {
-						
+
 						currentGroupName = groupName;
-						
+
 						currentGroup = buttonName1.getText();
-						groupsInfoTabbedPane.setTitleAt(0, ("集群"+currentGroup+"成员"));
-						groupsInfoTabbedPane.setTitleAt(1, ("集群"+currentGroup+"的订阅"));
-						groupsInfoTabbedPane.setTitleAt(2, ("集群"+currentGroup+"配置"));
+						groupsInfoTabbedPane.setTitleAt(0, ("集群" + currentGroup + "成员"));
+						groupsInfoTabbedPane.setTitleAt(1, ("集群" + currentGroup + "的订阅"));
+						groupsInfoTabbedPane.setTitleAt(2, ("集群" + currentGroup + "配置"));
 //						scrollPane_2.setName("集群"+currentGroup+"的所有用户");
-						
+
 						//加载集群成员
 						MsgLookupGroupMember_ groupMem = interactIF.lookupGroupMember(groupName);
 						//添加非空判断
-						if(groupMem == null){
-							
+						if (groupMem == null) {
+
 							int n = 0;
-							Object[] possibilities = {"重试", "稍后重试","删除"};
+							Object[] possibilities = {"重试", "稍后重试", "删除"};
 							//Icon icon=new ImageIcon("/com/bupt/wangfu/Swing/res/01_sys_cskin_btn.png");
-							while(n == 0){
-								
+							while (n == 0) {
+
 								n = JOptionPane.showOptionDialog(null, "查询集群失败,网络问题或该集群已丢失!", "查询失败", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, possibilities, possibilities[1]);
 								groupMem = interactIF.lookupGroupMember(groupName);
-								if(groupMem != null){
+								if (groupMem != null) {
 									break;
 								}
 							}
-							if(n == 2){
+							if (n == 2) {
 								interactIF.groups.remove(groupName);
 								interactIF.GroupsChangeNtfyBkp();
 								reloadAllGroup();
-								
+
 							}
-						//	JOptionPane.showConfirmDialog(null, "查询集群失败,网络问题或该集群已丢失!");
-						//	JOptionPane.showMessageDialog( null, "查询集群失败,该集群可能已丢失但还未受到报告!");
-						//	interactIF.groups.remove(groupName);
-							
-						//	reloadAllGroup();
+							//	JOptionPane.showConfirmDialog(null, "查询集群失败,网络问题或该集群已丢失!");
+							//	JOptionPane.showMessageDialog( null, "查询集群失败,该集群可能已丢失但还未受到报告!");
+							//	interactIF.groups.remove(groupName);
+
+							//	reloadAllGroup();
 						}
-						
-						if(groupMem == null){						
+
+						if (groupMem == null) {
 							groupMember.removeAll();
 							groupsInfoTabbedPane.setTitleAt(0, ("集群成员"));
 							groupsInfoTabbedPane.setTitleAt(1, ("集群的订阅"));
 							groupsInfoTabbedPane.setTitleAt(2, ("集群配置"));
-						}else{
-						
-						groupMember.removeAll();
-					for(BrokerUnit temMem: groupMem.members){
-							String memName = temMem.addr;
-						final JButton buttonName1 = new JButton(memName);
-						buttonName1.setToolTipText(memName);
-						if(memName.equals(interactIF.groups.get(groupName).addr)){
-							buttonName1.setSelectedIcon(new ImageIcon(PSManagerUI.class.getResource("/edu/bupt/wangfu/Swing/res/repLd.png")));
-							buttonName1.setIcon(new ImageIcon(PSManagerUI.class.getResource("/edu/bupt/wangfu/Swing/res/repLd.png")));
-						}else{
-						buttonName1.setSelectedIcon(new ImageIcon(PSManagerUI.class.getResource("/edu/bupt/wangfu/Swing/res/rep.png")));
-						buttonName1.setIcon(new ImageIcon(PSManagerUI.class.getResource("/edu/bupt/wangfu/Swing/res/rep.png")));}
-					//	groupMember.removeAll();
-						
-						
-						buttonName1.setPreferredSize(new Dimension(122, 80));
-						buttonName1.setSize(new Dimension(122, 80));
-						buttonName1.setHorizontalTextPosition(SwingConstants.CENTER);
-						buttonName1.setVerticalTextPosition(SwingConstants.BOTTOM);
-						buttonName1.setToolTipText("点击查询该成员订阅");
-						buttonName1.addActionListener(new ActionListener() {
-							
-							private DefaultTableModel groupSubersModel;
+						} else {
 
-							public void actionPerformed(ActionEvent e) {
-								currentGroupName = groupName;
-								String regAddr = buttonName1.getText();
-								
-								Map<String,ArrayList<String>>groupSubs = interactIF.lookupMemberSubscriptions(currentGroup,regAddr);
-								System.out.println("查询"+"currentGroup:"+currentGroup+"成员"+regAddr+"订阅");
-								if(groupSubs!=null){
-										
-									int count = 0;
-									Set<String> groupsubers = groupSubs.keySet();
-									for(String temp:groupsubers){
-										count +=groupSubs.get(temp).size();
-									}
-									String[][] groupSubData = new String[count][1];
-									for(String temp:groupsubers){
-										ArrayList<String> temptopics =groupSubs.get(temp);
-										for(int j=0; j<temptopics.size(); j++){
-											groupSubData[j][0] = temptopics.get(j);
-										}										
-									}//								
+							groupMember.removeAll();
+							for (BrokerUnit temMem : groupMem.members) {
+								String memName = temMem.addr;
+								final JButton buttonName1 = new JButton(memName);
+								buttonName1.setToolTipText(memName);
+								if (memName.equals(interactIF.groups.get(groupName).addr)) {
+									buttonName1.setSelectedIcon(new ImageIcon(PSManagerUI.class.getResource("./edu/bupt/wangfu/Swing/res/repLd.png")));
+									buttonName1.setIcon(new ImageIcon(PSManagerUI.class.getResource("./edu/bupt/wangfu/Swing/res/repLd.png")));
+								} else {
+									buttonName1.setSelectedIcon(new ImageIcon(PSManagerUI.class.getResource("./edu/bupt/wangfu/Swing/res/rep.png")));
+									buttonName1.setIcon(new ImageIcon(PSManagerUI.class.getResource("./edu/bupt/wangfu/Swing/res/rep.png")));
+								}
+								//	groupMember.removeAll();
+
+
+								buttonName1.setPreferredSize(new Dimension(122, 80));
+								buttonName1.setSize(new Dimension(122, 80));
+								buttonName1.setHorizontalTextPosition(SwingConstants.CENTER);
+								buttonName1.setVerticalTextPosition(SwingConstants.BOTTOM);
+								buttonName1.setToolTipText("点击查询该成员订阅");
+								buttonName1.addActionListener(new ActionListener() {
+
+									private DefaultTableModel groupSubersModel;
+
+									public void actionPerformed(ActionEvent e) {
+										currentGroupName = groupName;
+										String regAddr = buttonName1.getText();
+
+										Map<String, ArrayList<String>> groupSubs = interactIF.lookupMemberSubscriptions(currentGroup, regAddr);
+										System.out.println("查询" + "currentGroup:" + currentGroup + "成员" + regAddr + "订阅");
+										if (groupSubs != null) {
+
+											int count = 0;
+											Set<String> groupsubers = groupSubs.keySet();
+											for (String temp : groupsubers) {
+												count += groupSubs.get(temp).size();
+											}
+											String[][] groupSubData = new String[count][1];
+											for (String temp : groupsubers) {
+												ArrayList<String> temptopics = groupSubs.get(temp);
+												for (int j = 0; j < temptopics.size(); j++) {
+													groupSubData[j][0] = temptopics.get(j);
+												}
+											}//
 //									System.out.println(groupSubs.length);
 //									if(groupSubs!=null){
 //										for(int i=0;i<groupSubs.length;i++){
@@ -2219,33 +2216,33 @@ public class PSManagerUI implements IAdminUI {
 //											groupSubData[i][0] = groupSubs[i];
 //											
 //										}
-										//System.arraycopy(groupSubs, 0, groupSubData[0],0, groupSubs.length);
-									//	System.arraycopy(src, srcPos, dest, destPos, length)
+											//System.arraycopy(groupSubs, 0, groupSubData[0],0, groupSubs.length);
+											//	System.arraycopy(src, srcPos, dest, destPos, length)
 //									}
-									String[] columnNames = {"集群" +currentGroup+"成员"+ regAddr +"的订阅"};
-									groupSubsModel = new DefaultTableModel(groupSubData,columnNames);
-									subsTable.setModel(groupSubsModel);
-									
+											String[] columnNames = {"集群" + currentGroup + "成员" + regAddr + "的订阅"};
+											groupSubsModel = new DefaultTableModel(groupSubData, columnNames);
+											subsTable.setModel(groupSubsModel);
+
 //								String[][] groupSubData = new String[1][groupSubs.length];
 //								String[] columnNames = { currentGroup+ ":" +searchInput +"的订阅"};
 //								groupSubsModel = new DefaultTableModel(groupSubData,columnNames);
 //								subsTable.setModel(groupSubsModel);
-								
-									//加载成员上的订阅者
-									Object[] subersaddrO = groupsubers.toArray();
-									String[] subersaddr = new String[subersaddrO.length];
-									for(int m=0; m<subersaddrO.length;m++){
-										subersaddr[m] = subersaddrO[m].toString();
-									}
-									final String[][] memsubers = new String[subersaddr.length][1];
-									for(int i=0; i<subersaddr.length;i++){
-										memsubers[i][0] = subersaddr[i];
-									}
-									
-									String[] subers = {"集群" +currentGroup+"成员"+ regAddr +"的订阅"};
-									groupSubersModel = new DefaultTableModel(memsubers,subers);
+
+											//加载成员上的订阅者
+											Object[] subersaddrO = groupsubers.toArray();
+											String[] subersaddr = new String[subersaddrO.length];
+											for (int m = 0; m < subersaddrO.length; m++) {
+												subersaddr[m] = subersaddrO[m].toString();
+											}
+											final String[][] memsubers = new String[subersaddr.length][1];
+											for (int i = 0; i < subersaddr.length; i++) {
+												memsubers[i][0] = subersaddr[i];
+											}
+
+											String[] subers = {"集群" + currentGroup + "成员" + regAddr + "的订阅"};
+											groupSubersModel = new DefaultTableModel(memsubers, subers);
 //									final JTable suber = null;
-									suber.setModel(groupSubersModel);
+											suber.setModel(groupSubersModel);
 //									suber.addMouseListener(new MouseListener() {
 ////										   private Object groupSubs;
 //
@@ -2296,69 +2293,70 @@ public class PSManagerUI implements IAdminUI {
 //											
 //										}
 //										   });
-									
-								}else{JOptionPane.showMessageDialog( null, "该成员已丢");}
+
+										} else {
+											JOptionPane.showMessageDialog(null, "该成员已丢");
+										}
+									}
+
+
+								});
+								groupMember.add(buttonName1);
 							}
-							
-							
-							
-							});
-						groupMember.add(buttonName1);
-						}
-					//	groupMember.repaint();
-						//加载集群订阅信息
-						ArrayList<String> subers = new ArrayList<String>();//所有用户地址
-						groupSubs = new ConcurrentHashMap<String,ArrayList<String>>();
-						for(BrokerUnit temMem: groupMem.members){
-							String memName = temMem.addr;
-							Map<String, ArrayList<String>> memsuber = interactIF.lookupMemberSubscriptions(currentGroup, memName);
-							if(memsuber!=null){
-								for(String temp:memsuber.keySet()){
-									subers.add(temp);
-									groupSubs.put(temp, memsuber.get(temp));
+							//	groupMember.repaint();
+							//加载集群订阅信息
+							ArrayList<String> subers = new ArrayList<String>();//所有用户地址
+							groupSubs = new ConcurrentHashMap<String, ArrayList<String>>();
+							for (BrokerUnit temMem : groupMem.members) {
+								String memName = temMem.addr;
+								Map<String, ArrayList<String>> memsuber = interactIF.lookupMemberSubscriptions(currentGroup, memName);
+								if (memsuber != null) {
+									for (String temp : memsuber.keySet()) {
+										subers.add(temp);
+										groupSubs.put(temp, memsuber.get(temp));
+									}
 								}
 							}
-						}
-						
-						if(groupSubs!=null){
+
+							if (groupSubs != null) {
 //							globalSubInfo.put(groupName, groupSubs);
-						int count = 0;
-						Set<String> groupsubers = groupSubs.keySet();
-						for(String temp:groupsubers){
-							count +=groupSubs.get(temp).size();
-						}
-						String[][] groupSubData = new String[count][1];
+								int count = 0;
+								Set<String> groupsubers = groupSubs.keySet();
+								for (String temp : groupsubers) {
+									count += groupSubs.get(temp).size();
+								}
+								String[][] groupSubData = new String[count][1];
 //						System.out.println(groupSubs.length);
-						
-							ArrayList<String> groupAllTopics = new ArrayList<String>();
-							for(String temp:groupsubers){
-								groupAllTopics.addAll(groupSubs.get(temp));
+
+								ArrayList<String> groupAllTopics = new ArrayList<String>();
+								for (String temp : groupsubers) {
+									groupAllTopics.addAll(groupSubs.get(temp));
 //								ArrayList<String> temptopics =groupSubs.get(temp);
 //								for(int j=0; j<temptopics.size(); j++){
 //									
 //									groupSubData[j][0] = temptopics.get(j);
 //								}
 //								
-							}
-							for(int j=0; j<groupAllTopics.size();j++){
-								groupSubData[j][0] = groupAllTopics.get(j);
-							}
+								}
+								for (int j = 0; j < groupAllTopics.size(); j++) {
+									groupSubData[j][0] = groupAllTopics.get(j);
+								}
 
-						String[] columnNames = {"集群" + groupName +"的所有订阅"};
-						groupSubsModel = new DefaultTableModel(groupSubData,columnNames);
-						subsTable.setModel(groupSubsModel);
-						//subsTable.repaint();						
-						}
-						//集群的所有用户
-						
-						memsubs = new String[subers.size()][1];
-						for(int s=0; s<subers.size();s++){
-							memsubs[s][0] = subers.get(s);
-						}
-						String[] columnNames = {"集群" + groupName +"的所有订阅用户"};
-						memSubsModel = new DefaultTableModel(memsubs,columnNames);
+								String[] columnNames = {"集群" + groupName + "的所有订阅"};
+								groupSubsModel = new DefaultTableModel(groupSubData, columnNames);
+								subsTable.setModel(groupSubsModel);
+								//subsTable.repaint();
+							}
+							//集群的所有用户
+
+							memsubs = new String[subers.size()][1];
+							for (int s = 0; s < subers.size(); s++) {
+								memsubs[s][0] = subers.get(s);
+							}
+							String[] columnNames = {"集群" + groupName + "的所有订阅用户"};
+							memSubsModel = new DefaultTableModel(memsubs, columnNames);
 //						final JTable suber = null;
-						suber.setModel(memSubsModel);
+							suber.setModel(memSubsModel);
 //						suber.addMouseListener(new MouseListener() {
 //							   /** *//**
 //						      * 鼠标单击事件
@@ -2409,56 +2407,57 @@ public class PSManagerUI implements IAdminUI {
 //							   });
 //						groupSubsModel = new DefaultTableModel(groupSubData,columnNames);
 //						subsTable.setModel(groupSubsModel);
-						
-												
-						//加载集群配置信息
-						currentGroupLabel.setText("集群 "+ currentGroup+ " 配置信息");
-						GroupConfiguration initInfo = configFile.ReadGroupConfiguration(groupName);
-						repAddrInputC.setText(initInfo.repAddr);
-						tcpPortInputC.setText(""+initInfo.tPort);
-						childrenSizeInputC.setText(""+initInfo.childrenSize);
-						mutltiAddrInputC.setText(initInfo.mutltiAddr);
-						uPortInputC.setText(""+initInfo.uPort);
-						joinTimesInputC.setText(""+initInfo.joinTimes);
-						synPeriodInputC.setText(""+initInfo.synPeriod);
-						lostThresholdInputC.setText(""+initInfo.lostThreshold);
-						scanPeriodInputC.setText(""+initInfo.scanPeriod);
-						sendPeriodInputC.setText(""+initInfo.sendPeriod);
-						
-						
+
+
+							//加载集群配置信息
+							currentGroupLabel.setText("集群 " + currentGroup + " 配置信息");
+							GroupConfiguration initInfo = configFile.ReadGroupConfiguration(groupName);
+							repAddrInputC.setText(initInfo.repAddr);
+							tcpPortInputC.setText("" + initInfo.tPort);
+							childrenSizeInputC.setText("" + initInfo.childrenSize);
+							mutltiAddrInputC.setText(initInfo.mutltiAddr);
+							uPortInputC.setText("" + initInfo.uPort);
+							joinTimesInputC.setText("" + initInfo.joinTimes);
+							synPeriodInputC.setText("" + initInfo.synPeriod);
+							lostThresholdInputC.setText("" + initInfo.lostThreshold);
+							scanPeriodInputC.setText("" + initInfo.scanPeriod);
+							sendPeriodInputC.setText("" + initInfo.sendPeriod);
+
+
 						}
 					}
 				});
-				
+
 				//向受限集群面板中添加
 				//final String groupName = (String)itr.next();
 				final JCheckBox groups = new JCheckBox(groupName);
 				groups.setSelected(false);
 				groups.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					
-					if (groups.isSelected()){
-						TargetGroup tem = new TargetGroup(groupName);
-						currentTargetGroups.add(tem);
-					}else{
-						for(TargetGroup temTG: currentTargetGroups){
-							if (temTG.getName()==groupName){
-					
-								currentTargetGroups.remove(temTG);
-								break;					
+					public void actionPerformed(ActionEvent e) {
+
+						if (groups.isSelected()) {
+							TargetGroup tem = new TargetGroup(groupName);
+							currentTargetGroups.add(tem);
+						} else {
+							for (TargetGroup temTG : currentTargetGroups) {
+								if (temTG.getName() == groupName) {
+
+									currentTargetGroups.remove(temTG);
+									break;
+								}
 							}
 						}
+						System.out.print("currentGroups:" + currentTargetGroups);
+
 					}
-					System.out.print("currentGroups:"+currentTargetGroups);
-					
-				}});
-				if(fbdnGroupsPanel!=null&&groups!=null&&!groups.equals(null)){
-				fbdnGroupsPanel.add(groups);
-				
-			}
+				});
+				if (fbdnGroupsPanel != null && groups != null && !groups.equals(null)) {
+					fbdnGroupsPanel.add(groups);
+
+				}
 			}
 			//fbdnGroupsPanel.repaint();
-		//	fbdnGroupsPanel.invalidate();
+			//	fbdnGroupsPanel.invalidate();
 			sendPeriodInput.setToolTipText("系统运行时不得更改");
 			sendPeriodInput.setEditable(false);
 			sendPeriodInput.setOpaque(false);
@@ -2471,8 +2470,8 @@ public class PSManagerUI implements IAdminUI {
 			synPeriodInput.setToolTipText("系统运行时不得更改");
 			synPeriodInput.setEditable(false);
 			synPeriodInput.setOpaque(false);
-		}else{
-			
+		} else {
+
 			sendPeriodInput.setToolTipText("");
 			sendPeriodInput.setEditable(true);
 			sendPeriodInput.setOpaque(true);
@@ -2485,12 +2484,12 @@ public class PSManagerUI implements IAdminUI {
 			synPeriodInput.setToolTipText("");
 			synPeriodInput.setEditable(true);
 			synPeriodInput.setOpaque(true);
-			
-			
+
+
 		}
 	}
 
-//	@Override
+	//	@Override
 	public MsgConf_ getConfiguration(final String name) {
 		// TODO Auto-generated method stub
 		GroupConfiguration config = new GroupConfiguration();
@@ -2566,7 +2565,7 @@ public class PSManagerUI implements IAdminUI {
 
 	}
 
-//	@Override
+	//	@Override
 	public void updateGroup(final String name, final String newAddress) {
 		// TODO Auto-generated method stub
 		int stat;
@@ -2627,41 +2626,42 @@ public class PSManagerUI implements IAdminUI {
 
 		devConf.setLayout(new GridLayout(1, 0, 5, 0));
 		devConf.addMouseListener(new MouseListener() {
-			
 
-//			@Override
+
+			//			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				// TODO Auto-generated method stub
 				System.out.println("devConf Mouse Clicked fffffffffffff");
 				refreshInfo();
 			}
 
-//			@Override
+			//			@Override
 			public void mouseEntered(MouseEvent arg0) {
 				// TODO Auto-generated method stub
 				System.out.println("devConf Mouse mouseEntered fffffffffffff");
 
 			}
 
-//			@Override
+			//			@Override
 			public void mouseExited(MouseEvent arg0) {
 				// TODO Auto-generated method stub
 				System.out.println("devConf Mouse mouseExited fffffffffffff");
 
 			}
 
-//			@Override
+			//			@Override
 			public void mousePressed(MouseEvent arg0) {
 				// TODO Auto-generated method stub
 				System.out.println("devConf Mouse mousePressed fffffffffffff");
 
 			}
 
-//			@Override
+			//			@Override
 			public void mouseReleased(MouseEvent arg0) {
 				// TODO Auto-generated method stub
-				
-			}});
+
+			}
+		});
 		MemoryInfo memInfo = RestProcess.getMemory();
 		ArrayList<DevInfo> devInfo = RestProcess.getDevInfo();
 		JTable jDevTab = new JTable(devInfo.size() + 2, 6);
@@ -2688,12 +2688,11 @@ public class PSManagerUI implements IAdminUI {
 		try {
 			DefaultTableCellRenderer tcr = new DefaultTableCellRenderer() {
 				public Component getTableCellRendererComponent(JTable table,
-						Object value, boolean isSelected, boolean hasFocus,
-						int row, int column) {
-					if (row  == 0){
+				                                               Object value, boolean isSelected, boolean hasFocus,
+				                                               int row, int column) {
+					if (row == 0) {
 						setBackground(Color.yellow); // 设置奇数行底色
-					}
-					else{
+					} else {
 						setBackground(new Color(206, 231, 255)); // 设置偶数行底色
 					}
 					return super.getTableCellRendererComponent(table, value,
@@ -2737,16 +2736,15 @@ public class PSManagerUI implements IAdminUI {
 		jFlowTab.setValueAt(flow.get(0).getDpid(), 0, 1);
 		jFlowTab.setValueAt("总流量：", 0, 2);
 		jFlowTab.setValueAt(flow.get(0).getFlowCount(), 0, 3);
-		
+
 		try {
 			DefaultTableCellRenderer tcr = new DefaultTableCellRenderer() {
 				public Component getTableCellRendererComponent(JTable table,
-						Object value, boolean isSelected, boolean hasFocus,
-						int row, int column) {
-					if (row  == 0){
+				                                               Object value, boolean isSelected, boolean hasFocus,
+				                                               int row, int column) {
+					if (row == 0) {
 						setBackground(Color.yellow); // 设置奇数行底色
-					}
-					else{
+					} else {
 						setBackground(new Color(206, 231, 255)); // 设置偶数行底色
 					}
 					return super.getTableCellRendererComponent(table, value,
@@ -2768,7 +2766,6 @@ public class PSManagerUI implements IAdminUI {
 			jFlowTab.setValueAt(flow.get(i).getFlowCount(), i, 3);
 		}
 
-		
-		
+
 	}
 }

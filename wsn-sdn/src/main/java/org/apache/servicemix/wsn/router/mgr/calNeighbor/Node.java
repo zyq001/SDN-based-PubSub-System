@@ -5,7 +5,7 @@ public class Node {
 	String addr;
 	String name;
 	int neighborCount;
-	
+
 	public Node(String addr, String netmask, String name, int neighborCount) {
 		this.neighborCount = neighborCount;
 		this.netmask = netmask;

@@ -5,7 +5,7 @@ import java.util.Iterator;
 
 public class NeigSelect {
 
-	private static long INFINITY = Long.MAX_VALUE;// ´ú±íÕýÎÞÇî
+	private static long INFINITY = Long.MAX_VALUE;// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	private static int MaxVertexNum = 30;
 	// int[][] arcs = new int[MaxVertexNum][MaxVertexNum];
 	// int vexNum, arcNum;
@@ -20,17 +20,8 @@ public class NeigSelect {
 		return MaxVertexNum;
 	}
 
-	public int setMaxVertexNum(int num) {
-		MaxVertexNum = num;
-		return MaxVertexNum;
-	}
-
 	public static long getINFINITY() {
 		return INFINITY;
-	}
-
-	public UDN getUDN() {
-		return UDN;
 	}
 
 	public static UDN getRNG() {
@@ -41,7 +32,16 @@ public class NeigSelect {
 		return neigsIPNum;
 	}
 
-	public boolean neigBool(double uv, double uw, double vw) {// uvÂú×ã×î¡°½ü¡±£¬·µ»Øtrue
+	public int setMaxVertexNum(int num) {
+		MaxVertexNum = num;
+		return MaxVertexNum;
+	}
+
+	public UDN getUDN() {
+		return UDN;
+	}
+
+	public boolean neigBool(double uv, double uw, double vw) {// uvï¿½ï¿½ï¿½ï¿½ï¿½î¡°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½true
 
 		if (uw < uv && vw < uv) {
 			return false;
@@ -49,15 +49,15 @@ public class NeigSelect {
 			return true;
 	}
 
-	// ½¨UDNÍø
+	// ï¿½ï¿½UDNï¿½ï¿½
 
 	public void buildUDN(long localNetworkAddrNum, long[] networkAddrNum,
-			ArrayList<Integer> neigscount) {
-		double ConLengthSum = 0;// ÁÚ¾Ó¼äÏà¶Ô¾àÀë×ÜºÍ
-		double VertCell = 0;// ×Ý×ø±êµ¥Î»³¤¶È
+	                     ArrayList<Integer> neigscount) {
+		double ConLengthSum = 0;// ï¿½Ú¾Ó¼ï¿½ï¿½ï¿½Ô¾ï¿½ï¿½ï¿½ï¿½Üºï¿½
+		double VertCell = 0;// ï¿½ï¿½ï¿½ï¿½ï¿½êµ¥Î»ï¿½ï¿½ï¿½ï¿½
 		Iterator nt = neigscount.iterator();
 		int minNeigCountNum;
-		if(nt.hasNext()) {
+		if (nt.hasNext()) {
 			minNeigCountNum = (Integer) nt.next();
 		} else {
 			System.out.println("neigscount empty");
@@ -65,10 +65,10 @@ public class NeigSelect {
 		}
 		UDN = new UDN(networkAddrNum.length + 1, networkAddrNum.length + 1);
 
-		// ¼ÆËã×Ý×ø±ê
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		for (int i = 0; i < networkAddrNum.length; i++) {
 			for (int j = i + 1; j < networkAddrNum.length; j++) {
-				// System.out.println("Ïà¶Ô¾àÀë×ÜºÍ:"+ConLengthSum);
+				// System.out.println("ï¿½ï¿½Ô¾ï¿½ï¿½ï¿½ï¿½Üºï¿½:"+ConLengthSum);
 				ConLengthSum = ConLengthSum
 						+ Math.abs(networkAddrNum[i] - networkAddrNum[j]);
 			}
@@ -78,9 +78,9 @@ public class NeigSelect {
 		for (int i = 0; i < neigscount.size(); i++) {
 			if (neigscount.get(i) < minNeigCountNum)
 				minNeigCountNum = neigscount.get(i);
-			// System.out.println("×îÐ¡ÁÚ¾ÓÊý£º"+minNeigCountNum);
+			// System.out.println("ï¿½ï¿½Ð¡ï¿½Ú¾ï¿½ï¿½ï¿½ï¿½ï¿½"+minNeigCountNum);
 		}
-		// ½«¾ØÕóµÚÒ»ÐÐºÍµÚÒ»ÁÐ¸³Öµ
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ÐºÍµï¿½Ò»ï¿½Ð¸ï¿½Öµ
 		UDN.creactUND(0, 0, 0);
 		for (int k = 1; k <= networkAddrNum.length; k++) {
 			UDN.creactUND(
@@ -89,14 +89,14 @@ public class NeigSelect {
 					Math.sqrt(Math.abs(networkAddrNum[k - 1]
 							- localNetworkAddrNum)
 							* Math.abs(networkAddrNum[k - 1]
-									- localNetworkAddrNum)
+							- localNetworkAddrNum)
 							+ (neigscount.get(k - 1) - minNeigCountNum)
 							* VertCell
 							* (neigscount.get(k - 1) - minNeigCountNum)
 							* VertCell));
 		}
 
-		// ½«ÁÚ½Ó¾ØÕó¸³Öµ
+		// ï¿½ï¿½ï¿½Ú½Ó¾ï¿½ï¿½ï¿½Öµ
 		for (int i = 1; i <= networkAddrNum.length; i++) {
 			for (int j = i; j <= networkAddrNum.length; j++) {
 				// if(i == 0 && j == 0)
@@ -108,29 +108,29 @@ public class NeigSelect {
 						Math.sqrt(Math.abs(networkAddrNum[i - 1]
 								- networkAddrNum[j - 1])
 								* Math.abs(networkAddrNum[i - 1]
-										- networkAddrNum[j - 1])
+								- networkAddrNum[j - 1])
 								+ Math.abs(neigscount.get(i - 1)
-										- neigscount.get(j - 1))
+								- neigscount.get(j - 1))
 								* VertCell
 								* Math.abs(neigscount.get(i - 1)
-										- neigscount.get(j - 1)) * VertCell));
+								- neigscount.get(j - 1)) * VertCell));
 			}
 
 		}
 	}
 
-	// ¼ÆËã×ÔÉíÁÚ¾Ó£¬²¢·µ»ØÁÚ¾Ó¶ÔÓ¦ip´®µÄÏÂ±ê
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú¾Ó£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú¾Ó¶ï¿½Ó¦ipï¿½ï¿½ï¿½ï¿½ï¿½Â±ï¿½
 	public ArrayList<Integer> accuNeigsIPNum(long localNetworkAddrNum,
-			long[] networkAddrNum, UDN UDN) {
+	                                         long[] networkAddrNum, UDN UDN) {
 		// UDN RNG = new UDN(neigNetworkNum.length+1,neigNetworkNum.length+1);
 		// ArrayList <Integer> neigsIPNum = null;
-		int count = 0;// ²âÊÔÓÃ
+		int count = 0;// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		for (int i = 1; i <= networkAddrNum.length; i++) {
 			int flag = 0;
 			for (int j = 1; j <= networkAddrNum.length; j++) {
 				if (j != i
 						&& !neigBool(UDN.arcs[0][i], UDN.arcs[0][j],
-								UDN.arcs[i][j])) {
+						UDN.arcs[i][j])) {
 					flag = 1;
 					break;
 				}
@@ -143,9 +143,9 @@ public class NeigSelect {
 		return neigsIPNum;
 	}
 
-	// ¹¹½¨È«¾ÖÁÚ¾ÓÍ¼RNG
+	// ï¿½ï¿½ï¿½ï¿½È«ï¿½ï¿½ï¿½Ú¾ï¿½Í¼RNG
 	public UDN globalRNG(long localNetworkAddrNum, long[] networkAddrNum,
-			UDN UDN) {
+	                     UDN UDN) {
 		RNG = new UDN(networkAddrNum.length + 1, networkAddrNum.length + 1);
 		System.arraycopy(UDN.arcs, 0, RNG.arcs, 0, UDN.arcs.length);
 		// RNG.arcs = UDN.arcs;
@@ -158,13 +158,13 @@ public class NeigSelect {
 						if (v != w
 								&& u != w
 								&& (!neigBool(UDN.arcs[u][v], UDN.arcs[u][w],
-										UDN.arcs[v][w]))) {
+								UDN.arcs[v][w]))) {
 							RNG.delete(u, v);
 							count[u]--;
 							break;
 						}
 			}
-			// System.out.println("´ú±í"+u+"Ñ¡¾Ù½á¹û£º£¨ÁÚ¾ÓÊý£©"+count[u]);
+			// System.out.println("ï¿½ï¿½ï¿½ï¿½"+u+"Ñ¡ï¿½Ù½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú¾ï¿½ï¿½ï¿½ï¿½ï¿½"+count[u]);
 		}
 		return RNG;
 	}

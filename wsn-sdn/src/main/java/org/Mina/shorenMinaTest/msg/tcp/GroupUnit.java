@@ -1,55 +1,56 @@
 package org.Mina.shorenMinaTest.msg.tcp;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Date;
-import org.Mina.shorenMinaTest.msg.WsnMsg;
 import org.Mina.shorenMinaTest.handlers.Start;
 import org.Mina.shorenMinaTest.mgr.base.SysInfo;
+import org.Mina.shorenMinaTest.msg.WsnMsg;
 import org.Mina.shorenMinaTest.queues.ForwardMsg;
 import org.Mina.shorenMinaTest.queues.MsgQueueMgr;
 import org.Mina.shorenMinaTest.queues.TCPForwardMsg;
 import org.Mina.shorenMinaTest.router.searchRoute;
 import org.apache.mina.core.session.IoSession;
 
-	//±£´ægroupµÄ»ù±¾ÐÅÏ¢
-	
-	public class GroupUnit extends WsnMsg implements Serializable {
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Date;
 
-		public String name;//groupµÄÃû×Ö
-		
-		public int uPort;//udp socketµÄ¶Ë¿ÚºÅ
-		
-		public BrokerUnit rep;//¼¯Èº´ú±í
-		
-		public Date date;//¼ÓÈëÊ±¼ä
-        public int tPort;
-		
-		public void initGroupUnit() {
-			this.rep = new BrokerUnit();
-		}
-		
-		private ArrayList<String> getForwardIp(){
+//ï¿½ï¿½ï¿½ï¿½groupï¿½Ä»ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
 
-			return Start.forwardIP=searchRoute.calForwardIP("500:3:6:10:15:20:26", "m", Start.testMap);
-		}
-		
-	public void processRegMsg(IoSession session){
-			
-			ArrayList<String> forwardIp = getForwardIp();
-			//²ßÂÔ¿âµÄÎ»ÖÃ£¬ÓÉ²ßÂÔ¿âÀ´¹ýÂËip
-			ForwardMsg forwardMsg = new TCPForwardMsg(forwardIp, SysInfo.gettPort(), this);
-			MsgQueueMgr.addTCPMsgInQueue(forwardMsg);
+public class GroupUnit extends WsnMsg implements Serializable {
 
-		}
-		
-		public void processRepMsg(IoSession session){
-			
-			ArrayList<String> forwardIp = getForwardIp();
-			//²ßÂÔ¿âµÄÎ»ÖÃ£¬ÓÉ²ßÂÔ¿âÀ´¹ýÂËip
-			ForwardMsg forwardMsg = new TCPForwardMsg(forwardIp, SysInfo.gettPort(), this);
-			MsgQueueMgr.addTCPMsgInQueue(forwardMsg);
-		}
-		
+	public String name;//groupï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+
+	public int uPort;//udp socketï¿½Ä¶Ë¿Úºï¿½
+
+	public BrokerUnit rep;//ï¿½ï¿½Èºï¿½ï¿½ï¿½ï¿½
+
+	public Date date;//ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½
+	public int tPort;
+
+	public void initGroupUnit() {
+		this.rep = new BrokerUnit();
 	}
+
+	private ArrayList<String> getForwardIp() {
+
+		return Start.forwardIP = searchRoute.calForwardIP("500:3:6:10:15:20:26", "m", Start.testMap);
+	}
+
+	public void processRegMsg(IoSession session) {
+
+		ArrayList<String> forwardIp = getForwardIp();
+		//ï¿½ï¿½ï¿½Ô¿ï¿½ï¿½Î»ï¿½Ã£ï¿½ï¿½É²ï¿½ï¿½Ô¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ip
+		ForwardMsg forwardMsg = new TCPForwardMsg(forwardIp, SysInfo.gettPort(), this);
+		MsgQueueMgr.addTCPMsgInQueue(forwardMsg);
+
+	}
+
+	public void processRepMsg(IoSession session) {
+
+		ArrayList<String> forwardIp = getForwardIp();
+		//ï¿½ï¿½ï¿½Ô¿ï¿½ï¿½Î»ï¿½Ã£ï¿½ï¿½É²ï¿½ï¿½Ô¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ip
+		ForwardMsg forwardMsg = new TCPForwardMsg(forwardIp, SysInfo.gettPort(), this);
+		MsgQueueMgr.addTCPMsgInQueue(forwardMsg);
+	}
+
+}
 

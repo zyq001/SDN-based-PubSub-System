@@ -1,18 +1,13 @@
-
 package org.oasis_open.docs.wsrf.rp_2;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.*;
 
 
 /**
  * <p>Java class for anonymous complex type.
- * 
+ * <p/>
  * <p>The following schema fragment specifies the expected content contained within this class.
- * 
+ * <p/>
  * <pre>
  * &lt;complexType>
  *   &lt;complexContent>
@@ -24,41 +19,35 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- * 
- * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "queryExpression"
+		"queryExpression"
 })
 @XmlRootElement(name = "QueryResourceProperties")
 public class QueryResourceProperties {
 
-    @XmlElement(name = "QueryExpression", required = true)
-    protected QueryExpressionType queryExpression;
+	@XmlElement(name = "QueryExpression", required = true)
+	protected QueryExpressionType queryExpression;
 
-    /**
-     * Gets the value of the queryExpression property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link QueryExpressionType }
-     *     
-     */
-    public QueryExpressionType getQueryExpression() {
-        return queryExpression;
-    }
+	/**
+	 * Gets the value of the queryExpression property.
+	 *
+	 * @return possible object is
+	 * {@link QueryExpressionType }
+	 */
+	public QueryExpressionType getQueryExpression() {
+		return queryExpression;
+	}
 
-    /**
-     * Sets the value of the queryExpression property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link QueryExpressionType }
-     *     
-     */
-    public void setQueryExpression(QueryExpressionType value) {
-        this.queryExpression = value;
-    }
+	/**
+	 * Sets the value of the queryExpression property.
+	 *
+	 * @param value allowed object is
+	 *              {@link QueryExpressionType }
+	 */
+	public void setQueryExpression(QueryExpressionType value) {
+		this.queryExpression = value;
+	}
 
 }

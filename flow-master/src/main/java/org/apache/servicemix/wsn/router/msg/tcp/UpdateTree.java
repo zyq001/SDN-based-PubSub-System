@@ -11,7 +11,7 @@ public class UpdateTree implements Serializable {
 	public String oldName;
 	public int change; // 0 for change, 1 for delete
 	long updateTime;
-	
+
 	public UpdateTree(long updateTime) {
 		this.updateTime = updateTime;
 	}

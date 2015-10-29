@@ -1,5 +1,9 @@
 package org.apache.servicemix.wsn.router.mgr;
 
+import org.apache.servicemix.wsn.router.mgr.base.AState;
+import org.apache.servicemix.wsn.router.msg.tcp.MsgAdReboot_;
+import org.apache.servicemix.wsn.router.msg.tcp.MsgAdminChange;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -7,32 +11,28 @@ import java.io.Serializable;
 import java.net.Socket;
 import java.util.Date;
 
-import org.apache.servicemix.wsn.router.mgr.base.AState;
-import org.apache.servicemix.wsn.router.msg.tcp.MsgAdReboot_;
-import org.apache.servicemix.wsn.router.msg.tcp.MsgAdminChange;
-
 public class MsgNotis implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	public String sender;//转发者的信息
-	
-	public String originatorGroup;//提供通知的broker所在集群名字
-	
-	public String originatorAddr;//提供通知的broker的IP地址
-	
-	public String topicName;//通知主题
-	
-	public String doc;//通知内容
-	
-	public Date sendDate;//消息产生的时间
+	public String sender;//转锟斤拷锟竭碉拷锟斤拷息
 
-	
+	public String originatorGroup;//锟结供通知锟斤拷broker锟斤拷锟节硷拷群锟斤拷锟斤拷
+
+	public String originatorAddr;//锟结供通知锟斤拷broker锟斤拷IP锟斤拷址
+
+	public String topicName;//通知锟斤拷锟斤拷
+
+	public String doc;//通知锟斤拷锟斤拷
+
+	public Date sendDate;//锟斤拷息锟斤拷锟斤拷锟斤拷时锟斤拷
+
+
 	@SuppressWarnings("static-access")
 	public void processRepMsg(ObjectInputStream ois,
-			ObjectOutputStream oos, Socket s, MsgNotis mn) {
+	                          ObjectOutputStream oos, Socket s, MsgNotis mn) {
 		AState state = RtMgr.getInstance().getState();
-		if(mn.originatorAddr.equals(state.getAdminAddr())) {
+		if (mn.originatorAddr.equals(state.getAdminAddr())) {
 			return;
 		}
 		System.out.println("Administrator has changed");

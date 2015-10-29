@@ -1,68 +1,66 @@
 package org.Mina.shorenMinaTest.router;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class searchRoute {
-	
+
 	static ArrayList<MsgSubsForm> nodeList = new ArrayList<MsgSubsForm>();
 	static MsgSubsForm groupTableRoot = null;
 	static generateNode gN = new generateNode();
 
 	static ConcurrentHashMap<String, MsgSubsForm> testMap = new ConcurrentHashMap<String, MsgSubsForm>();
 
-	public static ArrayList<String> calForwardIP(String topic, String originator,  ConcurrentHashMap<String, MsgSubsForm> testMap) {
+	public static ArrayList<String> calForwardIP(String topic, String originator, ConcurrentHashMap<String, MsgSubsForm> testMap) {
 		/*
-		 * ²ÎÊý£º
-		 * topic:Ö÷Ìâ¡£
-		 * originator:×ª·¢Ô´¡£
+		 * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		 * topic:ï¿½ï¿½ï¿½â¡£
+		 * originator:×ªï¿½ï¿½Ô´ï¿½ï¿½
 		 */
 
 
-			ArrayList<String> forwardIP = new ArrayList<String>();
-			//forwardIP:ÓÃÀ´´æ´¢Ä¿µÄ×ª·¢ipµØÖ·
-			
-			//MsgSubsForm msf = groupTableRoot;
-			//msf-->groupTableRootÊÇ¸ÉÂïµÄ£¿£¿
-			
-			boolean thisGroup = false;
+		ArrayList<String> forwardIP = new ArrayList<String>();
+		//forwardIP:ï¿½ï¿½ï¿½ï¿½ï¿½æ´¢Ä¿ï¿½ï¿½×ªï¿½ï¿½ipï¿½ï¿½Ö·
+
+		//MsgSubsForm msf = groupTableRoot;
+		//msf-->groupTableRootï¿½Ç¸ï¿½ï¿½ï¿½Ä£ï¿½ï¿½ï¿½
+
+		boolean thisGroup = false;
 
 			/*
-			 * String-->groupName:±¾¼¯ÈºµÄÃû×Ö
-			 * BrokerUnit-->rep£º±¾¼¯Èº´ú±íµÄµØÖ·
-			 * ConcurrentHashMap-->neighbors£º±¾»úËùÔÚ¼¯ÈºµÄÆäËû´úÀí£¬keyÎª´úÀíµØÖ·
+			 * String-->groupName:ï¿½ï¿½ï¿½ï¿½Èºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+			 * BrokerUnit-->repï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Èºï¿½ï¿½ï¿½ï¿½Äµï¿½Ö·
+			 * ConcurrentHashMap-->neighborsï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú¼ï¿½Èºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½keyÎªï¿½ï¿½ï¿½ï¿½ï¿½Ö·
 			 */
-			
-			String[] splited = topic.split(":");
-			
-			MsgSubsForm msf = testMap.get(splited[0]);
-			
-			
-			String temp = "";
-			//temp£º½«·ÖÀë¿ªµÄÖ÷ÌâÔÙ½áºÏÔÚÒ»Æð¡£
-			
-			//System.out.println(groupTableRoot.topicChildList.size());
 
-			if(msf.topicComponent.equals(splited[0]))
+		String[] splited = topic.split(":");
+
+		MsgSubsForm msf = testMap.get(splited[0]);
+
+
+		String temp = "";
+		//tempï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ë¿ªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ù½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½
+
+		//System.out.println(groupTableRoot.topicChildList.size());
+
+		if (msf.topicComponent.equals(splited[0]))
 			for (int i = 1; i < splited.length; i++) {
-				if (msf.topicChildList.containsKey(splited[i])){
+				if (msf.topicChildList.containsKey(splited[i])) {
 					//System.out.println(msf.topicComponent+":"+msf.routeNext);
 					msf = msf.topicChildList.get(splited[i]);
-				}
-				else{
+				} else {
 					//System.out.println(splited[i]);
 					break;
 				}
 				if (thisGroup)
 					forwardIP.add(msf.routeRoot);
-				if(i > 0)
+				if (i > 0)
 					temp += ":";
 				temp += splited[i];
 				/*if (brokerTable.containsKey(temp) || clientTable.contains(temp)) {
 					
-					 * ConcurrentHashMap-->brokerTable:±¾¼¯ÈºÀïÆäËû´úÀíµÄ¶©ÔÄÐÅÏ¢£¬keyÎªÖ÷Ìâ£¬valueÎª¶©ÔÄ´úÀíµÄµØÖ·
-					 * ArrayList<String-->clientTable:±¾µØµÄ¶©ÔÄÐÅÏ¢,±¾µØbroker¶©ÔÄÖ÷ÌâµÄ¼¯ºÏ
+					 * ConcurrentHashMap-->brokerTable:ï¿½ï¿½ï¿½ï¿½Èºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¶ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½keyÎªï¿½ï¿½ï¿½â£¬valueÎªï¿½ï¿½ï¿½Ä´ï¿½ï¿½ï¿½Äµï¿½Ö·
+					 * ArrayList<String-->clientTable:ï¿½ï¿½ï¿½ØµÄ¶ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢,ï¿½ï¿½ï¿½ï¿½brokerï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½
 					 
 					
 					forwardIP.addAll(msf.routeNext);
@@ -70,11 +68,11 @@ public class searchRoute {
 						break;
 				}*/
 			}
-			
-			forwardIP.addAll(msf.routeNext);
-			if (forwardIP.contains(originator))
-				forwardIP.remove(originator);
-			return forwardIP;
+
+		forwardIP.addAll(msf.routeNext);
+		if (forwardIP.contains(originator))
+			forwardIP.remove(originator);
+		return forwardIP;
 
 	}
 }

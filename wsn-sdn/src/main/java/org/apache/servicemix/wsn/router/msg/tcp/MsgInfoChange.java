@@ -1,5 +1,9 @@
 package org.apache.servicemix.wsn.router.msg.tcp;
 
+import org.apache.servicemix.wsn.router.mgr.BrokerUnit;
+import org.apache.servicemix.wsn.router.mgr.RtMgr;
+import org.apache.servicemix.wsn.router.mgr.base.AState;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -7,28 +11,24 @@ import java.io.Serializable;
 import java.net.Socket;
 import java.util.ArrayList;
 
-import org.apache.servicemix.wsn.router.mgr.BrokerUnit;
-import org.apache.servicemix.wsn.router.mgr.RtMgr;
-import org.apache.servicemix.wsn.router.mgr.base.AState;
-
 public class MsgInfoChange implements Serializable {
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1L;
 
 	public String originator;
-	
+
 	public String sender;
-	
+
 	public String addr;
-	
+
 	public int port;//tcp
-		
+
 	@SuppressWarnings("static-access")
 	public void processRepMsg(ObjectInputStream ois,
-			ObjectOutputStream oos, Socket s, MsgInfoChange mic) {
+	                          ObjectOutputStream oos, Socket s, MsgInfoChange mic) {
 		AState state = RtMgr.getInstance().getState();
 		System.out.println("some group info change");
 
@@ -38,17 +38,17 @@ public class MsgInfoChange implements Serializable {
 			state.getFellows().get(mic.originator).tPort = mic.port;
 
 		} else if (state.getGroupMap().containsKey(mic.originator)) {
-			if(state.getGroupMap().get(mic.originator).addr.equals(mic.addr) && state.getGroupMap().get(mic.originator).tPort == mic.port) {
+			if (state.getGroupMap().get(mic.originator).addr.equals(mic.addr) && state.getGroupMap().get(mic.originator).tPort == mic.port) {
 				return;
 			}
 			state.getGroupMap().get(mic.originator).addr = mic.addr;
 			state.getGroupMap().get(mic.originator).tPort = mic.port;
 
-			// 转发给其他集群
+			// 转锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷群
 			mic.sender = state.getGroupName();
 			state.sendObjectToNeighbors(mic);
 
-			// 集群内转发
+			// 锟斤拷群锟斤拷转锟斤拷
 			ArrayList<BrokerUnit> b = new ArrayList<BrokerUnit>(
 					state.getFellows().values());
 			for (BrokerUnit bu : b) {

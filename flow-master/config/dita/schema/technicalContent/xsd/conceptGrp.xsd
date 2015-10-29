@@ -23,20 +23,20 @@
 <!-- ============================================================= -->
 
 <xs:schema xmlns:xs='http://www.w3.org/2001/XMLSchema'>
-  <xs:group name="concept">
-      <xs:sequence>
-         <xs:choice>
-            <xs:element ref="concept"/>
-         </xs:choice>
-      </xs:sequence>
-   </xs:group>
+    <xs:group name="concept">
+        <xs:sequence>
+            <xs:choice>
+                <xs:element ref="concept"/>
+            </xs:choice>
+        </xs:sequence>
+    </xs:group>
 
-   <xs:group name="conbody">
-      <xs:sequence>
-         <xs:choice>
-            <xs:element ref="conbody"/>
-         </xs:choice>
-      </xs:sequence>
-   </xs:group>
+    <xs:group name="conbody">
+        <xs:sequence>
+            <xs:choice>
+                <xs:element ref="conbody"/>
+            </xs:choice>
+        </xs:sequence>
+    </xs:group>
 
 </xs:schema>

@@ -14,37 +14,36 @@ The limited permissions granted above are perpetual and will not be revoked by O
 This document and the information contained herein is provided on an "AS IS" basis and OASIS DISCLAIMS ALL WARRANTIES, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO ANY WARRANTY THAT THE USE OF THE INFORMATION HEREIN WILL NOT INFRINGE ANY RIGHTS OR ANY IMPLIED WARRANTIES OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.
 
 -->
-<xsd:schema 
-  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-  xmlns:wsrf-r="http://docs.oasis-open.org/wsrf/r-2"
-  xmlns:wsrf-bf="http://docs.oasis-open.org/wsrf/bf-2"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  elementFormDefault="qualified" attributeFormDefault="unqualified" 
-  targetNamespace="http://docs.oasis-open.org/wsrf/r-2" 
->
- 
-  <xsd:import 
-     namespace=
-  "http://docs.oasis-open.org/wsrf/bf-2"
-     schemaLocation="bf-2.xsd"
-  />
+<xsd:schema
+        xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+        xmlns:wsrf-r="http://docs.oasis-open.org/wsrf/r-2"
+        xmlns:wsrf-bf="http://docs.oasis-open.org/wsrf/bf-2"
+        elementFormDefault="qualified" attributeFormDefault="unqualified"
+        targetNamespace="http://docs.oasis-open.org/wsrf/r-2"
+        >
 
-<!-- ====================== WS-Resource fault types ============= -->
- 
-      <xsd:complexType name="ResourceUnknownFaultType">
-         <xsd:complexContent>
-            <xsd:extension base="wsrf-bf:BaseFaultType"/>
-         </xsd:complexContent>
-      </xsd:complexType>
-      <xsd:element name="ResourceUnknownFault" 
-                   type="wsrf-r:ResourceUnknownFaultType"/>
+    <xsd:import
+            namespace=
+                    "http://docs.oasis-open.org/wsrf/bf-2"
+            schemaLocation="bf-2.xsd"
+            />
 
-      <xsd:complexType name="ResourceUnavailableFaultType">
-         <xsd:complexContent>
+    <!-- ====================== WS-Resource fault types ============= -->
+
+    <xsd:complexType name="ResourceUnknownFaultType">
+        <xsd:complexContent>
             <xsd:extension base="wsrf-bf:BaseFaultType"/>
-         </xsd:complexContent>
-      </xsd:complexType>
-      <xsd:element name="ResourceUnavailableFault" 
-                   type="wsrf-r:ResourceUnavailableFaultType"/>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:element name="ResourceUnknownFault"
+                 type="wsrf-r:ResourceUnknownFaultType"/>
+
+    <xsd:complexType name="ResourceUnavailableFaultType">
+        <xsd:complexContent>
+            <xsd:extension base="wsrf-bf:BaseFaultType"/>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:element name="ResourceUnavailableFault"
+                 type="wsrf-r:ResourceUnavailableFaultType"/>
 </xsd:schema>
 

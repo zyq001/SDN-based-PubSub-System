@@ -1,92 +1,101 @@
 package edu.bupt.wangfu.Swing;
 
 
+/**
+ * @param args
+ */
 
-	/**
-	 * @param args
-	 */
-	import java.awt.*;
-	import java.awt.event.*;
-	import javax.swing.*;
-	    /*????ChangeEvent??????Swing??????????????AWT????????????import Swing??????????????
+import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
+/*????ChangeEvent??????Swing??????????????AWT????????????import Swing??????????????
 	     *ChangeEvent??????
 	     */
-	import javax.swing.event.*;
 
-	public class JTabbedPane2 implements ActionListener,ChangeListener{
-	  int index=0;
-	  int newNumber=1;
-	  JTabbedPane tabbedPane=null;
-	  public JTabbedPane2(){
-	     JFrame f=new JFrame("JTabbedPane2");	
-	     Container contentPane=f.getContentPane();
-	     
-	     JLabel label1=new JLabel(new ImageIcon(".\\icons\\flower.jpg"));
-	     JPanel panel1=new JPanel();
-	     panel1.add(label1);
-	     
-	     JLabel label2=new JLabel("Label 2",JLabel.CENTER);
-	     label2.setBackground(Color.pink);
-	     label2.setOpaque(true);
-	     JPanel panel2=new JPanel();
-	     panel2.add(label2);
-	     
-	     JLabel label3=new JLabel("Label 3",JLabel.CENTER);
-	     label3.setBackground(Color.yellow);
-	     label3.setOpaque(true);
-	     JPanel panel3=new JPanel();
-	     panel3.add(label3);
-	     
-	     tabbedPane=new JTabbedPane();
-	     tabbedPane.setTabPlacement(JTabbedPane.TOP);//??????????????????
-	    /*????ChangeEvent??????Swing??????????????AWT????????????import Swing??????????????
+public class JTabbedPane2 implements ActionListener, ChangeListener {
+	int index = 0;
+	int newNumber = 1;
+	JTabbedPane tabbedPane = null;
+
+	public JTabbedPane2() {
+		JFrame f = new JFrame("JTabbedPane2");
+		Container contentPane = f.getContentPane();
+
+		JLabel label1 = new JLabel(new ImageIcon(".\\icons\\flower.jpg"));
+		JPanel panel1 = new JPanel();
+		panel1.add(label1);
+
+		JLabel label2 = new JLabel("Label 2", JLabel.CENTER);
+		label2.setBackground(Color.pink);
+		label2.setOpaque(true);
+		JPanel panel2 = new JPanel();
+		panel2.add(label2);
+
+		JLabel label3 = new JLabel("Label 3", JLabel.CENTER);
+		label3.setBackground(Color.yellow);
+		label3.setOpaque(true);
+		JPanel panel3 = new JPanel();
+		panel3.add(label3);
+
+		tabbedPane = new JTabbedPane();
+		tabbedPane.setTabPlacement(JTabbedPane.TOP);//??????????????????
+		/*????ChangeEvent??????Swing??????????????AWT????????????import Swing??????????????
 	     *ChangeEvent??????
 	     */
-	     tabbedPane.addChangeListener(this);
-	     tabbedPane.addTab("Picture",null,panel1,"????");
-	     tabbedPane.addTab("Label 2",panel2);
-	     tabbedPane.addTab("Label 3",null,panel3,"label");
-	     tabbedPane.setEnabledAt(2,false);//??Label 3??????Disable????
-	     JButton b=new JButton("????????");
-	     b.addActionListener(this);
-	     contentPane.add(b,BorderLayout.SOUTH);
-	     contentPane.add(tabbedPane,BorderLayout.CENTER);
-	     
-	     f.pack();
-	     f.show();
-	     f.addWindowListener(new WindowAdapter(){
-	               public void WindowClosing(WindowEvent e){
-	                  System.exit(0);
-	               }
-	      });     
-	  }	
+		tabbedPane.addChangeListener(this);
+		tabbedPane.addTab("Picture", null, panel1, "????");
+		tabbedPane.addTab("Label 2", panel2);
+		tabbedPane.addTab("Label 3", null, panel3, "label");
+		tabbedPane.setEnabledAt(2, false);//??Label 3??????Disable????
+		JButton b = new JButton("????????");
+		b.addActionListener(this);
+		contentPane.add(b, BorderLayout.SOUTH);
+		contentPane.add(tabbedPane, BorderLayout.CENTER);
+
+		f.pack();
+		f.show();
+		f.addWindowListener(new WindowAdapter() {
+			public void WindowClosing(WindowEvent e) {
+				System.exit(0);
+			}
+		});
+	}
+
+	public static void main(String[] args) {
+		new JTabbedPane2();
+	}
+
 	/*????ChangeListener??????????????????????????????????????????????????????Enable??????getSelectedIndex()??????????
 	 *??????????????index????getTabCount()??????????JTabbedPane??????????????????????setEnabledAt()??????????????????
 	 *????????Enable??Disable(true??Enable,false??Disable).
 	 */
-	  public void stateChanged(ChangeEvent e){
-	     if (index!=tabbedPane.getSelectedIndex()){
-	         if(index<tabbedPane.getTabCount()-1)
-	            tabbedPane.setEnabledAt(index+1,true);
-	     }
-	     index=tabbedPane.getSelectedIndex();
-	  }
+	public void stateChanged(ChangeEvent e) {
+		if (index != tabbedPane.getSelectedIndex()) {
+			if (index < tabbedPane.getTabCount() - 1)
+				tabbedPane.setEnabledAt(index + 1, true);
+		}
+		index = tabbedPane.getSelectedIndex();
+	}
+
 	/*????ActionListener????,??????????"????????"??????????
 	 *????tabbedPane??????????Disable????????????
 	 */
-	  public void actionPerformed(ActionEvent e){
-	      JPanel pane1=new JPanel();
-	      JLabel label4=new JLabel("new label"+newNumber,JLabel.CENTER);
-	      label4.setOpaque(true);
-	      pane1.add(label4);
-	      tabbedPane.addTab("new "+newNumber,pane1);
-	      tabbedPane.setEnabledAt(newNumber+2,false);
-	      newNumber++;
-	      tabbedPane.validate();
-	  }
-	  public static void main(String[] args){
-	    new JTabbedPane2();
-	  }
-	
+	public void actionPerformed(ActionEvent e) {
+		JPanel pane1 = new JPanel();
+		JLabel label4 = new JLabel("new label" + newNumber, JLabel.CENTER);
+		label4.setOpaque(true);
+		pane1.add(label4);
+		tabbedPane.addTab("new " + newNumber, pane1);
+		tabbedPane.setEnabledAt(newNumber + 2, false);
+		newNumber++;
+		tabbedPane.validate();
+	}
+
 
 }

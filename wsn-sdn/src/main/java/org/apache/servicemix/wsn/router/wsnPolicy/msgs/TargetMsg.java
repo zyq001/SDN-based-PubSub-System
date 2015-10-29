@@ -5,23 +5,27 @@ package org.apache.servicemix.wsn.router.wsnPolicy.msgs;
  * @date 2013-3-29
  */
 
-public //ÏÔÊ¾¼¯ÈºÐÅÏ¢Ê±£¬°´Ë³ÐòÅÅÁÐ£¬ËùÒÔÊµÏÖComparable½Ó¿Ú
-class TargetMsg implements java.io.Serializable
-{	
+public //ï¿½ï¿½Ê¾ï¿½ï¿½Èºï¿½ï¿½Ï¢Ê±ï¿½ï¿½ï¿½ï¿½Ë³ï¿½ï¿½ï¿½ï¿½ï¿½Ð£ï¿½ï¿½ï¿½ï¿½ï¿½Êµï¿½ï¿½Comparableï¿½Ó¿ï¿½
+class TargetMsg implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	protected String name;
 
-	public TargetMsg(String name)
-	{
+	public TargetMsg(String name) {
 		this.name = name;
 	}
-	
-	public TargetMsg()
-	{
+
+	public TargetMsg() {
 		this(null);
 	}
-	
+
+	public static void main(String[] args) {
+		TargetMsg t1 = new TargetMsg("a");
+		TargetMsg t2 = new TargetMsg("a");
+
+		System.out.println(t1.equals(t2));
+	}
+
 	public String getName() {
 		return name;
 	}
@@ -29,37 +33,25 @@ class TargetMsg implements java.io.Serializable
 	public void setName(String name) {
 		this.name = name;
 	}
-	
-	public String toString()
-	{
+
+	public String toString() {
 		return getName();
 	}
- 
-	
-	public boolean equals(Object anObject)
-	{
-		if(!(anObject instanceof TargetMsg))
+
+	public boolean equals(Object anObject) {
+		if (!(anObject instanceof TargetMsg))
 			return false;
-		TargetMsg msg = (TargetMsg)anObject;
-		if(this.getName().equals(msg.getName()))
+		TargetMsg msg = (TargetMsg) anObject;
+		if (this.getName().equals(msg.getName()))
 			return true;
 		return false;
 	}
-	
-	public void mergeMsg(TargetMsg msg)
-	{
-		//ignore
-	}
-	
-	public void deleteMsg(TargetMsg msg)
-	{
-		//ignore
-	}
-	
-	public static void main(String[] args) {
-		TargetMsg t1 = new TargetMsg("a");
-		TargetMsg t2 = new TargetMsg("a");
 
-		System.out.println(t1.equals(t2));
+	public void mergeMsg(TargetMsg msg) {
+		//ignore
+	}
+
+	public void deleteMsg(TargetMsg msg) {
+		//ignore
 	}
 }

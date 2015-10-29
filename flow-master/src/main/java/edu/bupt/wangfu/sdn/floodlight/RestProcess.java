@@ -5,7 +5,6 @@ import edu.bupt.wangfu.sdn.info.Flow;
 import edu.bupt.wangfu.sdn.info.MemoryInfo;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.GetMethod;
-//import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
@@ -21,6 +20,8 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
+//import org.apache.http.client.HttpClient;
+
 public class RestProcess {///wm/device/
 	public static String REST_URL = "http://192.168.1.30:8080";//"http://10.108.164.211:8080/wm/core/controller/switches/json";//"http://10.108.164.211:8080/wm/core/switch/1/flow/json";
 	private static String API_KEY = "your api key";
@@ -29,8 +30,7 @@ public class RestProcess {///wm/device/
 	private static CloseableHttpClient client = HttpClients.createDefault();
 
 
-
-	public static void main(String args[]){
+	public static void main(String args[]) {
 
 		MemoryInfo result = getMemory();
 		System.out.println(result);
@@ -41,11 +41,10 @@ public class RestProcess {///wm/device/
 	}
 
 
-
 	public static MemoryInfo getMemory() {
 		MemoryInfo info = new MemoryInfo();
-		try{
-			String url = REST_URL+"/wm/core/memory/json";
+		try {
+			String url = REST_URL + "/wm/core/memory/json";
 			String body = doClientGet(url);
 			JSONObject json = new JSONObject(body);
 
@@ -54,7 +53,7 @@ public class RestProcess {///wm/device/
 			info.setFreeMem(json.getString("free"));
 
 			return info;
-		}catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return info;
@@ -62,38 +61,38 @@ public class RestProcess {///wm/device/
 
 	public static ArrayList<DevInfo> getDevInfo() {
 		ArrayList<DevInfo> all = new ArrayList<DevInfo>();
-		try{
-			String url = REST_URL+"/wm/device/";
+		try {
+			String url = REST_URL + "/wm/device/";
 			String body = doClientGet(url);
 			JSONArray json = new JSONArray(body);
 			System.out.println(body);
 			System.out.println(json.length());
-			for(int i=0;i<json.length();i++){
+			for (int i = 0; i < json.length(); i++) {
 				DevInfo info = DevInfo.getINSTANCE();
 				JSONArray ipv4 = json.getJSONObject(i).getJSONArray("ipv4");
-				if(!ipv4.isNull(0))info.setUrl(ipv4.getString(0));
+				if (!ipv4.isNull(0)) info.setUrl(ipv4.getString(0));
 				info.setMac(json.getJSONObject(i).getJSONArray("mac").getString(0));
-				info.setPort(""+(json.getJSONObject(i).getJSONArray("attachmentPoint").length() > 0
+				info.setPort("" + (json.getJSONObject(i).getJSONArray("attachmentPoint").length() > 0
 						? json.getJSONObject(i).getJSONArray("attachmentPoint").getJSONObject(0).getInt("port") : ""));
-				info.setErrorStatus(""+(json.getJSONObject(i).getJSONArray("attachmentPoint").length() > 0
-						? json.getJSONObject(i).getJSONArray("attachmentPoint").getJSONObject(0).get("errorStatus"): ""));
-				info.setLastSeen(""+json.getJSONObject(i).getLong("lastSeen"));
+				info.setErrorStatus("" + (json.getJSONObject(i).getJSONArray("attachmentPoint").length() > 0
+						? json.getJSONObject(i).getJSONArray("attachmentPoint").getJSONObject(0).get("errorStatus") : ""));
+				info.setLastSeen("" + json.getJSONObject(i).getLong("lastSeen"));
 				all.add(info);
 			}
 			return all;
-		}catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return all;
 	}
 
-	public static void downRuntimeTopology(){
+	public static void downRuntimeTopology() {
 
 		String topoString = doClientGet(REST_URL + "/wm/topology/links/json");
 		JSONArray topoArray = null;
 		topoArray = new JSONArray(topoString);
 
-		for(int i = 0; i < topoArray.length(); i = i + 2){
+		for (int i = 0; i < topoArray.length(); i = i + 2) {
 			JSONObject link = new JSONObject(topoArray.get(i).toString());
 			String srcSW = link.getString("src-switch");
 			String srcport = link.getString("src-port");
@@ -106,8 +105,8 @@ public class RestProcess {///wm/device/
 
 	public static ArrayList<Flow> getFlowInfo() {
 		ArrayList<Flow> all = new ArrayList<Flow>();
-		try{
-			String devurl = REST_URL+"/wm/device/";
+		try {
+			String devurl = REST_URL + "/wm/device/";
 			String devbody = doClientGet(devurl);
 			JSONArray devjson = new JSONArray(devbody);
 			System.out.println(devjson);
@@ -115,21 +114,21 @@ public class RestProcess {///wm/device/
 			String DPID = devjson.getJSONObject(0).getJSONArray("attachmentPoint")
 					.length() > 0 ? devjson.getJSONObject(0).getJSONArray("attachmentPoint")
 					.getJSONObject(0).getString("switchDPID") : "";
-			String url = REST_URL+"/wm/core/counter/all/json";
+			String url = REST_URL + "/wm/core/counter/all/json";
 			String body = doClientGet(url);
 			JSONObject json = new JSONObject(body);
 			System.out.println(json);
 			Flow dpidlist = new Flow(json.getString("dpid"));
 			dpidlist.setDpid(REST_URL);
-			dpidlist.setFlowCount(""+json.getInt("controller__OFPacketIn"));
+			dpidlist.setFlowCount("" + json.getInt("controller__OFPacketIn"));
 			all.add(dpidlist);
 
-			String switchurl = REST_URL+"/wm/core/controller/switches/json";
+			String switchurl = REST_URL + "/wm/core/controller/switches/json";
 			String switchbody = doClientGet(switchurl);
 			JSONArray switchjson = new JSONArray(switchbody);
 			System.out.println(switchjson);
 
-			for(int i=0;i<switchjson.length();i++){//test
+			for (int i = 0; i < switchjson.length(); i++) {//test
 				String dpid = switchjson.getJSONObject(i).getString("dpid");
 
 				Flow list = new Flow(dpid);
@@ -137,15 +136,15 @@ public class RestProcess {///wm/device/
 //				list.setDpid(DPID+"__"+(devjson.getJSONObject(i)
 //						.getJSONArray("attachmentPoint").length() > 0 ? devjson.getJSONObject(i)
 //								.getJSONArray("attachmentPoint").getJSONObject(0).getInt("port") : ""));
-				list.setFlowCount(""+json.getInt(dpid
+				list.setFlowCount("" + json.getInt(dpid
 //						+"__"+(devjson.getJSONObject(i).getJSONArray("attachmentPoint").length() > 0 ? devjson.getJSONObject(i)
 //								.getJSONArray("attachmentPoint").getJSONObject(0).getInt("port") : "")
-						+"__OFPacketIn"));
+						+ "__OFPacketIn"));
 				all.add(list);
 			}
 			return all;
 
-		}catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return all;
@@ -154,7 +153,7 @@ public class RestProcess {///wm/device/
 	public static String doClientGet(String url) {
 		try {
 			HttpClient httpclient = new HttpClient();
-			GetMethod  getMethod= new GetMethod(url);
+			GetMethod getMethod = new GetMethod(url);
 			httpclient.executeMethod(getMethod);
 			String body = getMethod.getResponseBodyAsString();
 			getMethod.releaseConnection();
@@ -165,12 +164,12 @@ public class RestProcess {///wm/device/
 		return null;
 	}
 
-	public static List<String> doClientPost(String url, JSONObject jo){
+	public static List<String> doClientPost(String url, JSONObject jo) {
 		List<String> result = new ArrayList<String>();
 
 		HttpPost method = new HttpPost(url);
-		StringEntity entity = new StringEntity(jo.toString(),"utf-8");
-		method.setHeader("Content-Type","application/json; charset=UTF-8");
+		StringEntity entity = new StringEntity(jo.toString(), "utf-8");
+		method.setHeader("Content-Type", "application/json; charset=UTF-8");
 		method.setEntity(entity);
 
 		try {
@@ -196,7 +195,7 @@ public class RestProcess {///wm/device/
 		return result;
 	}
 
-	public static List<String> doClientDelete(String url, JSONObject jo){
+	public static List<String> doClientDelete(String url, JSONObject jo) {
 		List<String> result = new ArrayList<String>();
 		HttpDeleteWithBody httpDelete = new HttpDeleteWithBody(url);
 		// json ??
@@ -248,14 +247,14 @@ public class RestProcess {///wm/device/
 
 //	public static List<String> add()
 
-	public static List<String> AddFlow(JSONObject flow) throws IOException{
+	public static List<String> AddFlow(JSONObject flow) throws IOException {
 
 		String staticFlowUrl = REST_URL + "wm/staticflowentrypusher/json";
 
-		return	doClientPost(staticFlowUrl, flow);
+		return doClientPost(staticFlowUrl, flow);
 	}
 
-	public ArrayList<String> changeFlow(String cmd) throws IOException{
+	public ArrayList<String> changeFlow(String cmd) throws IOException {
 
 		ArrayList<String> result = new ArrayList<String>();
 		java.lang.Process process = null;
@@ -270,10 +269,8 @@ public class RestProcess {///wm/device/
 		}
 		input.close();
 
-		return	result;
+		return result;
 	}
-
-
 
 
 }

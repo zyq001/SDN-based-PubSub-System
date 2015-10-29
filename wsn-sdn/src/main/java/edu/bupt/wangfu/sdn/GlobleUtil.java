@@ -14,110 +14,113 @@ import java.util.concurrent.ConcurrentHashMap;
  * Created by root on 15-10-6.
  */
 public class GlobleUtil {
-    private static GlobleUtil INSTANCE;
-    public Map<String, Controller> controllers = new ConcurrentHashMap<String, Controller>();
-    public static List<Flow> initFlows = new ArrayList<Flow>();
+	public static List<Flow> initFlows = new ArrayList<Flow>();
+	private static GlobleUtil INSTANCE;
+	private static Timer timer = new Timer();
+	public Map<String, Controller> controllers = new ConcurrentHashMap<String, Controller>();
 
-    private static Timer timer = new Timer();
+	private GlobleUtil() {
+		//init static initFlows{queueFlow, topics}
+		Flow flow = new Flow("queue");
+		initFlows.add(flow);
 
-    private GlobleUtil(){
-        //init static initFlows{queueFlow, topics}
-        Flow flow = new Flow("queue");
-        initFlows.add(flow);
+		// start timer to recaclateRoute
+		timer.schedule(new GlobalTimerTask(), 2000, 5 * 60 * 1000);
+	}
 
-        // start timer to recaclateRoute
-        timer.schedule(new GlobalTimerTask(), 2000, 5 * 60 * 1000);
-    };
+	;
 
-    public void init(){
-        //get realtime global info
-        reflashGlobleInfo();
+	public static Map<String, Switch> getRealtimeSwitchs(Controller controller) {
 
-        //init all switchs
-        for(Map.Entry<String, Controller> entry: controllers.entrySet()){
-            Controller controller = entry.getValue();
-            initSwitchs(controller);
-        }
+		Map<String, Switch> switches = new HashMap<String, Switch>();
+
+		return switches;
+	}
+
+	public static GlobleUtil getInstance() {
+		if (INSTANCE == null) INSTANCE = new GlobleUtil();
+		return INSTANCE;
+	}
+
+	public void init() {
+		//get realtime global info
+		reflashGlobleInfo();
+
+		//init all switchs
+		for (Map.Entry<String, Controller> entry : controllers.entrySet()) {
+			Controller controller = entry.getValue();
+			initSwitchs(controller);
+		}
 
 
-    }
-    public boolean initSwitchs(Controller controller){
-        boolean success = false;
+	}
 
-        //down init flows
-        downFlow(controller, initFlows);
+	public boolean initSwitchs(Controller controller) {
+		boolean success = false;
 
-        return success;
-    }
-    public boolean reflashGlobleInfo(){
+		//down init flows
+		downFlow(controller, initFlows);
 
-        //Traversal controllers, GET global realtime status
-        for(Map.Entry<String, Controller> entry: controllers.entrySet()){
-            Controller controller = entry.getValue();
-            if(!controller.isAlive()){
-                controllers.remove(entry.getKey());
-                continue;
-            }
-            controller.reflashSwitchMap();
-        }
-        return true;
-    }
+		return success;
+	}
 
-    public static Map<String, Switch> getRealtimeSwitchs(Controller controller){
+	public boolean reflashGlobleInfo() {
 
-        Map<String, Switch> switches = new HashMap<String, Switch>();
+		//Traversal controllers, GET global realtime status
+		for (Map.Entry<String, Controller> entry : controllers.entrySet()) {
+			Controller controller = entry.getValue();
+			if (!controller.isAlive()) {
+				controllers.remove(entry.getKey());
+				continue;
+			}
+			controller.reflashSwitchMap();
+		}
+		return true;
+	}
 
-        return switches;
-    }
+	public synchronized void addController(String controllerAddr) {
 
-    public synchronized void addController(String controllerAddr){
+		Controller newController = new Controller(controllerAddr);
 
-        Controller newController = new Controller(controllerAddr);
+		newController.reflashSwitchMap();
 
-        newController.reflashSwitchMap();
+		controllers.put(controllerAddr, newController);
 
-        controllers.put(controllerAddr, newController);
+	}
 
-    }
+	public boolean downFlow(String url, JSONObject content) {
+		boolean success = false;
+		return RestProcess.doClientPost(url, content).get(0).equals("200");
 
-    public boolean downFlow(String url, JSONObject content){
-        boolean success = false;
-        return RestProcess.doClientPost(url, content).get(0).equals("200");
+	}
 
-    }
+	public boolean downFlow(Controller controller, List<Flow> flows) {
+		boolean success = false;
+		for (Flow flow : flows) {
+			if (downFlow(controller, flow)) success = true;
+		}
+		return true;
+	}
 
-    public boolean downFlow(Controller controller, List<Flow> flows){
-        boolean success = false;
-        for(Flow flow: flows){
-            if(downFlow(controller, flow)) success = true;
-        }
-        return true;
-    }
+	public boolean downFlow(Controller controller, Flow flow) {
+		boolean success = false;
+		return RestProcess.doClientPost(controller.url, flow.getContent()).get(0).equals("200");
 
-    public boolean downFlow(Controller controller, Flow flow){
-        boolean success = false;
-        return RestProcess.doClientPost(controller.url, flow.getContent()).get(0).equals("200");
+	}
 
-    }
+	class GlobalTimerTask extends TimerTask {
 
-    public static GlobleUtil getInstance(){
-        if(INSTANCE == null) INSTANCE = new GlobleUtil();
-        return INSTANCE;
-    }
+		/**
+		 * The action to be performed by this timer task.
+		 */
+		@Override
+		public void run() {
 
-    class GlobalTimerTask extends TimerTask{
+			//whether to adjust queue
+			QueueManagerment.qosStart();
 
-        /**
-         * The action to be performed by this timer task.
-         */
-        @Override
-        public void run() {
+			//whether to adjust route
 
-            //whether to adjust queue
-            QueueManagerment.qosStart();
-
-            //whether to adjust route
-
-        }
-    }
+		}
+	}
 }

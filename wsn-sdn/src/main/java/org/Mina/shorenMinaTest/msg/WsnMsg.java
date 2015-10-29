@@ -5,49 +5,46 @@
 package org.Mina.shorenMinaTest.msg;
 
 
+import org.Mina.shorenMinaTest.MinaUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.mina.core.session.IoSession;
-
-import org.Mina.shorenMinaTest.MinaUtil;
-import org.Mina.shorenMinaTest.mgr.RtMgr;
 
 
 /**
  *
  */
 public class WsnMsg {
-	
+
 	protected static Log log = LogFactory.getLog(WsnMsg.class);
-	
-	//将msg类转化为String，用于传输前序列化
+
+	//锟斤拷msg锟斤拷转锟斤拷为String锟斤拷锟斤拷锟节达拷锟斤拷前锟斤拷锟叫伙拷
 	public String msgToString() {
-	//	System.out.println("there is no method defined for this class!");
+		//	System.out.println("there is no method defined for this class!");
 		return MinaUtil.msgToString(this);
 	}
 
-	//将String转化为msg类，用于接收后反序列化
+	//锟斤拷String转锟斤拷为msg锟洁，锟斤拷锟节斤拷锟秸猴拷锟斤拷锟叫伙拷
 	public WsnMsg stringToMsg(String smsg) {
-	//	System.out.println("there is no method defined for this class!");
+		//	System.out.println("there is no method defined for this class!");
 		return MinaUtil.stringToMsg(smsg, this);
 	}
-	
-	public void processRegMsg(IoSession session){
-		
+
+	public void processRegMsg(IoSession session) {
+
 		//AState state = RtMgr.getInstance().getState();
 		System.out.println("there is no method defined for this class!");
 	}
-	
-	public void processRepMsg(IoSession session){
-		
+
+	public void processRepMsg(IoSession session) {
+
 		//AState state = RtMgr.getInstance().getState();
 		System.out.println("there is no method defined for this class!");
 	}
-	
-	//获得信息类的优先级
-	public int getPriority(WsnMsg msg)
-	{
-	//	return FilterRegistry.getPriority(msg);
+
+	//锟斤拷锟斤拷锟较拷锟斤拷锟斤拷锟饺硷拷
+	public int getPriority(WsnMsg msg) {
+		//	return FilterRegistry.getPriority(msg);
 		return -1;
 	}
 }

@@ -4,29 +4,21 @@
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
- *
+ * <p/>
  * Contributors:
- *    Google, Inc. - initial API and implementation
+ * Google, Inc. - initial API and implementation
  *******************************************************************************/
 package org.apache.servicemix.wsn.router.swt;
+
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.*;
+import org.eclipse.swt.widgets.Display;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
-
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.graphics.Color;
-import org.eclipse.swt.graphics.Cursor;
-import org.eclipse.swt.graphics.Font;
-import org.eclipse.swt.graphics.FontData;
-import org.eclipse.swt.graphics.GC;
-import org.eclipse.swt.graphics.Image;
-import org.eclipse.swt.graphics.ImageData;
-import org.eclipse.swt.graphics.RGB;
-import org.eclipse.swt.graphics.Rectangle;
-import org.eclipse.swt.widgets.Display;
 
 /**
  * Utility class for managing OS resources associated with SWT controls such as colors, fonts, images, etc.
@@ -41,147 +33,6 @@ import org.eclipse.swt.widgets.Display;
  * @author Dan Rubel
  */
 public class SWTResourceManager {
-	////////////////////////////////////////////////////////////////////////////
-	//
-	// Color
-	//
-	////////////////////////////////////////////////////////////////////////////
-	private static Map<RGB, Color> m_colorMap = new HashMap<RGB, Color>();
-	/**
-	 * Returns the system {@link Color} matching the specific ID.
-	 * 
-	 * @param systemColorID
-	 *            the ID value for the color
-	 * @return the system {@link Color} matching the specific ID
-	 */
-	public static Color getColor(int systemColorID) {
-		Display display = Display.getCurrent();
-		return display.getSystemColor(systemColorID);
-	}
-	/**
-	 * Returns a {@link Color} given its red, green and blue component values.
-	 * 
-	 * @param r
-	 *            the red component of the color
-	 * @param g
-	 *            the green component of the color
-	 * @param b
-	 *            the blue component of the color
-	 * @return the {@link Color} matching the given red, green and blue component values
-	 */
-	public static Color getColor(int r, int g, int b) {
-		return getColor(new RGB(r, g, b));
-	}
-	/**
-	 * Returns a {@link Color} given its RGB value.
-	 * 
-	 * @param rgb
-	 *            the {@link RGB} value of the color
-	 * @return the {@link Color} matching the RGB value
-	 */
-	public static Color getColor(RGB rgb) {
-		Color color = m_colorMap.get(rgb);
-		if (color == null) {
-			Display display = Display.getCurrent();
-			color = new Color(display, rgb);
-			m_colorMap.put(rgb, color);
-		}
-		return color;
-	}
-	/**
-	 * Dispose of all the cached {@link Color}'s.
-	 */
-	public static void disposeColors() {
-		for (Color color : m_colorMap.values()) {
-			color.dispose();
-		}
-		m_colorMap.clear();
-	}
-	////////////////////////////////////////////////////////////////////////////
-	//
-	// Image
-	//
-	////////////////////////////////////////////////////////////////////////////
-	/**
-	 * Maps image paths to images.
-	 */
-	private static Map<String, Image> m_imageMap = new HashMap<String, Image>();
-	/**
-	 * Returns an {@link Image} encoded by the specified {@link InputStream}.
-	 * 
-	 * @param stream
-	 *            the {@link InputStream} encoding the image data
-	 * @return the {@link Image} encoded by the specified input stream
-	 */
-	protected static Image getImage(InputStream stream) throws IOException {
-		try {
-			Display display = Display.getCurrent();
-			ImageData data = new ImageData(stream);
-			if (data.transparentPixel > 0) {
-				return new Image(display, data, data.getTransparencyMask());
-			}
-			return new Image(display, data);
-		} finally {
-			stream.close();
-		}
-	}
-	/**
-	 * Returns an {@link Image} stored in the file at the specified path.
-	 * 
-	 * @param path
-	 *            the path to the image file
-	 * @return the {@link Image} stored in the file at the specified path
-	 */
-	public static Image getImage(String path) {
-		Image image = m_imageMap.get(path);
-		if (image == null) {
-			try {
-				image = getImage(new FileInputStream(path));
-				m_imageMap.put(path, image);
-			} catch (Exception e) {
-				image = getMissingImage();
-				m_imageMap.put(path, image);
-			}
-		}
-		return image;
-	}
-	/**
-	 * Returns an {@link Image} stored in the file at the specified path relative to the specified class.
-	 * 
-	 * @param clazz
-	 *            the {@link Class} relative to which to find the image
-	 * @param path
-	 *            the path to the image file, if starts with <code>'/'</code>
-	 * @return the {@link Image} stored in the file at the specified path
-	 */
-	public static Image getImage(Class<?> clazz, String path) {
-		String key = clazz.getName() + '|' + path;
-		Image image = m_imageMap.get(key);
-		if (image == null) {
-			try {
-				image = getImage(clazz.getResourceAsStream(path));
-				m_imageMap.put(key, image);
-			} catch (Exception e) {
-				image = getMissingImage();
-				m_imageMap.put(key, image);
-			}
-		}
-		return image;
-	}
-	private static final int MISSING_IMAGE_SIZE = 10;
-	/**
-	 * @return the small {@link Image} that can be used as placeholder for missing image.
-	 */
-	private static Image getMissingImage() {
-		Image image = new Image(Display.getCurrent(), MISSING_IMAGE_SIZE, MISSING_IMAGE_SIZE);
-		//
-		GC gc = new GC(image);
-		gc.setBackground(getColor(SWT.COLOR_RED));
-		gc.fillRectangle(0, 0, MISSING_IMAGE_SIZE, MISSING_IMAGE_SIZE);
-		gc.dispose();
-		//
-		return image;
-	}
 	/**
 	 * Style constant for placing decorator image in top left corner of base image.
 	 */
@@ -202,14 +53,181 @@ public class SWTResourceManager {
 	 * Internal value.
 	 */
 	protected static final int LAST_CORNER_KEY = 5;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Image
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private static final int MISSING_IMAGE_SIZE = 10;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Color
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private static Map<RGB, Color> m_colorMap = new HashMap<RGB, Color>();
+	/**
+	 * Maps image paths to images.
+	 */
+	private static Map<String, Image> m_imageMap = new HashMap<String, Image>();
 	/**
 	 * Maps images to decorated images.
 	 */
 	@SuppressWarnings("unchecked")
 	private static Map<Image, Map<Image, Image>>[] m_decoratedImageMap = new Map[LAST_CORNER_KEY];
 	/**
+	 * Maps font names to fonts.
+	 */
+	private static Map<String, Font> m_fontMap = new HashMap<String, Font>();
+	/**
+	 * Maps fonts to their bold versions.
+	 */
+	private static Map<Font, Font> m_fontToBoldFontMap = new HashMap<Font, Font>();
+	/**
+	 * Maps IDs to cursors.
+	 */
+	private static Map<Integer, Cursor> m_idToCursorMap = new HashMap<Integer, Cursor>();
+
+	/**
+	 * Returns the system {@link Color} matching the specific ID.
+	 *
+	 * @param systemColorID
+	 *            the ID value for the color
+	 * @return the system {@link Color} matching the specific ID
+	 */
+	public static Color getColor(int systemColorID) {
+		Display display = Display.getCurrent();
+		return display.getSystemColor(systemColorID);
+	}
+
+	/**
+	 * Returns a {@link Color} given its red, green and blue component values.
+	 *
+	 * @param r
+	 *            the red component of the color
+	 * @param g
+	 *            the green component of the color
+	 * @param b
+	 *            the blue component of the color
+	 * @return the {@link Color} matching the given red, green and blue component values
+	 */
+	public static Color getColor(int r, int g, int b) {
+		return getColor(new RGB(r, g, b));
+	}
+
+	/**
+	 * Returns a {@link Color} given its RGB value.
+	 *
+	 * @param rgb
+	 *            the {@link RGB} value of the color
+	 * @return the {@link Color} matching the RGB value
+	 */
+	public static Color getColor(RGB rgb) {
+		Color color = m_colorMap.get(rgb);
+		if (color == null) {
+			Display display = Display.getCurrent();
+			color = new Color(display, rgb);
+			m_colorMap.put(rgb, color);
+		}
+		return color;
+	}
+
+	/**
+	 * Dispose of all the cached {@link Color}'s.
+	 */
+	public static void disposeColors() {
+		for (Color color : m_colorMap.values()) {
+			color.dispose();
+		}
+		m_colorMap.clear();
+	}
+
+	/**
+	 * Returns an {@link Image} encoded by the specified {@link InputStream}.
+	 *
+	 * @param stream
+	 *            the {@link InputStream} encoding the image data
+	 * @return the {@link Image} encoded by the specified input stream
+	 */
+	protected static Image getImage(InputStream stream) throws IOException {
+		try {
+			Display display = Display.getCurrent();
+			ImageData data = new ImageData(stream);
+			if (data.transparentPixel > 0) {
+				return new Image(display, data, data.getTransparencyMask());
+			}
+			return new Image(display, data);
+		} finally {
+			stream.close();
+		}
+	}
+
+	/**
+	 * Returns an {@link Image} stored in the file at the specified path.
+	 *
+	 * @param path
+	 *            the path to the image file
+	 * @return the {@link Image} stored in the file at the specified path
+	 */
+	public static Image getImage(String path) {
+		Image image = m_imageMap.get(path);
+		if (image == null) {
+			try {
+				image = getImage(new FileInputStream(path));
+				m_imageMap.put(path, image);
+			} catch (Exception e) {
+				image = getMissingImage();
+				m_imageMap.put(path, image);
+			}
+		}
+		return image;
+	}
+
+	/**
+	 * Returns an {@link Image} stored in the file at the specified path relative to the specified class.
+	 *
+	 * @param clazz
+	 *            the {@link Class} relative to which to find the image
+	 * @param path
+	 *            the path to the image file, if starts with <code>'/'</code>
+	 * @return the {@link Image} stored in the file at the specified path
+	 */
+	public static Image getImage(Class<?> clazz, String path) {
+		String key = clazz.getName() + '|' + path;
+		Image image = m_imageMap.get(key);
+		if (image == null) {
+			try {
+				image = getImage(clazz.getResourceAsStream(path));
+				m_imageMap.put(key, image);
+			} catch (Exception e) {
+				image = getMissingImage();
+				m_imageMap.put(key, image);
+			}
+		}
+		return image;
+	}
+
+	/**
+	 * @return the small {@link Image} that can be used as placeholder for missing image.
+	 */
+	private static Image getMissingImage() {
+		Image image = new Image(Display.getCurrent(), MISSING_IMAGE_SIZE, MISSING_IMAGE_SIZE);
+		//
+		GC gc = new GC(image);
+		gc.setBackground(getColor(SWT.COLOR_RED));
+		gc.fillRectangle(0, 0, MISSING_IMAGE_SIZE, MISSING_IMAGE_SIZE);
+		gc.dispose();
+		//
+		return image;
+	}
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Font
+	//
+	////////////////////////////////////////////////////////////////////////////
+
+	/**
 	 * Returns an {@link Image} composed of a base image decorated by another image.
-	 * 
+	 *
 	 * @param baseImage
 	 *            the base {@link Image} that should be decorated
 	 * @param decorator
@@ -219,9 +237,10 @@ public class SWTResourceManager {
 	public static Image decorateImage(Image baseImage, Image decorator) {
 		return decorateImage(baseImage, decorator, BOTTOM_RIGHT);
 	}
+
 	/**
 	 * Returns an {@link Image} composed of a base image decorated by another image.
-	 * 
+	 *
 	 * @param baseImage
 	 *            the base {@link Image} that should be decorated
 	 * @param decorator
@@ -269,6 +288,7 @@ public class SWTResourceManager {
 		}
 		return result;
 	}
+
 	/**
 	 * Dispose all of the cached {@link Image}'s.
 	 */
@@ -294,22 +314,10 @@ public class SWTResourceManager {
 			}
 		}
 	}
-	////////////////////////////////////////////////////////////////////////////
-	//
-	// Font
-	//
-	////////////////////////////////////////////////////////////////////////////
-	/**
-	 * Maps font names to fonts.
-	 */
-	private static Map<String, Font> m_fontMap = new HashMap<String, Font>();
-	/**
-	 * Maps fonts to their bold versions.
-	 */
-	private static Map<Font, Font> m_fontToBoldFontMap = new HashMap<Font, Font>();
+
 	/**
 	 * Returns a {@link Font} based on its name, height and style.
-	 * 
+	 *
 	 * @param name
 	 *            the name of the font
 	 * @param height
@@ -321,10 +329,11 @@ public class SWTResourceManager {
 	public static Font getFont(String name, int height, int style) {
 		return getFont(name, height, style, false, false);
 	}
+
 	/**
 	 * Returns a {@link Font} based on its name, height and style. Windows-specific strikeout and underline
 	 * flags are also supported.
-	 * 
+	 *
 	 * @param name
 	 *            the name of the font
 	 * @param size
@@ -363,9 +372,10 @@ public class SWTResourceManager {
 		}
 		return font;
 	}
+
 	/**
 	 * Returns a bold version of the given {@link Font}.
-	 * 
+	 *
 	 * @param baseFont
 	 *            the {@link Font} for which a bold version is desired
 	 * @return the bold version of the given {@link Font}
@@ -380,6 +390,12 @@ public class SWTResourceManager {
 		}
 		return font;
 	}
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Cursor
+	//
+	////////////////////////////////////////////////////////////////////////////
+
 	/**
 	 * Dispose all of the cached {@link Font}'s.
 	 */
@@ -395,18 +411,10 @@ public class SWTResourceManager {
 		}
 		m_fontToBoldFontMap.clear();
 	}
-	////////////////////////////////////////////////////////////////////////////
-	//
-	// Cursor
-	//
-	////////////////////////////////////////////////////////////////////////////
-	/**
-	 * Maps IDs to cursors.
-	 */
-	private static Map<Integer, Cursor> m_idToCursorMap = new HashMap<Integer, Cursor>();
+
 	/**
 	 * Returns the system cursor matching the specific ID.
-	 * 
+	 *
 	 * @param id
 	 *            int The ID value for the cursor
 	 * @return Cursor The system cursor matching the specific ID
@@ -420,6 +428,7 @@ public class SWTResourceManager {
 		}
 		return cursor;
 	}
+
 	/**
 	 * Dispose all of the cached cursors.
 	 */
@@ -434,6 +443,7 @@ public class SWTResourceManager {
 	// General
 	//
 	////////////////////////////////////////////////////////////////////////////
+
 	/**
 	 * Dispose of cached objects and their underlying OS resources. This should only be called when the cached
 	 * objects are no longer needed (e.g. on application shutdown).

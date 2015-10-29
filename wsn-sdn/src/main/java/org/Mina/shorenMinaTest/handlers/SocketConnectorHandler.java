@@ -4,141 +4,137 @@
  */
 package org.Mina.shorenMinaTest.handlers;
 
-import java.util.Iterator;
-import java.util.concurrent.ConcurrentHashMap;
-
+import org.Mina.shorenMinaTest.MinaUtil;
+import org.Mina.shorenMinaTest.msg.WsnMsg;
+import org.Mina.shorenMinaTest.queues.MsgQueueMgr;
 import org.apache.log4j.Logger;
 import org.apache.mina.core.service.IoHandlerAdapter;
 import org.apache.mina.core.session.IdleStatus;
 import org.apache.mina.core.session.IoSession;
 import org.apache.mina.core.write.WriteRequestQueue;
 
-import org.Mina.shorenMinaTest.MinaUtil;
-import org.Mina.shorenMinaTest.msg.WsnMsg;
-import org.Mina.shorenMinaTest.msg.tcp.MsgNotis;
-import org.Mina.shorenMinaTest.queues.MsgQueueMgr;
+import java.util.Iterator;
+import java.util.concurrent.ConcurrentHashMap;
 
 
 /**
  *
  */
-public class SocketConnectorHandler extends IoHandlerAdapter  {  
-	  
-	protected static  Logger logger  =  Logger.getLogger(SocketConnectorHandler.class );
+public class SocketConnectorHandler extends IoHandlerAdapter {
+
 	public static boolean check = true;
 	public static String TcpExceptionSessionIP = null;
-      
-	    // µ±Á¬ÉÏ·şÎñÆ÷ºó´¥·¢´Ë·½·¨.
-	    public void sessionCreated(IoSession session) {
-	    	MinaUtil.iniSessionReferance(session);
-	    }
-	 
-	    // µ±Á¬½á½øÈëÊ± 
-	    @Override
-	    public void sessionOpened(IoSession session) throws Exception {
+	protected static Logger logger = Logger.getLogger(SocketConnectorHandler.class);
 
-	    }
-	 
-	    // µ±ÊÕµ½ÏûÏ¢Ê±
-	    @Override
-	    public void messageReceived(IoSession session, Object message) throws Exception{
-	    	
-	    	if(message instanceof WsnMsg){
-	    		WsnMsg msg = (WsnMsg)message;
-	    	}else
-	    		System.out.println("TCP receive message:" + message.toString());
-	    	
-	    }
-	 
-	    // µ±ĞÅÏ¢ÒÑ¾­´«ËÍ¸ø·şÎñÆ÷ºó´¥·¢´Ë·½·¨. || Ã¿·¢ËÍÒ»¸öĞÅÏ¢ºóµ÷ÓÃ
-	    @Override
-	    public void messageSent(IoSession session, Object message) {
+	public static String getTcpExceptionSession() {
+		if (TcpExceptionSessionIP != null)
+			return TcpExceptionSessionIP;
+		else
+			return null;
+	}
 
-	         int length = 0;  
-	         WriteRequestQueue rqueue = session.getWriteRequestQueue(); ///Ğ´ÇëÇó¶ÓÁĞ
+	// å½“è¿ä¸ŠæœåŠ¡å™¨åè§¦å‘æ­¤æ–¹æ³•.
+	public void sessionCreated(IoSession session) {
+		MinaUtil.iniSessionReferance(session);
+	}
 
-	         length = rqueue.size()/2;
-	         session.setAttribute("qLength", length); 
-	         if(length > MinaUtil.maxThree)
-	        	 MinaUtil.maxThree = length;
-	         
-	         if(length <= MinaUtil.getSingleminth()){  
-	         	if(!((String)session.getAttribute("state")).equals(MinaUtil.SHealthy)){ 
-	         		MinaUtil.deTCPBlockCount();
+	// å½“è¿ç»“è¿›å…¥æ—¶
+	@Override
+	public void sessionOpened(IoSession session) throws Exception {
 
-	         			String last_state = (String)session.getAttribute("state");
-	         			session.setAttribute("state", MinaUtil.SHealthy);
-	                 	session.setAttribute("last_state", last_state);
-	                 	
-	                 	session.setAttribute("lossCount", 0);
-	         	}         	
-	         	
-	         }else if(length > MinaUtil.getSingleminth() && length < MinaUtil.getSinglemaxth()){
-	        	 String last_state = (String)session.getAttribute("state"); 
-	          	if(((String)session.getAttribute("state")).equals(MinaUtil.SHealthy)){         		
-	          			MinaUtil.inTCPBlockCount();
-	          			}
-	          	session.setAttribute("state", MinaUtil.SSick);
-	          	session.setAttribute("last_state", last_state);     	
-	          //¼ÆËã¶ª°üÂÊ£¬±£´æ          	 
-	            int lossCount = MinaUtil.calPacket_loss_rate(session);
-	            session.setAttribute("lossCount", lossCount);
-	          	
-	         }else if(length >= MinaUtil.getSinglemaxth()){  
-	        	 //ÈôÊÇUDP£¬¸ù¾İÈ«¾Ö×´Ì¬£¬ÅĞ¶ÏÊÇ·ñ¹Ø±ÕÏß³Ì
-	        	 String last_state = (String)session.getAttribute("state");  
-	        	
-	          	if(((String)session.getAttribute("state")).equals(MinaUtil.SHealthy)){         		
-	           			MinaUtil.inTCPBlockCount();	
-	           	}
-	           	session.setAttribute("state", MinaUtil.SSick);
-	           	session.setAttribute("last_state", last_state);
-	         }
-	         
-	        // MsgNotis mn = (MsgNotis) message;
-	         //System.out.println("·¢ËÍµÄÏûÏ¢Îª:   "+mn.doc);
-	       //  System.out.println("MessageSent!");
-	    }
-	 
-	    // ¹Ø±ÕÊ±
-	    @Override
-	    public void sessionClosed(IoSession session) {
-	  		//Ô´Âë
-	  		MinaUtil.deTCPTotalCount();
-	        //´Ó±£´æµÄÍ¨µÀÖĞÉ¾³ı
-	        MsgQueueMgr.getDest_session().remove(session.getAttribute("addr"));
-	        System.out.println("TCPsessionClosed:" + session.toString());
-	        
-	        ConcurrentHashMap<String, IoSession> map = MsgQueueMgr.getDest_session();
-	        Iterator it = map.keySet().iterator();
-	        while(it.hasNext()){
-	        	String key = (String) it.next();
-	        	IoSession se = map.get(key);
-	        }
-	        //¹Ø±ÕÁ¬½Ó
-	        session.getService().dispose();
-	    }
-	 
-	    // µ±Á¬½Ó¿ÕÏĞÊ±´¥·¢´Ë·½·¨.
-	    @Override
-	    public void sessionIdle(IoSession session, IdleStatus status) {
-	    	session.close(true);  //close right now£¬¹Ø±ÕÍ¨µÀ
-	    }
-	       
-	 
-	    // µ±½Ó¿ÚÖĞÆäËû·½·¨Å×³öÒì³£Î´±»²¶»ñÊ±´¥·¢´Ë·½·¨
-	    public void exceptionCaught(IoSession session, Throwable cause) {
-	    	System.out.println("ÆäËû·½·¨Å×³öÒì³£"+session.toString()+cause.toString());
+	}
 
-	        session.close(true);  //close right now£¬¹Ø±ÕÍ¨µÀ
-	        return;
-	    }
-	    
-	    
-	    public static String getTcpExceptionSession(){
-	    	if(TcpExceptionSessionIP != null)
-	    	    return TcpExceptionSessionIP;
-	    	else
-	    		return null;
-	    }
+	// å½“æ”¶åˆ°æ¶ˆæ¯æ—¶
+	@Override
+	public void messageReceived(IoSession session, Object message) throws Exception {
+
+		if (message instanceof WsnMsg) {
+			WsnMsg msg = (WsnMsg) message;
+		} else
+			System.out.println("TCP receive message:" + message.toString());
+
+	}
+
+	// å½“ä¿¡æ¯å·²ç»ä¼ é€ç»™æœåŠ¡å™¨åè§¦å‘æ­¤æ–¹æ³•. || æ¯å‘é€ä¸€ä¸ªä¿¡æ¯åè°ƒç”¨
+	@Override
+	public void messageSent(IoSession session, Object message) {
+
+		int length = 0;
+		WriteRequestQueue rqueue = session.getWriteRequestQueue(); ///å†™è¯·æ±‚é˜Ÿåˆ—
+
+		length = rqueue.size() / 2;
+		session.setAttribute("qLength", length);
+		if (length > MinaUtil.maxThree)
+			MinaUtil.maxThree = length;
+
+		if (length <= MinaUtil.getSingleminth()) {
+			if (!((String) session.getAttribute("state")).equals(MinaUtil.SHealthy)) {
+				MinaUtil.deTCPBlockCount();
+
+				String last_state = (String) session.getAttribute("state");
+				session.setAttribute("state", MinaUtil.SHealthy);
+				session.setAttribute("last_state", last_state);
+
+				session.setAttribute("lossCount", 0);
+			}
+
+		} else if (length > MinaUtil.getSingleminth() && length < MinaUtil.getSinglemaxth()) {
+			String last_state = (String) session.getAttribute("state");
+			if (((String) session.getAttribute("state")).equals(MinaUtil.SHealthy)) {
+				MinaUtil.inTCPBlockCount();
+			}
+			session.setAttribute("state", MinaUtil.SSick);
+			session.setAttribute("last_state", last_state);
+			//è®¡ç®—ä¸¢åŒ…ç‡ï¼Œä¿å­˜
+			int lossCount = MinaUtil.calPacket_loss_rate(session);
+			session.setAttribute("lossCount", lossCount);
+
+		} else if (length >= MinaUtil.getSinglemaxth()) {
+			//è‹¥æ˜¯UDPï¼Œæ ¹æ®å…¨å±€çŠ¶æ€ï¼Œåˆ¤æ–­æ˜¯å¦å…³é—­çº¿ç¨‹
+			String last_state = (String) session.getAttribute("state");
+
+			if (((String) session.getAttribute("state")).equals(MinaUtil.SHealthy)) {
+				MinaUtil.inTCPBlockCount();
+			}
+			session.setAttribute("state", MinaUtil.SSick);
+			session.setAttribute("last_state", last_state);
+		}
+
+		// MsgNotis mn = (MsgNotis) message;
+		//System.out.println("å‘é€çš„æ¶ˆæ¯ä¸º:   "+mn.doc);
+		//  System.out.println("MessageSent!");
+	}
+
+	// å…³é—­æ—¶
+	@Override
+	public void sessionClosed(IoSession session) {
+		//æºç 
+		MinaUtil.deTCPTotalCount();
+		//ä»ä¿å­˜çš„é€šé“ä¸­åˆ é™¤
+		MsgQueueMgr.getDest_session().remove(session.getAttribute("addr"));
+		System.out.println("TCPsessionClosed:" + session.toString());
+
+		ConcurrentHashMap<String, IoSession> map = MsgQueueMgr.getDest_session();
+		Iterator it = map.keySet().iterator();
+		while (it.hasNext()) {
+			String key = (String) it.next();
+			IoSession se = map.get(key);
+		}
+		//å…³é—­è¿æ¥
+		session.getService().dispose();
+	}
+
+	// å½“è¿æ¥ç©ºé—²æ—¶è§¦å‘æ­¤æ–¹æ³•.
+	@Override
+	public void sessionIdle(IoSession session, IdleStatus status) {
+		session.close(true);  //close right nowï¼Œå…³é—­é€šé“
+	}
+
+	// å½“æ¥å£ä¸­å…¶ä»–æ–¹æ³•æŠ›å‡ºå¼‚å¸¸æœªè¢«æ•è·æ—¶è§¦å‘æ­¤æ–¹æ³•
+	public void exceptionCaught(IoSession session, Throwable cause) {
+		System.out.println("å…¶ä»–æ–¹æ³•æŠ›å‡ºå¼‚å¸¸" + session.toString() + cause.toString());
+
+		session.close(true);  //close right nowï¼Œå…³é—­é€šé“
+		return;
+	}
 }

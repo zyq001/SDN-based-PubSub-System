@@ -1,12 +1,16 @@
 package org.Mina.shorenMinaTest.mgr;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.apache.mina.core.session.IoSession;
 import org.Mina.shorenMinaTest.mgr.base.AState;
 import org.Mina.shorenMinaTest.msg.WsnMsg;
 import org.Mina.shorenMinaTest.msg.tcp.MsgNotis;
 import org.Mina.shorenMinaTest.msg.tcp.highPriority;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.apache.mina.core.session.IoSession;
+import org.apache.servicemix.wsn.push.SendNotification;
+import org.apache.servicemix.wsn.router.wsnPolicy.ShorenUtils;
+import org.apache.servicemix.wsn.router.wsnPolicy.msgs.TargetGroup;
+import org.apache.servicemix.wsn.router.wsnPolicy.msgs.WsnPolicyMsg;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -15,14 +19,14 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 
-import org.apache.servicemix.wsn.push.SendNotification;
-import org.apache.servicemix.wsn.router.wsnPolicy.ShorenUtils;
-import org.apache.servicemix.wsn.router.wsnPolicy.msgs.TargetGroup;
-import org.apache.servicemix.wsn.router.wsnPolicy.msgs.WsnPolicyMsg;
-
 public class RepState extends AState {
 	private static Log log = LogFactory.getLog(RepState.class);
 	RtMgr mgr;
+
+	public RepState(RtMgr mgr) {
+		this.mgr = mgr;
+
+	}
 
 	public RtMgr getMgr() {
 
@@ -31,11 +35,6 @@ public class RepState extends AState {
 
 	public void setMgr(RtMgr mgr) {
 		this.mgr = mgr;
-	}
-
-	public RepState(RtMgr mgr) {
-		this.mgr = mgr;
-
 	}
 
 	/*
@@ -82,11 +81,11 @@ public class RepState extends AState {
 				}
 				if (send
 						&& !mns.originatorAddr
-								.equals(org.apache.servicemix.wsn.router.mgr.base.SysInfo.localAddr))// ±¾µØÓÐ¶©ÔÄ²¢ÇÒ²»ÊÇÏûÏ¢²úÉúÕß£¬ÔòÉÏ½»wsn¡£ÔÚÕâ¸öµØ·½²»ÊÊºÏ×ö¶àÏß³Ì£¬È«¾Ö±äÁ¿£¬Ö»¶Á£¬Ò²»á³öÏÖÎÊÌâ
+						.equals(org.apache.servicemix.wsn.router.mgr.base.SysInfo.localAddr))// ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½Ä²ï¿½ï¿½Ò²ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½ï¿½ß£ï¿½ï¿½ï¿½ï¿½Ï½ï¿½wsnï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø·ï¿½ï¿½ï¿½ï¿½Êºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß³Ì£ï¿½È«ï¿½Ö±ï¿½ï¿½ï¿½ï¿½ï¿½Ö»ï¿½ï¿½ï¿½ï¿½Ò²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 				{
 
 					try {
-						SendNotification SN = new SendNotification();// µ÷ÓÃÉÏ²ãwsnµÄ½Ó¿Ú
+						SendNotification SN = new SendNotification();// ï¿½ï¿½ï¿½ï¿½ï¿½Ï²ï¿½wsnï¿½Ä½Ó¿ï¿½
 						SN.send(mns.doc);
 						org.apache.servicemix.wsn.router.mgr.RtMgr.subtract();
 					} catch (Exception e1) {
@@ -144,11 +143,11 @@ public class RepState extends AState {
 				}
 				if (send
 						&& !mns.originatorAddr
-								.equals(org.apache.servicemix.wsn.router.mgr.base.SysInfo.localAddr))// ±¾µØÓÐ¶©ÔÄ²¢ÇÒ²»ÊÇÏûÏ¢²úÉúÕß£¬ÔòÉÏ½»wsn¡£ÔÚÕâ¸öµØ·½²»ÊÊºÏ×ö¶àÏß³Ì£¬È«¾Ö±äÁ¿£¬Ö»¶Á£¬Ò²»á³öÏÖÎÊÌâ
+						.equals(org.apache.servicemix.wsn.router.mgr.base.SysInfo.localAddr))// ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½Ä²ï¿½ï¿½Ò²ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½ï¿½ß£ï¿½ï¿½ï¿½ï¿½Ï½ï¿½wsnï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø·ï¿½ï¿½ï¿½ï¿½Êºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß³Ì£ï¿½È«ï¿½Ö±ï¿½ï¿½ï¿½ï¿½ï¿½Ö»ï¿½ï¿½ï¿½ï¿½Ò²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 				{
 
 					try {
-						SendNotification SN = new SendNotification();// µ÷ÓÃÉÏ²ãwsnµÄ½Ó¿Ú
+						SendNotification SN = new SendNotification();// ï¿½ï¿½ï¿½ï¿½ï¿½Ï²ï¿½wsnï¿½Ä½Ó¿ï¿½
 						SN.send(mns.doc);
 						org.apache.servicemix.wsn.router.mgr.RtMgr.subtract();
 					} catch (Exception e1) {
@@ -205,11 +204,11 @@ public class RepState extends AState {
 				}
 				if (send
 						&& !mns.originatorAddr
-								.equals(org.apache.servicemix.wsn.router.mgr.base.SysInfo.localAddr))// ±¾µØÓÐ¶©ÔÄ²¢ÇÒ²»ÊÇÏûÏ¢²úÉúÕß£¬ÔòÉÏ½»wsn¡£ÔÚÕâ¸öµØ·½²»ÊÊºÏ×ö¶àÏß³Ì£¬È«¾Ö±äÁ¿£¬Ö»¶Á£¬Ò²»á³öÏÖÎÊÌâ
+						.equals(org.apache.servicemix.wsn.router.mgr.base.SysInfo.localAddr))// ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½Ä²ï¿½ï¿½Ò²ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½ï¿½ß£ï¿½ï¿½ï¿½ï¿½Ï½ï¿½wsnï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø·ï¿½ï¿½ï¿½ï¿½Êºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß³Ì£ï¿½È«ï¿½Ö±ï¿½ï¿½ï¿½ï¿½ï¿½Ö»ï¿½ï¿½ï¿½ï¿½Ò²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 				{
 
 					try {
-						SendNotification SN = new SendNotification();// µ÷ÓÃÉÏ²ãwsnµÄ½Ó¿Ú
+						SendNotification SN = new SendNotification();// ï¿½ï¿½ï¿½ï¿½ï¿½Ï²ï¿½wsnï¿½Ä½Ó¿ï¿½
 						SN.send(mns.doc);
 						org.apache.servicemix.wsn.router.mgr.RtMgr.subtract();
 					} catch (Exception e1) {
@@ -272,7 +271,7 @@ public class RepState extends AState {
 			s.send(p);
 
 			System.out
-					.println("×é²¥µØÖ·ÊÇ:"
+					.println("ï¿½é²¥ï¿½ï¿½Ö·ï¿½ï¿½:"
 							+ org.apache.servicemix.wsn.router.mgr.base.SysInfo.multiAddr);
 
 		} catch (IOException e) {

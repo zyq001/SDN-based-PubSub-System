@@ -1,19 +1,14 @@
-
 package org.oasis_open.docs.wsn.br_2;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.*;
 import javax.xml.ws.wsaddressing.W3CEndpointReference;
 
 
 /**
  * <p>Java class for anonymous complex type.
- * 
+ * <p/>
  * <p>The following schema fragment specifies the expected content contained within this class.
- * 
+ * <p/>
  * <pre>
  * &lt;complexType>
  *   &lt;complexContent>
@@ -26,68 +21,58 @@ import javax.xml.ws.wsaddressing.W3CEndpointReference;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- * 
- * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "publisherRegistrationReference",
-    "consumerReference"
+		"publisherRegistrationReference",
+		"consumerReference"
 })
 @XmlRootElement(name = "RegisterPublisherResponse")
 public class RegisterPublisherResponse {
 
-    @XmlElement(name = "PublisherRegistrationReference", required = true)
-    protected W3CEndpointReference publisherRegistrationReference;
-    @XmlElement(name = "ConsumerReference")
-    protected W3CEndpointReference consumerReference;
+	@XmlElement(name = "PublisherRegistrationReference", required = true)
+	protected W3CEndpointReference publisherRegistrationReference;
+	@XmlElement(name = "ConsumerReference")
+	protected W3CEndpointReference consumerReference;
 
-    /**
-     * Gets the value of the publisherRegistrationReference property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link W3CEndpointReference }
-     *     
-     */
-    public W3CEndpointReference getPublisherRegistrationReference() {
-        return publisherRegistrationReference;
-    }
+	/**
+	 * Gets the value of the publisherRegistrationReference property.
+	 *
+	 * @return possible object is
+	 * {@link W3CEndpointReference }
+	 */
+	public W3CEndpointReference getPublisherRegistrationReference() {
+		return publisherRegistrationReference;
+	}
 
-    /**
-     * Sets the value of the publisherRegistrationReference property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link W3CEndpointReference }
-     *     
-     */
-    public void setPublisherRegistrationReference(W3CEndpointReference value) {
-        this.publisherRegistrationReference = value;
-    }
+	/**
+	 * Sets the value of the publisherRegistrationReference property.
+	 *
+	 * @param value allowed object is
+	 *              {@link W3CEndpointReference }
+	 */
+	public void setPublisherRegistrationReference(W3CEndpointReference value) {
+		this.publisherRegistrationReference = value;
+	}
 
-    /**
-     * Gets the value of the consumerReference property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link W3CEndpointReference }
-     *     
-     */
-    public W3CEndpointReference getConsumerReference() {
-        return consumerReference;
-    }
+	/**
+	 * Gets the value of the consumerReference property.
+	 *
+	 * @return possible object is
+	 * {@link W3CEndpointReference }
+	 */
+	public W3CEndpointReference getConsumerReference() {
+		return consumerReference;
+	}
 
-    /**
-     * Sets the value of the consumerReference property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link W3CEndpointReference }
-     *     
-     */
-    public void setConsumerReference(W3CEndpointReference value) {
-        this.consumerReference = value;
-    }
+	/**
+	 * Sets the value of the consumerReference property.
+	 *
+	 * @param value allowed object is
+	 *              {@link W3CEndpointReference }
+	 */
+	public void setConsumerReference(W3CEndpointReference value) {
+		this.consumerReference = value;
+	}
 
 }

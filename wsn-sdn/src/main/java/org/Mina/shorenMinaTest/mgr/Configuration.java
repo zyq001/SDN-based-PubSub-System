@@ -1,29 +1,17 @@
 package org.Mina.shorenMinaTest.mgr;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.net.InetSocketAddress;
+import org.Mina.shorenMinaTest.mgr.base.AConfiguration;
+import org.Mina.shorenMinaTest.msg.tcp.BrokerUnit;
+import org.Mina.shorenMinaTest.msg.tcp.GroupUnit;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Properties;
 import java.util.TreeSet;
 import java.util.concurrent.ConcurrentHashMap;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
-import org.Mina.shorenMinaTest.MinaUtil;
-import org.Mina.shorenMinaTest.mgr.base.AConfiguration;
-import org.Mina.shorenMinaTest.msg.tcp.BrokerUnit;
-import org.Mina.shorenMinaTest.msg.tcp.GroupUnit;
-import org.Mina.shorenMinaTest.msg.tcp.MsgConf;
-import org.Mina.shorenMinaTest.msg.tcp.MsgConf_;
 
 
 public class Configuration extends AConfiguration {
@@ -31,18 +19,18 @@ public class Configuration extends AConfiguration {
 	private RtMgr mgr;
 	private int mgr2;
 	private Properties props;
-	
+
 	public Configuration(RtMgr mgr) {
 		this.mgr = mgr;
 	}
-	
+
 	public Configuration() {
 		// TODO Auto-generated constructor stub
 		this.mgr2 = EnQueueTime;
 	}
-	
-	public boolean configure2(){
-		
+
+	public boolean configure2() {
+
 		File file = new File("configure.txt");//��ȡ���������ļ�
 
 		BufferedReader reader = null;
@@ -77,10 +65,9 @@ public class Configuration extends AConfiguration {
 					groupName = s[1].trim();
 				else if (s[0].equals("local address"))
 					localAddr = s[1].trim();
-				else if (s[0].equals("local port")){
+				else if (s[0].equals("local port")) {
 					tPort = Integer.parseInt(s[1].trim());
-				}
-				else if (s[0].equals("EnqueueTime"))
+				} else if (s[0].equals("EnqueueTime"))
 					EnQueueTime = Integer.parseInt(s[1].trim());
 			}
 
@@ -93,20 +80,20 @@ public class Configuration extends AConfiguration {
 			e.printStackTrace();
 			log.warn(e);
 		}
-		
-		
+
+
 		return true;
-		
+
 	}
-	
+
 
 	public boolean configure() {
 		// TODO Auto-generated method stub
 		String adminAddr1 = "";//存放配置的主从管理员地址
 		String adminAddr2 = "";//存放配置的主从管理员地址
 		props = new Properties();
-    	String propertiesPath = "confige.properties";
-        try {
+		String propertiesPath = "confige.properties";
+		try {
 			props.load(new FileInputStream(propertiesPath));
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -117,10 +104,10 @@ public class Configuration extends AConfiguration {
 //			e.printStackTrace();
 			System.out.println("读取公共配置文件时发生ioEception");
 
-		}  
-        
+		}
+
 //        props.getProperty ("ip");
-        
+
 //		File file = new File("configure.txt");//读取本地配置文件
 //
 //		BufferedReader reader = null;
@@ -138,21 +125,21 @@ public class Configuration extends AConfiguration {
 //				s[0] = s[0].trim();
 
 //				if (s[0].equals("administrator's address1"))
-					adminAddr1 = props.getProperty ("adminAddress1");
+		adminAddr1 = props.getProperty("adminAddress1");
 //				else if (s[0].equals("administrator's address2"))
-					adminAddr2 = props.getProperty ("adminAddress2");
+		adminAddr2 = props.getProperty("adminAddress2");
 //				else if (s[0].equals("administrator's port"))
-					adminPort = Integer.valueOf(props.getProperty ("adminPort"));
+		adminPort = Integer.valueOf(props.getProperty("adminPort"));
 //				else if (s[0].equals("queueSize"))
-					queueSize = Integer.valueOf(props.getProperty ("queueSize"));
+		queueSize = Integer.valueOf(props.getProperty("queueSize"));
 //				else if (s[0].equals("poolCount"))
-					poolCount = Integer.valueOf(props.getProperty ("poolCount"));
+		poolCount = Integer.valueOf(props.getProperty("poolCount"));
 //				else if (s[0].equals("connectCount"))
-					connectCount = Integer.valueOf(props.getProperty ("connectCount"));
+		connectCount = Integer.valueOf(props.getProperty("connectCount"));
 //				else if (s[0].equals("local group name"))
-					groupName = props.getProperty ("localGroupName");
+		groupName = props.getProperty("localGroupName");
 //				else if (s[0].equals("local address"))
-					localAddr = props.getProperty ("localAddress");
+		localAddr = props.getProperty("localAddress");
 //				else if(s[0].equals("local netmask"))
 //					localNetmask = props.getProperty ("localNetmask");
 ////				else if (s[0].equals("local port"))
@@ -161,7 +148,7 @@ public class Configuration extends AConfiguration {
 //					groupController = props.getProperty ("groupController");
 //					
 //					globalController = props.getProperty ("globalController");
-		
+
 //		String adminAddr1 = "";//������õ����ӹ���Ա��ַ
 //		String adminAddr2 = "";//������õ����ӹ���Ա��ַ
 //
@@ -308,7 +295,7 @@ public class Configuration extends AConfiguration {
 		rep.tPort = tPort;
 		uPort = 30002;
 		//�������
-		
+
 		id = 0;
 
 		joinOK = false;

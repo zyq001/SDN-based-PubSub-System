@@ -4,34 +4,33 @@
  */
 package org.apache.servicemix.wsn.router.wsnPolicy;
 
-import java.awt.Component;
+import org.apache.servicemix.wsn.router.wsnPolicy.msgs.TargetMsg;
 
-import javax.swing.JTree;
+import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
+import java.awt.*;
 
-import org.apache.servicemix.wsn.router.wsnPolicy.msgs.TargetMsg;
 /**
  *
  */
-public class ShorenNodeRenderer extends DefaultTreeCellRenderer{
-	
+public class ShorenNodeRenderer extends DefaultTreeCellRenderer {
+
 	private static final long serialVersionUID = 1L;
 
-	public Component getTreeCellRendererComponent(JTree tree, Object value,boolean sel, boolean expanded, boolean leaf, int row,boolean hasFocus) {  
-		  
-		super.getTreeCellRendererComponent(tree, value, sel, expanded, leaf,row, hasFocus);    
-		  
-		DefaultMutableTreeNode node=(DefaultMutableTreeNode)value;
+	public Component getTreeCellRendererComponent(JTree tree, Object value, boolean sel, boolean expanded, boolean leaf, int row, boolean hasFocus) {
 
-		if(!node.isRoot())
-		{
-			TargetMsg msg = (TargetMsg)node.getUserObject();
+		super.getTreeCellRendererComponent(tree, value, sel, expanded, leaf, row, hasFocus);
+
+		DefaultMutableTreeNode node = (DefaultMutableTreeNode) value;
+
+		if (!node.isRoot()) {
+			TargetMsg msg = (TargetMsg) node.getUserObject();
 			setText(msg.getName());
 			setIcon(null);
 		}
-		
-		return this;  
-		  
-		}//end of getTreeCellRendererComponent  
+
+		return this;
+
+	}//end of getTreeCellRendererComponent
 }

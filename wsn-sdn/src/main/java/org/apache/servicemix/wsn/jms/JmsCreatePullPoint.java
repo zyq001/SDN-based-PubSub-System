@@ -16,67 +16,62 @@
  */
 package org.apache.servicemix.wsn.jms;
 
-import javax.jms.Connection;
-import javax.jms.ConnectionFactory;
-import javax.xml.datatype.XMLGregorianCalendar;
-
 import org.apache.servicemix.wsn.AbstractCreatePullPoint;
 import org.apache.servicemix.wsn.AbstractPullPoint;
 import org.oasis_open.docs.wsn.b_2.CreatePullPoint;
-import org.oasis_open.docs.wsn.bw_2.PauseFailedFault;
-import org.oasis_open.docs.wsn.bw_2.ResumeFailedFault;
-import org.oasis_open.docs.wsn.bw_2.SubscribeCreationFailedFault;
-import org.oasis_open.docs.wsn.bw_2.UnacceptableTerminationTimeFault;
+
+import javax.jms.Connection;
+import javax.jms.ConnectionFactory;
 
 public class JmsCreatePullPoint extends AbstractCreatePullPoint {
 
-    private ConnectionFactory connectionFactory;
+	private ConnectionFactory connectionFactory;
 
-    private Connection connection;
+	private Connection connection;
 
-    public JmsCreatePullPoint(String name) {
-        super(name);
-    }
+	public JmsCreatePullPoint(String name) {
+		super(name);
+	}
 
-    public void init() throws Exception {
-        if (connection == null) {
-            connection = connectionFactory.createConnection();
-            connection.start();
-        }
-        super.init();
-    }
+	public void init() throws Exception {
+		if (connection == null) {
+			connection = connectionFactory.createConnection();
+			connection.start();
+		}
+		super.init();
+	}
 
-    public void destroy() throws Exception {
-        if (connection != null) {
-            connection.close();
-        }
-        super.destroy();
-    }
+	public void destroy() throws Exception {
+		if (connection != null) {
+			connection.close();
+		}
+		super.destroy();
+	}
 
-    @Override
-    protected String createPullPointName(CreatePullPoint createPullPointRequest) {
-        // For JMS, avoid using dashes in the pullpoint name (which is also the queue name,
-        // as it will lead to problems with some JMS providers
-        String name = super.createPullPointName(createPullPointRequest);
-        name = name.replace("-", "");
-        return name;
-    }
+	@Override
+	protected String createPullPointName(CreatePullPoint createPullPointRequest) {
+		// For JMS, avoid using dashes in the pullpoint name (which is also the queue name,
+		// as it will lead to problems with some JMS providers
+		String name = super.createPullPointName(createPullPointRequest);
+		name = name.replace("-", "");
+		return name;
+	}
 
-    @Override
-    protected AbstractPullPoint createPullPoint(String name) {
-        JmsPullPoint pullPoint = new JmsPullPoint(name);
-        pullPoint.setManager(getManager());
-        pullPoint.setConnection(connection);
-        return pullPoint;
-    }
+	@Override
+	protected AbstractPullPoint createPullPoint(String name) {
+		JmsPullPoint pullPoint = new JmsPullPoint(name);
+		pullPoint.setManager(getManager());
+		pullPoint.setConnection(connection);
+		return pullPoint;
+	}
 
-    public ConnectionFactory getConnectionFactory() {
-        return connectionFactory;
-    }
+	public ConnectionFactory getConnectionFactory() {
+		return connectionFactory;
+	}
 
-    public void setConnectionFactory(ConnectionFactory connectionFactory) {
-        this.connectionFactory = connectionFactory;
-    }
+	public void setConnectionFactory(ConnectionFactory connectionFactory) {
+		this.connectionFactory = connectionFactory;
+	}
 
 
 }

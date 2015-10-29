@@ -1,43 +1,53 @@
 package org.Mina.shorenMinaTest.mgr;
 
-import java.io.IOException;
-import java.net.InetAddress;
-import java.net.InetSocketAddress;
-import java.net.UnknownHostException;
-
+import org.Mina.shorenMinaTest.MinaUtil;
+import org.Mina.shorenMinaTest.mgr.base.AConfiguration;
+import org.Mina.shorenMinaTest.mgr.base.AState;
+import org.Mina.shorenMinaTest.mgr.base.SysInfo;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.log4j.PropertyConfigurator;
 import org.apache.mina.transport.socket.nio.NioDatagramAcceptor;
 import org.apache.mina.transport.socket.nio.NioSocketAcceptor;
 
-import org.Mina.shorenMinaTest.MinaUtil;
-import org.Mina.shorenMinaTest.mgr.base.AConfiguration;
-import org.Mina.shorenMinaTest.mgr.base.AState;
-import org.Mina.shorenMinaTest.mgr.base.SysInfo;
+import java.io.IOException;
+import java.net.InetAddress;
+import java.net.InetSocketAddress;
+import java.net.UnknownHostException;
 
 
-//Â·ÓÉ¹ÜÀíÄ£¿é
-public class RtMgr extends SysInfo{
-	
+//Â·ï¿½É¹ï¿½ï¿½ï¿½Ä£ï¿½ï¿½
+public class RtMgr extends SysInfo {
+
 	private static Log log = LogFactory.getLog(RtMgr.class);
-	private AConfiguration configuration;//ÅäÖÃÏµÍ³
-
-	private AState regState;//ÆÕÍ¨´úÀí×´Ì¬
-	private AState repState;//´ú±í×´Ì¬
-	private AState state;//µ±Ç°×´Ì¬
-
-	
-
-
-	private Thread tdt;//ÐÄÌøÏß³Ì
-
 	private static RtMgr INSTANCE = null;
-	
 	//mina related
 	private static NioSocketAcceptor socketAcceptor;
 	private static NioDatagramAcceptor datagramAcceptor;
-	
+	private AConfiguration configuration;//ï¿½ï¿½ï¿½ï¿½ÏµÍ³
+	private AState regState;//ï¿½ï¿½Í¨ï¿½ï¿½ï¿½ï¿½×´Ì¬
+	private AState repState;//ï¿½ï¿½ï¿½ï¿½×´Ì¬
+	private AState state;//ï¿½ï¿½Ç°×´Ì¬
+	private Thread tdt;//ï¿½ï¿½ï¿½ï¿½ï¿½ß³ï¿½
+
+
+	private RtMgr() {
+		PropertyConfigurator.configure("log4j.properties");
+
+		configuration = new Configuration(this);
+
+		regState = new RegState(this);
+
+		repState = new RepState(this);
+
+		boolean ManagerOn = configuration.configure();
+
+		System.out.println("configuration.localAddr:" + configuration.localAddr +
+				";  tport=" + tPort + ";  port=" + uPort);
+		//create server
+		socketAcceptor = MinaUtil.createSocketAcceptor(localAddr, 30008);
+		datagramAcceptor = MinaUtil.createDatagramAcceptor(localAddr, uPort);
+	}
 
 	public static NioSocketAcceptor getSocketAcceptor() {
 		return socketAcceptor;
@@ -55,24 +65,12 @@ public class RtMgr extends SysInfo{
 		datagramAcceptor = acceptor;
 	}
 
-	private RtMgr() {
-		PropertyConfigurator.configure("log4j.properties");
-		
-		configuration = new Configuration(this);
+	public static RtMgr getInstance() {
+		if (INSTANCE == null)
+			INSTANCE = new RtMgr();
+		return INSTANCE;
 
-		regState = new RegState(this);
-
-		repState = new RepState(this);
-
-		boolean ManagerOn = configuration.configure();
-		
-		System.out.println("configuration.localAddr:" + configuration.localAddr + 
-				";  tport=" + tPort + ";  port=" + uPort);
-		//create server
-		socketAcceptor = MinaUtil.createSocketAcceptor(localAddr, 30008);
-		datagramAcceptor = MinaUtil.createDatagramAcceptor(localAddr, uPort);
 	}
-	
 
 	public AState getRegState() {
 		return regState;
@@ -83,22 +81,22 @@ public class RtMgr extends SysInfo{
 		return repState;
 	}
 
-	public void setState(AState state) {
-		this.state = state;
-	}
-
 	public AState getState() {
 		return state;
 	}
 
-	public void updateUdpSkt() {		
+	public void setState(AState state) {
+		this.state = state;
+	}
+
+	public void updateUdpSkt() {
 		try {
 			datagramAcceptor.bind(new InetSocketAddress(InetAddress.getByName(localAddr), tPort));
 		} catch (UnknownHostException e) {
-			
+
 			e.printStackTrace();
 		} catch (IOException e) {
-			
+
 			e.printStackTrace();
 		}
 	}
@@ -107,10 +105,10 @@ public class RtMgr extends SysInfo{
 		try {
 			socketAcceptor.bind(new InetSocketAddress(InetAddress.getByName(localAddr), tPort));
 		} catch (UnknownHostException e) {
-			
+
 			e.printStackTrace();
 		} catch (IOException e) {
-			
+
 			e.printStackTrace();
 		}
 	}
@@ -121,16 +119,8 @@ public class RtMgr extends SysInfo{
 		datagramAcceptor.dispose();
 	}
 
-
-	public static RtMgr getInstance() {
-		if (INSTANCE == null)
-			INSTANCE = new RtMgr();
-		return INSTANCE;
-
-	}
-
 	public void add() {
 		// TODO Auto-generated method stub
-		
+
 	}
 }

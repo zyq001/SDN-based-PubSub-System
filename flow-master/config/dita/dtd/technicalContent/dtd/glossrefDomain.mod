@@ -1,56 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- ============================================================= -->
-<!--                    HEADER                                     -->
-<!-- ============================================================= -->
-<!--  MODULE:    DITA Glossary Reference Domain                    -->
-<!--  VERSION:   1.2                                               -->
-<!--  DATE:      November 2009                                     -->
-<!--                                                               -->
-<!-- ============================================================= -->
+        <!-- ============================================================= -->
+        <!--                    HEADER                                     -->
+        <!-- ============================================================= -->
+        <!--  MODULE:    DITA Glossary Reference Domain                    -->
+        <!--  VERSION:   1.2                                               -->
+        <!--  DATE:      November 2009                                     -->
+        <!--                                                               -->
+        <!-- ============================================================= -->
 
-<!-- ============================================================= -->
-<!--                    PUBLIC DOCUMENT TYPE DEFINITION            -->
-<!--                    TYPICAL INVOCATION                         -->
-<!--                                                               -->
-<!--  Refer to this file by the following public identifier or an 
-      appropriate system identifier 
-PUBLIC "-//OASIS//ELEMENTS DITA Glossary Reference Domain//EN"
-      Delivered as file "glossrefDomain.mod"                       -->
+        <!-- ============================================================= -->
+        <!--                    PUBLIC DOCUMENT TYPE DEFINITION            -->
+        <!--                    TYPICAL INVOCATION                         -->
+        <!--                                                               -->
+        <!--  Refer to this file by the following public identifier or an
+              appropriate system identifier
+        PUBLIC "-//OASIS//ELEMENTS DITA Glossary Reference Domain//EN"
+              Delivered as file "glossrefDomain.mod"                       -->
 
-<!-- ============================================================= -->
-<!-- SYSTEM:     Darwin Information Typing Architecture (DITA)     -->
-<!--                                                               -->
-<!-- PURPOSE:    Define elements and specialization attributes     -->
-<!--             for Glossary Reference Domain                     -->
-<!--                                                               -->
-<!-- ORIGINAL CREATION DATE:                                       -->
-<!--             June 2008                                         -->
-<!--                                                               -->
-<!--             (C) Copyright OASIS Open 2008, 2009.              -->
-<!--             All Rights Reserved.                              -->
-<!--                                                               -->
-<!--  UPDATES:                                                     -->
-<!-- ============================================================= -->
-
-
-<!-- ============================================================= -->
-<!--                    ELEMENT NAME ENTITIES                      -->
-<!-- ============================================================= -->
-
-<!ENTITY % glossref     "glossref"                                   >
+        <!-- ============================================================= -->
+        <!-- SYSTEM:     Darwin Information Typing Architecture (DITA)     -->
+        <!--                                                               -->
+        <!-- PURPOSE:    Define elements and specialization attributes     -->
+        <!--             for Glossary Reference Domain                     -->
+        <!--                                                               -->
+        <!-- ORIGINAL CREATION DATE:                                       -->
+        <!--             June 2008                                         -->
+        <!--                                                               -->
+        <!--             (C) Copyright OASIS Open 2008, 2009.              -->
+        <!--             All Rights Reserved.                              -->
+        <!--                                                               -->
+        <!--  UPDATES:                                                     -->
+        <!-- ============================================================= -->
 
 
-<!-- ============================================================= -->
-<!--                    ELEMENT DECLARATIONS                       -->
-<!-- ============================================================= -->
+        <!-- ============================================================= -->
+        <!--                    ELEMENT NAME ENTITIES                      -->
+        <!-- ============================================================= -->
+
+        <!ENTITY % glossref     "glossref"                                   >
 
 
-<!--                    LONG NAME: Glossary Reference              -->
-<!ENTITY % glossref.content
-                       "(%topicmeta;)?"
->
-<!ENTITY % glossref.attributes
-             "navtitle 
+        <!-- ============================================================= -->
+        <!--                    ELEMENT DECLARATIONS                       -->
+        <!-- ============================================================= -->
+
+
+        <!--                    LONG NAME: Glossary Reference              -->
+        <!ENTITY % glossref.content
+                "(%topicmeta;)?"
+                >
+        <!ENTITY % glossref.attributes
+                "navtitle
                         CDATA 
                                   #IMPLIED
               href 
@@ -122,14 +122,14 @@ PUBLIC "-//OASIS//ELEMENTS DITA Glossary Reference Domain//EN"
                         CDATA 
                                   #IMPLIED
               %univ-atts;"
->
-<!ELEMENT glossref    %glossref.content;>
-<!ATTLIST glossref    %glossref.attributes;>
+                >
+        <!ELEMENT glossref    %glossref.content;>
+        <!ATTLIST glossref    %glossref.attributes;>
 
-<!-- ============================================================= -->
-<!--                    SPECIALIZATION ATTRIBUTE DECLARATIONS      -->
-<!-- ============================================================= -->
+        <!-- ============================================================= -->
+        <!--                    SPECIALIZATION ATTRIBUTE DECLARATIONS      -->
+        <!-- ============================================================= -->
 
-<!ATTLIST glossref      %global-atts;  class CDATA "+ map/topicref glossref-d/glossref ">
+        <!ATTLIST glossref      %global-atts;  class CDATA "+ map/topicref glossref-d/glossref ">
 
-<!-- ================== DITA Glossary Reference Domain  ========== -->
+        <!-- ================== DITA Glossary Reference Domain  ========== -->

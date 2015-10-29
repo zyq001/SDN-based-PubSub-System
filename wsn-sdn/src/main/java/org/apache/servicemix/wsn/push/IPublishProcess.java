@@ -5,13 +5,13 @@ import javax.jws.WebService;
 import javax.jws.soap.SOAPBinding;
 
 /**
- * <b>function</b>: WSNµ÷ÓÃ´¦ÀíÍ¨ÖªÏûÏ¢·þÎñµÄ½Ó¿Ú
- * @author ²ñÕ×º½
- * @version 2.0
+ * <b>function</b>: WSNï¿½ï¿½ï¿½Ã´ï¿½ï¿½ï¿½Í¨Öªï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½Ä½Ó¿ï¿½
  *
+ * @author ï¿½ï¿½ï¿½×ºï¿½
+ * @version 2.0
  */
-@WebService(targetNamespace = "http://org.apache.servicemix.wsn.push",name = "IPublishProcess")
+@WebService(targetNamespace = "http://org.apache.servicemix.wsn.push", name = "IPublishProcess")
 @SOAPBinding(parameterStyle = SOAPBinding.ParameterStyle.BARE)
-public interface IPublishProcess{
-	public void publishProcess(@WebParam(partName = "Publish",name = "publishProcess",targetNamespace = "http://org.apache.servicemix.wsn.push")String publish);
+public interface IPublishProcess {
+	public void publishProcess(@WebParam(partName = "Publish", name = "publishProcess", targetNamespace = "http://org.apache.servicemix.wsn.push") String publish);
 }

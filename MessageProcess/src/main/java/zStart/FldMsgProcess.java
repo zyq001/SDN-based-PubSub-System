@@ -1,15 +1,12 @@
 package zStart;
 
-import java.io.IOException;
-import java.util.ArrayList;
+import Configuration.Configure;
+import OvsInitModule.OvsInit;
+import threadFolder.RateAdjust;
+
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
-
-import threadFolder.RateAdjust;
-import Configuration.Configure;
-import InfoCollect.OvsInfo;
-import OvsInitModule.OvsInit;
 
 public class FldMsgProcess {
 
@@ -22,10 +19,10 @@ public class FldMsgProcess {
 
 		RateAdjust process = new RateAdjust();
 		//process.start();
-		
-		ThreadPoolExecutor deliverWorker = new ThreadPoolExecutor(1, 1, 3, TimeUnit.SECONDS,  
-				new ArrayBlockingQueue<Runnable>(1),new ThreadPoolExecutor.CallerRunsPolicy());
-		while(true){
+
+		ThreadPoolExecutor deliverWorker = new ThreadPoolExecutor(1, 1, 3, TimeUnit.SECONDS,
+				new ArrayBlockingQueue<Runnable>(1), new ThreadPoolExecutor.CallerRunsPolicy());
+		while (true) {
 			try {
 				Thread.sleep(Configure.sleepingTime);
 			} catch (InterruptedException e) {
@@ -34,7 +31,7 @@ public class FldMsgProcess {
 			}
 			deliverWorker.execute(process);
 		}
-		
+
 //		System.out.println(oi.getAllBridge());
 //		System.out.println(oi.getAllBridgeInfo());
 //		System.out.println(oi.getBridgeDetailedInfo("br0"));

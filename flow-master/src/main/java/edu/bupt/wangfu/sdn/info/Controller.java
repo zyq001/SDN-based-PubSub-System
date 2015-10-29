@@ -11,65 +11,75 @@ import java.util.concurrent.ConcurrentHashMap;
  * Created by root on 15-10-5.
  */
 public class Controller {
-    public String url;
-
-    //all switches in the group
-    private Map<String, Switch> switchMap = new ConcurrentHashMap<String, Switch>();
+	public String url;
 
 
-    private Switch repSwitch ;
+	//all switches in the group
+	private Map<String, Switch> switchMap = new ConcurrentHashMap<String, Switch>();
 
 
-
-    //switchs connected to other groups, cross-group route calc need
-    private Map<String, Switch> boardSwitch = new ConcurrentHashMap<String, Switch>();
-
-    private List<String> topics = new ArrayList<String>();
+	private Switch repSwitch;
 
 
-    public Controller(String controllerAddr){this.url = controllerAddr;}
+	//switchs connected to other groups, cross-group route calc need
+	private Map<String, Switch> boardSwitch = new ConcurrentHashMap<String, Switch>();
 
-    public Switch getRepSwitch() {
-        return repSwitch;
-    }
-
-    public void setRepSwitch(Switch repSwitch) {
-        this.repSwitch = repSwitch;
-    }
-
-    public boolean isAlive(){
-
-        return true;
-    }
-
-    public List<String> getTopics() {
-        return topics;
-    }
-
-    public void setTopics(List<String> topics) {
-        this.topics = topics;
-    }
-
-    public Map<String, Switch> getHeadSwitch() {
-        return boardSwitch;
-    }
-
-    public void setHeadSwitch(Map<String, Switch> headSwitch) {
-        this.boardSwitch = headSwitch;
-    }
-    public Map<String, Switch> getSwitchMap() {
-        return switchMap;
-    }
-
-    public void setSwitchMap(Map<String, Switch> switchMap) {
-        this.switchMap = switchMap;
-    }
-
-    public void reflashSwitchMap(){
+	private List<String> topics = new ArrayList<String>();
 
 
-        switchMap = GlobleUtil.getRealtimeSwitchs(this);
+	public Controller(String controllerAddr) {
+		this.url = controllerAddr;
+	}
 
-    }
+	public Switch getRepSwitch() {
+		return repSwitch;
+	}
 
+	public void setRepSwitch(Switch repSwitch) {
+		this.repSwitch = repSwitch;
+	}
+
+	public boolean isAlive() {
+
+		return true;
+	}
+
+	public List<String> getTopics() {
+		return topics;
+	}
+
+	public void setTopics(List<String> topics) {
+		this.topics = topics;
+	}
+
+	public Map<String, Switch> getHeadSwitch() {
+		return boardSwitch;
+	}
+
+	public void setHeadSwitch(Map<String, Switch> headSwitch) {
+		this.boardSwitch = headSwitch;
+	}
+
+	public Map<String, Switch> getSwitchMap() {
+		return switchMap;
+	}
+
+	public void setSwitchMap(Map<String, Switch> switchMap) {
+		this.switchMap = switchMap;
+	}
+
+	public void reflashSwitchMap() {
+
+
+		switchMap = GlobleUtil.getRealtimeSwitchs(this);
+
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
 }

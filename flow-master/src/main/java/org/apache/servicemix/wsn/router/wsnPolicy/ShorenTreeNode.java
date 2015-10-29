@@ -4,30 +4,28 @@
  */
 package org.apache.servicemix.wsn.router.wsnPolicy;
 
-import javax.swing.tree.DefaultMutableTreeNode;
-
 import org.apache.servicemix.wsn.router.wsnPolicy.msgs.TargetMsg;
+
+import javax.swing.tree.DefaultMutableTreeNode;
 
 /**
  *
  */
-public class ShorenTreeNode extends DefaultMutableTreeNode{
+public class ShorenTreeNode extends DefaultMutableTreeNode {
 
 	private static final long serialVersionUID = 1L;
 	private TargetMsg msg;
 
-	public ShorenTreeNode(TargetMsg msg, boolean allowsChildren)
-	{
+	public ShorenTreeNode(TargetMsg msg, boolean allowsChildren) {
 		super(msg, allowsChildren);
 		this.msg = msg;
 	}
-	
-	public ShorenTreeNode(TargetMsg msg)
-	{
+
+	public ShorenTreeNode(TargetMsg msg) {
 		this(msg, true);
 	}
-	
-	
+
+
 	public TargetMsg getMsg() {
 		return msg;
 	}

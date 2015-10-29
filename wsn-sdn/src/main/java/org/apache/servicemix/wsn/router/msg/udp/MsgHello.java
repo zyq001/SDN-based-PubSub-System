@@ -3,11 +3,11 @@ package org.apache.servicemix.wsn.router.msg.udp;
 import java.io.Serializable;
 
 public class MsgHello implements Serializable {
-	
-	
+
+
 	private static final long serialVersionUID = 1L;
-	public String indicator;		//·¢ËÍ¼¯ÈºÃû³Æ
-	public long helloInterval;		//·¢ËÍhelloÏûÏ¢µÄÊ±¼ä¼ä¸ô
-	public long deadInterval;		//ÅĞ¶¨½ÚµãÊ§Ğ§µÄÊ±¼ä¼ä¸ô
-	
+	public String indicator;        //å‘é€é›†ç¾¤åç§°
+	public long helloInterval;        //å‘é€helloæ¶ˆæ¯çš„æ—¶é—´é—´éš”
+	public long deadInterval;        //åˆ¤å®šèŠ‚ç‚¹å¤±æ•ˆçš„æ—¶é—´é—´éš”
+
 }

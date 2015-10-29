@@ -5,59 +5,8 @@
  * */
 package org.apache.servicemix.wsn.router.topictree;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.Hashtable;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
-
-import javax.naming.NamingException;
-import javax.swing.JComboBox;
-import javax.swing.JMenuItem;
-import javax.swing.BorderFactory;
-import javax.swing.DropMode;
-import javax.swing.JFrame;
-import javax.swing.JMenuBar;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JPopupMenu;
-import javax.swing.JScrollPane;
-import javax.swing.JTextField;
-import javax.swing.JToolBar;
-import javax.swing.JMenu;
-import javax.swing.JButton;
-import javax.swing.JTree;
-import javax.swing.SwingConstants;
-import javax.swing.ImageIcon;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
-import javax.swing.border.Border;
-import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.DefaultTreeCellRenderer;
-import javax.swing.tree.DefaultTreeModel;
-import javax.swing.tree.MutableTreeNode;
-import javax.swing.tree.TreePath;
-import javax.swing.tree.TreeSelectionModel;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerConfigurationException;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
-
 import edu.bupt.wangfu.ldap.Ldap;
 import edu.bupt.wangfu.ldap.TopicEntry;
-//import jaxe.Jaxe;
-
 import org.apache.servicemix.application.WSNTopicObject;
 import org.apache.servicemix.wsn.router.admin.AdminMgr;
 import org.apache.servicemix.wsn.router.design.Data;
@@ -67,25 +16,44 @@ import org.apache.servicemix.wsn.router.wsnPolicy.ShorenUtils;
 import org.apache.servicemix.wsn.router.wsnPolicy.WsnPolicyInterface;
 import org.w3c.dom.Document;
 
+import javax.naming.NamingException;
+import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.tree.*;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.io.File;
+import java.util.*;
+import java.util.List;
+import java.util.Queue;
+
+//import jaxe.Jaxe;
+
 public class TopicTreeManager {
-	private JPanel TTFrame = null;
-	private JMenuBar TTMenuBar = null;
-	private JToolBar TTToolBar = null;
-	private JTree TTTree = null;
-	private JTree LibTree = null;
 	public static JTree LibTreeForSchema = null;
-	private DefaultMutableTreeNode root = null;
-	private DefaultTreeModel model = null;
-	private JPopupMenu popMenu= null;
+	public static WSNTopicObject topicTree;//???wsn??????????? ?????
 	private static Toolkit kit;
 	private static Dimension screenSize;
+
+	static {
+		kit = Toolkit.getDefaultToolkit();
+		screenSize = kit.getScreenSize();
+
+	}
+
 	public WsnPolicyInterface wpi = null;
 	public Data data = null;
-	private HashMap<String,Integer> topicmap = new HashMap<String,Integer>();
-	private int topic_counter;
-	private JPanel kuAndTree;
 	public Ldap lu = null;
 	public DefaultMutableTreeNode lib_root = new DefaultMutableTreeNode("root");
+	protected File schemaFile;
 	DefaultTreeModel libmodel = new DefaultTreeModel(lib_root);
 	JFrame editingJFrame = new JFrame("???");
 	JFrame addJFrame = new JFrame("????");
@@ -101,22 +69,25 @@ public class TopicTreeManager {
 	ImageIcon leafimage = new ImageIcon("./icon/composite.jpg");
 	ImageIcon strategyImage = new ImageIcon("./icon/strategy.jpg");
 	ImageIcon schemaimage = new ImageIcon("./icon/schema.png");
+	private JPanel TTFrame = null;
+	private JMenuBar TTMenuBar = null;
+	private JToolBar TTToolBar = null;
+	private JTree TTTree = null;
+	private JTree LibTree = null;
+	private DefaultMutableTreeNode root = null;
+	private DefaultTreeModel model = null;
+	private JPopupMenu popMenu = null;
+	private HashMap<String, Integer> topicmap = new HashMap<String, Integer>();
+	private int topic_counter;
+	private JPanel kuAndTree;
 	private int counter = 0;
 	private PSManagerUI ui;
 	private TransformerFactory tFactory;
 	private Transformer transformer;
 	private DOMSource source;
 	private StreamResult result;
-	protected File schemaFile;
-	public static WSNTopicObject topicTree;//???wsn??????????? ?????
 
-	static
-	{
-		kit = Toolkit.getDefaultToolkit();
-		screenSize = kit.getScreenSize();
-
-	}
-	public TopicTreeManager(Data data,PSManagerUI ui){
+	public TopicTreeManager(Data data, PSManagerUI ui) {
 		this.data = data;
 		this.ui = ui;
 		TTTree = new JTree(model);
@@ -125,7 +96,8 @@ public class TopicTreeManager {
 		LibTreeForSchema.setAutoscrolls(true);
 		LibTree.setAutoscrolls(true);
 	}
-	public TopicTreeManager(Data data){
+
+	public TopicTreeManager(Data data) {
 		this.data = data;
 		TTTree = new JTree(model);
 		LibTree = new JTree(libmodel);
@@ -134,15 +106,49 @@ public class TopicTreeManager {
 
 		LibTree.setAutoscrolls(true);
 	}
+
+	public static void main(String[] args) throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException, NamingException {
+		// TODO Auto-generated method stub
+		TopicTreeManager tt = new TopicTreeManager(null);
+//		JFrame frame = tt.getTreeInstance();
+//		frame.setVisible(true);
+//		frame.show();
+
+
+		TopicEntry all = new TopicEntry("all", "1",
+				"ou=all_test,dc=wsn,dc=com", null);
+		DefaultMutableTreeNode newtree = new DefaultMutableTreeNode(all);
+		tt.lu = new Ldap();
+		System.out.println("????2");
+		tt.lu.connectLdap("10.109.253.6", "cn=Manager,dc=wsn,dc=com", "123456");
+		System.out.println("????1");
+		tt.setTTTree(newtree);
+		System.out.println("????");
+		System.out.println(newtree);
+//		try {
+//			Socket s=new Socket();
+//			s.connect(new InetSocketAddress("10.108.166.237",4001),5000);
+//			ObjectOutputStream oos = new ObjectOutputStream(s.getOutputStream());
+//			oos.writeObject(new String("lookup the database!"));//??
+//			s.close();
+//
+//		} catch (UnknownHostException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+	}
+
 	//???????
-	private void frame_init() throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException, NamingException
-	{
+	private void frame_init() throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException, NamingException {
 		TTFrame.setLayout(new BorderLayout());
 		TTFrame.setSize(new Dimension(600, 520));
 		TTFrame.setPreferredSize(new Dimension(600, 520));
 		TTFrame.setOpaque(false);
-		TTFrame.setBounds(screenSize.width/4 , screenSize.height/8,
-				1100 ,630);
+		TTFrame.setBounds(screenSize.width / 4, screenSize.height / 8,
+				1100, 630);
 		//	TTFrame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 //		TTFrame.setResizable(false);
 		//String lookAndFeel = "com.sun.java.swing.plaf.windows.WindowsLookAndFeel";
@@ -161,7 +167,7 @@ public class TopicTreeManager {
 
 		//??LDAP???
 		lu = new Ldap();
-		lu.connectLdap(AdminMgr.ldapAddr,"cn=Manager,dc=wsn,dc=com","123456");
+		lu.connectLdap(AdminMgr.ldapAddr, "cn=Manager,dc=wsn,dc=com", "123456");
 
 		OPFrame_init();//??????????????
 		MenuBar_init();//??????
@@ -172,10 +178,12 @@ public class TopicTreeManager {
 		Tree_init();//????????
 		policy_init();//??????????
 	}
+
 	public void Database_init() throws NamingException {
 		// TODO Auto-generated method stub
 		reload_LibTrees();
 	}
+
 	public void reload_LibTrees() throws NamingException {
 		// TODO Auto-generated method stub
 
@@ -195,38 +203,36 @@ public class TopicTreeManager {
 
 		LibTree.updateUI();
 	}
+
 	private void OPFrame_init() {
 		//??????????
-		editingJFrame.setBounds(screenSize.width/2 , screenSize.height/2,
-				300 ,150);
+		editingJFrame.setBounds(screenSize.width / 2, screenSize.height / 2,
+				300, 150);
 		editingJFrame.setLayout(null);
 		final JTextField editArea = new JTextField();
 		editArea.setBounds(30, 20, 220, 30);
 		editingJFrame.add(editArea);
 		JButton editconfirm = new JButton("??");
-		editconfirm.setBounds(30, 70, 100,30);
+		editconfirm.setBounds(30, 70, 100, 30);
 		editconfirm.addActionListener(new ActionListener() {
-//			@Override
+			//			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				// ??????????????
 				JTree temptree = TTTree;
-				DefaultMutableTreeNode treenode = (DefaultMutableTreeNode)TTTree.getLastSelectedPathComponent();
-				if(treenode==null)
-				{
-					treenode = (DefaultMutableTreeNode)LibTree.getLastSelectedPathComponent();
+				DefaultMutableTreeNode treenode = (DefaultMutableTreeNode) TTTree.getLastSelectedPathComponent();
+				if (treenode == null) {
+					treenode = (DefaultMutableTreeNode) LibTree.getLastSelectedPathComponent();
 					temptree = LibTree;
 				}
 				String newname = editArea.getText().trim();
 
-				if(treenode != null&&!newname.equals(new String("")))
-				{
-					TopicEntry tempentry = (TopicEntry)treenode.getUserObject();
+				if (treenode != null && !newname.equals(new String(""))) {
+					TopicEntry tempentry = (TopicEntry) treenode.getUserObject();
 					//	tempentry.setTopicName(newname);
-					if(topicmap.containsKey(newname))
+					if (topicmap.containsKey(newname))
 						tempentry.setTopicCode(topicmap.get(newname).toString());
-					else
-					{
-						tempentry.setTopicCode(""+(++topic_counter));
+					else {
+						tempentry.setTopicCode("" + (++topic_counter));
 						topicmap.put(newname, topic_counter);
 					}
 
@@ -247,12 +253,12 @@ public class TopicTreeManager {
 					//????treenode???????
 					Queue<DefaultMutableTreeNode> queue = new LinkedList<DefaultMutableTreeNode>();
 					queue.offer(treenode);
-					while(!queue.isEmpty()){
+					while (!queue.isEmpty()) {
 						DefaultMutableTreeNode temptreenode = queue.poll();
 						Enumeration list = temptreenode.children();
-						while (list.hasMoreElements()){
-							DefaultMutableTreeNode treenodeChild = (DefaultMutableTreeNode)list.nextElement();
-							TopicEntry childUO = (TopicEntry)treenodeChild.getUserObject();
+						while (list.hasMoreElements()) {
+							DefaultMutableTreeNode treenodeChild = (DefaultMutableTreeNode) list.nextElement();
+							TopicEntry childUO = (TopicEntry) treenodeChild.getUserObject();
 							childUO.setTopicPath(childUO.getTopicPath().replaceAll(oldname, newname));
 							treenodeChild.setUserObject(childUO);
 							queue.offer(treenodeChild);
@@ -260,13 +266,12 @@ public class TopicTreeManager {
 					}
 
 
-					if(temptree == LibTree){
+					if (temptree == LibTree) {
 						libmodel.reload(lib_root);
 						LibTree.setModel(libmodel);
 						reload_TTTree(treenode);
 						TTTreeToWSNObject();
-					}
-					else{
+					} else {
 						model.reload(root);
 						TTTree.setModel(model);
 						try {
@@ -275,9 +280,9 @@ public class TopicTreeManager {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
-						search_LibTree(treenode,lib_root);
+						search_LibTree(treenode, lib_root);
 					}
-					DefaultTreeModel tempmodel = (DefaultTreeModel)temptree.getModel();
+					DefaultTreeModel tempmodel = (DefaultTreeModel) temptree.getModel();
 					TreePath temp_path = new TreePath(tempmodel.getPathToRoot(treenode));
 					temptree.setSelectionPath(temp_path);
 					//TTTree.setSelectionPath(new TreePath(model.getPathToRoot(treenode)));
@@ -291,7 +296,7 @@ public class TopicTreeManager {
 		JButton editcancel = new JButton("??");
 		editcancel.setBounds(150, 70, 100, 30);
 		editcancel.addActionListener(new ActionListener() {
-//			@Override
+			//			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				editingJFrame.setVisible(false);
@@ -302,30 +307,29 @@ public class TopicTreeManager {
 		editingJFrame.setVisible(false);
 
 		//??????????
-		addJFrame.setBounds(screenSize.width/2 , screenSize.height/2,
-				300 ,150);
+		addJFrame.setBounds(screenSize.width / 2, screenSize.height / 2,
+				300, 150);
 		addJFrame.setLayout(null);
 		final JTextField addArea = new JTextField();
 		addArea.setBounds(30, 20, 220, 30);
 		addJFrame.add(addArea);
 		JButton addconfirm = new JButton("??");
-		addconfirm.setBounds(30, 70, 100,30);
+		addconfirm.setBounds(30, 70, 100, 30);
 		addconfirm.addActionListener(new ActionListener() {
-//			@Override
+			//			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				// ???????????????????
 				JTree temptree = TTTree;
-				DefaultMutableTreeNode temp_node = (DefaultMutableTreeNode)TTTree.getLastSelectedPathComponent();
-				if(temp_node==null)
-				{
+				DefaultMutableTreeNode temp_node = (DefaultMutableTreeNode) TTTree.getLastSelectedPathComponent();
+				if (temp_node == null) {
 					temptree = LibTree;
-					temp_node = (DefaultMutableTreeNode)LibTree.getLastSelectedPathComponent();
+					temp_node = (DefaultMutableTreeNode) LibTree.getLastSelectedPathComponent();
 				}
-				TopicEntry temptopic = (TopicEntry)temp_node.getUserObject();
+				TopicEntry temptopic = (TopicEntry) temp_node.getUserObject();
 				TopicEntry newtopic = new TopicEntry();
 				newtopic.setTopicName(addArea.getText());
-				newtopic.setTopicCode(""+getTopicCode(newtopic.getTopicName()));
-				newtopic.setTopicPath("ou="+newtopic.getTopicName()+","+temptopic.getTopicPath());
+				newtopic.setTopicCode("" + getTopicCode(newtopic.getTopicName()));
+				newtopic.setTopicPath("ou=" + newtopic.getTopicName() + "," + temptopic.getTopicPath());
 				lu.create(newtopic);
 
 				DefaultMutableTreeNode new_node = new DefaultMutableTreeNode();
@@ -333,13 +337,12 @@ public class TopicTreeManager {
 				temp_node.add(new_node);
 
 				//?????????????????
-				if(temptree == LibTree){
+				if (temptree == LibTree) {
 					libmodel.reload(lib_root);
 					LibTree.setModel(libmodel);
 					reload_TTTree(new_node);
 					TTTreeToWSNObject();
-				}
-				else{
+				} else {
 					model.reload(root);
 					TTTree.setModel(model);
 					try {
@@ -348,9 +351,9 @@ public class TopicTreeManager {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-					search_LibTree(temp_node,lib_root);
+					search_LibTree(temp_node, lib_root);
 				}
-				DefaultTreeModel tempmodel = (DefaultTreeModel)temptree.getModel();
+				DefaultTreeModel tempmodel = (DefaultTreeModel) temptree.getModel();
 				TreePath temp_path = new TreePath(tempmodel.getPathToRoot(new_node));
 				temptree.setSelectionPath(temp_path);
 				addJFrame.setVisible(false);
@@ -364,7 +367,7 @@ public class TopicTreeManager {
 		JButton addcancel = new JButton("??");
 		addcancel.setBounds(150, 70, 100, 30);
 		addcancel.addActionListener(new ActionListener() {
-//			@Override
+			//			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				addJFrame.setVisible(false);
@@ -375,20 +378,19 @@ public class TopicTreeManager {
 		addJFrame.setVisible(false);
 
 		//??????????????????????
-		newTreeFrame.setBounds(screenSize.width/2 , screenSize.height/2,
-				300 ,150);
+		newTreeFrame.setBounds(screenSize.width / 2, screenSize.height / 2,
+				300, 150);
 		newTreeFrame.setLayout(null);
 		final JTextField newtreeArea = new JTextField();
 		newtreeArea.setBounds(30, 20, 220, 30);
 		newTreeFrame.add(newtreeArea);
 		JButton newconfirm = new JButton("??");
-		newconfirm.setBounds(30, 70, 100,30);
+		newconfirm.setBounds(30, 70, 100, 30);
 		newconfirm.addActionListener(new ActionListener() {
-//			@Override
+			//			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				// ?????????????????
-				if(!newtreeArea.getText().trim().equals(new String("")))
-				{
+				if (!newtreeArea.getText().trim().equals(new String(""))) {
 					try {
 						new_tree(newtreeArea.getText().trim());
 					} catch (NamingException e) {
@@ -400,13 +402,12 @@ public class TopicTreeManager {
 				}
 
 
-
 			}
 		});
 		JButton newcancel = new JButton("??");
 		newcancel.setBounds(150, 70, 100, 30);
 		newcancel.addActionListener(new ActionListener() {
-//			@Override
+			//			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				newTreeFrame.setVisible(false);
@@ -417,36 +418,40 @@ public class TopicTreeManager {
 		newTreeFrame.setVisible(false);
 	}
 
-	protected void search_LibTree(DefaultMutableTreeNode node,DefaultMutableTreeNode cur_node) {
+	protected void search_LibTree(DefaultMutableTreeNode node, DefaultMutableTreeNode cur_node) {
 		// ????????????
-		TopicEntry tempentry = (TopicEntry)cur_node.getUserObject();
-		TopicEntry targetentry = (TopicEntry)node.getUserObject();
-		if(tempentry.getTopicPath().equals(targetentry.getTopicPath()))
+		TopicEntry tempentry = (TopicEntry) cur_node.getUserObject();
+		TopicEntry targetentry = (TopicEntry) node.getUserObject();
+		if (tempentry.getTopicPath().equals(targetentry.getTopicPath()))
 			LibTree.setSelectionPath(new TreePath(libmodel.getPathToRoot(cur_node)));
-		else
-		{
+		else {
 			Enumeration<DefaultMutableTreeNode> children = cur_node.children();
-			while(children.hasMoreElements()){
+			while (children.hasMoreElements()) {
 				DefaultMutableTreeNode child = children.nextElement();
 				search_LibTree(node, child);
 			}
 		}
 	}
+
 	protected int getTopicCode(String topicName) {
 		// ??????????
 		int index;
-		if(!topicmap.containsKey(topicName))
-		{
-			topicmap.put(topicName,++topic_counter);
+		if (!topicmap.containsKey(topicName)) {
+			topicmap.put(topicName, ++topic_counter);
 			index = topic_counter;
-		}
-		else
+		} else
 			index = topicmap.get(topicName);
 		return index;
 	}
+
+//	 public JTree getLibTree(){
+//		 JTree libTreeCopy = LibTree;
+//		return libTreeCopy;
+//	}
+
 	private void LibTree_init() {
 		// ???????????
-		LibTree.setSize(250,500);
+		LibTree.setSize(250, 500);
 
 		LibTree.setRootVisible(false);
 		LibTree.setEditable(false);
@@ -454,7 +459,7 @@ public class TopicTreeManager {
 		LibTree.setDropMode(DropMode.ON_OR_INSERT);
 		LibTree.getSelectionModel().setSelectionMode(TreeSelectionModel.CONTIGUOUS_TREE_SELECTION);
 		try {
-			LibTree.setTransferHandler(new TreeTransferHandler1(lu,LibTree,TTTree,data));
+			LibTree.setTransferHandler(new TreeTransferHandler1(lu, LibTree, TTTree, data));
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -462,47 +467,47 @@ public class TopicTreeManager {
 
 		LibTree.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent evt) {
-				if(evt.getButton()==1)
-				{
+				if (evt.getButton() == 1) {
 					//??????????????????
 					TreePath path = LibTree.getPathForLocation(evt.getX(), evt.getY());
-					if(path!=null)
-					{
+					if (path != null) {
 						LibTree.setSelectionPath(path);
-						DefaultMutableTreeNode chosen_node = (DefaultMutableTreeNode)LibTree.getLastSelectedPathComponent();
+						DefaultMutableTreeNode chosen_node = (DefaultMutableTreeNode) LibTree.getLastSelectedPathComponent();
 						topicmap.clear();
 						topic_counter = 0;
-						System.out.println("chosen_node"+chosen_node);
-						TopicEntry tempentry = (TopicEntry)chosen_node.getUserObject();
-						if(tempentry!=null&&!tempentry.getTopicCode().equals("null")){
+						System.out.println("chosen_node" + chosen_node);
+						TopicEntry tempentry = (TopicEntry) chosen_node.getUserObject();
+						if (tempentry != null && !tempentry.getTopicCode().equals("null")) {
 							topicmap.put(tempentry.getTopicName(), Integer.parseInt(tempentry.getTopicCode()));
 							root.removeAllChildren();
 							root.setUserObject(tempentry);
 							TTTree.setRootVisible(false);
 							reload_TTTree(root);
 							LibTree.setSelectionPath(path);
-							new Thread(){
+							new Thread() {
 
-								void TTTreeToWSNObject(){
+								void TTTreeToWSNObject() {
 									TopicEntry rootNode = (TopicEntry) lib_root.getUserObject();
 									topicTree = new WSNTopicObject(rootNode, null);
 									Queue<WSNTopicObject> queue = new LinkedList<WSNTopicObject>();
-									queue .offer(topicTree);
-									while(!queue.isEmpty()){
+									queue.offer(topicTree);
+									while (!queue.isEmpty()) {
 										WSNTopicObject to = queue.poll();
 										List<TopicEntry> ls = lu.getSubLevel(to.getTopicentry());
-										if(!ls.isEmpty()){
+										if (!ls.isEmpty()) {
 											List<WSNTopicObject> temp = new ArrayList<WSNTopicObject>();
-											for(TopicEntry t : ls){
+											for (TopicEntry t : ls) {
 												WSNTopicObject wto = new WSNTopicObject(t, to);
 												temp.add(wto);
 												queue.offer(wto);
 											}
 											to.setChildrens(temp);
 										}
-									}}}.start();
-						}else{
-							JOptionPane.showMessageDialog( null, "?????????????????!");
+									}
+								}
+							}.start();
+						} else {
+							JOptionPane.showMessageDialog(null, "?????????????????!");
 
 						}
 					}
@@ -517,7 +522,7 @@ public class TopicTreeManager {
 //		LibTreeForSchema.e
 		LibTreeForSchema.getSelectionModel().setSelectionMode(TreeSelectionModel.CONTIGUOUS_TREE_SELECTION);
 		try {
-			LibTreeForSchema.setTransferHandler(new TreeTransferHandler1(lu,LibTree,TTTree,data));
+			LibTreeForSchema.setTransferHandler(new TreeTransferHandler1(lu, LibTree, TTTree, data));
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -547,8 +552,7 @@ public class TopicTreeManager {
 			}
 
 			public void mousePressed(MouseEvent evt) {
-				if(evt.getButton()==1)
-				{
+				if (evt.getButton() == 1) {
 //					TreePath path = LibTreeForSchema.getPathForLocation(evt.getX(), evt.getY());
 //					if(path!=null)
 //					{
@@ -563,52 +567,54 @@ public class TopicTreeManager {
 //					}else
 //						JOptionPane.showMessageDialog(null, "??????schema?");
 //					}
-				}}});
+				}
+			}
+		});
 
 
 		LibTree.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent evt) {
-				if(evt.getButton()==3)
-				{
+				if (evt.getButton() == 3) {
 					//???????????????????????????????????????????????????
 					TreePath path = LibTree.getPathForLocation(evt.getX(), evt.getY());
-					if(path!=null)
-					{
+					if (path != null) {
 						LibTree.setSelectionPath(path);
-						DefaultMutableTreeNode chosen_node = (DefaultMutableTreeNode)LibTree.getLastSelectedPathComponent();
+						DefaultMutableTreeNode chosen_node = (DefaultMutableTreeNode) LibTree.getLastSelectedPathComponent();
 						topicmap.clear();
 						topic_counter = 0;
-						System.out.println("chosen_node"+chosen_node);
-						TopicEntry tempentry = (TopicEntry)chosen_node.getUserObject();
-						if(tempentry!=null&&!tempentry.getTopicCode().equals("null")){
+						System.out.println("chosen_node" + chosen_node);
+						TopicEntry tempentry = (TopicEntry) chosen_node.getUserObject();
+						if (tempentry != null && !tempentry.getTopicCode().equals("null")) {
 							topicmap.put(tempentry.getTopicName(), Integer.parseInt(tempentry.getTopicCode()));
 							root.removeAllChildren();
 							root.setUserObject(tempentry);
 							TTTree.setRootVisible(false);
 							reload_TTTree(root);
 							LibTree.setSelectionPath(path);
-							new Thread(){
+							new Thread() {
 
-								void TTTreeToWSNObject(){
+								void TTTreeToWSNObject() {
 									TopicEntry rootNode = (TopicEntry) lib_root.getUserObject();
 									topicTree = new WSNTopicObject(rootNode, null);
 									Queue<WSNTopicObject> queue = new LinkedList<WSNTopicObject>();
-									queue .offer(topicTree);
-									while(!queue.isEmpty()){
+									queue.offer(topicTree);
+									while (!queue.isEmpty()) {
 										WSNTopicObject to = queue.poll();
 										List<TopicEntry> ls = lu.getSubLevel(to.getTopicentry());
-										if(!ls.isEmpty()){
+										if (!ls.isEmpty()) {
 											List<WSNTopicObject> temp = new ArrayList<WSNTopicObject>();
-											for(TopicEntry t : ls){
+											for (TopicEntry t : ls) {
 												WSNTopicObject wto = new WSNTopicObject(t, to);
 												temp.add(wto);
 												queue.offer(wto);
 											}
 											to.setChildrens(temp);
 										}
-									}}}.start();
-						}else{
-							JOptionPane.showMessageDialog( null, "?????????????????!");
+									}
+								}
+							}.start();
+						} else {
+							JOptionPane.showMessageDialog(null, "?????????????????!");
 
 						}
 					}
@@ -621,41 +627,36 @@ public class TopicTreeManager {
 		});
 		JScrollPane TreePane = new JScrollPane(LibTree);
 		TreePane.setBounds(30, 30, 300, 500);
-		TreePane.setPreferredSize(new Dimension(150,500));
+		TreePane.setPreferredSize(new Dimension(150, 500));
 		Border title1 = BorderFactory.createTitledBorder("?");
 		TreePane.setBorder(title1);
 		TreePane.setOpaque(false);
 		TTFrame.add(BorderLayout.WEST, TreePane);
 	}
 
-//	 public JTree getLibTree(){
-//		 JTree libTreeCopy = LibTree;
-//		return libTreeCopy;
-//	}
-
 	//?Jtree???WSNTopicIObject
-	public void TTTreeToWSNObject(){
+	public void TTTreeToWSNObject() {
 		TopicEntry rootNode = (TopicEntry) this.lib_root.getUserObject();
 		topicTree = new WSNTopicObject(rootNode, null);
 		Queue<WSNTopicObject> queue = new LinkedList<WSNTopicObject>();
-		queue .offer(topicTree);
-		while(!queue.isEmpty()){
+		queue.offer(topicTree);
+		while (!queue.isEmpty()) {
 			WSNTopicObject to = queue.poll();
 			List<TopicEntry> ls = lu.getSubLevel(to.getTopicentry());
-			if(!ls.isEmpty()){
+			if (!ls.isEmpty()) {
 				List<WSNTopicObject> temp = new ArrayList<WSNTopicObject>();
-				for(TopicEntry t : ls){
+				for (TopicEntry t : ls) {
 					WSNTopicObject wto = new WSNTopicObject(t, to);
 					temp.add(wto);
 					queue.offer(wto);
 					//??schema??????
 
 					Document schemaT = t.getSchema();
-					if(schemaT!=null){
+					if (schemaT != null) {
 						try {
 							source.setNode(schemaT);
-							result = new StreamResult(new File("schema/"+t.getTopicName()+".xsd"));
-//							result.setSystemId(new File("schema/"+t.getTopicName()+".xsd"));;						    
+							result = new StreamResult(new File("schema/" + t.getTopicName() + ".xsd"));
+//							result.setSystemId(new File("schema/"+t.getTopicName()+".xsd"));;
 							transformer.transform(source, result);
 
 						} catch (Exception ex) {
@@ -678,13 +679,14 @@ public class TopicTreeManager {
 		//if(tempentry.getTopicCode()!=null){
 		topics = lu.getSubLevel(tempentry);
 //			List<WSNTopicObject> temp = new ArrayList<WSNTopicObject>();
-		for(TopicEntry topic : topics){
+		for (TopicEntry topic : topics) {
 			DefaultMutableTreeNode newnode = new DefaultMutableTreeNode();
-			int tempTopicCode = 0 ;
-			if(!tempentry.getTopicCode().equals("null")){
-				tempTopicCode = Integer.parseInt(tempentry.getTopicCode());}
+			int tempTopicCode = 0;
+			if (!tempentry.getTopicCode().equals("null")) {
+				tempTopicCode = Integer.parseInt(tempentry.getTopicCode());
+			}
 			topicmap.put(topic.getTopicName(), tempTopicCode);
-			if(tempTopicCode>topic_counter)
+			if (tempTopicCode > topic_counter)
 				topic_counter = tempTopicCode;
 			newnode.setUserObject(topic);
 			setTTTree(newnode);
@@ -695,116 +697,117 @@ public class TopicTreeManager {
 		}
 		//	}
 	}
+
 	private void policy_init() {
 		// ???????
 		JPanel wpiPanel = new JPanel();
-		wpi = new WsnPolicyInterface(wpiPanel,lu);
+		wpi = new WsnPolicyInterface(wpiPanel, lu);
 		wpiPanel.setBounds(690, 30, 400, 520);
 		//TTFrame.add(BorderLayout.EAST, wpiPanel);
 	}
+
 	private void PopMenu_init() {
 		// ???????
 		popMenu = new JPopupMenu();
-		JMenuItem addItem = new JMenuItem("??",addimage);
-		addItem.addActionListener(new ActionListener(){
-//			@Override
-			public void actionPerformed(ActionEvent e){
+		JMenuItem addItem = new JMenuItem("??", addimage);
+		addItem.addActionListener(new ActionListener() {
+			//			@Override
+			public void actionPerformed(ActionEvent e) {
 				add_node_to_tree();
 			}
 		});
-		JMenuItem delItem = new JMenuItem("??",deleteimage);
-		delItem.addActionListener(new ActionListener(){
-//			@Override
-			public void actionPerformed(ActionEvent e){
+		JMenuItem delItem = new JMenuItem("??", deleteimage);
+		delItem.addActionListener(new ActionListener() {
+			//			@Override
+			public void actionPerformed(ActionEvent e) {
 				delete_node_from_tree();
 			}
 		});
-		JMenuItem editItem = new JMenuItem("???",modifyimage);
-		editItem.addActionListener(new ActionListener(){
-//			@Override
-			public void actionPerformed(ActionEvent e){
+		JMenuItem editItem = new JMenuItem("???", modifyimage);
+		editItem.addActionListener(new ActionListener() {
+			//			@Override
+			public void actionPerformed(ActionEvent e) {
 				rename_node();
 			}
 		});
 
-		JMenuItem strategyItem = new JMenuItem("????",strategyImage);
-		strategyItem.addActionListener(new ActionListener(){
-//			@Override
-			public void actionPerformed(ActionEvent e){
-				DefaultMutableTreeNode temp = (DefaultMutableTreeNode)TTTree.getLastSelectedPathComponent();
-				JComboBox[] topicComboBox = {ui.comboBox, ui.comboBox_1,ui.comboBox_2,ui.comboBox_3,ui.comboBox_4,ui.comboBox_5};
-				int rightLevel =0 ;
-				if(temp != null) rightLevel = temp.getLevel();
-				int leftLevel = ((DefaultMutableTreeNode)LibTree.getLastSelectedPathComponent()).getLevel();
-				int currentlevel =leftLevel+rightLevel;
+		JMenuItem strategyItem = new JMenuItem("????", strategyImage);
+		strategyItem.addActionListener(new ActionListener() {
+			//			@Override
+			public void actionPerformed(ActionEvent e) {
+				DefaultMutableTreeNode temp = (DefaultMutableTreeNode) TTTree.getLastSelectedPathComponent();
+				JComboBox[] topicComboBox = {ui.comboBox, ui.comboBox_1, ui.comboBox_2, ui.comboBox_3, ui.comboBox_4, ui.comboBox_5};
+				int rightLevel = 0;
+				if (temp != null) rightLevel = temp.getLevel();
+				int leftLevel = ((DefaultMutableTreeNode) LibTree.getLastSelectedPathComponent()).getLevel();
+				int currentlevel = leftLevel + rightLevel;
 				int[] indexs = new int[currentlevel];
 
-				if(temp == null) {//??????
-					temp = (DefaultMutableTreeNode)LibTree.getLastSelectedPathComponent();
-					for(int j=0;j<leftLevel;j++){
+				if (temp == null) {//??????
+					temp = (DefaultMutableTreeNode) LibTree.getLastSelectedPathComponent();
+					for (int j = 0; j < leftLevel; j++) {
 
-						if(!temp.equals(lib_root)){
+						if (!temp.equals(lib_root)) {
 							int tempIndex = temp.getParent().getIndex(temp);
-							indexs[leftLevel-1-j] = tempIndex+1;
+							indexs[leftLevel - 1 - j] = tempIndex + 1;
 							temp = (DefaultMutableTreeNode) temp.getParent();
 						}
 					}
-				}else{	//????? 
+				} else {    //?????
 
-					for(int i=0; i<rightLevel; i++){//??????????
+					for (int i = 0; i < rightLevel; i++) {//??????????
 
-						if(temp.getParent()!=null){
+						if (temp.getParent() != null) {
 							int tempIndex = temp.getParent().getIndex(temp);
-							indexs[currentlevel-1-i] = tempIndex+1;
+							indexs[currentlevel - 1 - i] = tempIndex + 1;
 							temp = (DefaultMutableTreeNode) temp.getParent();
 
 
 						}
 					}
-					temp = (DefaultMutableTreeNode)LibTree.getLastSelectedPathComponent();
-					for(int j=0;j<leftLevel;j++){	//?????????
+					temp = (DefaultMutableTreeNode) LibTree.getLastSelectedPathComponent();
+					for (int j = 0; j < leftLevel; j++) {    //?????????
 
-						if(!temp.equals(lib_root)){
+						if (!temp.equals(lib_root)) {
 							int tempIndex = temp.getParent().getIndex(temp);
-							indexs[leftLevel-1-j] = tempIndex+1;
+							indexs[leftLevel - 1 - j] = tempIndex + 1;
 							temp = (DefaultMutableTreeNode) temp.getParent();
 						}
 					}
 				}
 
 
-				System.out.println("indexs:"+indexs+indexs[0]);
-				for(int k=0; k<indexs.length;k++){
+				System.out.println("indexs:" + indexs + indexs[0]);
+				for (int k = 0; k < indexs.length; k++) {
 
 					topicComboBox[k].setSelectedIndex(indexs[k]);
 				}
 
 
+				Hashtable<Integer, DefaultMutableTreeNode> selectedTopicPath = new Hashtable<Integer, DefaultMutableTreeNode>();
 
-				Hashtable<Integer,DefaultMutableTreeNode> selectedTopicPath = new Hashtable<Integer,DefaultMutableTreeNode>();
 
-
-				do{
-					selectedTopicPath.put(new Integer(temp.getLevel()),temp);
+				do {
+					selectedTopicPath.put(new Integer(temp.getLevel()), temp);
 					temp = (DefaultMutableTreeNode) temp.getParent();
 					//	System.out.println("temp.getParent().toString()"+temp.getParent());
-				}while(temp!=null&&!((DefaultMutableTreeNode)temp).equals(lib_root));//???????????? ??????
-				if(temp!=null)
-					System.out.println("???????????temp.toString()"+temp.toString());
+				} while (temp != null && !((DefaultMutableTreeNode) temp).equals(lib_root));//???????????? ??????
+				if (temp != null)
+					System.out.println("???????????temp.toString()" + temp.toString());
 				else {
-					System.out.println("selectedTopicPath"+selectedTopicPath);//selectedTopicPath.add(lib_root);
+					System.out.println("selectedTopicPath" + selectedTopicPath);//selectedTopicPath.add(lib_root);
 					//???????????
-					temp = (DefaultMutableTreeNode)LibTree.getLastSelectedPathComponent();
+					temp = (DefaultMutableTreeNode) LibTree.getLastSelectedPathComponent();
 					temp = (DefaultMutableTreeNode) temp.getParent();
-					do{
-						if(!selectedTopicPath.contains(temp)&&!temp.toString().equals("all"))
-							selectedTopicPath.put(new Integer(temp.getLevel()),temp);
+					do {
+						if (!selectedTopicPath.contains(temp) && !temp.toString().equals("all"))
+							selectedTopicPath.put(new Integer(temp.getLevel()), temp);
 						temp = (DefaultMutableTreeNode) temp.getParent();
 						//	System.out.println("temp.getParent().toString()"+temp.getParent());
-					}while(temp!=null&&!((DefaultMutableTreeNode)temp).equals(lib_root));//???????????? ??????
-					if(temp!=null)
-						System.out.println("??????????????temp.toString()"+temp.toString());
-					System.out.println("??????????selectedTopicPath"+selectedTopicPath);
+					} while (temp != null && !((DefaultMutableTreeNode) temp).equals(lib_root));//???????????? ??????
+					if (temp != null)
+						System.out.println("??????????????temp.toString()" + temp.toString());
+					System.out.println("??????????selectedTopicPath" + selectedTopicPath);
 				}
 //					for(int i=0; i<selectedTopicPath.size();i++){
 //						if(selectedTopicPath.get(i).getParent()==null){
@@ -865,12 +868,13 @@ public class TopicTreeManager {
 		popMenu.add(strategyItem);
 //		popMenu.add(schema);
 	}
+
 	private void Tree_init() {
 		// ??????????
 		root = new DefaultMutableTreeNode("root");
 		model = new DefaultTreeModel(root);
 		TTTree.setModel(model);
-		TTTree.setSize(440,500);
+		TTTree.setSize(440, 500);
 		TTTree.setRootVisible(false);
 		TTTree.getSelectionModel().setSelectionMode(TreeSelectionModel.CONTIGUOUS_TREE_SELECTION);
 		//TTTree.putClientProperty("JTree.lineStyle", "Horizontal");
@@ -888,7 +892,7 @@ public class TopicTreeManager {
 		TTTree.setCellRenderer(renderer);
 
 		try {
-			TTTree.setTransferHandler(new TreeTransferHandler1(lu,LibTree,TTTree,data));
+			TTTree.setTransferHandler(new TreeTransferHandler1(lu, LibTree, TTTree, data));
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -896,8 +900,7 @@ public class TopicTreeManager {
 
 		TTTree.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent evt) {
-				if(evt.getButton()==3)
-				{
+				if (evt.getButton() == 3) {
 					TreePath path = TTTree.getPathForLocation(evt.getX(), evt.getY());
 					TTTree.setSelectionPath(path);
 					popMenu.show(TTTree, evt.getX(), evt.getY());
@@ -910,18 +913,19 @@ public class TopicTreeManager {
 		Border title1 = BorderFactory.createTitledBorder("???");
 		TreePane.setBorder(title1);
 		TreePane.setOpaque(false);
-		TTFrame.add(BorderLayout.CENTER,TreePane);
+		TTFrame.add(BorderLayout.CENTER, TreePane);
 	}
+
 	private void MenuBar_init() {
 		// ??????
 		TTMenuBar = new JMenuBar();
 
 		JMenu file = new JMenu("??");
 
-		JMenuItem open_menu = new JMenuItem("??",newtreeimage);
+		JMenuItem open_menu = new JMenuItem("??", newtreeimage);
 		file.add(open_menu);
 
-		JMenuItem save_menu = new JMenuItem("??",saveimage);
+		JMenuItem save_menu = new JMenuItem("??", saveimage);
 		file.add(save_menu);
 
 //		JMenuItem exit_menu = new JMenuItem("??",closeimage);
@@ -935,28 +939,28 @@ public class TopicTreeManager {
 
 		JMenu tree = new JMenu("???");
 
-		JMenuItem add_menu = new JMenuItem("??",addimage);
-		add_menu.addActionListener(new ActionListener(){
-//			@Override
-			public void actionPerformed(ActionEvent e){
+		JMenuItem add_menu = new JMenuItem("??", addimage);
+		add_menu.addActionListener(new ActionListener() {
+			//			@Override
+			public void actionPerformed(ActionEvent e) {
 				add_node_to_tree();
 			}
 		});
 		tree.add(add_menu);
 
-		JMenuItem delete_menu = new JMenuItem("??",deleteimage);
-		delete_menu.addActionListener(new ActionListener(){
-//			@Override
-			public void actionPerformed(ActionEvent e){
+		JMenuItem delete_menu = new JMenuItem("??", deleteimage);
+		delete_menu.addActionListener(new ActionListener() {
+			//			@Override
+			public void actionPerformed(ActionEvent e) {
 				delete_node_from_tree();
 			}
 		});
 		tree.add(delete_menu);
 
-		JMenuItem modify_menu = new JMenuItem("???",modifyimage);
-		modify_menu.addActionListener(new ActionListener(){
-//			@Override
-			public void actionPerformed(ActionEvent e){
+		JMenuItem modify_menu = new JMenuItem("???", modifyimage);
+		modify_menu.addActionListener(new ActionListener() {
+			//			@Override
+			public void actionPerformed(ActionEvent e) {
 				rename_node();
 			}
 		});
@@ -967,44 +971,42 @@ public class TopicTreeManager {
 		//	TTFrame.add(TTMenuBar);
 		//TTFrame.add(TTMenuBar,BorderLayout.NORTH);
 	}
+
 	protected void rename_node() {
 		// TODO Auto-generated method stub
-		if(TTTree.getSelectionPath()!=null|LibTree.getSelectionPath()!=null)
-		{
+		if (TTTree.getSelectionPath() != null | LibTree.getSelectionPath() != null) {
 			//TTTree.startEditingAtPath(TTTree.getSelectionPath());
 			editingJFrame.setVisible(true);
 		}
 		ui.reflashJtreeRoot();
 	}
+
 	protected void delete_node_from_tree() {
 		// ??????
 		JTree temptree = TTTree;
-		DefaultMutableTreeNode temp_node = (DefaultMutableTreeNode)TTTree.getLastSelectedPathComponent();
-		if(temp_node == null)
-		{
-			temp_node = (DefaultMutableTreeNode)LibTree.getLastSelectedPathComponent();
+		DefaultMutableTreeNode temp_node = (DefaultMutableTreeNode) TTTree.getLastSelectedPathComponent();
+		if (temp_node == null) {
+			temp_node = (DefaultMutableTreeNode) LibTree.getLastSelectedPathComponent();
 			temptree = LibTree;
 		}
-		if(temp_node == null)
+		if (temp_node == null)
 			return;
-		DefaultMutableTreeNode parent_node = (DefaultMutableTreeNode)temp_node.getParent();
-		TopicEntry tempEntry = (TopicEntry)temp_node.getUserObject();
+		DefaultMutableTreeNode parent_node = (DefaultMutableTreeNode) temp_node.getParent();
+		TopicEntry tempEntry = (TopicEntry) temp_node.getUserObject();
 		lu.deleteWithAllChildrens(tempEntry);
 		temp_node.removeFromParent();
-		if(temptree == LibTree){
+		if (temptree == LibTree) {
 			libmodel.reload(lib_root);
 			LibTree.setModel(libmodel);
-			if(parent_node != lib_root)
+			if (parent_node != lib_root)
 				reload_TTTree(parent_node);
-			else
-			{
+			else {
 				root.removeAllChildren();
 				model.reload();
 				TTTree.setModel(model);
 				TTTree.updateUI();
 			}
-		}
-		else{
+		} else {
 			model.reload(root);
 			TTTree.setModel(model);
 			try {
@@ -1013,12 +1015,11 @@ public class TopicTreeManager {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			search_LibTree(parent_node,lib_root);
+			search_LibTree(parent_node, lib_root);
 		}
 
-		if(parent_node!=null)
-		{
-			DefaultTreeModel tempmodel = (DefaultTreeModel)temptree.getModel();
+		if (parent_node != null) {
+			DefaultTreeModel tempmodel = (DefaultTreeModel) temptree.getModel();
 			temptree.setSelectionPath(new TreePath(tempmodel.getPathToRoot(parent_node)));
 		}
 		UpdateTree ut = new UpdateTree(System.currentTimeMillis());
@@ -1029,11 +1030,9 @@ public class TopicTreeManager {
 		ui.reflashJtreeRoot();
 	}
 
-
-
 	private void reload_TTTree(DefaultMutableTreeNode rootnode) {
 		// ???????
-		TopicEntry rootentry = (TopicEntry)rootnode.getUserObject();
+		TopicEntry rootentry = (TopicEntry) rootnode.getUserObject();
 
 		root.setUserObject(rootentry);
 
@@ -1045,12 +1044,14 @@ public class TopicTreeManager {
 		TTTree.setModel(model);
 		TTTree.updateUI();
 	}
+
 	protected void add_node_to_tree() {
 		// TODO Auto-generated method stub
 		addJFrame.setVisible(true);
 		//TTTree.setSelectionPath(null);
 		//TTTree.updateUI();
 	}
+
 	private void ToolBar_init() {
 		// ??????
 		TTToolBar = new JToolBar(SwingConstants.HORIZONTAL);
@@ -1058,9 +1059,9 @@ public class TopicTreeManager {
 
 		JButton open_button = new JButton(newtreeimage);
 		open_button.setToolTipText("?????");
-		open_button.addActionListener(new ActionListener(){
-//			@Override
-			public void actionPerformed(ActionEvent e){
+		open_button.addActionListener(new ActionListener() {
+			//			@Override
+			public void actionPerformed(ActionEvent e) {
 				newTreeFrame.setVisible(true);
 			}
 		});
@@ -1068,14 +1069,14 @@ public class TopicTreeManager {
 
 		JButton save_button = new JButton(saveimage);
 		save_button.setToolTipText("??");
-		save_button.addActionListener(new ActionListener(){
-//			@Override
-			public void actionPerformed(ActionEvent e){
+		save_button.addActionListener(new ActionListener() {
+			//			@Override
+			public void actionPerformed(ActionEvent e) {
 				topic_counter = 0;
 				Enumeration<DefaultMutableTreeNode> children = root.children();
-				while(children.hasMoreElements()){
+				while (children.hasMoreElements()) {
 					DefaultMutableTreeNode child = children.nextElement();
-					save_tree(child,"");
+					save_tree(child, "");
 				}
 			}
 		});
@@ -1083,9 +1084,9 @@ public class TopicTreeManager {
 
 		JButton add_button = new JButton(addimage);
 		add_button.setToolTipText("????");
-		add_button.addActionListener(new ActionListener(){
-//			@Override
-			public void actionPerformed(ActionEvent e){
+		add_button.addActionListener(new ActionListener() {
+			//			@Override
+			public void actionPerformed(ActionEvent e) {
 				add_node_to_tree();
 			}
 		});
@@ -1093,9 +1094,9 @@ public class TopicTreeManager {
 
 		JButton delete_button = new JButton(deleteimage);
 		delete_button.setToolTipText("????");
-		delete_button.addActionListener(new ActionListener(){
-//			@Override
-			public void actionPerformed(ActionEvent e){
+		delete_button.addActionListener(new ActionListener() {
+			//			@Override
+			public void actionPerformed(ActionEvent e) {
 				delete_node_from_tree();
 			}
 		});
@@ -1103,9 +1104,9 @@ public class TopicTreeManager {
 
 		JButton modify_button = new JButton(modifyimage);
 		modify_button.setToolTipText("???");
-		modify_button.addActionListener(new ActionListener(){
-//			@Override
-			public void actionPerformed(ActionEvent e){
+		modify_button.addActionListener(new ActionListener() {
+			//			@Override
+			public void actionPerformed(ActionEvent e) {
 				rename_node();
 			}
 		});
@@ -1113,14 +1114,14 @@ public class TopicTreeManager {
 
 		JButton close_button = new JButton(reflashimage);
 		close_button.setToolTipText("??");
-		close_button.addActionListener(new ActionListener(){
-//			@Override
-			public void actionPerformed(ActionEvent e){
+		close_button.addActionListener(new ActionListener() {
+			//			@Override
+			public void actionPerformed(ActionEvent e) {
 //				TTFrame.setVisible(false);
 				//?ldap?????????
 				try {
 					PSManagerUI.topicTreeManager.lu = new Ldap();
-					PSManagerUI.topicTreeManager.lu.connectLdap(AdminMgr.ldapAddr,"cn=Manager,dc=wsn,dc=com","123456");
+					PSManagerUI.topicTreeManager.lu.connectLdap(AdminMgr.ldapAddr, "cn=Manager,dc=wsn,dc=com", "123456");
 					PSManagerUI.topicTreeManager.reload_LibTrees();
 					PSManagerUI.topicTreeM.invalidate();
 				} catch (NamingException e1) {
@@ -1132,14 +1133,15 @@ public class TopicTreeManager {
 		TTToolBar.add(close_button);
 		TTFrame.add(BorderLayout.NORTH, TTToolBar);
 	}
+
 	protected void new_tree(String newtree_name) throws NamingException {
 		// ????
 
-		TopicEntry libentry = (TopicEntry)lib_root.getUserObject();
+		TopicEntry libentry = (TopicEntry) lib_root.getUserObject();
 		TopicEntry treeentry = new TopicEntry();
 		treeentry.setTopicName(newtree_name);
-		treeentry.setTopicPath("ou="+newtree_name+","+libentry.getTopicPath());
-		treeentry.setTopicCode(""+getTopicCode(newtree_name));
+		treeentry.setTopicPath("ou=" + newtree_name + "," + libentry.getTopicPath());
+		treeentry.setTopicCode("" + getTopicCode(newtree_name));
 		DefaultMutableTreeNode newtree = new DefaultMutableTreeNode(treeentry);
 		DefaultMutableTreeNode newroot = new DefaultMutableTreeNode(treeentry);
 
@@ -1159,49 +1161,17 @@ public class TopicTreeManager {
 		LibTree.makeVisible(visiblePath);
 		ui.reflashJtreeRoot();
 	}
-	protected void save_tree(DefaultMutableTreeNode current_node,String current_code) {
+
+	protected void save_tree(DefaultMutableTreeNode current_node, String current_code) {
 		// TODO Auto-generated method stub
 	}
+
 	public JPanel getTreeInstance() throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException, NamingException {
 		// ?????????
-		if( TTFrame == null )
-		{
+		if (TTFrame == null) {
 			TTFrame = new JPanel();
 			frame_init();
 		}
 		return TTFrame;
-	}
-	public static void main(String[] args) throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException, NamingException {
-		// TODO Auto-generated method stub
-		TopicTreeManager tt = new TopicTreeManager(null);
-//		JFrame frame = tt.getTreeInstance();
-//		frame.setVisible(true);
-//		frame.show();
-
-
-		TopicEntry all = new TopicEntry("all", "1",
-				"ou=all_test,dc=wsn,dc=com", null);
-		DefaultMutableTreeNode newtree = new DefaultMutableTreeNode(all);
-		tt.lu = new Ldap();
-		System.out.println("????2");
-		tt.lu.connectLdap("10.109.253.6","cn=Manager,dc=wsn,dc=com","123456");
-		System.out.println("????1");
-		tt.setTTTree(newtree);
-		System.out.println("????");
-		System.out.println(newtree);
-//		try {
-//			Socket s=new Socket();
-//			s.connect(new InetSocketAddress("10.108.166.237",4001),5000);
-//			ObjectOutputStream oos = new ObjectOutputStream(s.getOutputStream());	
-//			oos.writeObject(new String("lookup the database!"));//??
-//			s.close();
-//			
-//		} catch (UnknownHostException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
 	}
 }

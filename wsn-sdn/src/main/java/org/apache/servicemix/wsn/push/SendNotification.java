@@ -1,10 +1,5 @@
 package org.apache.servicemix.wsn.push;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.http.client.methods.HttpPost;
@@ -12,143 +7,145 @@ import org.apache.servicemix.application.WSNTopicObject;
 import org.apache.servicemix.application.WsnProcessImpl;
 import org.apache.servicemix.wsn.jms.JmsSubscription;
 
-public class SendNotification implements RouterSend{
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+public class SendNotification implements RouterSend {
 	public static List<ListItem> localtable;
 	private static Log log = LogFactory.getLog(SendNotification.class);
-	
-	private boolean successfulFlag = true;
-	//ÓÃÓÚÔÝÊ±´æ´¢ÕýÔÚ×é°üµÄNotificationBuilder¶ÔÏó
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½æ´¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½NotificationBuilderï¿½ï¿½ï¿½ï¿½
 	private static Map<String, NotificationBuilder> map = new HashMap<String, NotificationBuilder>();
-	
-	public void setSuccessfulFlag(boolean _successfulFlag){
-    	successfulFlag = _successfulFlag;
-    	log.error("#####SendNotification: set the successfulFlag " + _successfulFlag);
-    }
-    public boolean getSuccessfulFlag(){
-    	return successfulFlag;
-    }
+	private boolean successfulFlag = true;
 
-    
-    /*
-     * ¸üÐÂÖ÷ÌâÊ÷
-     */
-    synchronized public void update(String message) throws Exception{
-    	System.out.println("update--------------------"+message);
-    	 try {
- 			WsnProcessImpl.readTopicTree("ou=all_test,dc=wsn,dc=com");
- 			WsnProcessImpl.printTopicTree();
- 		} catch (Exception e) {
- 			// TODO Auto-generated catch block
- 			e.printStackTrace();
- 		}
-    }
-    
+	public boolean getSuccessfulFlag() {
+		return successfulFlag;
+	}
+
+	public void setSuccessfulFlag(boolean _successfulFlag) {
+		successfulFlag = _successfulFlag;
+		log.error("#####SendNotification: set the successfulFlag " + _successfulFlag);
+	}
+
+	/*
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	 */
+	synchronized public void update(String message) throws Exception {
+		System.out.println("update--------------------" + message);
+		try {
+			WsnProcessImpl.readTopicTree("ou=all_test,dc=wsn,dc=com");
+			WsnProcessImpl.printTopicTree();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
 	/*
 	 * (non-Javadoc)new added by wp
 	 * @see org.apache.servicemix.wsn.push.RouterSend#send(java.lang.String)
-	 * Ô­À´£¬Â·ÓÉÄ£¿éÀ´µÄÏûÏ¢»áÄ£ÄâÒ»¸ö±¾µØÏûÏ¢£¬½«ÏûÏ¢ÈÓ¸øNMR£¬ÏÖÔÚ´ÓÂ·ÓÉÄ£¿éÀ´µÄÏûÏ¢
-	 * Ò²Ö±½Óµ÷ÓÃPushClient£¬½«ÏûÏ¢Ö±½ÓµÝ½»¸øws
+	 * Ô­ï¿½ï¿½ï¿½ï¿½Â·ï¿½ï¿½Ä£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½Ä£ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½Ó¸ï¿½NMRï¿½ï¿½ï¿½ï¿½ï¿½Ú´ï¿½Â·ï¿½ï¿½Ä£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
+	 * Ò²Ö±ï¿½Óµï¿½ï¿½ï¿½PushClientï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢Ö±ï¿½ÓµÝ½ï¿½ï¿½ï¿½ws
 	 */
-	synchronized public void send(String message) throws Exception{
+	synchronized public void send(String message) throws Exception {
 		System.out.println("-------------------------------");
-		
+
 		String notification = null;
-		//×é°ü²ßÂÔ added by shmily at 2013/04/08
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ added by shmily at 2013/04/08
 		String fragment = message.split("<Fragment>")[1].split("</Fragment>")[0];
 		System.out.println("[Fragment:]" + fragment);
-    	String[] splitFragment = fragment.split("-");
-    	
-    	StringBuilder s = new StringBuilder("[splitFragment:]");
-    	for(int i=0;i<splitFragment.length;i++){
-    		s.append(splitFragment[i]);
-    		s.append(" ");
-    	}
-    	
-    	//Èô¸ÃÏûÏ¢Î´¾­¹ý·ÖÆ¬»òÕß¸ÃÏûÏ¢ÔÊÐíµÝ½»¶Ï°ü£¬ÔòÖ±½ÓµÝ½»
-    	if(Integer.parseInt(splitFragment[0]) == 0 || Integer.parseInt(splitFragment[2]) == 1){
-    		//È¥µô²ð°üÐÅÏ¢
-    		notification = message.split("<wsnt:Package>")[0] + message.split("</wsnt:Package>")[1];
-    	}else{
-    		//½âÎö¸Ã·Ö°üµÄid£¬È·ÈÏÆäÊôÓÚÄÄÒ»ÌõÏûÏ¢
-    		String hashCode = message.split("<Identification>")[1].split("</Identification>")[0];
-    		System.out.println("hashcode: " + hashCode);
-    		//ÅÐ¶ÏÕâÌõÏûÏ¢ÊÇ·ñÕýÔÚ×é°ü£¬·ñµÄ»°¾ÍÆô¶¯×é°ü¹ý³Ì
-        	System.out.println("true or false? " + map.containsKey(hashCode));
-    		if(!map.containsKey(hashCode)){
-        		NotificationBuilder nb = new NotificationBuilder();
-        		map.put(hashCode, nb);
-        	}
-    		//»ñÈ¡×é°ü¶ÔÏó
-    		NotificationBuilder tempNb = map.get(hashCode);
-    		//½«ÏûÏ¢µÝ½»¸ø×é°ü¶ÔÏó
-    		tempNb.setTempMessage(message);
-    		//²ðµô·Ö°ü
-    		tempNb.breakMessage();
-    		//½âÎöÏûÏ¢
-    		tempNb.parse();
-    		//ÅÐ¶ÏÊÇ·ñ»ñÈ¡µ½Ò»ÌõÏûÏ¢µÄËùÓÐ·Ö°ü£¬ÊÇÔò×é°ü
-    		if(tempNb.isReadyToBuild()){
-    			notification = tempNb.build();
-    			map.remove(hashCode);
-    		}
-    	}
-		
-    	if(notification != null){
-	    	System.out.println("notification: " + notification);
+		String[] splitFragment = fragment.split("-");
+
+		StringBuilder s = new StringBuilder("[splitFragment:]");
+		for (int i = 0; i < splitFragment.length; i++) {
+			s.append(splitFragment[i]);
+			s.append(" ");
+		}
+
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢Î´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¬ï¿½ï¿½ï¿½ß¸ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½Ý½ï¿½ï¿½Ï°ï¿½ï¿½ï¿½ï¿½ï¿½Ö±ï¿½ÓµÝ½ï¿½
+		if (Integer.parseInt(splitFragment[0]) == 0 || Integer.parseInt(splitFragment[2]) == 1) {
+			//È¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
+			notification = message.split("<wsnt:Package>")[0] + message.split("</wsnt:Package>")[1];
+		} else {
+			//ï¿½ï¿½ï¿½ï¿½ï¿½Ã·Ö°ï¿½ï¿½ï¿½idï¿½ï¿½È·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½Ï¢
+			String hashCode = message.split("<Identification>")[1].split("</Identification>")[0];
+			System.out.println("hashcode: " + hashCode);
+			//ï¿½Ð¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+			System.out.println("true or false? " + map.containsKey(hashCode));
+			if (!map.containsKey(hashCode)) {
+				NotificationBuilder nb = new NotificationBuilder();
+				map.put(hashCode, nb);
+			}
+			//ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+			NotificationBuilder tempNb = map.get(hashCode);
+			//ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½Ý½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+			tempNb.setTempMessage(message);
+			//ï¿½ï¿½ï¿½ï¿½Ö°ï¿½
+			tempNb.breakMessage();
+			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
+			tempNb.parse();
+			//ï¿½Ð¶ï¿½ï¿½Ç·ï¿½ï¿½È¡ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½ï¿½Ð·Ö°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+			if (tempNb.isReadyToBuild()) {
+				notification = tempNb.build();
+				map.remove(hashCode);
+			}
+		}
+
+		if (notification != null) {
+			System.out.println("notification: " + notification);
 			int start = notification.indexOf("TopicExpression/Simple\">") + 24;
 			int end = notification.indexOf("</wsnt:Topic>");
 			String topicName = notification.substring(start, end);
-	//		if(topicName.contains("EventType=1")){
-	//			String tempTopicName = topicName.substring(0, topicName.indexOf("EventType=1"));
-	//			notification = notification.replaceAll(topicName, tempTopicName);
-	//		}
-	//		System.out.println("**************************our topicName  " + topicName);
+			//		if(topicName.contains("EventType=1")){
+			//			String tempTopicName = topicName.substring(0, topicName.indexOf("EventType=1"));
+			//			notification = notification.replaceAll(topicName, tempTopicName);
+			//		}
+			//		System.out.println("**************************our topicName  " + topicName);
 			String subAddr = null;
-			
+
 			/**================================================================
 			 * new added at 2013/12/1
 			 */
 			String[] topicPath = topicName.split(":");
-			for(int m=0;m<topicPath.length;m++){
-	    		System.out.print("Topic is: " + topicPath[m] + ":");
-	    	}
+			for (int m = 0; m < topicPath.length; m++) {
+				System.out.print("Topic is: " + topicPath[m] + ":");
+			}
 			System.out.println();
 			WSNTopicObject current = WsnProcessImpl.topicTree;
-	    	int flag = 0;
-	    	for(int i=0;i<topicPath.length-1;i++){
-	    		if(current.getTopicentry().getTopicName().equals(topicPath[i])){
-	    			for( int counter=0;counter<current.getChildrens().size();counter++ ){
-	    				if(current.getChildrens().get(counter).getTopicentry().getTopicName().equals(topicPath[i+1])){
-	    					current = current.getChildrens().get(counter);
-	    					flag++;
-	    					System.out.println("match: " + current.getChildrens());
-	    				}
-	    			}
-	    		}
-	    		else{
-	    			log.error("subscribe faild! there is not this topic in the topic tree!");
-	    		}
-	    	}
-	    	if(flag == topicPath.length-1){
-	    		System.out.println("ooooooooooooooooookkkkkkkkkkkkkkkkkkkkkkkkk!!!!!!!!!!!!!!!!!!!!");
-	    		ArrayList<String> sendedaddr = new ArrayList<String>();
-	    		while(current != null){
-	    			for(int i=0;i<current.getSubscribeAddress().size();i++){
-	    				if(sendedaddr.contains(current.getSubscribeAddress().get(i)))
-	    					continue;
-	    				sendedaddr.add(current.getSubscribeAddress().get(i));
-	    				JmsSubscription.diliverToWebservice.doPush(current.getSubscribeAddress().get(i),
-	    						notification,
-	    						JmsSubscription.asyClient,
-	    						new HttpPost(current.getSubscribeAddress().get(i)), this);
-	    			}
-	    			current = current.getParent();
-	    		}	
-	    	}
-	    	else{
-	    		System.out.println("notify faild! there is not this topic in the topic tree!");
-	    	}
-	    	//=================================================================
-    	}
+			int flag = 0;
+			for (int i = 0; i < topicPath.length - 1; i++) {
+				if (current.getTopicentry().getTopicName().equals(topicPath[i])) {
+					for (int counter = 0; counter < current.getChildrens().size(); counter++) {
+						if (current.getChildrens().get(counter).getTopicentry().getTopicName().equals(topicPath[i + 1])) {
+							current = current.getChildrens().get(counter);
+							flag++;
+							System.out.println("match: " + current.getChildrens());
+						}
+					}
+				} else {
+					log.error("subscribe faild! there is not this topic in the topic tree!");
+				}
+			}
+			if (flag == topicPath.length - 1) {
+				System.out.println("ooooooooooooooooookkkkkkkkkkkkkkkkkkkkkkkkk!!!!!!!!!!!!!!!!!!!!");
+				ArrayList<String> sendedaddr = new ArrayList<String>();
+				while (current != null) {
+					for (int i = 0; i < current.getSubscribeAddress().size(); i++) {
+						if (sendedaddr.contains(current.getSubscribeAddress().get(i)))
+							continue;
+						sendedaddr.add(current.getSubscribeAddress().get(i));
+						JmsSubscription.diliverToWebservice.doPush(current.getSubscribeAddress().get(i),
+								notification,
+								JmsSubscription.asyClient,
+								new HttpPost(current.getSubscribeAddress().get(i)), this);
+					}
+					current = current.getParent();
+				}
+			} else {
+				System.out.println("notify faild! there is not this topic in the topic tree!");
+			}
+			//=================================================================
+		}
 	}
 }

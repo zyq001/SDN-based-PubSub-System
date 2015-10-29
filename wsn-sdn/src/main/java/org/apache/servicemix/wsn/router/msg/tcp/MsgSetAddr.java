@@ -1,31 +1,31 @@
 package org.apache.servicemix.wsn.router.msg.tcp;
 
+import org.apache.servicemix.wsn.router.mgr.BrokerUnit;
+import org.apache.servicemix.wsn.router.mgr.RtMgr;
+import org.apache.servicemix.wsn.router.mgr.base.AState;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.net.Socket;
 
-import org.apache.servicemix.wsn.router.mgr.BrokerUnit;
-import org.apache.servicemix.wsn.router.mgr.RtMgr;
-import org.apache.servicemix.wsn.router.mgr.base.AState;
-
 public class MsgSetAddr implements Serializable {
 
-	//由管理者指定主机使用的地址 
-	
+	//锟缴癸拷锟斤拷锟斤拷指锟斤拷锟斤拷锟斤拷使锟矫的碉拷址 
+
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1L;
 
 	public String addr;
-	
+
 	public int port;
-	
+
 	@SuppressWarnings("static-access")
 	public void processRepMsg(ObjectInputStream ois,
-			ObjectOutputStream oos, Socket s, MsgSetAddr msa) {
+	                          ObjectOutputStream oos, Socket s, MsgSetAddr msa) {
 		System.out.println("set address message");
 		AState state = RtMgr.getInstance().getState();
 

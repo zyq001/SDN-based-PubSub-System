@@ -1,10 +1,9 @@
 package org.apache.servicemix.wsn.router.admin;
 
 import org.apache.servicemix.wsn.router.design.PSManagerUI;
+import org.apache.servicemix.wsn.router.msg.tcp.GroupUnit;
 
 import java.util.Iterator;
-import org.apache.servicemix.wsn.router.msg.tcp.GroupUnit;
-import org.eclipse.swt.widgets.Display;
 
 public class AdminUIThread implements Runnable {
 
@@ -26,8 +25,8 @@ public class AdminUIThread implements Runnable {
 
 		//	@Override
 		//	public void run() {
-				// TODO Auto-generated method stub
-				Amgr.ui.open();
+		// TODO Auto-generated method stub
+		Amgr.ui.open();
 		//	}		
 		// });
 	}

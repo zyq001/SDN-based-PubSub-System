@@ -1,21 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0"
-    xmlns:related-links="http://dita-ot.sourceforge.net/ns/200709/related-links"
-    exclude-result-prefixes="related-links">
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:related-links="http://dita-ot.sourceforge.net/ns/200709/related-links"
+                version="1.0"
+                exclude-result-prefixes="related-links">
 
     <!-- Ungrouped links have a priority of zero.  (Can be overridden.) -->
     <xsl:template match="*[contains(@class, ' topic/link ')]" mode="related-links:get-group-priority"
-        name="related-links:group-priority.">
+                  name="related-links:group-priority.">
         <xsl:value-of select="0"/>
     </xsl:template>
 
     <!-- Ungrouped links belong to the no-name group.  (Can be overridden.)  -->
-    <xsl:template match="*[contains(@class, ' topic/link ')]" mode="related-links:get-group" name="related-links:group.">
+    <xsl:template match="*[contains(@class, ' topic/link ')]" mode="related-links:get-group"
+                  name="related-links:group.">
         <xsl:text/>
     </xsl:template>
 
     <!-- Without a group, links are emitted as-is.  (Can be overridden.) -->
-    <xsl:template match="*[contains(@class, ' topic/link ')]" mode="related-links:result-group" name="related-links:group-result.">
+    <xsl:template match="*[contains(@class, ' topic/link ')]" mode="related-links:result-group"
+                  name="related-links:group-result.">
         <xsl:param name="links"/>
         <xsl:copy-of select="$links"/>
     </xsl:template>
@@ -38,7 +40,7 @@
                 <xsl:with-param name="nodes" select="$nodes"/>
                 <xsl:with-param name="tunnel" select="$tunnel"/>
             </xsl:call-template>
-       </xsl:variable>
+        </xsl:variable>
 
         <!-- Get order of groups based on priorities. -->
         <xsl:variable name="group-sequence">
@@ -86,13 +88,14 @@
                         <xsl:choose>
                             <!-- This type has already been seen. -->
                             <xsl:when
-                                test="contains($partial-result, concat(' ', $node-group, ' '))
+                                    test="contains($partial-result, concat(' ', $node-group, ' '))
                                 and contains($partial-result, concat(' ', $node/@type, ' '))">
                                 <xsl:value-of select="$partial-result"/>
                             </xsl:when>
                             <!-- This type has not been seen, but the base group has. -->
                             <xsl:when test="contains($partial-result, concat(' ', $node-group, ' '))">
-                                <xsl:value-of select="substring-before($partial-result, concat(' ', $node-group, ' '))"/>
+                                <xsl:value-of
+                                        select="substring-before($partial-result, concat(' ', $node-group, ' '))"/>
                                 <xsl:text> </xsl:text>
                                 <xsl:value-of select="$node-group"/>
                                 <xsl:text> </xsl:text>
@@ -122,7 +125,7 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
-    
+
     <!-- Sort groups according to their priorities, removing duplicates. -->
     <!-- Takes a string returned by related-links:get-priorities and returns
          the groups and link types in decreasing order of priority
@@ -164,8 +167,10 @@
                             <xsl:with-param name="priorities" select="substring-after($priorities, ';')"/>
                             <xsl:with-param name="tunnel" select="$tunnel"/>
                             <xsl:with-param name="partial-result" select="$partial-result"/>
-                            <xsl:with-param name="best-priority" select="substring-before(substring-before($priorities, ';'), ' ')"/>
-                            <xsl:with-param name="best-group" select="substring-after(substring-before($priorities, ';'), ' ')"/>
+                            <xsl:with-param name="best-priority"
+                                            select="substring-before(substring-before($priorities, ';'), ' ')"/>
+                            <xsl:with-param name="best-group"
+                                            select="substring-after(substring-before($priorities, ';'), ' ')"/>
                             <xsl:with-param name="lesser-priorities" select="$lesser-priorities"/>
                         </xsl:call-template>
                     </xsl:when>
@@ -175,10 +180,12 @@
                             <xsl:with-param name="priorities" select="substring-after($priorities, ';')"/>
                             <xsl:with-param name="tunnel" select="$tunnel"/>
                             <xsl:with-param name="partial-result" select="$partial-result"/>
-                            <xsl:with-param name="best-priority" select="substring-before(substring-before($priorities, ';'), ' ')"/>
-                            <xsl:with-param name="best-group" select="substring-after(substring-before($priorities, ';'), ' ')"/>
+                            <xsl:with-param name="best-priority"
+                                            select="substring-before(substring-before($priorities, ';'), ' ')"/>
+                            <xsl:with-param name="best-group"
+                                            select="substring-after(substring-before($priorities, ';'), ' ')"/>
                             <xsl:with-param name="lesser-priorities"
-                                select="concat($lesser-priorities, $best-priority, ' ', $best-group, ';')"/>
+                                            select="concat($lesser-priorities, $best-priority, ' ', $best-group, ';')"/>
                         </xsl:call-template>
                     </xsl:when>
                     <!-- Best-so-far priority is still supreme. -->
@@ -190,7 +197,7 @@
                             <xsl:with-param name="best-priority" select="$best-priority"/>
                             <xsl:with-param name="best-group" select="$best-group"/>
                             <xsl:with-param name="lesser-priorities"
-                                select="concat($lesser-priorities, substring-before($priorities, ';'), ';')"/>
+                                            select="concat($lesser-priorities, substring-before($priorities, ';'), ';')"/>
                         </xsl:call-template>
                     </xsl:otherwise>
                 </xsl:choose>
@@ -253,7 +260,7 @@
                 <!-- Pass links as result-tree fragments, ordered according to closeness of role. -->
                 <xsl:apply-templates select="$group-nodes" mode="related-links:link">
                     <xsl:sort
-                        select="
+                            select="
                         10 * number(@role = 'parent') + 
                         9 * number(@role = 'ancestor') + 
                         8 * number(@role = 'child') + 
@@ -264,7 +271,7 @@
                         3 * number(@role = 'cousin') + 
                         2 * number(@role = 'friend') + 
                         1 * number(@role = 'other')"
-                        data-type="number" order="descending"/>
+                            data-type="number" order="descending"/>
                     <!-- All @role='other' have to go together, darn. -->
                     <xsl:sort select="@otherrole" data-type="text"/>
                     <xsl:with-param name="tunnel" select="$tunnel"/>

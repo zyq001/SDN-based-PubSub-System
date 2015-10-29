@@ -1,5 +1,11 @@
 package org.apache.servicemix.wsn.router.detection;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.apache.servicemix.wsn.router.mgr.RtMgr;
+import org.apache.servicemix.wsn.router.mgr.base.SysInfo;
+import org.apache.servicemix.wsn.router.msg.udp.MsgHello;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
@@ -13,17 +19,10 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.ConcurrentHashMap;
 
-import org.apache.servicemix.wsn.router.mgr.RtMgr;
-import org.apache.servicemix.wsn.router.mgr.base.SysInfo;
-import org.apache.servicemix.wsn.router.msg.udp.MsgHello;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 /***
  * 节点的探测 hello消息发送和处理 利用计时器，每收到一条hello则针对该邻居重新计时，超时则报告RtMgr
- * 
+ *
  * @author Sylvia
- * 
  */
 
 public class DtMgr implements IDt {
@@ -56,6 +55,16 @@ public class DtMgr implements IDt {
 		avlbNum = new ArrayList<Integer>();
 		for (int i = 0; i < 20; i++)
 			avlbNum.add(i);
+	}
+
+	public static void TestLog(String LogContent) {
+		/*
+		 * try { testLog = new RandomAccessFile("C:\\testLog.log", "rw"); long
+		 * fileLength = testLog.length(); testLog.seek(fileLength);
+		 * testLog.writeBytes(LogContent + "\r\n"); testLog.close(); } catch
+		 * (IOException e) { // TODO Auto-generated catch block
+		 * e.printStackTrace(); }
+		 */
 	}
 
 	public void setSendPeriod(long value) {
@@ -102,30 +111,30 @@ public class DtMgr implements IDt {
 		try {
 			DatagramSocket s = new DatagramSocket();
 			// sent to other groups
-		
-				for (String n : neighbors) {
-					if (rtMgr.getGroupMap().containsKey(n)) {
-						DatagramPacket p = new DatagramPacket(outHello,
-								outHello.length, InetAddress.getByName(rtMgr
-										.getGroupMap().get(n).addr), rtMgr
-										.getGroupMap().get(n).uPort);
-						s.send(p);
-						System.out.println("hello to "
-								+ p.getAddress().getHostAddress() + " "
-								+ p.getPort());
-						log.info("hello to " + p.getAddress().getHostAddress()
-								+ " " + p.getPort());
-					}
-				}
 
-				if (rtMgr.getRepAddr().equals(rtMgr.getLocalAddr()) && !SysInfo.getFellows().isEmpty()) {
-					MulticastSocket mss = new MulticastSocket(rtMgr.getUPort());
-					mss.joinGroup(InetAddress.getByName(rtMgr.getMultiAddr()));
+			for (String n : neighbors) {
+				if (rtMgr.getGroupMap().containsKey(n)) {
+					DatagramPacket p = new DatagramPacket(outHello,
+							outHello.length, InetAddress.getByName(rtMgr
+							.getGroupMap().get(n).addr), rtMgr
+							.getGroupMap().get(n).uPort);
+					s.send(p);
+					System.out.println("hello to "
+							+ p.getAddress().getHostAddress() + " "
+							+ p.getPort());
+					log.info("hello to " + p.getAddress().getHostAddress()
+							+ " " + p.getPort());
+				}
+			}
+
+			if (rtMgr.getRepAddr().equals(rtMgr.getLocalAddr()) && !SysInfo.getFellows().isEmpty()) {
+				MulticastSocket mss = new MulticastSocket(rtMgr.getUPort());
+				mss.joinGroup(InetAddress.getByName(rtMgr.getMultiAddr()));
 				DatagramPacket p = new DatagramPacket(outHello,
 						outHello.length, InetAddress.getByName(rtMgr
-								.getMultiAddr()), rtMgr.getUPort());
+						.getMultiAddr()), rtMgr.getUPort());
 				mss.send(p);
-			} 
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 			log.warn(e);
@@ -192,15 +201,6 @@ public class DtMgr implements IDt {
 		}
 
 	}
-
-	public static void TestLog(String LogContent) {
-		/*
-		 * try { testLog = new RandomAccessFile("C:\\testLog.log", "rw"); long
-		 * fileLength = testLog.length(); testLog.seek(fileLength);
-		 * testLog.writeBytes(LogContent + "\r\n"); testLog.close(); } catch
-		 * (IOException e) { // TODO Auto-generated catch block
-		 * e.printStackTrace(); }
-		 */}
 
 	// define the lost action that should be taken when a neighbor is timeout
 	class LostTask extends TimerTask {

@@ -1,8 +1,5 @@
 package org.Mina.shorenMinaTest.msg.udp;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-
 import org.Mina.shorenMinaTest.MinaUtil;
 import org.Mina.shorenMinaTest.handlers.Start;
 import org.Mina.shorenMinaTest.msg.WsnMsg;
@@ -12,34 +9,37 @@ import org.Mina.shorenMinaTest.queues.UDPForwardMsg;
 import org.Mina.shorenMinaTest.router.searchRoute;
 import org.apache.mina.core.session.IoSession;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+
 public class MsgSubs extends WsnMsg implements Serializable {
 
-	public String sender;//×ª·¢ÕßµÄÐÅÏ¢
-	
-	public String originator;//Ë­µÄ¶©ÔÄÐÅÏ¢
+	public String sender;//×ªï¿½ï¿½ï¿½ßµï¿½ï¿½ï¿½Ï¢
+
+	public String originator;//Ë­ï¿½Ä¶ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
 
 	public int type;//0 for subscribe, 1 for cancel
 
 	public ArrayList<String> topics = new ArrayList<String>();
-	
+
 	public void initMsgSubs() {
 		this.topics = new ArrayList<String>();
 	}
 
-	private ArrayList<String> getForwardIp(){
-		return Start.forwardIP=searchRoute.calForwardIP("500:3:6:10:15:20:26", "m", Start.testMap);
+	private ArrayList<String> getForwardIp() {
+		return Start.forwardIP = searchRoute.calForwardIP("500:3:6:10:15:20:26", "m", Start.testMap);
 	}
-	
-	public void processRegMsg(IoSession session){
+
+	public void processRegMsg(IoSession session) {
 		ArrayList<String> forwardIp = getForwardIp();
-		//²ßÂÔ¿âµÄÎ»ÖÃ£¬ÓÉ²ßÂÔ¿âÀ´¹ýÂËip
+		//ï¿½ï¿½ï¿½Ô¿ï¿½ï¿½Î»ï¿½Ã£ï¿½ï¿½É²ï¿½ï¿½Ô¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ip
 		ForwardMsg forwardMsg = new UDPForwardMsg(forwardIp, MinaUtil.uPort, this);
 		MsgQueueMgr.addUDPMsgInQueue(forwardMsg);
 	}
-	
-	public void processRepMsg(IoSession session){
+
+	public void processRepMsg(IoSession session) {
 		ArrayList<String> forwardIp = getForwardIp();
-		//²ßÂÔ¿âµÄÎ»ÖÃ£¬ÓÉ²ßÂÔ¿âÀ´¹ýÂËip
+		//ï¿½ï¿½ï¿½Ô¿ï¿½ï¿½Î»ï¿½Ã£ï¿½ï¿½É²ï¿½ï¿½Ô¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ip
 		ForwardMsg forwardMsg = new UDPForwardMsg(forwardIp, MinaUtil.uPort, this);
 		MsgQueueMgr.addUDPMsgInQueue(forwardMsg);
 	}

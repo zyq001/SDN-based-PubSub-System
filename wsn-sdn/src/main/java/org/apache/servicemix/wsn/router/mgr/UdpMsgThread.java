@@ -1,17 +1,16 @@
 package org.apache.servicemix.wsn.router.mgr;
 
-import java.io.ByteArrayInputStream;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.servicemix.wsn.router.mgr.base.SysInfo;
+
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.DatagramPacket;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.MulticastSocket;
-
-import org.apache.servicemix.wsn.router.mgr.base.SysInfo;
 
 public class UdpMsgThread extends SysInfo implements Runnable {
 	private static Log log = LogFactory.getLog(UdpMsgThread.class);
@@ -34,7 +33,7 @@ public class UdpMsgThread extends SysInfo implements Runnable {
 //			System.out.println("multicast address: " + multiAddr);
 			log.info("multicast address: " + multiAddr);
 			s.setLoopbackMode(true);
-			s.setReceiveBufferSize(1024*1024);
+			s.setReceiveBufferSize(1024 * 1024);
 
 			p = new DatagramPacket(buf, buf.length);
 
@@ -45,7 +44,7 @@ public class UdpMsgThread extends SysInfo implements Runnable {
 
 	}
 
-	public void run(){
+	public void run() {
 		while (udpMsgThreadSwitch) {
 			try {
 				bais = new ByteArrayInputStream(buf);

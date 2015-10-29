@@ -1,25 +1,25 @@
 package org.apache.servicemix.wsn.router.msg.tcp;
 
+import org.apache.servicemix.wsn.router.mgr.RtMgr;
+import org.apache.servicemix.wsn.router.mgr.base.AState;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.net.Socket;
 
-import org.apache.servicemix.wsn.router.mgr.RtMgr;
-import org.apache.servicemix.wsn.router.mgr.base.AState;
-
 public class MsgLookupGroupSubscriptions implements Serializable {
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1L;
 	public String name;
-	
+
 	@SuppressWarnings("static-access")
 	public void processRepMsg(ObjectInputStream ois,
-			ObjectOutputStream oos, Socket s, MsgLookupGroupSubscriptions mlgs) {
+	                          ObjectOutputStream oos, Socket s, MsgLookupGroupSubscriptions mlgs) {
 		AState state = RtMgr.getInstance().getState();
 		System.out.println("look up group Subscriptions");
 		if (mlgs.name.equals(state.getGroupName())) {
@@ -42,5 +42,5 @@ public class MsgLookupGroupSubscriptions implements Serializable {
 		}// if
 
 	}
-	
+
 }

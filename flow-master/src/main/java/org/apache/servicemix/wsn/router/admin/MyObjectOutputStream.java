@@ -3,8 +3,8 @@ package org.apache.servicemix.wsn.router.admin;
  * ????socket??ObjectOutputStream????????????????????????ObjectOutputStream??????
  * .java.io.StreamCorruptedException: invalid type code: AC????
  * ??????????????????stream????????????????socket????header
- * 
- * */
+ */
+
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
@@ -15,14 +15,15 @@ public class MyObjectOutputStream extends ObjectOutputStream {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
-	public MyObjectOutputStream(OutputStream out) throws IOException {
-		  super(out);
-		  } 
-		@Override 
 
-		protected void writeStreamHeader() throws IOException { 
-	   return;
-		  }
+	public MyObjectOutputStream(OutputStream out) throws IOException {
+		super(out);
+	}
+
+	@Override
+
+	protected void writeStreamHeader() throws IOException {
+		return;
+	}
 
 }

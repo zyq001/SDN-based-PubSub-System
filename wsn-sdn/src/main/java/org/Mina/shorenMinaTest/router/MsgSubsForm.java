@@ -4,35 +4,34 @@ import java.util.ArrayList;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class MsgSubsForm {
-	public String topicComponent;//±¾¼¶Ãû³Æ
-	
-	public ConcurrentHashMap<String,MsgSubsForm> topicChildList = new ConcurrentHashMap<String, MsgSubsForm>(); //ÏÂÒ»¼¶ÏûÏ¢£¬keyÎªÏûÏ¢Ãû³Æ
-	
-	public ArrayList<String> subs = new ArrayList<String>(); //¶©ÔÄ´ËÏûÏ¢µÄ¼¯Èº,valueÎªÆä¶©ÔÄÊ±¼ä
-	
-	public ArrayList<String> routeNext = new ArrayList<String>(); //Õë¶Ô¸ÃÃû³ÆµÄ×ª·¢ÏÂÒ»Ìø½Úµã
-	
-	public String routeRoot; //¸ÃÃû³Æ×ª·¢Ê÷µÄ¸ù½Úµã
-	
+	public String topicComponent;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+
+	public ConcurrentHashMap<String, MsgSubsForm> topicChildList = new ConcurrentHashMap<String, MsgSubsForm>(); //ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½keyÎªï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½
+
+	public ArrayList<String> subs = new ArrayList<String>(); //ï¿½ï¿½ï¿½Ä´ï¿½ï¿½ï¿½Ï¢ï¿½Ä¼ï¿½Èº,valueÎªï¿½ä¶©ï¿½ï¿½Ê±ï¿½ï¿½
+
+	public ArrayList<String> routeNext = new ArrayList<String>(); //ï¿½ï¿½Ô¸ï¿½ï¿½ï¿½ï¿½Æµï¿½×ªï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Úµï¿½
+
+	public String routeRoot; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×ªï¿½ï¿½ï¿½ï¿½ï¿½Ä¸ï¿½ï¿½Úµï¿½
+
 	public MsgSubsForm() {
 		topicChildList = new ConcurrentHashMap<String, MsgSubsForm>();
 		subs = new ArrayList<String>();
 		routeNext = new ArrayList<String>();
 	}
-	
-	public MsgSubsForm(String nodeName,ConcurrentHashMap<String,MsgSubsForm> topicChildList, ArrayList<String> subs,  ArrayList<String> routeNext) {
-		
+
+	public MsgSubsForm(String nodeName, ConcurrentHashMap<String, MsgSubsForm> topicChildList, ArrayList<String> subs, ArrayList<String> routeNext) {
+
 		this.topicChildList = new ConcurrentHashMap<String, MsgSubsForm>();
 		this.subs = new ArrayList<String>();
 		this.routeNext = new ArrayList<String>();
-		
+
 		this.topicComponent = nodeName;
 		this.topicChildList = topicChildList;
 		this.subs = subs;
 		this.routeNext = routeNext;
-		
+
 	}
-	
-	
-	
+
+
 }

@@ -1,12 +1,10 @@
 package org.Mina.shorenMinaTest.mgr.base;
 
-import java.net.Socket;
-
+import org.Mina.shorenMinaTest.mgr.RtMgr;
+import org.Mina.shorenMinaTest.msg.WsnMsg;
 import org.apache.mina.core.session.IoSession;
 
-import org.Mina.shorenMinaTest.mgr.RtMgr;
 //import org.apache.servicemix.wsn.router.mgr.RtMgr;
-import org.Mina.shorenMinaTest.msg.WsnMsg;
 
 
 public abstract class AState extends SysInfo {
@@ -14,50 +12,50 @@ public abstract class AState extends SysInfo {
 	public RtMgr mgr;
 //	public IDt dt;
 	
-/*	//¼ÓÈëµ½ÍØÆËÖ®ÖĞ
+/*	//ï¿½ï¿½ï¿½ëµ½ï¿½ï¿½ï¿½ï¿½Ö®ï¿½ï¿½
 	abstract public void join();
 
-	//·¢ËÍĞÄÌøÏûÏ¢
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
 	abstract public void sendHrt();
 
-	//·¢ËÍ¶©ÔÄÏûÏ¢
+	//ï¿½ï¿½ï¿½Í¶ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
 	abstract public void sendSbp(Object msg);
 
-	//Ê§Ğ§´¦Àí£¬²ÎÊıÎªÓÃÒÔ±êÊ¶Ê§Ğ§´úÀí×Ö·û´®
+	//Ê§Ğ§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½Ô±ï¿½Ê¶Ê§Ğ§ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½
 	abstract public void lost(String indicator);
 
-	//·¢ËÍÍ¬²½¼¯Èº¶©ÔÄ±íµÄÏûÏ¢
+	//ï¿½ï¿½ï¿½ï¿½Í¬ï¿½ï¿½ï¿½ï¿½Èºï¿½ï¿½ï¿½Ä±ï¿½ï¿½ï¿½ï¿½Ï¢
 	abstract public void synSubs();*/
 
-	//´¦ÀíÆäËûbroker´«ÈëµÄÍ¨ÖªÏûÏ¢
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½brokerï¿½ï¿½ï¿½ï¿½ï¿½Í¨Öªï¿½ï¿½Ï¢
 //	abstract public void processNotisMsg(Object msg);
 
-	//´¦Àí±¾µØÌá¹©µÄÍ¨ÖªÏûÏ¢
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½á¹©ï¿½ï¿½Í¨Öªï¿½ï¿½Ï¢
 //	abstract public void provideNotisMsg(Object msg);
 /*
-	//´¦ÀíÊÕµ½udpÏûÏ¢
+	//ï¿½ï¿½ï¿½ï¿½ï¿½Õµï¿½udpï¿½ï¿½Ï¢
 	abstract public void processUdpMsg(Object msg);
 
-	//´¦ÀíÊÕµ½µÄtcpÁ¬½Ó
+	//ï¿½ï¿½ï¿½ï¿½ï¿½Õµï¿½ï¿½ï¿½tcpï¿½ï¿½ï¿½ï¿½
 	abstract public void processTcpMsg(Socket s);*/
 
-	//×ª·¢ÏûÏ¢
+	//×ªï¿½ï¿½ï¿½ï¿½Ï¢
 //	public void forwardQ0Msg(Object qmn){}
 /*
-	//×ª·¢ÏûÏ¢
+	//×ªï¿½ï¿½ï¿½ï¿½Ï¢
 	abstract public void forwardQ1Msg(Object qmn);
 
-	//×ª·¢ÏûÏ¢
+	//×ªï¿½ï¿½ï¿½ï¿½Ï¢
 	abstract public void forwardQ2Msg(Object qmn);
 
-	//×ª·¢ÏûÏ¢
+	//×ªï¿½ï¿½ï¿½ï¿½Ï¢
 	abstract public void forwardQ3Msg(Object qmn);
 
-	//×ª·¢ÏûÏ¢
+	//×ªï¿½ï¿½ï¿½ï¿½Ï¢
 	abstract public void forwardQ4Msg(Object qmn){}*/
 
-	//×ª·¢ÏûÏ¢
+	//×ªï¿½ï¿½ï¿½ï¿½Ï¢
 //	public void forwardOtherMsg(Object qmn){}
-	
+
 	abstract public void processMsg(IoSession session, WsnMsg msg);
 }

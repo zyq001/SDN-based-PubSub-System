@@ -22,9 +22,9 @@
 <!-- ============================================================= -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
-  <!-- NOTE: The glossaryGrp.xsd file was misnamed in DITA 1.1. For DITA 1.2, it simply
-    redirects to the correctly-named glossentryGrp.xsd file.
-  -->
-  <xs:include schemaLocation="urn:oasis:names:tc:dita:xsd:glossentryGrp.xsd:1.2"/>  
-  
+    <!-- NOTE: The glossaryGrp.xsd file was misnamed in DITA 1.1. For DITA 1.2, it simply
+      redirects to the correctly-named glossentryGrp.xsd file.
+    -->
+    <xs:include schemaLocation="urn:oasis:names:tc:dita:xsd:glossentryGrp.xsd:1.2"/>
+
 </xs:schema>

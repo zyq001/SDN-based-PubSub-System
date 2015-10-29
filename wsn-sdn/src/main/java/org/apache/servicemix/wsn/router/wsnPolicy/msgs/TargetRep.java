@@ -11,15 +11,31 @@ import java.util.List;
 /**
  *
  */
-//²ßÂÔÐÅÏ¢ÖÐ¸½´øµÄ´úÀíÐÅÏ¢£¬Ö÷ÒªÓÃÀ´´æ´¢¿Í»§ÐÅÏ¢
-public class TargetRep extends TargetMsg
-{	
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½Ð¸ï¿½ï¿½ï¿½ï¿½Ä´ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½æ´¢ï¿½Í»ï¿½ï¿½ï¿½Ï¢
+public class TargetRep extends TargetMsg {
 
 	private static final long serialVersionUID = 1L;
 	protected List<TargetHost> targetClients;
 	protected String repIp;
-	protected boolean allMsg = false;  //ÊÇ·ñ°üº¬ÄÚ²¿ËùÓÐ³ÉÔ±£¬ÈôÊÇ°üÀ¨£¬ÆäÁÐ±í¿ÉÎª¿Õ¡£
+	protected boolean allMsg = false;  //ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½Ú²ï¿½ï¿½ï¿½ï¿½Ð³ï¿½Ô±ï¿½ï¿½ï¿½ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð±ï¿½ï¿½Îªï¿½Õ¡ï¿½
 
+
+	public TargetRep() {
+		this(null);
+	}
+
+	public TargetRep(String repIp) {
+		targetClients = new ArrayList<TargetHost>();
+		this.repIp = repIp;
+	}
+
+	public TargetRep(String repIp, List<TargetHost> targetClients) {
+		this.targetClients = new ArrayList<TargetHost>();
+		this.repIp = repIp;
+		for (int i = 0; i < targetClients.size(); i++) {
+			this.targetClients.add(targetClients.get(i));
+		}
+	}
 
 	public boolean isAllMsg() {
 		return allMsg;
@@ -28,6 +44,7 @@ public class TargetRep extends TargetMsg
 	public void setAllMsg(boolean allMsg) {
 		this.allMsg = allMsg;
 	}
+
 	public String getRepIp() {
 		return repIp;
 	}
@@ -44,63 +61,38 @@ public class TargetRep extends TargetMsg
 		this.targetClients = targetClients;
 	}
 
-	public TargetRep()
-	{
-		this(null);
-	}
-	
-	public TargetRep(String repIp)
-	{
-		targetClients = new ArrayList<TargetHost>();
-		this.repIp = repIp;
-	}
-	
-	public TargetRep(String repIp, List<TargetHost> targetClients)
-	{
-		this.targetClients = new ArrayList<TargetHost>();
-		this.repIp = repIp;
-		for(int i=0; i<targetClients.size(); i++)
-		{
-			this.targetClients.add(targetClients.get(i));
-		}
-	}
-	
-	public void deleteMsg(TargetRep msg)
-	{
-		if(!msg.getTargetClients().isEmpty())
-		{
+	public void deleteMsg(TargetRep msg) {
+		if (!msg.getTargetClients().isEmpty()) {
 			List<TargetHost> ths = msg.getTargetClients();
-			for(int i=0; i<ths.size(); i++){
+			for (int i = 0; i < ths.size(); i++) {
 				TargetHost th = ths.get(i);
-				if(targetClients.contains(th)){
+				if (targetClients.contains(th)) {
 					int index = targetClients.indexOf(th);
 					targetClients.remove(index);
 				}
-					
+
 			}
 		}
 	}
-	
-	public void mergeMsg(TargetRep msg)
-	{
-		if(!this.equals(msg))
+
+	public void mergeMsg(TargetRep msg) {
+		if (!this.equals(msg))
 			return;
-		//Èç¹ûmsgËùÓÐÖ÷»ú¾ùÊÜÏÞ
-		if(msg.isAllMsg()){
+		//ï¿½ï¿½ï¿½msgï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		if (msg.isAllMsg()) {
 			this.setAllMsg(true);
 			targetClients.clear();
 			return;
 		}
-		//Èç¹ûµ±Ç°ËùÓÐÖ÷»ú¾ùÊÜÏÞ
-		if(this.allMsg)
+		//ï¿½ï¿½ï¿½ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		if (this.allMsg)
 			return;
-		
-		if(!msg.getTargetClients().isEmpty())
-		{
+
+		if (!msg.getTargetClients().isEmpty()) {
 			List<TargetHost> ths = msg.getTargetClients();
-			for(int i=0; i<ths.size(); i++){
+			for (int i = 0; i < ths.size(); i++) {
 				TargetHost th = ths.get(i);
-				if(!targetClients.contains(th))
+				if (!targetClients.contains(th))
 					targetClients.add(th);
 			}
 		}

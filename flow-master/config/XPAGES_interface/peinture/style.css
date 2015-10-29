@@ -1,11 +1,10 @@
 /* Feuille de style CSS pour XPAGES */
 
-
 body {
-    font-family : "Times New Roman", Times, serif;
+    font-family: "Times New Roman", Times, serif;
     background-color: #FFFFFF;
 }
-	
+
 .page {
     background-image: url(fond.jpg);
     padding: 5px;
@@ -18,7 +17,7 @@ body {
 }
 
 .titre_site_1 {
-    font-family : Arial, Helvetica, sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
     font-size: 140%;
     font-weight: bold;
     font-style: italic;
@@ -29,7 +28,7 @@ body {
 }
 
 .titre_site_2 {
-    font-family : Arial, Helvetica, sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
     font-size: 140%;
     font-weight: bold;
     font-style: italic;
@@ -42,7 +41,7 @@ body {
 .zone_rubriques {
     margin-top: 2em;
     margin-left: 220px;
-    text-align: center;	
+    text-align: center;
 }
 
 .table_rubriques {
@@ -53,14 +52,14 @@ body {
 }
 
 .rubrique {
-    border: 1px solid  #000099;
+    border: 1px solid #000099;
     margin: 3px;
     width: auto;
     background-color: #FFFFFF;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 75%;
     font-weight: bold;
-    text-align: center;	
+    text-align: center;
 }
 
 .rubrique:hover {
@@ -68,7 +67,7 @@ body {
 }
 
 .rubriquesel {
-    border: 1px solid  #000099;
+    border: 1px solid #000099;
     margin: 3px;
     width: auto;
     background-color: #002099;
@@ -76,7 +75,7 @@ body {
     font-size: 75%;
     font-weight: bold;
     color: #FFFFFF;
-    text-align: center;	
+    text-align: center;
 }
 
 .rubrique a {
@@ -130,7 +129,7 @@ img.icone_page {
 h1 {
     color: #001070;
     background-image: url(blanc_transparent.png);
-    font-family : Arial, Helvetica, sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
     font-variant: small-caps;
     font-size: 150%;
     padding: 3px;
@@ -166,7 +165,7 @@ h1 {
 }
 
 .sommaire {
-    font-family : Arial, Helvetica, sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
     /*background-color: #EAE8F5;*/
     background-image: url(blanc_transparent.png);
     border: 1px solid #000000;
@@ -185,12 +184,13 @@ h1 {
 }
 
 .sommaire2 {
-    font-family : Arial, Helvetica, sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
     text-decoration: none;
     font-size: 90%;
     font-weight: bold;
     color: #0000FF;
 }
+
 .sommaire2select {
     text-decoration: none;
     font-size: 100%;
@@ -200,14 +200,14 @@ h1 {
 }
 
 .sommaire3 {
-    font-family : Arial, Helvetica, sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
     text-decoration: none;
     font-size: 90%;
     color: #0000FF;
 }
 
 .sommairepage {
-    font-family : Arial, Helvetica, sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
     text-decoration: none;
     font-size: 83%;
     color: #0000FF;
@@ -216,9 +216,11 @@ h1 {
 :hover.sommaire2 {
     color: #7B7BFF;
 }
+
 :hover.sommaire3 {
     color: #7B7BFF;
 }
+
 :hover.sommairepage {
     color: #7B7BFF;
 }
@@ -226,11 +228,11 @@ h1 {
 .fondsel1sommaire {
     background-color: #F6F4E7;
 }
+
 .fondsel2sommaire {
     background-color: #F6F4B9;
     text-decoration: none;
 }
-
 
 /* corps */
 
@@ -239,7 +241,7 @@ h1 {
     padding: 1em;
     /* background-image: url(fond2.jpg); */
     /* background-repeat: no-repeat; */
-    /* la transparence ne marche pas sur IE, mais évite d'avoir à faire une deuxième image */
+    /* la transparence ne marche pas sur IE, mais ï¿½vite d'avoir ï¿½ faire une deuxiï¿½me image */
     background-image: url(blanc_transparent.png);
     zoom: 100%; /* pour eviter un bug de IE */
 }
@@ -376,7 +378,7 @@ p {
     margin-bottom: 0.5em;
     border-width: medium;
     border-style: solid;
-/*    border-style: outset;*/
+    /*    border-style: outset;*/
     border-bottom-color: #555555;
     border-right-color: #666666;
     border-left-color: #BBBBBB;
@@ -385,7 +387,7 @@ p {
 }
 
 :hover.iconeimage {
-/*    border-style: inset;*/
+    /*    border-style: inset;*/
     border-top-color: #555555;
     border-left-color: #666666;
     border-right-color: #BBBBBB;
@@ -401,7 +403,7 @@ p {
     text-align: left;
     margin-top: 0.5em;
     margin-bottom: 0.5em;
-} 
+}
 
 .credit {
     font-family: Arial, Helvetica, sans-serif;
@@ -490,7 +492,7 @@ img.maths {
 }
 
 .spacer {
-    clear : both;
+    clear: both;
 }
 
 ul {
@@ -541,7 +543,7 @@ a.lienaide {
     border-bottom: 2px solid #505050;
     border-top: 2px solid #B0B0B0;
     padding: 2px;
-    margin-right:10px;
+    margin-right: 10px;
 }
 
 a.liensolution {
@@ -559,34 +561,32 @@ a.liensolution {
 
 a.selectionlien {
     background-color: #D0FFC0;
-    border-left:2px solid #505050;
-    border-right:2px solid #B0B0B0;
-    border-bottom:2px solid #B0B0B0;
-    border-top:2px solid #505050;
+    border-left: 2px solid #505050;
+    border-right: 2px solid #B0B0B0;
+    border-bottom: 2px solid #B0B0B0;
+    border-top: 2px solid #505050;
     padding: 2px;
 }
 
 div.contenu-aide-solution {
-    padding-left:1em;
-    padding-right:1em;
-    border-left:1px solid #333;
-    border-right:1px solid #333;
-    border-bottom:1px solid #333;
-    border-top:1px solid #333;
+    padding-left: 1em;
+    padding-right: 1em;
+    border-left: 1px solid #333;
+    border-right: 1px solid #333;
+    border-bottom: 1px solid #333;
+    border-top: 1px solid #333;
     margin: 1em;
     border-radius: 5px;
     box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.3);
 }
 
-div.questionqcm
-{
+div.questionqcm {
     background-color: #F5F5FF;
     padding: 5px;
     margin-bottom: 0.5em;
 }
 
-span.reptexte
-{
+span.reptexte {
     font-family: sans-serif;
     font-size: 80%;
 }
@@ -606,7 +606,7 @@ span.code {
     font-family: monospace;
 }
 
-@font-face { 
+@font-face {
     font-family: 'STIXSubset-Regular';
     src: url('../symboles/STIXSubset-Regular.eot');
     src: local('STIXSubset-Regular'), url('../symboles/STIXSubset-Regular.ttf') format('truetype');

@@ -10,8 +10,7 @@ import java.util.Map;
  */
 public class routeTable {
 
-    private Map<Switch, List<Switch>> routeMap;
-
+	private Map<Switch, List<Switch>> routeMap;
 
 
 }

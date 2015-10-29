@@ -3,11 +3,11 @@ package org.apache.servicemix.wsn.router.mgr.base;
 import java.util.ArrayList;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class MsgSubsForm{
+public class MsgSubsForm {
 
 	public String topicComponent;//????
 
-	public ConcurrentHashMap<String,MsgSubsForm> topicChildList; //??????key?????
+	public ConcurrentHashMap<String, MsgSubsForm> topicChildList; //??????key?????
 
 	public ArrayList<String> subs; //????????,value??????
 

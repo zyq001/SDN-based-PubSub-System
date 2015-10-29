@@ -4,55 +4,53 @@
  */
 package org.Mina.shorenMinaTest.filters;
 
-import java.nio.charset.Charset;
-import java.nio.charset.CharsetEncoder;
-
+import org.Mina.shorenMinaTest.msg.WsnMsg;
 import org.apache.mina.core.buffer.IoBuffer;
 import org.apache.mina.core.session.IoSession;
 import org.apache.mina.filter.codec.ProtocolEncoderAdapter;
 import org.apache.mina.filter.codec.ProtocolEncoderOutput;
 
-import org.Mina.shorenMinaTest.msg.WsnMsg;
+import java.nio.charset.Charset;
+import java.nio.charset.CharsetEncoder;
 
 /**
  *
  */
-public class WsnMsgEncoder extends ProtocolEncoderAdapter{
+public class WsnMsgEncoder extends ProtocolEncoderAdapter {
 
 	private final Charset charset;
-	
-	public WsnMsgEncoder(Charset charset){
+
+	public WsnMsgEncoder(Charset charset) {
 		this.charset = charset;
 	}
-	
-	
+
+
 	@Override
 	public void encode(IoSession session, Object message, ProtocolEncoderOutput out) throws Exception {
 //		System.out.println("enter in WsnMsgEncoder");
-		
+
 		String msgString = null;
-		//´´½¨IoBuffer »º³åÇø¶ÔÏó£¬²¢ÉèÖÃÎª×Ô¶¯À©Õ¹£»
+		//ï¿½ï¿½ï¿½ï¿½IoBuffer ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ó£¬²ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½Ô¶ï¿½ï¿½ï¿½Õ¹ï¿½ï¿½
 		IoBuffer buffer = IoBuffer.allocate(10000).setAutoExpand(true);
-		if(message instanceof WsnMsg){
-			//½«message ¶ÔÏóÇ¿ÖÆ×ª»»ÎªÖ¸¶¨µÄ¶ÔÏóÀàÐÍ£»
-			WsnMsg msg = (WsnMsg)message;
-			
-			//½«×ª»»ºóµÄmessage ¶ÔÏóÖÐµÄ¸÷¸ö²¿·Ö°´ÕÕÖ¸¶¨µÄÓ¦ÓÃ²ãÐ­Òé½øÐÐ×é×°£¬²¢put()µ½IoBuffer »º³åÇø£»
-			//¾ßÌå±àÂëÓÃStringBuffer
+		if (message instanceof WsnMsg) {
+			//ï¿½ï¿½message ï¿½ï¿½ï¿½ï¿½Ç¿ï¿½ï¿½×ªï¿½ï¿½ÎªÖ¸ï¿½ï¿½ï¿½Ä¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í£ï¿½
+			WsnMsg msg = (WsnMsg) message;
+
+			//ï¿½ï¿½×ªï¿½ï¿½ï¿½ï¿½ï¿½message ï¿½ï¿½ï¿½ï¿½ï¿½ÐµÄ¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö°ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½Ã²ï¿½Ð­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×°ï¿½ï¿½ï¿½ï¿½put()ï¿½ï¿½IoBuffer ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½StringBuffer
 			msgString = msg.msgToString();
-		}else{
+		} else {
 			msgString = message.toString();
 			msgString = msgString.length() + msgString;
 		}
-			
 
-			
+
 //		System.out.println("encode msg:" + msgString);
-		
+
 		CharsetEncoder ce = charset.newEncoder();
 		buffer.putInt(msgString.length());
 		buffer.putString(msgString, ce);
-		//Êä³öIoBuffer »º³åÇøÊµÀý
+		//ï¿½ï¿½ï¿½IoBuffer ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Êµï¿½ï¿½
 		buffer.flip();
 		out.write(buffer);
 	}

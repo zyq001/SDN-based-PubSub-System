@@ -26,12 +26,12 @@ public class SendSocket {
 		return socket;
 
 	}
-	
+
 	public ObjectOutputStream getOutputStream() {
 		return output;
 
 	}
-	
+
 	public ObjectInputStream getInputStream() {
 		return input;
 

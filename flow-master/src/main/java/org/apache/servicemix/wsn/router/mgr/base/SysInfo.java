@@ -1,70 +1,65 @@
 package org.apache.servicemix.wsn.router.mgr.base;
 
 import org.apache.servicemix.wsn.router.mgr.BrokerUnit;
-//import org.apache.servicemix.wsn.router.mgr.calNeighbor.NeigBuild;
 import org.apache.servicemix.wsn.router.msg.tcp.GroupUnit;
-//import org.apache.servicemix.wsn.router.msg.tcp.LSA;
 
 import java.util.ArrayList;
 import java.util.TreeSet;
 import java.util.concurrent.ConcurrentHashMap;
 
+//import org.apache.servicemix.wsn.router.mgr.calNeighbor.NeigBuild;
+//import org.apache.servicemix.wsn.router.msg.tcp.LSA;
+
 public abstract class SysInfo {
 
-	//本地配置项
-	protected static String adminAddr;//管理者的地址
-	protected static int adminPort;//管理者得TCP端口号
 	public static String groupName;//本集群的名字
-	protected static int tPort;//本地TCP端口号
 	public static String localAddr;//本系统的地址
-	protected static String localNetmask; //本地子网掩码
-	protected static int queueSize;//路由模块队列长度
-	protected static int poolCount;//线程池容量
-	protected static int connectCount;//连接池容量
-//	protected static long thresholdInitialize;//初始化——判断心跳超时的阀值
-//	protected static long sendPeriodInitialize;//初始化——发送心跳的时间间隔
-//	protected static long scanPeriodInitialize;//初始化——扫描心跳的时间间隔
-//	protected static long synPeriodInitialize;//初始化——发送更新订阅的时间间隔
-
-	//远程配置项
-	protected static BrokerUnit rep;//本集群代表的地址
-	protected static int neighborSize;//允许的孩子节点的数量
 	public static String multiAddr;//组播地址
 	public static int uPort;//UDP端口号，同时也是组播端口号
-	protected static int joinTimes;//尝试加入的次数
 	public static long threshold;//判断心跳超时的阀值
 	public static long sendPeriod;//发送心跳的时间间隔
 	public static long scanPeriod;//扫描心跳的时间间隔
 	public static long synPeriod;//发送更新订阅的时间间隔
-
 	//others
 	public static ConcurrentHashMap<String, GroupUnit> groupMap;//保存当前拓扑内出了本集群外所有集群的信息，key为集群名
-	protected static ArrayList<String> neighbors; //邻居集群
+//	protected static long thresholdInitialize;//初始化——判断心跳超时的阀值
+//	protected static long sendPeriodInitialize;//初始化——发送心跳的时间间隔
+//	protected static long scanPeriodInitialize;//初始化——扫描心跳的时间间隔
+//	protected static long synPeriodInitialize;//初始化——发送更新订阅的时间间隔
 	public static ConcurrentHashMap<String, BrokerUnit> fellows;//本机所在集群的其他代理，key为代理地址
+	//订阅表
+	public static ArrayList<String> clientTable;//本地的订阅信息,本地broker订阅主题的集合
+	public static ConcurrentHashMap<String, TreeSet<String>> brokerTable;//本集群里其他代理的订阅信息，key为主题，value为订阅代理的地址
+	public static String groupController;
+	public static String globalController;
+	//本地配置项
+	protected static String adminAddr;//管理者的地址
+	protected static int adminPort;//管理者得TCP端口号
+	protected static int tPort;//本地TCP端口号
+	protected static String localNetmask; //本地子网掩码
+	protected static int queueSize;//路由模块队列长度
+	protected static int poolCount;//线程池容量
+	protected static int connectCount;//连接池容量
+	//远程配置项
+	protected static BrokerUnit rep;//本集群代表的地址
+	protected static int neighborSize;//允许的孩子节点的数量
+	protected static int joinTimes;//尝试加入的次数
+	protected static ArrayList<String> neighbors; //邻居集群
 	protected static int lsaSeqNum; //LSA的序列号
 	protected static long policyTime; // 策略消息的更新时间
 	protected static long treeTime; // 树更新时间
-
-//	protected static ConcurrentHashMap<String, LSA> lsdb; //LSA数据库，以集群名称标示该集群发出的LSA消息
+	//	protected static ConcurrentHashMap<String, LSA> lsdb; //LSA数据库，以集群名称标示该集群发出的LSA消息
 //	protected static LSA cacheLSA; //缓存LSA，缓存需要发送的LSA数据
 	protected static String askMsg; // 请求LSDB和策略消息发送的字符串
 	protected static boolean joinOK;//标识加入是否成功
 	protected static ArrayList<String> waitHello;//集群hello超时时，用以标记该集群正在重选代表
 	protected static long id;//代理的id值，加入集群时由代表分配
-
-	//订阅表
-	public static ArrayList<String> clientTable;//本地的订阅信息,本地broker订阅主题的集合
-	public static ConcurrentHashMap<String, TreeSet<String>> brokerTable;//本集群里其他代理的订阅信息，key为主题，value为订阅代理的地址
 	protected static MsgSubsForm groupTableRoot; //其他集群订阅树的根
 
+//	protected static NeigBuild nb; // 邻居选择模块
 	protected static boolean udpMsgThreadSwitch;//用于控制接收udp消息的线程重启的开关
 	protected static boolean tcpMsgThreadSwitch;//用于控制接收tcp连接的线程重启的开关
 
-//	protected static NeigBuild nb; // 邻居选择模块
-
-	public static String groupController ;
-
-	public static String globalController;
 	public static String getAdminAddr() {
 		return adminAddr;
 	}

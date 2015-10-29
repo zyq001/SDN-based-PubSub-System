@@ -4,28 +4,35 @@
  */
 package org.Mina.shorenMinaTest.msg.tcp;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import org.Mina.shorenMinaTest.msg.WsnMsg;
-import org.apache.mina.core.session.IoSession;
-
 import org.Mina.shorenMinaTest.MinaUtil;
 import org.Mina.shorenMinaTest.handlers.Start;
 import org.Mina.shorenMinaTest.mgr.base.SysInfo;
+import org.Mina.shorenMinaTest.msg.WsnMsg;
 import org.Mina.shorenMinaTest.queues.ForwardMsg;
 import org.Mina.shorenMinaTest.queues.MsgQueueMgr;
 import org.Mina.shorenMinaTest.queues.TCPForwardMsg;
-import org.Mina.shorenMinaTest.queues.UDPForwardMsg;
 import org.Mina.shorenMinaTest.router.searchRoute;
+import org.apache.mina.core.session.IoSession;
+
+import java.io.Serializable;
+import java.util.ArrayList;
 
 
 /**
- *Ê¹ÓÃÐÞÊÎÄ£Ê½£¬½«Ô­ÓÐµÄmsg°ü×°³ÆÎª½ô¼±ÐÅÏ¢
+ * Ê¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä£Ê½ï¿½ï¿½ï¿½ï¿½Ô­ï¿½Ðµï¿½msgï¿½ï¿½×°ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
  */
 @SuppressWarnings("serial")
 public class EmergencyMsg extends WsnMsg implements Serializable {
 	protected WsnMsg msg;
-	
+
+	public EmergencyMsg() {
+		this.msg = new WsnMsg();
+	}
+
+	public EmergencyMsg(WsnMsg msg) {
+		this.msg = msg;
+	}
+
 	public WsnMsg getMsg() {
 		return msg;
 	}
@@ -34,80 +41,71 @@ public class EmergencyMsg extends WsnMsg implements Serializable {
 		this.msg = msg;
 	}
 
-	public EmergencyMsg(){
-		this.msg = new WsnMsg();
-	}
-	
-	public EmergencyMsg(WsnMsg msg){
-		this.msg = msg;
-	}
-	
 	public String msgToString() {
 		StringBuffer content = new StringBuffer();
 		Class type = this.getClass();
 		String className = type.getName();
-		if(type != null)
-		{
+		if (type != null) {
 			content.append("className=" + className + ";");
 			content.append(MinaUtil.msgToString(msg));
 		}
 		return content.toString();
 	}
-	
-	//½«String×ª»¯ÎªmsgÀà£¬ÓÃÓÚ½ÓÊÕºó·´ÐòÁÐ»¯
+
+	//ï¿½ï¿½String×ªï¿½ï¿½Îªmsgï¿½à£¬ï¿½ï¿½ï¿½Ú½ï¿½ï¿½Õºï¿½ï¿½ï¿½ï¿½Ð»ï¿½
 	public WsnMsg stringToMsg(String smsg) {
-		
-		if(smsg.contains("className=")){
-        	//Éú³ÉÏûÏ¢ÊµÀý
-            int index1 = smsg.indexOf("=");
-            int index2 = smsg.indexOf(";");
-            String className = smsg.substring(index1+1, index2);
-            smsg = smsg.substring(index2+1);  //ÏûÏ¢ÀàÈÝ
-            WsnMsg msg = null;
+
+		if (smsg.contains("className=")) {
+			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢Êµï¿½ï¿½
+			int index1 = smsg.indexOf("=");
+			int index2 = smsg.indexOf(";");
+			String className = smsg.substring(index1 + 1, index2);
+			smsg = smsg.substring(index2 + 1);  //ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½
+			WsnMsg msg = null;
 			try {
 				msg = (WsnMsg) Class.forName(className).newInstance();
 			} catch (InstantiationException e) {
-				
+
 				e.printStackTrace();
 			} catch (IllegalAccessException e) {
-				
+
 				e.printStackTrace();
 			} catch (ClassNotFoundException e) {
-			
+
 				e.printStackTrace();
-			} //µÃµ½ÊµÀý
-            if(smsg!=null && smsg != "" && msg != null){
-            	msg.stringToMsg(smsg);  //Îª¸÷¸öÓò¸³Öµ
-            	this.setMsg(msg);
-            }
+			} //ï¿½Ãµï¿½Êµï¿½ï¿½
+			if (smsg != null && smsg != "" && msg != null) {
+				msg.stringToMsg(smsg);  //Îªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµ
+				this.setMsg(msg);
+			}
 		}
-	//	System.out.println("there is no method defined for this class!");
+		//	System.out.println("there is no method defined for this class!");
 		return this;
 	}
-	
-	//»ñÈ¡Ä¿µÄ½ÚµãµÄIPµØÖ·£¬×ö×ª·¢ÓÃ
-	private ArrayList<String> getForwardIp(){
-		
-		return Start.forwardIP=searchRoute.calForwardIP("500:3:6:10:15:20:26", "m", Start.testMap);
+
+	//ï¿½ï¿½È¡Ä¿ï¿½Ä½Úµï¿½ï¿½IPï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½×ªï¿½ï¿½ï¿½ï¿½
+	private ArrayList<String> getForwardIp() {
+
+		return Start.forwardIP = searchRoute.calForwardIP("500:3:6:10:15:20:26", "m", Start.testMap);
 
 	}
-	
-	//²éÑ¯×ª·¢½ÚµãµÄipµØÖ·ÁÐ±í£¬¸ù¾ÝÁÐ±íÖÐµÄipÀ´×ö×ª·¢
-	public void processRegMsg(IoSession session){
-		
+
+	//ï¿½ï¿½Ñ¯×ªï¿½ï¿½ï¿½Úµï¿½ï¿½ipï¿½ï¿½Ö·ï¿½Ð±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð±ï¿½ï¿½Ðµï¿½ipï¿½ï¿½ï¿½ï¿½×ªï¿½ï¿½
+	public void processRegMsg(IoSession session) {
+
 		ArrayList<String> forwardIp = getForwardIp();
-		//²ßÂÔ¿âµÄÎ»ÖÃ£¬ÓÉ²ßÂÔ¿âÀ´¹ýÂËip
+		//ï¿½ï¿½ï¿½Ô¿ï¿½ï¿½Î»ï¿½Ã£ï¿½ï¿½É²ï¿½ï¿½Ô¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ip
 
 		ForwardMsg forwardMsg = new TCPForwardMsg(forwardIp, SysInfo.gettPort(), this);
 		MsgQueueMgr.addTCPMsgInQueue(forwardMsg);
 
 	}
-	
-	public void processRepMsg(IoSession session){
-		
+
+	public void processRepMsg(IoSession session) {
+
 		ArrayList<String> forwardIp = getForwardIp();
 		//System.out.println(forwardIp);
-		//²ßÂÔ¿âµÄÎ»ÖÃ£¬ÓÉ²ßÂÔ¿âÀ´¹ýÂËip
+		//ï¿½ï¿½ï¿½Ô¿ï¿½ï¿½Î»ï¿½Ã£ï¿½ï¿½É²ï¿½ï¿½Ô¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ip
 
 		ForwardMsg forwardMsg = new TCPForwardMsg(forwardIp, SysInfo.gettPort(), this);
 		MsgQueueMgr.addTCPMsgInQueue(forwardMsg);

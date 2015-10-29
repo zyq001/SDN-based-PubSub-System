@@ -3,12 +3,12 @@ package org.apache.servicemix.wsn.router.msg.tcp;
 import java.io.Serializable;
 
 public class DistBtnNebr implements Serializable {
-	public int dist; // Óë¸ÃÁÚ¾ÓµÄ¾àÀë
-	
+	public int dist; // ä¸è¯¥é‚»å±…çš„è·ç¦»
+
 	public DistBtnNebr(int dist) {
 		this.dist = dist;
 	}
-	
+
 	public int getDist() {
 		return dist;
 	}

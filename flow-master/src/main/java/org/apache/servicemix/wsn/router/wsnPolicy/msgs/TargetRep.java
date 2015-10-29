@@ -20,40 +20,16 @@ public class TargetRep extends TargetMsg
 	protected boolean allMsg = false;  //是否包含内部所有成员，若是包括，其列表可为空。
 
 
-	public boolean isAllMsg() {
-		return allMsg;
-	}
-
-	public void setAllMsg(boolean allMsg) {
-		this.allMsg = allMsg;
-	}
-	public String getRepIp() {
-		return repIp;
-	}
-
-	public void setRepIp(String repIp) {
-		this.repIp = repIp;
-	}
-
-	public List<TargetHost> getTargetClients() {
-		return targetClients;
-	}
-
-	public void setTargetClients(List<TargetHost> targetClients) {
-		this.targetClients = targetClients;
-	}
-
 	public TargetRep()
 	{
 		this(null);
 	}
-	
+
 	public TargetRep(String repIp)
 	{
 		targetClients = new ArrayList<TargetHost>();
 		this.repIp = repIp;
 	}
-	
 	public TargetRep(String repIp, List<TargetHost> targetClients)
 	{
 		this.targetClients = new ArrayList<TargetHost>();
@@ -62,6 +38,30 @@ public class TargetRep extends TargetMsg
 		{
 			this.targetClients.add(targetClients.get(i));
 		}
+	}
+
+	public boolean isAllMsg() {
+		return allMsg;
+	}
+
+	public void setAllMsg(boolean allMsg) {
+		this.allMsg = allMsg;
+	}
+
+	public String getRepIp() {
+		return repIp;
+	}
+
+	public void setRepIp(String repIp) {
+		this.repIp = repIp;
+	}
+	
+	public List<TargetHost> getTargetClients() {
+		return targetClients;
+	}
+	
+	public void setTargetClients(List<TargetHost> targetClients) {
+		this.targetClients = targetClients;
 	}
 	
 	public void deleteMsg(TargetRep msg)

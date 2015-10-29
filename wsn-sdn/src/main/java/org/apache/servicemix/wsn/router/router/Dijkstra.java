@@ -1,23 +1,20 @@
 package org.apache.servicemix.wsn.router.router;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeMap;
+import org.apache.servicemix.wsn.router.msg.tcp.LSA;
+
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
-import org.apache.servicemix.wsn.router.msg.tcp.LSA;
 /**
- * openÖĞÊÇ´ı¼ÆËãµÄËùÓĞ½Úµã
- * closeÖĞÊÇÒÑ¾­¼ÆËã³öÀ´µÄ½Úµã
- * goalÖĞÊÇ´ı¼ÆËãµÄ¶©ÔÄ±¾Ö÷ÌâµÄÄ¿µÄ½Úµã
- * freeÖĞÊÇ¶©ÔÄ±¾Ö÷Ìâ²¢ÇÒ»¹¿ÉÒÔÓĞº¢×ÓµÄ½Úµã
- * reachÖĞÊÇ¶©ÔÄ±¾Ö÷Ìâµ«Î´¼ÆËãµ½µÄ½Úµã
- * pathInfo´æ´¢ËùÓĞÒÑ¾­µ½´ïµÄ½Úµã
- * finalPath´æ´¢¶©ÔÄ½ÚµãµÄÂ·¾¶
- * @author Sylvia
+ * openä¸­æ˜¯å¾…è®¡ç®—çš„æ‰€æœ‰èŠ‚ç‚¹
+ * closeä¸­æ˜¯å·²ç»è®¡ç®—å‡ºæ¥çš„èŠ‚ç‚¹
+ * goalä¸­æ˜¯å¾…è®¡ç®—çš„è®¢é˜…æœ¬ä¸»é¢˜çš„ç›®çš„èŠ‚ç‚¹
+ * freeä¸­æ˜¯è®¢é˜…æœ¬ä¸»é¢˜å¹¶ä¸”è¿˜å¯ä»¥æœ‰å­©å­çš„èŠ‚ç‚¹
+ * reachä¸­æ˜¯è®¢é˜…æœ¬ä¸»é¢˜ä½†æœªè®¡ç®—åˆ°çš„èŠ‚ç‚¹
+ * pathInfoå­˜å‚¨æ‰€æœ‰å·²ç»åˆ°è¾¾çš„èŠ‚ç‚¹
+ * finalPathå­˜å‚¨è®¢é˜…èŠ‚ç‚¹çš„è·¯å¾„
  *
+ * @author Sylvia
  */
 public class Dijkstra {
 	TreeMap<String, Node> open = new TreeMap<String, Node>();
@@ -25,23 +22,23 @@ public class Dijkstra {
 	ArrayList<String> goal = new ArrayList<String>();
 	ArrayList<String> free = new ArrayList<String>();
 	ArrayList<String> reach = new ArrayList<String>();
-	Map<String, String> pathInfo = new HashMap<String, String>();// ·â×°Â·¾¶ĞÅÏ¢
-	Map<String, String> finalPath = new HashMap<String, String>();//ÌØ¶¨½ÚµãµÄÂ·¾¶
+	Map<String, String> pathInfo = new HashMap<String, String>();// å°è£…è·¯å¾„ä¿¡æ¯
+	Map<String, String> finalPath = new HashMap<String, String>();//ç‰¹å®šèŠ‚ç‚¹çš„è·¯å¾„
 	String groupName;
-	
+
 	Map<String, Integer> path = new HashMap<String, Integer>();
 	int MAX_CHILDREN = 2;
 	int MAX_VALUE = 40000;
 
-	public Node init(ConcurrentHashMap<String, LSA> lsdb, ArrayList<String> goal,String groupName) {
-		// ½«³õÊ¼½Úµã·ÅÈëclose,ÆäËû½Úµã·ÅÈëopen
-		Node start = new MapBuilder().build(lsdb.values(), goal, open, close,free,reach);
+	public Node init(ConcurrentHashMap<String, LSA> lsdb, ArrayList<String> goal, String groupName) {
+		// å°†åˆå§‹èŠ‚ç‚¹æ”¾å…¥close,å…¶ä»–èŠ‚ç‚¹æ”¾å…¥open
+		Node start = new MapBuilder().build(lsdb.values(), goal, open, close, free, reach);
 		this.goal = goal;
 		this.groupName = groupName;
 		return start;
 	}
 
-	// ¼ÆËã×î¶ÌÂ·¾¶
+	// è®¡ç®—æœ€çŸ­è·¯å¾„
 	public void computePath(Node start) {
 		path.put(start.getName(), new Integer(0));
 		pathInfo.put(start.getName(), start.getName());
@@ -53,14 +50,14 @@ public class Dijkstra {
 			String father = "";
 			for (Node reached : close.values()) {
 				neighbor = reached.getNeighbors();
-				if(neighbor.isEmpty()) {
+				if (neighbor.isEmpty()) {
 					continue;
 				}
 				for (Neighbor nbr : neighbor) {
-					if (open.containsKey(nbr.neighbor.getName())) {// Èç¹û×Ó½ÚµãÔÚopenÖĞ
+					if (open.containsKey(nbr.neighbor.getName())) {// å¦‚æœå­èŠ‚ç‚¹åœ¨openä¸­
 						Integer newCompute = path.get(reached.getName())
 								+ nbr.distance;
-						if (shstl > newCompute) {// Ö®Ç°ÉèÖÃµÄ¾àÀë´óÓÚĞÂ¼ÆËã³öÀ´µÄ¾àÀë
+						if (shstl > newCompute) {// ä¹‹å‰è®¾ç½®çš„è·ç¦»å¤§äºæ–°è®¡ç®—å‡ºæ¥çš„è·ç¦»
 							shstl = newCompute;
 							shstn = nbr.neighbor;
 							if (free.contains(reached.getName()))
@@ -71,7 +68,7 @@ public class Dijkstra {
 					}
 				}
 			}
-			if(shstn == null) {
+			if (shstn == null) {
 				break;
 			}
 			close.put(shstn.getName(), shstn);
@@ -79,55 +76,55 @@ public class Dijkstra {
 			pathInfo.put(shstn.getName(), father);
 			path.put(shstn.getName(), shstl);
 			if (reach.contains(shstn.getName())) {
-				finalPath.put(shstn.getName(),father);
+				finalPath.put(shstn.getName(), father);
 				Node fa = close.get(father);
-				int sum = fa.getSum()+1;
+				int sum = fa.getSum() + 1;
 				fa.setSum(sum);
 				reach.remove(shstn.getName());
-				//Èôfa½ÚµãËùÄÜÈİÄÉµÄgoal¼¯ºÏÄÚµÄº¢×ÓÒÑ¾­´ïµ½ÉÏÏŞ£¬ÔòÔÚcloseÖĞÉ¾³ıfaÒÔ¼°ÒÔËüÎªÉÏÒ»ÌøµÄ½Úµã£¬ÖØĞÂ·ÅÈëopenÖĞ
+				//è‹¥faèŠ‚ç‚¹æ‰€èƒ½å®¹çº³çš„goalé›†åˆå†…çš„å­©å­å·²ç»è¾¾åˆ°ä¸Šé™ï¼Œåˆ™åœ¨closeä¸­åˆ é™¤faä»¥åŠä»¥å®ƒä¸ºä¸Šä¸€è·³çš„èŠ‚ç‚¹ï¼Œé‡æ–°æ”¾å…¥openä¸­
 				if (sum >= MAX_CHILDREN) {
-				//	if(fa.getName().equals(localAddr))
-			//			cal = false;
+					//	if(fa.getName().equals(localAddr))
+					//			cal = false;
 					free.remove(fa.getName());
 					close.remove(fa.getName());
 					open.put(fa.getName(), fa);
 					pathInfo.remove(fa.getName());
 					path.remove(fa.getName());
-					ArrayList<String> remove=new ArrayList<String>();
+					ArrayList<String> remove = new ArrayList<String>();
 					for (Node n : close.values()) {
-							if (pathInfo.get(n.getName()).equals(
-									fa.getName()) && !free.contains(n.getName())) {
-								remove.add(n.getName());
-								pathInfo.remove(n.getName());
-								path.remove(n.getName());
-								open.put(n.getName(), n);
-							}
-							
+						if (pathInfo.get(n.getName()).equals(
+								fa.getName()) && !free.contains(n.getName())) {
+							remove.add(n.getName());
+							pathInfo.remove(n.getName());
+							path.remove(n.getName());
+							open.put(n.getName(), n);
+						}
+
 					}
-					for(String re : remove) 
+					for (String re : remove)
 						close.remove(re);
-					//Ñ¡Ôñ¾àÀëÆğÊ¼½Úµã×î½üµÄÄ¿±ê½ÚµãÖØĞÂ×÷Îª¿ªÊ¼½Úµã¼ÆËã
+					//é€‰æ‹©è·ç¦»èµ·å§‹èŠ‚ç‚¹æœ€è¿‘çš„ç›®æ ‡èŠ‚ç‚¹é‡æ–°ä½œä¸ºå¼€å§‹èŠ‚ç‚¹è®¡ç®—
 					start = getShortestNode();
 				}
 			}
 		}
 	}
-	
+
 	public String CalFather() {
 		String father = "";
-		for(String n : finalPath.keySet()) {
-			if(n.equals(groupName)) {
+		for (String n : finalPath.keySet()) {
+			if (n.equals(groupName)) {
 				father = finalPath.get(n);
 				break;
 			}
 		}
 		return father;
 	}
-	
+
 	public ArrayList<String> savePath() {
 		ArrayList<String> next = new ArrayList<String>();
-		for(String n : finalPath.keySet()) {
-			if(finalPath.get(n).equals(groupName))
+		for (String n : finalPath.keySet()) {
+			if (finalPath.get(n).equals(groupName))
 				next.add(n);
 		}
 		return next;
@@ -141,7 +138,7 @@ public class Dijkstra {
 	}
 
 	/**
-	 * »ñÈ¡Óënode×î½üµÄ×Ó½Úµã
+	 * è·å–ä¸nodeæœ€è¿‘çš„å­èŠ‚ç‚¹
 	 */
 	private Node getShortestNode() {
 		Node res = null;

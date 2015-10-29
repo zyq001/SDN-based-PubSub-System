@@ -4,30 +4,30 @@
  */
 package org.Mina.shorenMinaTest.queues;
 
-import java.util.ArrayList;
-
 import org.Mina.shorenMinaTest.msg.WsnMsg;
+
+import java.util.ArrayList;
 
 
 /**
  *
  */
-public class UDPForwardMsg extends ForwardMsg{
+public class UDPForwardMsg extends ForwardMsg {
 
 	public UDPForwardMsg(Destination dest, WsnMsg msg) {
 		super(dest, msg);
 	}
-	
-	public UDPForwardMsg(String addr, int port, WsnMsg msg){
+
+	public UDPForwardMsg(String addr, int port, WsnMsg msg) {
 		super(addr, port, msg);
 	}
-	
-	public UDPForwardMsg(ArrayList<String> forwardip, int port, WsnMsg msg){
+
+	public UDPForwardMsg(ArrayList<String> forwardip, int port, WsnMsg msg) {
 		super(forwardip, port, msg);
 	}
-	
-	//Á¬½ÓÍ¬Ò»µØÖ··¢ËÍµÄÍ¨µÀ£¬ÓÐTCPºÍUDP
-	public String getKeyDest(){
-		return super.getKeyDest()+"UDP";
+
+	//ï¿½ï¿½ï¿½ï¿½Í¬Ò»ï¿½ï¿½Ö·ï¿½ï¿½ï¿½Íµï¿½Í¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½TCPï¿½ï¿½UDP
+	public String getKeyDest() {
+		return super.getKeyDest() + "UDP";
 	}
 }

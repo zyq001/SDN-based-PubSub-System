@@ -22,11 +22,11 @@ package org.apache.servicemix.application;
  * http://svn.apache.org/repos/asf/incubator/activemq/trunk/activemq-core/src/main/java/org/apache/activemq/util/IdGenerator.java
  */
 
-import java.net.InetAddress;
-import java.net.ServerSocket;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
+import java.net.InetAddress;
+import java.net.ServerSocket;
 
 /**
  * Generator for Globally unique Strings.
@@ -34,93 +34,91 @@ import org.apache.commons.logging.LogFactory;
 
 public class IdGenerator {
 
-    private static final Log LOG = LogFactory.getLog(IdGenerator.class);
+	private static final Log LOG = LogFactory.getLog(IdGenerator.class);
 
-    private static final String UNIQUE_STUB;
+	private static final String UNIQUE_STUB;
 
-    private static int instanceCount;
+	private static int instanceCount;
 
-    private static String hostName;
+	private static String hostName;
 
-    private String seed;
+	static {
+		String stub = "";
+		boolean canAccessSystemProps = true;
+		try {
+			SecurityManager sm = System.getSecurityManager();
+			if (sm != null) {
+				sm.checkPropertiesAccess();
+			}
+		} catch (SecurityException se) {
+			canAccessSystemProps = false;
+		}
 
-    private long sequence;
+		if (canAccessSystemProps) {
+			try {
+				hostName = InetAddress.getLocalHost().getHostAddress();
+				ServerSocket ss = new ServerSocket(0);
+				stub = hostName + "-" + Long.toHexString(ss.getLocalPort() ^ System.currentTimeMillis()) + "-";
+				Thread.sleep(100);
+				ss.close();
+			} catch (Exception ioe) {
+				LOG.warn("Could not generate unique stub", ioe);
+			}
+		} else {
+			hostName = "localhost";
+			stub = hostName + Long.toHexString(System.currentTimeMillis()) + "-";
+		}
+		UNIQUE_STUB = stub;
+	}
 
-    public IdGenerator() {
-        this("ID:");
-    }
+	private String seed;
+	private long sequence;
 
-    /**
-     * Construct an IdGenerator
-     * 
-     */
-    public IdGenerator(String prefix) {
-        synchronized (UNIQUE_STUB) {
-            this.seed = prefix + UNIQUE_STUB + (instanceCount++) + ":";
-        }
-    }
-    
-    static {
-        String stub = "";
-        boolean canAccessSystemProps = true;
-        try {
-            SecurityManager sm = System.getSecurityManager();
-            if (sm != null) {
-                sm.checkPropertiesAccess();
-            }
-        } catch (SecurityException se) {
-            canAccessSystemProps = false;
-        }
+	public IdGenerator() {
+		this("ID:");
+	}
 
-        if (canAccessSystemProps) {
-            try {
-                hostName = InetAddress.getLocalHost().getHostAddress();
-                ServerSocket ss = new ServerSocket(0);
-                stub = hostName + "-" + Long.toHexString(ss.getLocalPort() ^ System.currentTimeMillis()) + "-";
-                Thread.sleep(100);
-                ss.close();
-            } catch (Exception ioe) {
-                LOG.warn("Could not generate unique stub", ioe);
-            }
-        } else {
-            hostName = "localhost";
-            stub = hostName + Long.toHexString(System.currentTimeMillis()) + "-";
-        }
-        UNIQUE_STUB = stub;
-    }
+	/**
+	 * Construct an IdGenerator
+	 */
+	public IdGenerator(String prefix) {
+		synchronized (UNIQUE_STUB) {
+			this.seed = prefix + UNIQUE_STUB + (instanceCount++) + ":";
+		}
+	}
 
-    /**
-     * As we have to find the hostname as a side-affect of generating a unique
-     * stub, we allow it's easy retrevial here
-     * 
-     * @return the local host name
-     */
+	/**
+	 * As we have to find the hostname as a side-affect of generating a unique
+	 * stub, we allow it's easy retrevial here
+	 *
+	 * @return the local host name
+	 */
 
-    public static String getHostName() {
-        return hostName;
-    }
+	public static String getHostName() {
+		return hostName;
+	}
 
-    /**
-     * Generate a unqiue id
-     * 
-     * @return a unique id
-     */
+	/**
+	 * Generate a unqiue id
+	 *
+	 * @return a unique id
+	 */
 
-    public synchronized String generateId() {
-        return this.seed + (this.sequence++);
-    }
+	public synchronized String generateId() {
+		return this.seed + (this.sequence++);
+	}
 
-    /**
-     * Generate a unique ID - that is friendly for a URL or file system
-     * 
-     * @return a unique id
-     */
-    public String generateSanitizedId() {
-        String result = generateId();
-        result = result.replace(':', '-');
-        result = result.replace('_', '-');
-        result = result.replace('.', '-');
-        return result;
-    }
+	/**
+	 * Generate a unique ID - that is friendly for a URL or file system
+	 *
+	 * @return a unique id
+	 */
+	public String generateSanitizedId() {
+		String result = generateId();
+		result = result.replace(':', '-');
+		result = result.replace('_', '-');
+		result = result.replace('.', '-');
+		return result;
+	}
 
 }
