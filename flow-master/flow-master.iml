@@ -14,15 +14,6 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/eclipse-jface-2.1.0.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
           <root url="jar://$MODULE_DIR$/lib/jface-3.0.1.jar!/" />
         </CLASSES>
         <JAVADOC />
@@ -30,14 +21,16 @@
       </library>
     </orderEntry>
     <orderEntry type="library" name="Maven: org.codehaus.jackson:jackson-core-asl:1.9.0" level="project" />
-    <orderEntry type="library" name="Maven: net.sf.jazzy:jazzy:0.5.2-rtext-1.4.1" level="project" />
     <orderEntry type="library" name="Maven: net.sf.jazzy:jazzy-swing:0.5.2" level="project" />
-    <orderEntry type="library" name="Maven: org.json:json:20140107" level="project" />
+    <orderEntry type="library" name="Maven: org.json:json:20141113" level="project" />
     <orderEntry type="library" name="Maven: com.tupilabs:jazzy:0.6" level="project" />
     <orderEntry type="library" name="Maven: org.apache.servicemix.bundles:org.apache.servicemix.bundles.jing:20030619_6" level="project" />
     <orderEntry type="library" name="Maven: org.eclipse:swt:3.3.0-v3346" level="project" />
     <orderEntry type="library" name="Maven: org.eclipse.swt.gtk.linux:x86_64:3.3.0-v3346" level="project" />
     <orderEntry type="library" name="Maven: org.mod4j.org.eclipse:jface:3.5.0" level="project" />
+    <orderEntry type="library" name="Maven: org.mod4j.org.eclipse:swt:3.5.0" level="project" />
+    <orderEntry type="library" name="Maven: org.mod4j.org.eclipse.core:commands:3.5.0" level="project" />
+    <orderEntry type="library" name="Maven: org.mod4j.org.eclipse.equinox:common:3.5.0" level="project" />
     <orderEntry type="library" name="Maven: org.apache.xmlgraphics:fop:0.94" level="project" />
     <orderEntry type="library" name="Maven: org.apache.xmlgraphics:xmlgraphics-commons:1.2" level="project" />
     <orderEntry type="library" name="Maven: batik:batik-svg-dom:1.6-1" level="project" />
@@ -59,8 +52,6 @@
     <orderEntry type="library" name="Maven: xml-apis:xmlParserAPIs:2.0.2" level="project" />
     <orderEntry type="library" name="Maven: org.apache.avalon.framework:avalon-framework-api:4.3.1" level="project" />
     <orderEntry type="library" name="Maven: org.apache.avalon.framework:avalon-framework-impl:4.3.1" level="project" />
-    <orderEntry type="module" module-name="MessageProcess" />
-    <orderEntry type="library" name="Maven: commons-httpclient:commons-httpclient:3.1" level="project" />
     <orderEntry type="library" name="Maven: commons-io:commons-io:1.4" level="project" />
     <orderEntry type="library" name="Maven: xml-resolver:xml-resolver:1.2" level="project" />
     <orderEntry type="library" name="Maven: com.jtattoo:JTattoo:1.6.10" level="project" />
