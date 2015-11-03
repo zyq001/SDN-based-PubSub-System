@@ -328,7 +328,7 @@ public class MinaUtil {
 		connector.getSessionConfig().setIdleTime(IdleStatus.BOTH_IDLE, IDLE_TIME);
 		//一个connector可以连接多个服务器，所以连接操作应该放在外面
 	   /* ConnectFuture cf = connector.connect(new InetSocketAddress(ip, port));//建立连接
-        cf.awaitUninterruptibly();//等待连接创建完成   
+	    cf.awaitUninterruptibly();//等待连接创建完成
 */
 		return connector;
 	}

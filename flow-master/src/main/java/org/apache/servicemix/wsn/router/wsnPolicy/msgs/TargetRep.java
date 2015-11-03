@@ -11,8 +11,7 @@ import java.util.List;
  *
  */
 //策略信息中附带的代理信息，主要用来存储客户信息
-public class TargetRep extends TargetMsg
-{	
+public class TargetRep extends TargetMsg {
 
 	private static final long serialVersionUID = 1L;
 	protected List<TargetHost> targetClients;
@@ -20,22 +19,19 @@ public class TargetRep extends TargetMsg
 	protected boolean allMsg = false;  //是否包含内部所有成员，若是包括，其列表可为空。
 
 
-	public TargetRep()
-	{
+	public TargetRep() {
 		this(null);
 	}
 
-	public TargetRep(String repIp)
-	{
+	public TargetRep(String repIp) {
 		targetClients = new ArrayList<TargetHost>();
 		this.repIp = repIp;
 	}
-	public TargetRep(String repIp, List<TargetHost> targetClients)
-	{
+
+	public TargetRep(String repIp, List<TargetHost> targetClients) {
 		this.targetClients = new ArrayList<TargetHost>();
 		this.repIp = repIp;
-		for(int i=0; i<targetClients.size(); i++)
-		{
+		for (int i = 0; i < targetClients.size(); i++) {
 			this.targetClients.add(targetClients.get(i));
 		}
 	}
@@ -55,51 +51,47 @@ public class TargetRep extends TargetMsg
 	public void setRepIp(String repIp) {
 		this.repIp = repIp;
 	}
-	
+
 	public List<TargetHost> getTargetClients() {
 		return targetClients;
 	}
-	
+
 	public void setTargetClients(List<TargetHost> targetClients) {
 		this.targetClients = targetClients;
 	}
-	
-	public void deleteMsg(TargetRep msg)
-	{
-		if(!msg.getTargetClients().isEmpty())
-		{
+
+	public void deleteMsg(TargetRep msg) {
+		if (!msg.getTargetClients().isEmpty()) {
 			List<TargetHost> ths = msg.getTargetClients();
-			for(int i=0; i<ths.size(); i++){
+			for (int i = 0; i < ths.size(); i++) {
 				TargetHost th = ths.get(i);
-				if(targetClients.contains(th)){
+				if (targetClients.contains(th)) {
 					int index = targetClients.indexOf(th);
 					targetClients.remove(index);
 				}
-					
+
 			}
 		}
 	}
-	
-	public void mergeMsg(TargetRep msg)
-	{
-		if(!this.equals(msg))
+
+	public void mergeMsg(TargetRep msg) {
+		if (!this.equals(msg))
 			return;
 		//如果msg所有主机均受限
-		if(msg.isAllMsg()){
+		if (msg.isAllMsg()) {
 			this.setAllMsg(true);
 			targetClients.clear();
 			return;
 		}
 		//如果当前所有主机均受限
-		if(this.allMsg)
+		if (this.allMsg)
 			return;
-		
-		if(!msg.getTargetClients().isEmpty())
-		{
+
+		if (!msg.getTargetClients().isEmpty()) {
 			List<TargetHost> ths = msg.getTargetClients();
-			for(int i=0; i<ths.size(); i++){
+			for (int i = 0; i < ths.size(); i++) {
 				TargetHost th = ths.get(i);
-				if(!targetClients.contains(th))
+				if (!targetClients.contains(th))
 					targetClients.add(th);
 			}
 		}

@@ -24,7 +24,8 @@
 <!--  UPDATES                                           -->
 <!--  2009.03.20 EAS: Added xml:lang and DITAArchVersion attribute to dita element   -->
 <!-- ============================================================= -->
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ditaarch="http://dita.oasis-open.org/architecture/2005/" elementFormDefault="qualified"
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ditaarch="http://dita.oasis-open.org/architecture/2005/"
+           elementFormDefault="qualified"
            attributeFormDefault="unqualified">
     <!-- Add the domains to the base topic XML Schema -->
     <!--  ================ TOPIC DOMAINS =====================  -->

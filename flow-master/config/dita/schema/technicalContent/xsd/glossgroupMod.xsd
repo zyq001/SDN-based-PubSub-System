@@ -20,7 +20,8 @@
 <!--             (C) Copyright OASIS-Open.org 2009                -->
 <!--             All Rights Reserved.                              -->
 <!-- ============================================================= -->
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ditaarch="http://dita.oasis-open.org/architecture/2005/" elementFormDefault="qualified"
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ditaarch="http://dita.oasis-open.org/architecture/2005/"
+           elementFormDefault="qualified"
            attributeFormDefault="unqualified">
 
     <xs:import namespace="http://dita.oasis-open.org/architecture/2005/"

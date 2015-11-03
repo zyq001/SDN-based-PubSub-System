@@ -54,7 +54,7 @@ public class JmsSubscriptionImpl extends JmsSubscription {
 		 * topic tree subscribe
 		 * new added at 2013/12/1
 		 *//*
-	    	String[] topicPath = topicName.split(":");
+			String[] topicPath = topicName.split(":");
         	WSNTopicObject current = WsnProcessImpl.topicTree;
         	int flag = 0;
         	for(int i=0;i<topicPath.length-1;i++){

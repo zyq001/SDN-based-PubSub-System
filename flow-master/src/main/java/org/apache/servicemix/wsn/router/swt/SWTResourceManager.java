@@ -22,13 +22,14 @@ import java.util.Map;
 
 /**
  * Utility class for managing OS resources associated with SWT controls such as colors, fonts, images, etc.
- * <p>
+ * <p/>
  * !!! IMPORTANT !!! Application code must explicitly invoke the <code>dispose()</code> method to release the
  * operating system resources managed by cached objects when those objects and OS resources are no longer
  * needed (e.g. on application shutdown)
- * <p>
+ * <p/>
  * This class may be freely distributed as part of any application or plugin.
- * <p>
+ * <p/>
+ *
  * @author scheglov_ke
  * @author Dan Rubel
  */
@@ -90,8 +91,7 @@ public class SWTResourceManager {
 	/**
 	 * Returns the system {@link Color} matching the specific ID.
 	 *
-	 * @param systemColorID
-	 *            the ID value for the color
+	 * @param systemColorID the ID value for the color
 	 * @return the system {@link Color} matching the specific ID
 	 */
 	public static Color getColor(int systemColorID) {
@@ -102,12 +102,9 @@ public class SWTResourceManager {
 	/**
 	 * Returns a {@link Color} given its red, green and blue component values.
 	 *
-	 * @param r
-	 *            the red component of the color
-	 * @param g
-	 *            the green component of the color
-	 * @param b
-	 *            the blue component of the color
+	 * @param r the red component of the color
+	 * @param g the green component of the color
+	 * @param b the blue component of the color
 	 * @return the {@link Color} matching the given red, green and blue component values
 	 */
 	public static Color getColor(int r, int g, int b) {
@@ -117,8 +114,7 @@ public class SWTResourceManager {
 	/**
 	 * Returns a {@link Color} given its RGB value.
 	 *
-	 * @param rgb
-	 *            the {@link RGB} value of the color
+	 * @param rgb the {@link RGB} value of the color
 	 * @return the {@link Color} matching the RGB value
 	 */
 	public static Color getColor(RGB rgb) {
@@ -144,8 +140,7 @@ public class SWTResourceManager {
 	/**
 	 * Returns an {@link Image} encoded by the specified {@link InputStream}.
 	 *
-	 * @param stream
-	 *            the {@link InputStream} encoding the image data
+	 * @param stream the {@link InputStream} encoding the image data
 	 * @return the {@link Image} encoded by the specified input stream
 	 */
 	protected static Image getImage(InputStream stream) throws IOException {
@@ -164,8 +159,7 @@ public class SWTResourceManager {
 	/**
 	 * Returns an {@link Image} stored in the file at the specified path.
 	 *
-	 * @param path
-	 *            the path to the image file
+	 * @param path the path to the image file
 	 * @return the {@link Image} stored in the file at the specified path
 	 */
 	public static Image getImage(String path) {
@@ -185,10 +179,8 @@ public class SWTResourceManager {
 	/**
 	 * Returns an {@link Image} stored in the file at the specified path relative to the specified class.
 	 *
-	 * @param clazz
-	 *            the {@link Class} relative to which to find the image
-	 * @param path
-	 *            the path to the image file, if starts with <code>'/'</code>
+	 * @param clazz the {@link Class} relative to which to find the image
+	 * @param path  the path to the image file, if starts with <code>'/'</code>
 	 * @return the {@link Image} stored in the file at the specified path
 	 */
 	public static Image getImage(Class<?> clazz, String path) {
@@ -228,10 +220,8 @@ public class SWTResourceManager {
 	/**
 	 * Returns an {@link Image} composed of a base image decorated by another image.
 	 *
-	 * @param baseImage
-	 *            the base {@link Image} that should be decorated
-	 * @param decorator
-	 *            the {@link Image} to decorate the base image
+	 * @param baseImage the base {@link Image} that should be decorated
+	 * @param decorator the {@link Image} to decorate the base image
 	 * @return {@link Image} The resulting decorated image
 	 */
 	public static Image decorateImage(Image baseImage, Image decorator) {
@@ -241,12 +231,9 @@ public class SWTResourceManager {
 	/**
 	 * Returns an {@link Image} composed of a base image decorated by another image.
 	 *
-	 * @param baseImage
-	 *            the base {@link Image} that should be decorated
-	 * @param decorator
-	 *            the {@link Image} to decorate the base image
-	 * @param corner
-	 *            the corner to place decorator image
+	 * @param baseImage the base {@link Image} that should be decorated
+	 * @param decorator the {@link Image} to decorate the base image
+	 * @param corner    the corner to place decorator image
 	 * @return the resulting decorated {@link Image}
 	 */
 	public static Image decorateImage(final Image baseImage, final Image decorator, final int corner) {
@@ -318,12 +305,9 @@ public class SWTResourceManager {
 	/**
 	 * Returns a {@link Font} based on its name, height and style.
 	 *
-	 * @param name
-	 *            the name of the font
-	 * @param height
-	 *            the height of the font
-	 * @param style
-	 *            the style of the font
+	 * @param name   the name of the font
+	 * @param height the height of the font
+	 * @param style  the style of the font
 	 * @return {@link Font} The font matching the name, height and style
 	 */
 	public static Font getFont(String name, int height, int style) {
@@ -334,16 +318,11 @@ public class SWTResourceManager {
 	 * Returns a {@link Font} based on its name, height and style. Windows-specific strikeout and underline
 	 * flags are also supported.
 	 *
-	 * @param name
-	 *            the name of the font
-	 * @param size
-	 *            the size of the font
-	 * @param style
-	 *            the style of the font
-	 * @param strikeout
-	 *            the strikeout flag (warning: Windows only)
-	 * @param underline
-	 *            the underline flag (warning: Windows only)
+	 * @param name      the name of the font
+	 * @param size      the size of the font
+	 * @param style     the style of the font
+	 * @param strikeout the strikeout flag (warning: Windows only)
+	 * @param underline the underline flag (warning: Windows only)
 	 * @return {@link Font} The font matching the name, height, style, strikeout and underline
 	 */
 	public static Font getFont(String name, int size, int style, boolean strikeout, boolean underline) {
@@ -376,8 +355,7 @@ public class SWTResourceManager {
 	/**
 	 * Returns a bold version of the given {@link Font}.
 	 *
-	 * @param baseFont
-	 *            the {@link Font} for which a bold version is desired
+	 * @param baseFont the {@link Font} for which a bold version is desired
 	 * @return the bold version of the given {@link Font}
 	 */
 	public static Font getBoldFont(Font baseFont) {
@@ -415,8 +393,7 @@ public class SWTResourceManager {
 	/**
 	 * Returns the system cursor matching the specific ID.
 	 *
-	 * @param id
-	 *            int The ID value for the cursor
+	 * @param id int The ID value for the cursor
 	 * @return Cursor The system cursor matching the specific ID
 	 */
 	public static Cursor getCursor(int id) {

@@ -51,7 +51,7 @@ public class MsgQueueMgr {
 	private static final int stepde = 2;
 	private static final int stepin = 1;
 	private static final int taskSize = 5;  //任务队列的长度
-//	private static int PRIORITYMSG = 14;        //默认包含除紧急信息之外的所有信息，0x1110
+	//	private static int PRIORITYMSG = 14;        //默认包含除紧急信息之外的所有信息，0x1110
 	protected static int PRIMSG = 0;
 	protected static double secPro = INISECPRO;
 	protected static double thirdPro = INITHIRDPRO;
@@ -64,7 +64,7 @@ public class MsgQueueMgr {
 	//有界阻塞队列,作为第一级队列
 	//紧急信息,单独一个通道发送
 	private static LinkedBlockingQueue<ForwardMsg> emergencyMsgQueue;   //优先级1
-// 	private static final double MAXRATIO = 0.6;  //最高比例是0.6
+	// 	private static final double MAXRATIO = 0.6;  //最高比例是0.6
 	//TCP通知消息
 	private static LinkedBlockingQueue<ForwardMsg> TCPNoticeMsgQueue;   //优先级2
 	//TCP其他消息

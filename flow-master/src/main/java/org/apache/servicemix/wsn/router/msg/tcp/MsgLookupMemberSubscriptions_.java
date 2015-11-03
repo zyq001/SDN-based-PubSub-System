@@ -9,14 +9,14 @@ import java.util.concurrent.ConcurrentHashMap;
 public class MsgLookupMemberSubscriptions_ implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	public TreeSet<String> topics;
-	
+
 	public Map<String, ArrayList<String>> topicAsubers;
-	
+
 	public MsgLookupMemberSubscriptions_() {
-		topicAsubers = new ConcurrentHashMap<String,ArrayList<String>>();
+		topicAsubers = new ConcurrentHashMap<String, ArrayList<String>>();
 		topics = new TreeSet<String>();
 	}
-	
+
 }

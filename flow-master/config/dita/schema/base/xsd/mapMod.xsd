@@ -25,7 +25,8 @@
 <!--    2005.11.15 EAS: Moved domains attribute definition to      -->
 <!--                    map.xsd                                    -->
 <!-- ============================================================= -->
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ditaarch="http://dita.oasis-open.org/architecture/2005/" elementFormDefault="qualified"
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ditaarch="http://dita.oasis-open.org/architecture/2005/"
+           elementFormDefault="qualified"
            attributeFormDefault="unqualified">
 
     <!-- ======= IMPORT - XML attributes and namespace ======= -->
@@ -299,7 +300,8 @@
         <xs:annotation>
             <xs:documentation>
                 The relationship table (&lt;<keyword>reltable</keyword>&gt;) defines
-                relationships between topics, based on the familiar table model of rows (&lt;<keyword>relrow</keyword>
+                relationships between topics, based on the familiar table model of rows (&lt;
+                <keyword>relrow</keyword>
                 &gt;),
                 columns (&lt;<keyword>relheader</keyword>&gt;), and cells (&lt;<keyword>relcell</keyword>>).
                 The &lt;<keyword>relcell</keyword>&gt; elements can contain &lt;<keyword>topicref</keyword>&gt;

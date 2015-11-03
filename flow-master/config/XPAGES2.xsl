@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xalanredirect="http://xml.apache.org/xalan/redirect"
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+                xmlns:xalanredirect="http://xml.apache.org/xalan/redirect"
                 xmlns:exsl="http://exslt.org/common"
                 xmlns:faire-images="xalan://xpages.FaireImages" version="1.0"
                 extension-element-prefixes="xalanredirect exsl faire-images">

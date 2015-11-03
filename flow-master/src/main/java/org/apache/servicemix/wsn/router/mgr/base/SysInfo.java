@@ -22,7 +22,7 @@ public abstract class SysInfo {
 	public static long synPeriod;//发送更新订阅的时间间隔
 	//others
 	public static ConcurrentHashMap<String, GroupUnit> groupMap;//保存当前拓扑内出了本集群外所有集群的信息，key为集群名
-//	protected static long thresholdInitialize;//初始化——判断心跳超时的阀值
+	//	protected static long thresholdInitialize;//初始化——判断心跳超时的阀值
 //	protected static long sendPeriodInitialize;//初始化——发送心跳的时间间隔
 //	protected static long scanPeriodInitialize;//初始化——扫描心跳的时间间隔
 //	protected static long synPeriodInitialize;//初始化——发送更新订阅的时间间隔
@@ -56,7 +56,7 @@ public abstract class SysInfo {
 	protected static long id;//代理的id值，加入集群时由代表分配
 	protected static MsgSubsForm groupTableRoot; //其他集群订阅树的根
 
-//	protected static NeigBuild nb; // 邻居选择模块
+	//	protected static NeigBuild nb; // 邻居选择模块
 	protected static boolean udpMsgThreadSwitch;//用于控制接收udp消息的线程重启的开关
 	protected static boolean tcpMsgThreadSwitch;//用于控制接收tcp连接的线程重启的开关
 

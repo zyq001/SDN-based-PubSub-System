@@ -234,7 +234,7 @@ public abstract class AbstractNotificationBroker extends AbstractEndpoint implem
 			TopicNotSupportedFault, UnacceptableInitialTerminationTimeFault,
 			UnsupportedPolicyRequestFault, UnrecognizedPolicyRequestFault {
 		/*
-    	 * �ж϶����Ƿ����
+		 * �ж϶����Ƿ����
     	 */
 		System.out.println("handleSubscribe1");
 		Set<String> key = subscriptions.keySet();

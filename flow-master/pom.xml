@@ -63,9 +63,9 @@
             <version>3.3.0-v3346</version>
         </dependency>
         <!--<dependency>-->
-            <!--<groupId>org.eclipse.text</groupId>-->
-            <!--<artifactId>org.eclipse.text</artifactId>-->
-            <!--<version>3.5.101</version>-->
+        <!--<groupId>org.eclipse.text</groupId>-->
+        <!--<artifactId>org.eclipse.text</artifactId>-->
+        <!--<version>3.5.101</version>-->
         <!--</dependency>-->
 
         <dependency>

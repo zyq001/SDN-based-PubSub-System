@@ -75,7 +75,8 @@
         <!ATTLIST xs:list id ID #IMPLIED>
         <!ATTLIST xs:union id ID #IMPLIED>
         ]>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:hfp="http://www.w3.org/2001/XMLSchema-hasFacetAndProperty" targetNamespace="http://www.w3.org/2001/XMLSchema"
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:hfp="http://www.w3.org/2001/XMLSchema-hasFacetAndProperty"
+           targetNamespace="http://www.w3.org/2001/XMLSchema"
            blockDefault="#all" elementFormDefault="qualified" version="1.0"
            xml:lang="EN">
     <xs:annotation>

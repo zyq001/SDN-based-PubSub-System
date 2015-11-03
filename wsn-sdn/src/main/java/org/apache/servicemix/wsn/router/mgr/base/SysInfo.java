@@ -21,7 +21,7 @@ public abstract class SysInfo {
 	public static long synPeriod;//发送更新订阅的时间间隔
 	//others
 	public static ConcurrentHashMap<String, GroupUnit> groupMap;//保存当前拓扑内出了本集群外所有集群的信息，key为集群名
-//	protected static long thresholdInitialize;//初始化——判断心跳超时的阀值
+	//	protected static long thresholdInitialize;//初始化——判断心跳超时的阀值
 //	protected static long sendPeriodInitialize;//初始化——发送心跳的时间间隔
 //	protected static long scanPeriodInitialize;//初始化——扫描心跳的时间间隔
 //	protected static long synPeriodInitialize;//初始化——发送更新订阅的时间间隔

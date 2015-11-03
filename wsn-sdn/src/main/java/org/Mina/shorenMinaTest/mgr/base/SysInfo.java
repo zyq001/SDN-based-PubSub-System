@@ -19,7 +19,7 @@ public abstract class SysInfo {
 	public static int connectCount;//���ӳ�����
 	//Զ��������
 	public static BrokerUnit rep;//����Ⱥ����ĵ�ַ
-//	private static long thresholdInitialize;//��ʼ�������ж�������ʱ�ķ�ֵ
+	//	private static long thresholdInitialize;//��ʼ�������ж�������ʱ�ķ�ֵ
 //	private static long sendPeriodInitialize;//��ʼ����������������ʱ����
 //	private static long scanPeriodInitialize;//��ʼ������ɨ��������ʱ����
 //	private static long synPeriodInitialize;//��ʼ���������͸��¶��ĵ�ʱ����

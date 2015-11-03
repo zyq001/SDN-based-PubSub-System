@@ -8,22 +8,19 @@ package org.apache.servicemix.wsn.router.wsnPolicy.msgs;
  *
  */
 public //显示集群信息时，按顺序排列，所以实现Comparable接口
-class TargetMsg implements java.io.Serializable
-{	
+class TargetMsg implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	protected String name;
 
-	public TargetMsg(String name)
-	{
+	public TargetMsg(String name) {
 		this.name = name;
 	}
-	
-	public TargetMsg()
-	{
+
+	public TargetMsg() {
 		this(null);
 	}
-	
+
 	public static void main(String[] args) {
 		TargetMsg t1 = new TargetMsg("a");
 		TargetMsg t2 = new TargetMsg("a");
@@ -34,33 +31,29 @@ class TargetMsg implements java.io.Serializable
 	public String getName() {
 		return name;
 	}
-	
+
 	public void setName(String name) {
 		this.name = name;
 	}
- 
-	public String toString()
-	{
+
+	public String toString() {
 		return getName();
 	}
-	
-	public boolean equals(Object anObject)
-	{
-		if(!(anObject instanceof TargetMsg))
+
+	public boolean equals(Object anObject) {
+		if (!(anObject instanceof TargetMsg))
 			return false;
-		TargetMsg msg = (TargetMsg)anObject;
-		if(this.getName().equals(msg.getName()))
+		TargetMsg msg = (TargetMsg) anObject;
+		if (this.getName().equals(msg.getName()))
 			return true;
 		return false;
 	}
-	
-	public void mergeMsg(TargetMsg msg)
-	{
+
+	public void mergeMsg(TargetMsg msg) {
 		//ignore
 	}
-	
-	public void deleteMsg(TargetMsg msg)
-	{
+
+	public void deleteMsg(TargetMsg msg) {
 		//ignore
 	}
 }

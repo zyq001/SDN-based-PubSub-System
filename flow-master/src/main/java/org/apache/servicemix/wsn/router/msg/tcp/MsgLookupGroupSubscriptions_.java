@@ -9,13 +9,13 @@ import java.util.concurrent.ConcurrentHashMap;
 public class MsgLookupGroupSubscriptions_ implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	public TreeSet<String> topics;
-	public Map<String,ArrayList<String>> topicsASubers;
-	
+	public Map<String, ArrayList<String>> topicsASubers;
+
 	public MsgLookupGroupSubscriptions_() {
 		topicsASubers = new ConcurrentHashMap<String, ArrayList<String>>();
 		topics = new TreeSet<String>();
 	}
-	
+
 }

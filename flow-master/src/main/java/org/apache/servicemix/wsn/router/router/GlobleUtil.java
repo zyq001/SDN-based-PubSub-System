@@ -48,14 +48,14 @@ public class GlobleUtil {
 				String url_af = controller.getUrl() + "/wm/core/switch/all/features/json";
 				String body_af = doClientGet(url_af);
 				JSONObject json_af = new JSONObject(body_af);
-				System.out.println("***"+body_af);
+				System.out.println("***" + body_af);
 				JSONObject json_each = json_af.getJSONObject(DPID);//根据当前的DPID获取到这个交换机的相关信息
 				JSONArray json_port = json_each.getJSONArray("portDesc");
 				for (int j = 0; j < json_port.length(); j++) {
 					if (json_port.getJSONObject(j).getString("portNumber").equals("local")) {
 						mac = json_port.getJSONObject(j).getString("hardwareAddress");
 						swc.setMac(mac);
-						System.out.println("****"+mac);
+						System.out.println("****" + mac);
 					} else {
 						if (!json_port.getJSONObject(j).getString("portNumber").equals("1")) {//如果端口号不是local与1则为所连接的设备
 							int portNum = json_port.getJSONObject(j).getInt("portNumber");

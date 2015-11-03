@@ -54,10 +54,10 @@ public class Router extends SysInfo implements IRouter {
 		int len = topicCode.length();
 		String topicCodeLength = Integer.toBinaryString(len);
 		char[] shortTC = topicCodeLength.toCharArray();
-		int jjj = 6;
+		int fc = 6;
 		for (int i = shortTC.length - 1; i >= 0; i--) {
-			finalTC[jjj] = shortTC[i];
-			jjj--;
+			finalTC[fc] = shortTC[i];
+			fc--;
 		}
 		String res = String.valueOf(finalTC);
 		return res;
@@ -85,10 +85,10 @@ public class Router extends SysInfo implements IRouter {
 		//所有集群都是发布者，topics不为空的集群是订阅者
 		//以集群为节点，针对每个topic进行计算
 
-		List<Flow> flows = new ArrayList<Flow>();
+		List<Flow> flows = new ArrayList<>();
 		String curTopic;
-		ArrayList<Integer> sub = new ArrayList<Integer>();//订阅节点集合
-		ArrayList<Integer> pub = new ArrayList<Integer>();//发布节点集合
+		ArrayList<Integer> sub = new ArrayList<>();//订阅节点集合
+		ArrayList<Integer> pub = new ArrayList<>();//发布节点集合
 
 		//保存着连接关系的邻接表
 		int[][] weight = new int[1000][1000];
@@ -96,12 +96,12 @@ public class Router extends SysInfo implements IRouter {
 			for (int j = 0; j < 1000; j++)
 				i = M;
 
-		ArrayList<Controller> controllers_1 = new ArrayList<Controller>();
+		ArrayList<Controller> controllers_1 = new ArrayList<>();
 
 //      这里有个问题，如果是按照主题匹配的话，那么应该返回的就是主题和流表的Map
 //      HashMap<String,List<Flow>>
 
-		HashMap<String, String> topicCodes = new HashMap<String, String>();//key是topicName，value是topicCode
+		HashMap<String, String> topicCodes = new HashMap<>();//key是topicName，value是topicCode
 
 		//获取LDAP中存储的一级主题名称
 		List<WSNTopicObject> topics = TopicTreeManager.topicTree.getChildrens();
@@ -126,7 +126,7 @@ public class Router extends SysInfo implements IRouter {
 //                curTopic = topic;
 //            }
 
-		ArrayList<Switch> weightIdList = new ArrayList<Switch>();
+		ArrayList<Switch> weightIdList = new ArrayList<>();
 		//这里是标记每个Switch的编号
 		for (Controller controller : controllers.values()) {
 			controllers_1.add(controller);
@@ -144,7 +144,7 @@ public class Router extends SysInfo implements IRouter {
 			Map<String, Switch> switchMap = controller.getSwitchMap();
 			Map<Integer, DevInfo> hostMap = rep.getWsnDevMap();
 			for (Object device : hostMap.values()) {
-				if (device instanceof Switch && !switchMap.containsValue((Switch) device)) {
+				if (device instanceof Switch && !switchMap.containsValue(device)) {
 					//当前控制器的头交换机连接的设备是交换机，且不是组内的
 					Switch target = (Switch) device;
 					int i = weightIdList.indexOf(rep);
@@ -160,19 +160,20 @@ public class Router extends SysInfo implements IRouter {
 		int[][] finalDecision = new int[1000][1000];//第一个下标：第几个订阅点；第二个下标：中间的跳转路径
 
 		for (int i = 0; i < sub.size(); i++) {
-			int[][] path = Dijsktra(weight, sub.get(i));//算出来第i个订阅点到其他各个发布点的路径
-			int shortestSub2PubNo = -1;
+			int[][] path = Dijsktra(weight, sub.get(i));/*算出来第i个订阅点到其他各个发布点的路径，
+			path的第一个下标：第几个发布点；第二个下标：中间的跳转路径*/
+			int shortestPubNo = -1;
 			int shortestDistance = 0;
-			for (int j = 0; j < path.length; j++) {
-				if (shortestSub2PubNo == -1) {
-					shortestSub2PubNo = j;//这里假定每条路的流量都是“1”，这样distance数组的长度就是这条路的长度
+			for (int j = 0; j < path.length; j++) {//对着每个发布点看，哪个是最短的
+				if (shortestPubNo == -1) {
+					shortestPubNo = j;//这里假定每条路的流量都是“1”，这样distance数组的长度就是这条路的长度
 					shortestDistance = path[j].length;
 				} else if (shortestDistance > path[j].length) {
-					shortestSub2PubNo = j;
+					shortestPubNo = j;
 					shortestDistance = path[j].length;
 				}
 			}
-			finalDecision[i] = path[shortestSub2PubNo];
+			finalDecision[i] = path[shortestPubNo];
 		}
 		//到这里，就算出来了每个订阅节点应该是从哪个发布者接收信息
 		//流表格式如下：
@@ -180,21 +181,28 @@ public class Router extends SysInfo implements IRouter {
 		// "ipv6_dst":"XXXX...","active":"true", "actions":"output=2"
 		//里面的ipv6_dst字段是IPv6组播地址，一个主题对应一个地址
 		for (int i = 0; i < finalDecision.length; i++) {
-			Integer subWeightId = sub.get(i);
-			Switch s = weightIdList.get(subWeightId);
-			int[] path = finalDecision[i];
-//			ArrayList<Flow> singleSubNode = new ArrayList<Flow>();//一个订阅点也要对应多条流表
-			for (int j = 0; j < path.length; j++) {
-				String dpid = s.getDPID();
 
-				HashMap<String, String> parms = new HashMap<String, String>();
-				parms.put("switch", s.getMac());
-				parms.put("name", "flow-mod-1");//这个怎么获得？
+			int[] path = finalDecision[i];
+
+			Switch suber = weightIdList.get(path[0]);
+
+
+			//一个订阅点也要对应多条流表
+			for (int j = path.length - 1; j > 0; j--) {
+				Switch curSwitch = weightIdList.get(path[path.length - 1]);//从发布点倒着往回找
+
+				String dpid = curSwitch.getDPID();
+
+				HashMap<String, String> parms = new HashMap<>();
+				parms.put("switch", curSwitch.getMac());
+				parms.put("name", "flow-mod-1");//这个怎么获得？牛琳琳说是写死的
 				parms.put("cookie", "0");
 				parms.put("priority", "32768");
 				parms.put("ipv6_dst", topicCodes.get(curTopic));
 				parms.put("active", "true");
-				parms.put("actions", "");//这个怎么找？应当是path[j+1]这个Switch对应的端口，找函数getNextJumpPort()
+
+				Integer nextJumpPort = getNextJumpPort(suber, weightIdList, path, j);
+				parms.put("actions", "output=" + nextJumpPort.toString());//应当是path[j+1]这个Switch对应的端口
 
 				Flow f = new Flow(dpid);
 				JSONObject content = new JSONObject(parms);
@@ -206,7 +214,17 @@ public class Router extends SysInfo implements IRouter {
 		return flows;
 	}
 
-	public static int getNextJumpPort() {
+	public static Integer getNextJumpPort(Switch curSwitch, ArrayList<Switch> weightIdList, int[] path, int j) {
+		Integer nextJumpWeightId = path[j - 1];
+		Switch s = weightIdList.get(nextJumpWeightId);
+
+		Map<Integer, DevInfo> map = s.getWsnDevMap();
+		for (Map.Entry<Integer, DevInfo> entry : map.entrySet()) {
+			if (entry.getValue() == curSwitch) {
+				return entry.getKey();
+			}
+		}
+
 		return 0;
 	}
 

@@ -2201,7 +2201,8 @@
             <xs:documentation>A &lt;<keyword>required-cleanup</keyword>> element is used as a
                 placeholder for migrated elements that cannot be appropriately tagged without
                 manual intervention. As the element name implies, the intent for authors is
-                to clean up the contained material and eventually get rid of the &lt;<keyword>required-cleanup</keyword>
+                to clean up the contained material and eventually get rid of the &lt;
+                <keyword>required-cleanup</keyword>
                 >
                 element. Authors should not insert this element into documents.
             </xs:documentation>

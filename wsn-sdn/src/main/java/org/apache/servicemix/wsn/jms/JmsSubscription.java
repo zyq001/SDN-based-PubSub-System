@@ -36,8 +36,8 @@ import javax.jms.*;
 import javax.xml.bind.JAXBException;
 import javax.xml.datatype.XMLGregorianCalendar;
 import javax.xml.xpath.*;
-import java.util.ArrayList;
 import java.lang.IllegalStateException;
+import java.util.ArrayList;
 
 //import org.apache.servicemix.wsn.push.INotificationProcess;
 //import org.apache.cxf.jaxws.JaxWsProxyFactoryBean;
@@ -61,7 +61,7 @@ public abstract class JmsSubscription extends AbstractSubscription implements Me
 //	private NotifyObserver notifyObserver = new NotifyObserver();
 //	private  NotifyObserver  notifyObserver = null;
 
-//	public ArrayList<String> infoTemp;
+	//	public ArrayList<String> infoTemp;
 	private JmsTopicExpressionConverter topicConverter;
 	private HttpPost httpPost = null;
 	private String dopushResponse = "initial";

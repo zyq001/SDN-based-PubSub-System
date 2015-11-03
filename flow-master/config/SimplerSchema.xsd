@@ -8,7 +8,8 @@
 <!-- it features what Jaxe understands of XML schemas -->
 <!-- but keeps about compatible (this simplified schema is actually a valid XML schema) -->
 
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.w3.org/2001/XMLSchema"
+           elementFormDefault="qualified"
            version="1.0" xml:lang="EN">
 
     <!-- <xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="http://www.w3.org/2001/xml.xsd"> -->
