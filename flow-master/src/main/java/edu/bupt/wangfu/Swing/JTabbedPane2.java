@@ -27,7 +27,7 @@ public class JTabbedPane2 implements ActionListener, ChangeListener {
 		JFrame f = new JFrame("JTabbedPane2");
 		Container contentPane = f.getContentPane();
 
-		JLabel label1 = new JLabel(new ImageIcon(".\\icons\\flower.jpg"));
+		JLabel label1 = new JLabel(new ImageIcon("./icons/flower.jpg"));
 		JPanel panel1 = new JPanel();
 		panel1.add(label1);
 

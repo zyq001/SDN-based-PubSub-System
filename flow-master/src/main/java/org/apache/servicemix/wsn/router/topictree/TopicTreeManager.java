@@ -1,7 +1,7 @@
 /*	
  * author:goucanran date:2013-6-20
  * ????????????
- * 
+ *
  * */
 package org.apache.servicemix.wsn.router.topictree;
 
@@ -55,17 +55,17 @@ public class TopicTreeManager {
 	public DefaultMutableTreeNode lib_root = new DefaultMutableTreeNode("root");
 	protected File schemaFile;
 	DefaultTreeModel libmodel = new DefaultTreeModel(lib_root);
-	JFrame editingJFrame = new JFrame("???");
-	JFrame addJFrame = new JFrame("????");
-	JFrame newTreeFrame = new JFrame("?????");
-	ImageIcon addimage = new ImageIcon("./icon/add.jpg");
+	JFrame editingJFrame = new JFrame("重命名");
+	JFrame addJFrame = new JFrame("添加主题");
+	JFrame newTreeFrame = new JFrame("新建主题树");
+	ImageIcon addimage = new ImageIcon("icon/add.jpg");
 	ImageIcon deleteimage = new ImageIcon("./icon/delete.jpg");
 	ImageIcon modifyimage = new ImageIcon("./icon/modify.jpg");
 	ImageIcon newtreeimage = new ImageIcon("./icon/newtree.png");
 	ImageIcon saveimage = new ImageIcon("./icon/save.jpg");
 	ImageIcon reflashimage = new ImageIcon("./icon/reflash.png");
-	ImageIcon treeopenimage = new ImageIcon("./icon/??2.jpg");
-	ImageIcon treecloseimage = new ImageIcon("./icon/??.jpg");
+	ImageIcon treeopenimage = new ImageIcon("./icon/图标2.jpg");
+	ImageIcon treecloseimage = new ImageIcon("./icon/图标.jpg");
 	ImageIcon leafimage = new ImageIcon("./icon/composite.jpg");
 	ImageIcon strategyImage = new ImageIcon("./icon/strategy.jpg");
 	ImageIcon schemaimage = new ImageIcon("./icon/schema.png");

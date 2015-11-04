@@ -10,6 +10,7 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
+import org.apache.servicemix.wsn.router.admin.AdminMgr;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -23,7 +24,7 @@ import java.util.List;
 //import org.apache.http.client.HttpClient;
 
 public class RestProcess {///wm/device/
-	public static String REST_URL = "http://192.168.1.30:8080";//"http://10.108.164.211:8080/wm/core/controller/switches/json";//"http://10.108.164.211:8080/wm/core/switch/1/flow/json";
+	public static String REST_URL = "http://10.109.253.2:8080";//"http://10.108.164.211:8080/wm/core/controller/switches/json";//"http://10.108.164.211:8080/wm/core/switch/1/flow/json";
 	private static String API_KEY = "your api key";
 	private static String SECRET_KEY = "your secret key";
 	private static int index = 2;
@@ -40,6 +41,24 @@ public class RestProcess {///wm/device/
 
 	}
 
+	public static MemoryInfo getMemory(String url) {
+		MemoryInfo info = new MemoryInfo();
+		try {
+//			url = REST_URL + "/wm/core/memory/json";
+			url += "/wm/core/memory/json";
+			String body = doClientGet(url);
+			JSONObject json = new JSONObject(body);
+
+			info.setUrl(REST_URL.split("//")[1].split(":")[0]);
+			info.setTotalMem(json.getString("total"));
+			info.setFreeMem(json.getString("free"));
+
+			return info;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return info;
+	}
 
 	public static MemoryInfo getMemory() {
 		MemoryInfo info = new MemoryInfo();

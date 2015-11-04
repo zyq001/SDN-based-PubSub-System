@@ -225,8 +225,7 @@ public class PSManagerUI implements IAdminUI {
 	public void open() {
 		frame = new JFrame();// 主窗口
 		frame.setIconImage(Toolkit.getDefaultToolkit().getImage(
-				PSManagerUI.class
-						.getResource("./edu/bupt/wangfu/Swing/res/INT25.png")));
+				"./res/INT25.png"));
 		frame.setResizable(false);
 		frame.setTitle("发布订阅管理器");
 		frame.setBounds(100, 100, 800, 600);
@@ -246,8 +245,9 @@ public class PSManagerUI implements IAdminUI {
 		groupsMgmt = new JPanel();// 集群成员窗口
 		visualManagement.addTab(
 				"",
-				new ImageIcon(PSManagerUI.class
-						.getResource("./edu/bupt/wangfu/Swing/res/GroupM.png")),
+//				new ImageIcon(PSManagerUI.class
+//						.getResource("./res/GroupM.png")),
+				new ImageIcon("./res/GroupM.png"),
 				groupsMgmt, null);
 		groupsMgmt.setLayout(new GridLayout(0, 1, 0, 0));
 
@@ -275,12 +275,12 @@ public class PSManagerUI implements IAdminUI {
 		// btnNewButton.setSelected(true);
 		// btnNewButton.setToolTipText("G0");
 		// btnNewButton.setSelectedIcon(new
-		// ImageIcon(PSManagerUI.class.getResource("/com/bupt/wangfu/Swing/res/01_sys_cskin_btn.png")));
+		// ImageIcon(PSManagerUI.class.getResource("/com/bupt/wangfu/Swing/./res/01_sys_cskin_btn.png")));
 		//
 		// btnNewButton.setPreferredSize(new Dimension(122, 60));
 		// btnNewButton.setSize(new Dimension(122, 60));
 		// btnNewButton.setIcon(new
-		// ImageIcon(PSManagerUI.class.getResource("/com/bupt/wangfu/Swing/res/01_sys_cskin_btn.png")));
+		// ImageIcon(PSManagerUI.class.getResource("/com/bupt/wangfu/Swing/./res/01_sys_cskin_btn.png")));
 		// allGroupsPane.add(btnNewButton);
 		// btnNewButton.addActionListener(new ActionListener() {
 		// public void actionPerformed(ActionEvent e) {
@@ -299,14 +299,14 @@ public class PSManagerUI implements IAdminUI {
 		// buttonName1.setHorizontalTextPosition(SwingConstants.CENTER);
 		// buttonName1.setVerticalTextPosition(SwingConstants.BOTTOM);
 		// buttonName1.setSelectedIcon(new
-		// ImageIcon(PSManagerUI.class.getResource("/com/bupt/wangfu/Swing/res/01_sys_cskin_btn.png")));
+		// ImageIcon(PSManagerUI.class.getResource("/com/bupt/wangfu/Swing/./res/01_sys_cskin_btn.png")));
 		// buttonName1.setVerticalTextPosition(SwingConstants.BOTTOM );
 		// groupMember.removeAll();
 		// groupMember.add(buttonName1);
 		// buttonName1.setPreferredSize(new Dimension(95, 55));
 		// buttonName1.setSize(new Dimension(80, 50));
 		// buttonName1.setIcon(new
-		// ImageIcon(PSManagerUI.class.getResource("/com/bupt/wangfu/Swing/res/01_sys_cskin_btn.png")));
+		// ImageIcon(PSManagerUI.class.getResource("/com/bupt/wangfu/Swing/./res/01_sys_cskin_btn.png")));
 		//
 		// //加载集群订阅信息
 		// //String []groupSubs =
@@ -840,9 +840,7 @@ public class PSManagerUI implements IAdminUI {
 		topicTreeM = new JPanel();
 		visualManagement
 				.addTab("",
-						new ImageIcon(
-								PSManagerUI.class
-										.getResource("./edu/bupt/wangfu/Swing/res/TopicTree.png")),
+						new ImageIcon("./res/TopicTree.png"),
 						topicTreeM, null);
 
 		try {
@@ -867,8 +865,7 @@ public class PSManagerUI implements IAdminUI {
 		policyM = new JPanel();
 		visualManagement.addTab(
 				"",
-				new ImageIcon(PSManagerUI.class
-						.getResource("./edu/bupt/wangfu/Swing/res/policy.png")),
+				new ImageIcon("./res/policy.png"),
 				policyM, null);
 		policyM.setLayout(new GridLayout(0, 1, 0, 5));
 
@@ -1535,14 +1532,12 @@ public class PSManagerUI implements IAdminUI {
 		// consol.add(text);
 		//
 		lblNewLabel_2 = new JLabel("");
-		lblNewLabel_2.setIcon(new ImageIcon(PSManagerUI.class
-				.getResource("./edu/bupt/wangfu/Swing/res/INT100.png")));
+		lblNewLabel_2.setIcon(new ImageIcon("./res/INT100.png"));
 		lblNewLabel_2.setBounds(162, 250, 106, 105);
 		sys.add(lblNewLabel_2);
 
 		lblNewLabel_3 = new JLabel("");
-		lblNewLabel_3.setIcon(new ImageIcon(PSManagerUI.class
-				.getResource("./edu/bupt/wangfu/Swing/res/bupt.png")));
+		lblNewLabel_3.setIcon(new ImageIcon("./res/bupt.png"));
 		lblNewLabel_3.setBounds(290, 246, 532, 110);
 		sys.add(lblNewLabel_3);
 
@@ -1658,7 +1653,7 @@ public class PSManagerUI implements IAdminUI {
 //				.addTab("",
 //						new ImageIcon(
 //								PSManagerUI.class
-//										.getResource("/edu/bupt/wangfu/Swing/res/shcemaM.png")),
+//										.getResource("/edu/bupt/wangfu/Swing/./res/shcemaM.png")),
 //						schemaPanel, null);
 
 	}
@@ -2106,14 +2101,14 @@ public class PSManagerUI implements IAdminUI {
 				final JButton buttonName1 = new JButton(groupName);
 
 				buttonName1.setToolTipText(groupName);
-				buttonName1.setSelectedIcon(new ImageIcon(PSManagerUI.class.getResource("./edu/bupt/wangfu/Swing/res/01_sys_cskin_btn.png")));
+				buttonName1.setSelectedIcon(new ImageIcon("./res/01_sys_cskin_btn.png"));
 
 				buttonName1.setPreferredSize(new Dimension(80, 80));
 				buttonName1.setSize(new Dimension(80, 80));
 				buttonName1.setHorizontalTextPosition(SwingConstants.CENTER);
 				buttonName1.setVerticalTextPosition(SwingConstants.BOTTOM);
 				allGroupsPane.add(buttonName1);
-				buttonName1.setIcon(new ImageIcon(PSManagerUI.class.getResource("./edu/bupt/wangfu/Swing/res/01_sys_cskin_btn.png")));
+				buttonName1.setIcon(new ImageIcon("./res/01_sys_cskin_btn.png"));
 				buttonName1.addActionListener(new ActionListener() {
 					private DefaultTableModel memSubsModel;
 					private String[][] memsubs;
@@ -2136,7 +2131,7 @@ public class PSManagerUI implements IAdminUI {
 
 							int n = 0;
 							Object[] possibilities = {"重试", "稍后重试", "删除"};
-							//Icon icon=new ImageIcon("/com/bupt/wangfu/Swing/res/01_sys_cskin_btn.png");
+							//Icon icon=new ImageIcon("/com/bupt/wangfu/Swing/./res/01_sys_cskin_btn.png");
 							while (n == 0) {
 
 								n = JOptionPane.showOptionDialog(null, "查询集群失败,网络问题或该集群已丢失!", "查询失败", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, possibilities, possibilities[1]);
@@ -2171,11 +2166,11 @@ public class PSManagerUI implements IAdminUI {
 								final JButton buttonName1 = new JButton(memName);
 								buttonName1.setToolTipText(memName);
 								if (memName.equals(interactIF.groups.get(groupName).addr)) {
-									buttonName1.setSelectedIcon(new ImageIcon(PSManagerUI.class.getResource("./edu/bupt/wangfu/Swing/res/repLd.png")));
-									buttonName1.setIcon(new ImageIcon(PSManagerUI.class.getResource("./edu/bupt/wangfu/Swing/res/repLd.png")));
+									buttonName1.setSelectedIcon(new ImageIcon("./res/repLd.png"));
+									buttonName1.setIcon(new ImageIcon("./res/repLd.png"));
 								} else {
-									buttonName1.setSelectedIcon(new ImageIcon(PSManagerUI.class.getResource("./edu/bupt/wangfu/Swing/res/rep.png")));
-									buttonName1.setIcon(new ImageIcon(PSManagerUI.class.getResource("./edu/bupt/wangfu/Swing/res/rep.png")));
+									buttonName1.setSelectedIcon(new ImageIcon("./res/rep.png"));
+									buttonName1.setIcon(new ImageIcon("./res/rep.png"));
 								}
 								//	groupMember.removeAll();
 
@@ -2662,7 +2657,8 @@ public class PSManagerUI implements IAdminUI {
 
 			}
 		});
-		MemoryInfo memInfo = RestProcess.getMemory();
+		String url = "http://" + interactIF.localAddr+ ":8080";
+		MemoryInfo memInfo = RestProcess.getMemory(url);
 		ArrayList<DevInfo> devInfo = RestProcess.getDevInfo();
 		JTable jDevTab = new JTable(devInfo.size() + 2, 6);
 		devConf.add(jDevTab);

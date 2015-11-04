@@ -637,7 +637,7 @@ public class WsnProcessImpl implements IWsnProcess {
 		// System.out.println("Notificationmessage:  "+message);
 		String topicname = splitstring(
 				"<wsnt:Topic Dialect=\"http://docs.oasis-open.org/wsn/t-1/TopicExpression/Simple\">",
-				"</wsnt:Topic>", message).trim();
+				"</wsnt:Topic>", message).trim();//分隔字符串
 		String address = "";
 
 		Iterator iter = notificationbroker.subscriptions.entrySet().iterator();
