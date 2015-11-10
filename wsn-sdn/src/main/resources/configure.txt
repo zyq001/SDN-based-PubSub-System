@@ -1,0 +1,29 @@
+
+administrator's address1: 10.108.167.193
+
+
+administrator's address2: 10.109.254.131
+
+group controller: 192.168.1.21
+
+administrator's port: 30006
+
+
+queueSize: 10000
+
+
+poolCount: 5
+
+
+connectCount: 5
+
+
+local group name: G9
+
+
+local address: 192.168.1.301
+
+local netmask: 255.255.252.0
+
+
+local port: 30001

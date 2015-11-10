@@ -14,6 +14,7 @@ import org.Mina.shorenMinaTest.router.generateNode;
 import org.apache.log4j.PropertyConfigurator;
 import org.apache.servicemix.application.WsnProcessImpl;
 import org.apache.servicemix.wsn.CrossGroupMsgForwardQueue;
+import org.apache.servicemix.wsn.router.router.Router;
 
 import javax.xml.bind.JAXBException;
 import javax.xml.ws.Endpoint;
@@ -24,6 +25,7 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.concurrent.ConcurrentHashMap;
 
 //import org.Mina.shorenMinaTest.queues.Destination;
@@ -41,6 +43,21 @@ public class Start {
 
 	public static void main(String[] args) {
 		PropertyConfigurator.configure("log4j.properties");
+
+		MsgNotis msg = new MsgNotis();
+		msg.doc = "test";
+		msg.originatorAddr = "localhost";
+		msg.topicName = "all";
+		msg.sender = "localhost";
+//		msg.topicName = nom.getTopicName();
+//		msg.doc = nom.getDoc();
+		msg.originatorGroup = "G1";
+//		msg.originatorAddr = localAddr;
+		msg.sendDate = new Date().toString();
+
+		CrossGroupMsgForwardQueue.grtInstance().start();
+
+		generateMsgNoticeMsg(msg);
 
 		WsnProcessImpl wsnprocess = new WsnProcessImpl();
 		try {
@@ -102,7 +119,7 @@ public class Start {
 	public static void generateMsgNoticeMsg(MsgNotis msg) {
 		ArrayList<String> fwIP = new ArrayList<String>();
 
-		String v6MutiAddr = getv6MutiAddr(msg);
+		String v6MutiAddr = Router.topicName2mutiv6Addr(msg.topicName);
 		fwIP.add(v6MutiAddr);
 		ForwardMsg forwardMsg = new UDPForwardMsg(fwIP, MinaUtil.uPort, (WsnMsg) msg);
 		CrossGroupMsgForwardQueue.grtInstance().enqueque(forwardMsg);

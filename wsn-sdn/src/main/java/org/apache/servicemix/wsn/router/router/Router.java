@@ -1,12 +1,17 @@
 package org.apache.servicemix.wsn.router.router;
 
+import org.apache.servicemix.application.WSNTopicObject;
+import org.apache.servicemix.application.WsnProcessImpl;
 import org.apache.servicemix.wsn.router.mgr.base.MsgSubsForm;
 import org.apache.servicemix.wsn.router.mgr.base.SysInfo;
+import org.apache.servicemix.wsn.router.topictree.TopicTreeManager;
 import org.apache.servicemix.wsn.router.wsnPolicy.ShorenUtils;
 import org.apache.servicemix.wsn.router.wsnPolicy.msgs.TargetGroup;
 import org.apache.servicemix.wsn.router.wsnPolicy.msgs.WsnPolicyMsg;
 
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * 计算指定名称的转发路由
@@ -18,6 +23,65 @@ import java.util.ArrayList;
  */
 
 public class Router extends SysInfo implements IRouter {
+
+
+	public static Map<String, String> topic2Addr = new ConcurrentHashMap<String, String>();
+
+	public static String topicCode2mutiv6Addr(String topicCode){
+		topicCode = Integer.toBinaryString(Integer.valueOf(topicCode).byteValue());
+		String newTopicCode = "11111111" + "0000" + "1110" + "10" + topicCode.length() + topicCode;
+
+		String addr = getNewTopicCode(newTopicCode);
+		return addr;
+	}
+
+	public static String topicName2mutiv6Addr(String topicName){
+
+		if(topic2Addr.containsKey(topicName))
+			return topic2Addr.get(topicName);
+		String[] topicPath = topicName.split(":");
+		WSNTopicObject current = WsnProcessImpl.topicTree;
+		int flag = 0;
+		for (int i = 0; i < topicPath.length - 1; i++) {
+			if (current.getTopicentry().getTopicName().equals(topicPath[i])) {
+				for (int counter = 0; counter < current.getChildrens()
+						.size(); counter++) {
+					if (current.getChildrens().get(counter).getTopicentry()
+							.getTopicName().equals(topicPath[i + 1])) {
+						current = current.getChildrens().get(counter);
+						flag++;
+						if(i == topicPath.length - 2){
+							String addr = topicCode2mutiv6Addr(current.getChildrens().get(counter).getTopicentry().getTopicCode());
+							topic2Addr.put(topicName, addr);
+							return addr;
+						}
+						break;
+					}
+				}
+			} else {
+
+//				log.error("subscribe faild! there is not this topic in the topic tree!");
+				return "faild";
+			}
+		}
+		return "";
+	}
+
+	public static String getNewTopicCode(String newTopicCode) {
+
+		char[] tmp = new char[128];
+		for (int i = 0; i < tmp.length; i++) {
+			tmp[i] = '0';
+		}
+
+		char[] parm = newTopicCode.toCharArray();
+		for (int i = 0; i < parm.length; i++) {
+			tmp[i] = parm[i];
+		}
+
+		String res = String.valueOf(tmp);
+		return res;
+	}
 
 	public void route(String topic) {
 		if (topic == null || topic.length() == 0)

@@ -15,6 +15,7 @@ import org.apache.servicemix.wsn.push.ListItem;
 import org.apache.servicemix.wsn.push.NotifyObserver;
 import org.apache.servicemix.wsn.router.mgr.RtMgr;
 import org.apache.servicemix.wsn.router.mgr.base.AState;
+import org.apache.servicemix.wsn.router.router.Router;
 import org.oasis_open.docs.wsn.b_2.CreatePullPointResponse;
 import org.oasis_open.docs.wsn.b_2.SubscribeResponse;
 import org.oasis_open.docs.wsn.bw_2.UnableToDestroySubscriptionFault;
@@ -34,10 +35,10 @@ import java.io.*;
 import java.lang.IllegalStateException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.net.InetSocketAddress;
-import java.net.Socket;
+import java.net.*;
 import java.util.*;
 import java.util.Queue;
+import java.util.concurrent.ConcurrentHashMap;
 
 //import org.apache.servicemix.wsn.router.admin.GroupAllInfo;
 
@@ -65,6 +66,7 @@ public class WsnProcessImpl implements IWsnProcess {
 	private MessageProducer producer = null;
 	private JmsSubscriptionImpl allVal;
 
+	public static Map<String, Integer> subCount = new ConcurrentHashMap<String, Integer>();
 	public static JAXBContext createJAXBContext(Iterable<Class> interfaceClasses)
 			throws JAXBException {
 		List<Class> classes = new ArrayList<Class>();
@@ -293,8 +295,9 @@ public class WsnProcessImpl implements IWsnProcess {
 
 	public static void main(String argv[]) throws Exception {
 
-		readTopicTree("ou=all_test,dc=wsn,dc=com");
-		printTopicTree();
+//		readTopicTree("ou=all_test,dc=wsn,dc=com");
+//		printTopicTree();
+		new WsnProcessImpl().startV6mutiRecv("all");
 
 	}
 
@@ -577,6 +580,7 @@ public class WsnProcessImpl implements IWsnProcess {
 				e.printStackTrace();
 			}
 			countsubscr++;
+			startV6mutiRecv(newtopic);
 			System.out.println("topic:" + newtopic + "-----sum:" + countsubscr);
 			// System.out.println("sub1----------------------"+AbstractNotificationBroker.subscriptions);
 			return convertResponse(output, webMethod);
@@ -707,6 +711,31 @@ public class WsnProcessImpl implements IWsnProcess {
 		int start = string.indexOf(s) + s.length();
 		int end = string.indexOf(e);
 		return string.substring(start, end);
+	}
+
+	public void startV6mutiRecv(String topicName){
+		if(!subCount.containsKey(topicName)){
+			subCount.put(topicName, 1);
+		}else{
+			subCount.put(topicName, subCount.get(topicName) + 1);
+		}
+
+		//监听v6多播
+		String addr = Router.topicName2mutiv6Addr(topicName);
+		try {
+			MulticastSocket multicastSocket = new MulticastSocket(7777);//创建多播套接字并绑定到发送端口
+			Inet6Address inetAddress = (Inet6Address) Inet6Address.getByName(addr);
+			multicastSocket.joinGroup(inetAddress);//多播套接字加入多播组
+
+			while (true) {
+				byte[] data = new byte[500];
+				DatagramPacket datagramPacket = new DatagramPacket(data,data.length);//创建一个用于接收数据的数据包
+				multicastSocket.receive(datagramPacket);//接收数据包
+				this.WsnProcess(new String(data));
+			}
+		} catch (Exception exception) {
+			exception.printStackTrace();
+		}
 	}
 
 	public void startSubscription(String subscriberAddress, String topic) {
