@@ -5,10 +5,12 @@
 /flow-master/.settings
 /flow-master/.idea
 /flow-master/target
+/flow-master/*
 /MessageProcess/.settings
 /MessageProcess/.classpath
 /MessageProcess/.project
 /MessageProcess/lib
+/MessageProcess/*
 *.class
 flow-master/bin
 flow-master/.idea

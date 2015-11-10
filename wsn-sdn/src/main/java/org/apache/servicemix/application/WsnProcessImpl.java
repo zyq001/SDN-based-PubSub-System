@@ -763,7 +763,7 @@ public class WsnProcessImpl implements IWsnProcess {
 						.println("subscribe faild! there is not this topic in the topic tree!");
 			// ==========================================================================================
 
-			if (WsnProcessImpl.localtable == null) {
+			if (WsnProcessImpl.localtable == null) {//新增加一个主题
 				System.out.println("validateSubscription2");
 				WsnProcessImpl.localtable = new LinkedList<ListItem>();
 				ListItem newItem = new ListItem();

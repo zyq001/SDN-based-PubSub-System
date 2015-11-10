@@ -5,15 +5,15 @@
     <modelVersion>4.0.0</modelVersion>
 
 
-    <!--<parent>-->
-        <!--<groupId>edu.bupt.wangfu</groupId>-->
-        <!--<artifactId>SDN-based-PubSub-System</artifactId>-->
-        <!--<version>1.0-SNAPSHOT</version>-->
-    <!--</parent>-->
-    <groupId>edu.bupt.wangfu</groupId>
+    <parent>
+        <groupId>edu.bupt.wangfu</groupId>
+        <artifactId>SDN-based-PubSub-System</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <!--<groupId>edu.bupt.wangfu</groupId>-->
     <artifactId>flow-master</artifactId>
-    <version>1.0-SNAPSHOT</version>
-    <!--<packaging>jar</packaging>-->
+    <!--<version>1.0-SNAPSHOT</version>-->
+    <packaging>jar</packaging>
 
 
     <dependencies>
@@ -263,9 +263,9 @@
                     <descriptorRefs>  
                         <descriptorRef>jar-with-dependencies</descriptorRef>  
                     </descriptorRefs> 
-                    <excludes>
-                        <exclude>**/*.zip</exclude>
-                    </excludes> 
+                    <!--<excludes>-->
+                        <!--<exclude>**/*.zip</exclude>-->
+                    <!--</excludes> -->
                 </configuration>  
             </plugin>  
             <!--<plugin>-->

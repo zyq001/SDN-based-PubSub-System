@@ -27,6 +27,7 @@ import static org.apache.servicemix.wsn.router.router.LCW.Dijkstra.Dijsktra;
 
 public class Router extends SysInfo implements IRouter {
 
+	static long flowcount = 0;
 	static int M = 10000;
 
 	public static boolean adjustRoute() {
@@ -61,6 +62,44 @@ public class Router extends SysInfo implements IRouter {
 		}
 		String res = String.valueOf(finalTC);
 		return res;
+	}
+
+//	public static String
+
+	public static String topicCode2mutiv6Addr(String topicCode){
+		topicCode = Integer.toBinaryString(Integer.valueOf(topicCode).byteValue());
+		String newTopicCode = "11111111" + "0000" + "1110" + "10" + topicCode.length() + topicCode;
+
+		String addr = getNewTopicCode(newTopicCode);
+		return addr;
+	}
+
+	public static String topicName2mutiv6Addr(String topicName){
+
+		String[] topicPath = topicName.split(":");
+		WSNTopicObject current = TopicTreeManager.topicTree;
+		int flag = 0;
+		for (int i = 0; i < topicPath.length - 1; i++) {
+			if (current.getTopicentry().getTopicName().equals(topicPath[i])) {
+				for (int counter = 0; counter < current.getChildrens()
+						.size(); counter++) {
+					if (current.getChildrens().get(counter).getTopicentry()
+							.getTopicName().equals(topicPath[i + 1])) {
+						current = current.getChildrens().get(counter);
+						flag++;
+						if(i == topicPath.length - 2){
+							return topicCode2mutiv6Addr(current.getChildrens().get(counter).getTopicentry().getTopicCode());
+						}
+						break;
+					}
+				}
+			} else {
+
+//				log.error("subscribe faild! there is not this topic in the topic tree!");
+				return "faild";
+			}
+		}
+		return "";
 	}
 
 	public static String getNewTopicCode(String newTopicCode) {
@@ -111,6 +150,7 @@ public class Router extends SysInfo implements IRouter {
 
 			String topicCodeLength = getTopicLength(topicCode);
 
+			topicCode = Integer.toBinaryString(Integer.valueOf(topicCode).byteValue());
 			String newTopicCode = "11111111" + "0000" + "1110" + "10" + topicCodeLength + topicCode;
 
 			String finalNewTopicCode = getNewTopicCode(newTopicCode);
@@ -195,7 +235,7 @@ public class Router extends SysInfo implements IRouter {
 
 				HashMap<String, String> parms = new HashMap<String, String>();
 				parms.put("switch", curSwitch.getMac());
-				parms.put("name", "flow-mod-1");//这个怎么获得？牛琳琳说是写死的
+				parms.put("name", "flow-mod-" + flowcount++);//不是写死的，最好每个流表不一样
 				parms.put("cookie", "0");
 				parms.put("priority", "32768");
 				parms.put("ipv6_dst", topicCodes.get(curTopic));
@@ -220,7 +260,7 @@ public class Router extends SysInfo implements IRouter {
 
 		Map<Integer, DevInfo> map = s.getWsnDevMap();
 		for (Map.Entry<Integer, DevInfo> entry : map.entrySet()) {
-			if (entry.getValue() == curSwitch) {
+			if (entry.getValue().equals(curSwitch)) {
 				return entry.getKey();
 			}
 		}
