@@ -1,21 +1,12 @@
 package org.apache.servicemix.wsn;
 
-import org.Mina.shorenMinaTest.MinaUtil;
 import org.Mina.shorenMinaTest.queues.ForwardMsg;
-import org.apache.mina.core.future.ConnectFuture;
-import org.apache.mina.core.future.WriteFuture;
-import org.apache.mina.core.session.IoSession;
-import org.apache.mina.transport.socket.nio.NioDatagramConnector;
 
 import java.net.DatagramPacket;
 import java.net.Inet6Address;
-import java.net.InetSocketAddress;
 import java.net.MulticastSocket;
-import java.util.ConcurrentModificationException;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.LinkedBlockingDeque;
 
 /**
@@ -64,11 +55,11 @@ public class CrossGroupMsgForwardQueue extends Thread {
 //			byte[] msg = new byte[] { 'h', 'e', 'l', 'l', 'o' };
 			String add = "";
 //			if(topic2Addr.containsKey(wsnMsg.getKeyDest().))
-			Inet6Address inetAddress = (Inet6Address) Inet6Address.getByName(wsnMsg.getDest().getAddr());//¸ù¾ÝÖ÷»úÃû·µ»ØÖ÷»úµÄIPµØÖ·
+			Inet6Address inetAddress = (Inet6Address) Inet6Address.getByName(wsnMsg.getDest().getAddr());//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½IPï¿½ï¿½Ö·
 			byte[] msg = wsnMsg.getMsg().msgToString().getBytes();
-			DatagramPacket datagramPacket = new DatagramPacket(msg, msg.length,inetAddress, 7777);//Êý¾Ý°ü°üº¬ÏûÏ¢ÄÚÈÝ£¬ÏûÏ¢³¤¶È£¬¶à²¥IPºÍ¶Ë¿Ú
+			DatagramPacket datagramPacket = new DatagramPacket(msg, msg.length, inetAddress, 7777);//ï¿½ï¿½ï¿½Ý°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½Ý£ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½È£ï¿½ï¿½à²¥IPï¿½Í¶Ë¿ï¿½
 			MulticastSocket multicastSocket = new MulticastSocket();
-			multicastSocket.send(datagramPacket);//·¢ËÍÊý¾Ý°ü
+			multicastSocket.send(datagramPacket);//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý°ï¿½
 			return true;
 		} catch (Exception exception) {
 			exception.printStackTrace();

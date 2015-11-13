@@ -15,7 +15,7 @@
         <xsl:param name="inputval"/>
         <xsl:value-of
                 select="translate($inputval,                                     '._-abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ+=!@#$%^&amp;*()[]{};:\/&lt;&gt;,~?',                                     '._-abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz+=!@#$%^&amp;*()[]{};:\/&lt;&gt;,~?')"
-                />
+        />
     </xsl:template>
     <!-- Function to determine the current language, and return it in lower case -->
     <xsl:template name="getLowerCaseLang">

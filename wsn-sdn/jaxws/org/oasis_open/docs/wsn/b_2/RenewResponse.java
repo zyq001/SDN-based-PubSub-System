@@ -2,7 +2,6 @@ package org.oasis_open.docs.wsn.b_2;
 
 import org.w3c.dom.Element;
 
-import javax.xml.bind.annotation.*;
 import javax.xml.datatype.XMLGregorianCalendar;
 import java.util.ArrayList;
 import java.util.List;

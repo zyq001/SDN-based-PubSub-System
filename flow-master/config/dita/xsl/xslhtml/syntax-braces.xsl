@@ -9,7 +9,7 @@
     <xsl:output method="xml"
                 encoding="utf-8"
                 indent="no"
-            />
+    />
 
     <!-- syntax diagram -->
 

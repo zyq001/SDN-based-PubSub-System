@@ -27,7 +27,7 @@
         ]>
 
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified"
-        >
+>
 
     <!-- Add the domains to the base topic XML Schema -->
     <!--  ================ TOPIC DOMAINS =====================  -->

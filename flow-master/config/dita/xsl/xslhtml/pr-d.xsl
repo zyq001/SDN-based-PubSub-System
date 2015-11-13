@@ -12,7 +12,7 @@
     <xsl:output method="xml"
                 encoding="utf-8"
                 indent="no"
-            />
+    />
 
     <!-- programming-domain.ent domain: codeph | var | kwd | synph | oper | delim | sep | repsep |
                                         option | parmname | apiname-->

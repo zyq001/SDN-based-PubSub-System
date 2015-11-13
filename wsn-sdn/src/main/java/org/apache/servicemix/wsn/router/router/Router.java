@@ -4,7 +4,6 @@ import org.apache.servicemix.application.WSNTopicObject;
 import org.apache.servicemix.application.WsnProcessImpl;
 import org.apache.servicemix.wsn.router.mgr.base.MsgSubsForm;
 import org.apache.servicemix.wsn.router.mgr.base.SysInfo;
-import org.apache.servicemix.wsn.router.topictree.TopicTreeManager;
 import org.apache.servicemix.wsn.router.wsnPolicy.ShorenUtils;
 import org.apache.servicemix.wsn.router.wsnPolicy.msgs.TargetGroup;
 import org.apache.servicemix.wsn.router.wsnPolicy.msgs.WsnPolicyMsg;
@@ -27,7 +26,7 @@ public class Router extends SysInfo implements IRouter {
 
 	public static Map<String, String> topic2Addr = new ConcurrentHashMap<String, String>();
 
-	public static String topicCode2mutiv6Addr(String topicCode){
+	public static String topicCode2mutiv6Addr(String topicCode) {
 		topicCode = Integer.toBinaryString(Integer.valueOf(topicCode).byteValue());
 		String newTopicCode = "11111111" + "0000" + "1110" + "10" + topicCode.length() + topicCode;
 
@@ -35,9 +34,9 @@ public class Router extends SysInfo implements IRouter {
 		return addr;
 	}
 
-	public static String topicName2mutiv6Addr(String topicName){
+	public static String topicName2mutiv6Addr(String topicName) {
 
-		if(topic2Addr.containsKey(topicName))
+		if (topic2Addr.containsKey(topicName))
 			return topic2Addr.get(topicName);
 		String[] topicPath = topicName.split(":");
 		WSNTopicObject current = WsnProcessImpl.topicTree;
@@ -50,7 +49,7 @@ public class Router extends SysInfo implements IRouter {
 							.getTopicName().equals(topicPath[i + 1])) {
 						current = current.getChildrens().get(counter);
 						flag++;
-						if(i == topicPath.length - 2){
+						if (i == topicPath.length - 2) {
 							String addr = topicCode2mutiv6Addr(current.getChildrens().get(counter).getTopicentry().getTopicCode());
 							topic2Addr.put(topicName, addr);
 							return addr;

@@ -10,7 +10,7 @@
     <xsl:output method="xml"
                 encoding="utf-8"
                 indent="no"
-            />
+    />
 
     <!-- hi-d.ent Phrase domain: b | i | u | tt | sup | sub -->
 

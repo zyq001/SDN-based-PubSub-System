@@ -2,7 +2,6 @@ package org.oasis_open.docs.wsn.t_1;
 
 import org.w3c.dom.Element;
 
-import javax.xml.bind.annotation.*;
 import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.util.ArrayList;

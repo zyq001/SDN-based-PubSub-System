@@ -2,7 +2,6 @@ package org.oasis_open.docs.wsn.b_2;
 
 import org.oasis_open.docs.wsrf.bf_2.BaseFaultType;
 
-import javax.xml.bind.annotation.*;
 import javax.xml.datatype.XMLGregorianCalendar;
 
 

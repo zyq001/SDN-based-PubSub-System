@@ -12,7 +12,7 @@
     <xsl:output method="xml"
                 encoding="utf-8"
                 indent="yes"
-            />
+    />
 
     <xsl:key name="link"
              match="*[contains(@class, ' topic/link ')][not(ancestor::*[contains(@class, ' topic/linklist ')])]"

@@ -2,7 +2,6 @@ package org.oasis_open.docs.wsrf.rp_2;
 
 import org.w3c.dom.Element;
 
-import javax.xml.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 

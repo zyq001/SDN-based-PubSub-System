@@ -1,7 +1,6 @@
 package org.oasis_open.docs.wsrf.rp_2;
 
 import javax.xml.bind.JAXBElement;
-import javax.xml.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 

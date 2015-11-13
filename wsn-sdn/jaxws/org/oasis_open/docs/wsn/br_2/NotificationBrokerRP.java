@@ -3,7 +3,6 @@ package org.oasis_open.docs.wsn.br_2;
 import org.oasis_open.docs.wsn.b_2.TopicExpressionType;
 import org.oasis_open.docs.wsn.t_1.TopicSetType;
 
-import javax.xml.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 

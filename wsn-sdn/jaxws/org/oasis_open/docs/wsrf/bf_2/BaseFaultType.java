@@ -1,15 +1,12 @@
 package org.oasis_open.docs.wsrf.bf_2;
 
-import org.oasis_open.docs.wsn.b_2.*;
 import org.oasis_open.docs.wsn.br_2.PublisherRegistrationFailedFaultType;
 import org.oasis_open.docs.wsn.br_2.PublisherRegistrationRejectedFaultType;
 import org.oasis_open.docs.wsn.br_2.ResourceNotDestroyedFaultType;
 import org.oasis_open.docs.wsrf.r_2.ResourceUnavailableFaultType;
 import org.oasis_open.docs.wsrf.r_2.ResourceUnknownFaultType;
-import org.oasis_open.docs.wsrf.rp_2.*;
 import org.w3c.dom.Element;
 
-import javax.xml.bind.annotation.*;
 import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import javax.xml.datatype.XMLGregorianCalendar;

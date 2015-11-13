@@ -1,6 +1,5 @@
 package org.oasis_open.docs.wsn.t_1;
 
-import javax.xml.bind.annotation.*;
 import javax.xml.namespace.QName;
 import java.util.HashMap;
 import java.util.Map;

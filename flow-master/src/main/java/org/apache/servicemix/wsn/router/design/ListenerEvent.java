@@ -328,7 +328,7 @@ class ShowGroupInfo extends SelectionAdapter {
 			public void mouseDown(MouseEvent e) {
 			}
 
-//			@Override
+			//			@Override
 			public void mouseUp(MouseEvent e) {
 				// TODO Auto-generated method stub
 

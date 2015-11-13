@@ -24,6 +24,6 @@
                 indent="no"
                 doctype-system="http://www.w3.org/TR/html4/loose.dtd"
                 doctype-public="-//W3C//DTD HTML 4.01 Transitional//EN"
-            />
+    />
 
 </xsl:stylesheet>

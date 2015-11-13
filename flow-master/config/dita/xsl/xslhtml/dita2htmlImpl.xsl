@@ -38,7 +38,7 @@
     <xsl:output method="xml"
                 encoding="utf-8"
                 indent="no"
-            />
+    />
 
 
     <!-- =========== DEFAULT VALUES FOR EXTERNALLY MODIFIABLE PARAMETERS =========== -->

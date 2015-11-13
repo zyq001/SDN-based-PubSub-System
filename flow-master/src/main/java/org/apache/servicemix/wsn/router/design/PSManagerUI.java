@@ -2657,7 +2657,7 @@ public class PSManagerUI implements IAdminUI {
 
 			}
 		});
-		String url = "http://" + interactIF.localAddr+ ":8080";
+		String url = "http://" + interactIF.localAddr + ":8080";
 		MemoryInfo memInfo = RestProcess.getMemory(url);
 		ArrayList<DevInfo> devInfo = RestProcess.getDevInfo();
 		JTable jDevTab = new JTable(devInfo.size() + 2, 6);

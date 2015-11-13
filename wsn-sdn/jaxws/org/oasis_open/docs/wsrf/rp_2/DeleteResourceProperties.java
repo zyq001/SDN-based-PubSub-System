@@ -1,8 +1,5 @@
 package org.oasis_open.docs.wsrf.rp_2;
 
-import javax.xml.bind.annotation.*;
-
-
 /**
  * <p>Java class for anonymous complex type.
  * <p/>

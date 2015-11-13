@@ -1,6 +1,5 @@
 package org.oasis_open.docs.wsn.brw_2;
 
-import javax.jws.*;
 import javax.jws.soap.SOAPBinding;
 import javax.xml.bind.annotation.XmlSeeAlso;
 

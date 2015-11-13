@@ -17,7 +17,7 @@
     <xsl:output method="xml"
                 encoding="utf-8"
                 indent="no"
-            />
+    />
 
     <!-- Determines whether to generate titles for task sections. Values are YES and NO. -->
     <xsl:param name="GENERATE-TASK-LABELS" select="'NO'"/>

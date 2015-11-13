@@ -52,6 +52,7 @@ public class WsnProcessImpl implements IWsnProcess {
 	public static int countsubscr = 0;
 	public static HashMap<String, ArrayList<subscribeTime>> subscribeMap = new HashMap<String, ArrayList<subscribeTime>>();
 	public static HashMap<String, ArrayList<Double>> subzuobiao = new HashMap<String, ArrayList<Double>>();
+	public static Map<String, Integer> subCount = new ConcurrentHashMap<String, Integer>();
 	private static int counter = 0;
 	private static Map<String, MessageProducer> topicMap = new LinkedHashMap<String, MessageProducer>();
 	private static Log log = LogFactory.getLog(WsnProcessImpl.class);
@@ -66,7 +67,6 @@ public class WsnProcessImpl implements IWsnProcess {
 	private MessageProducer producer = null;
 	private JmsSubscriptionImpl allVal;
 
-	public static Map<String, Integer> subCount = new ConcurrentHashMap<String, Integer>();
 	public static JAXBContext createJAXBContext(Iterable<Class> interfaceClasses)
 			throws JAXBException {
 		List<Class> classes = new ArrayList<Class>();
@@ -713,10 +713,10 @@ public class WsnProcessImpl implements IWsnProcess {
 		return string.substring(start, end);
 	}
 
-	public void startV6mutiRecv(String topicName){
-		if(!subCount.containsKey(topicName)){
+	public void startV6mutiRecv(String topicName) {
+		if (!subCount.containsKey(topicName)) {
 			subCount.put(topicName, 1);
-		}else{
+		} else {
 			subCount.put(topicName, subCount.get(topicName) + 1);
 		}
 
@@ -729,7 +729,7 @@ public class WsnProcessImpl implements IWsnProcess {
 
 			while (true) {
 				byte[] data = new byte[500];
-				DatagramPacket datagramPacket = new DatagramPacket(data,data.length);//创建一个用于接收数据的数据包
+				DatagramPacket datagramPacket = new DatagramPacket(data, data.length);//创建一个用于接收数据的数据包
 				multicastSocket.receive(datagramPacket);//接收数据包
 				this.WsnProcess(new String(data));
 			}

@@ -66,7 +66,7 @@ public class Router extends SysInfo implements IRouter {
 
 //	public static String
 
-	public static String topicCode2mutiv6Addr(String topicCode){
+	public static String topicCode2mutiv6Addr(String topicCode) {
 		topicCode = Integer.toBinaryString(Integer.valueOf(topicCode).byteValue());
 		String newTopicCode = "11111111" + "0000" + "1110" + "10" + topicCode.length() + topicCode;
 
@@ -74,11 +74,10 @@ public class Router extends SysInfo implements IRouter {
 		return addr;
 	}
 
-	public static String topicName2mutiv6Addr(String topicName){
+	public static String topicName2mutiv6Addr(String topicName) {
 
 		String[] topicPath = topicName.split(":");
 		WSNTopicObject current = TopicTreeManager.topicTree;
-		int flag = 0;
 		for (int i = 0; i < topicPath.length - 1; i++) {
 			if (current.getTopicentry().getTopicName().equals(topicPath[i])) {
 				for (int counter = 0; counter < current.getChildrens()
@@ -86,8 +85,7 @@ public class Router extends SysInfo implements IRouter {
 					if (current.getChildrens().get(counter).getTopicentry()
 							.getTopicName().equals(topicPath[i + 1])) {
 						current = current.getChildrens().get(counter);
-						flag++;
-						if(i == topicPath.length - 2){
+						if (i == topicPath.length - 2) {
 							return topicCode2mutiv6Addr(current.getChildrens().get(counter).getTopicentry().getTopicCode());
 						}
 						break;
@@ -124,10 +122,10 @@ public class Router extends SysInfo implements IRouter {
 		//所有集群都是发布者，topics不为空的集群是订阅者
 		//以集群为节点，针对每个topic进行计算
 
-		List<Flow> flows = new ArrayList<Flow>();
+		List<Flow> flows = new ArrayList<>();
 		String curTopic;
-		ArrayList<Integer> sub = new ArrayList<Integer>();//订阅节点集合
-		ArrayList<Integer> pub = new ArrayList<Integer>();//发布节点集合
+		ArrayList<Integer> sub = new ArrayList<>();//订阅节点集合
+		ArrayList<Integer> pub = new ArrayList<>();//发布节点集合
 
 		//保存着连接关系的邻接表
 		int[][] weight = new int[1000][1000];
@@ -135,12 +133,12 @@ public class Router extends SysInfo implements IRouter {
 			for (int j = 0; j < 1000; j++)
 				i = M;
 
-		ArrayList<Controller> controllers_1 = new ArrayList<Controller>();
+		ArrayList<Controller> controllers_1 = new ArrayList<>();
 
 //      这里有个问题，如果是按照主题匹配的话，那么应该返回的就是主题和流表的Map
 //      HashMap<String,List<Flow>>
 
-		HashMap<String, String> topicCodes = new HashMap<String, String>();//key是topicName，value是topicCode
+		HashMap<String, String> topicCodes = new HashMap<>();//key是topicName，value是topicCode
 
 		//获取LDAP中存储的一级主题名称
 		List<WSNTopicObject> topics = TopicTreeManager.topicTree.getChildrens();
@@ -166,7 +164,7 @@ public class Router extends SysInfo implements IRouter {
 //                curTopic = topic;
 //            }
 
-		ArrayList<Switch> weightIdList = new ArrayList<Switch>();
+		ArrayList<Switch> weightIdList = new ArrayList<>();
 		//这里是标记每个Switch的编号
 		for (Controller controller : controllers.values()) {
 			controllers_1.add(controller);
@@ -233,7 +231,7 @@ public class Router extends SysInfo implements IRouter {
 
 				String dpid = curSwitch.getDPID();
 
-				HashMap<String, String> parms = new HashMap<String, String>();
+				HashMap<String, String> parms = new HashMap<>();
 				parms.put("switch", curSwitch.getMac());
 				parms.put("name", "flow-mod-" + flowcount++);//不是写死的，最好每个流表不一样
 				parms.put("cookie", "0");

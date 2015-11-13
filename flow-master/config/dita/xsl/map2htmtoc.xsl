@@ -20,7 +20,7 @@
                 version="1.0"
                 extension-element-prefixes="saxon"
                 exclude-result-prefixes="java"
-        >
+>
 
     <!-- map2htmltoc.xsl   main stylesheet
          Convert DITA map to a simple HTML table-of-contents view.

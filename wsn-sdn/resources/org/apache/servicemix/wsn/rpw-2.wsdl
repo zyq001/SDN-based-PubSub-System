@@ -23,7 +23,7 @@ This document and the information contained herein is provided on an "AS IS" bas
                   name="WS-ResourceProperties"
                   xmlns="http://schemas.xmlsoap.org/wsdl/"
                   targetNamespace="http://docs.oasis-open.org/wsrf/rpw-2"
-        >
+>
 
     <!-- ========================== Imports  ========================== -->
 

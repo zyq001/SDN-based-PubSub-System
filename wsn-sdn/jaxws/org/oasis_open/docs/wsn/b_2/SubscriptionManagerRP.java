@@ -1,6 +1,5 @@
 package org.oasis_open.docs.wsn.b_2;
 
-import javax.xml.bind.annotation.*;
 import javax.xml.datatype.XMLGregorianCalendar;
 import javax.xml.ws.wsaddressing.W3CEndpointReference;
 

@@ -20,7 +20,7 @@ This document and the information contained herein is provided on an "AS IS" bas
                   name="WS-Resource"
                   xmlns="http://schemas.xmlsoap.org/wsdl/"
                   targetNamespace="http://docs.oasis-open.org/wsrf/rw-2"
-        >
+>
 
     <!-- ===================== Types Definitions ====================== -->
     <wsdl:types>
@@ -33,7 +33,7 @@ This document and the information contained herein is provided on an "AS IS" bas
             <xsd:import
                     namespace="http://docs.oasis-open.org/wsrf/r-2"
                     schemaLocation="r-2.xsd"
-                    />
+            />
 
         </xsd:schema>
     </wsdl:types>

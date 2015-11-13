@@ -3,7 +3,6 @@ package org.oasis_open.docs.wsn.br_2;
 import org.oasis_open.docs.wsn.b_2.TopicExpressionType;
 import org.w3c.dom.Element;
 
-import javax.xml.bind.annotation.*;
 import javax.xml.datatype.XMLGregorianCalendar;
 import javax.xml.ws.wsaddressing.W3CEndpointReference;
 import java.util.ArrayList;

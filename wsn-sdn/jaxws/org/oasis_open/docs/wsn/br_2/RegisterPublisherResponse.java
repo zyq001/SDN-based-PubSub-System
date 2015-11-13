@@ -1,6 +1,5 @@
 package org.oasis_open.docs.wsn.br_2;
 
-import javax.xml.bind.annotation.*;
 import javax.xml.ws.wsaddressing.W3CEndpointReference;
 
 
