@@ -31,7 +31,7 @@ import java.util.concurrent.ConcurrentHashMap;
 //import org.Mina.shorenMinaTest.queues.Destination;
 
 public class Start {
-	public static RtMgr mgr = RtMgr.getInstance();
+	public static RtMgr mgr ;
 	public static ArrayList<String> forwardIP = new ArrayList<String>();//存储转发目的ip的变量
 	public static ArrayList<MsgSubsForm> nodeList = new ArrayList<MsgSubsForm>();
 	public static MsgSubsForm groupTableRoot = null;
@@ -42,6 +42,7 @@ public class Start {
 	private static int totalCount = 0;
 
 	public static void main(String[] args) {
+//		mgr = RtMgr.getInstance();
 		PropertyConfigurator.configure("log4j.properties");
 
 		MsgNotis msg = new MsgNotis();
@@ -57,20 +58,27 @@ public class Start {
 
 		CrossGroupMsgForwardQueue.grtInstance().start();
 
-		generateMsgNoticeMsg(msg);
-
-		WsnProcessImpl wsnprocess = new WsnProcessImpl();
-		try {
-			wsnprocess.init();
-		} catch (JAXBException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		int counter = 10000;
+		while(counter-- > 0) {
+			generateMsgNoticeMsg(msg);
+//			try {
+//				Thread.sleep(100);
+//			} catch (InterruptedException e) {
+//				e.printStackTrace();
+//			}
 		}
-		Endpoint.publish(args[0], wsnprocess);
-
-		RtMgr.getInstance();
-		initNode();
-		MsgQueueMgr.getInstance();
+//		WsnProcessImpl wsnprocess = new WsnProcessImpl();
+//		try {
+//			wsnprocess.init();
+//		} catch (JAXBException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		Endpoint.publish(args[0], wsnprocess);
+//
+//		RtMgr.getInstance();
+//		initNode();
+//		MsgQueueMgr.getInstance();
 	}
 
 	public static void initNode() {
@@ -120,6 +128,7 @@ public class Start {
 		ArrayList<String> fwIP = new ArrayList<String>();
 
 		String v6MutiAddr = Router.topicName2mutiv6Addr(msg.topicName);
+		System.out.println(v6MutiAddr);
 		fwIP.add(v6MutiAddr);
 		ForwardMsg forwardMsg = new UDPForwardMsg(fwIP, MinaUtil.uPort, (WsnMsg) msg);
 		CrossGroupMsgForwardQueue.grtInstance().enqueque(forwardMsg);

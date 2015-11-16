@@ -23,7 +23,7 @@ import java.util.List;
 //import org.apache.http.client.HttpClient;
 
 public class RestProcess {///wm/device/
-	public static String REST_URL = "http://10.109.253.2:8080";//"http://10.108.164.211:8080/wm/core/controller/switches/json";//"http://10.108.164.211:8080/wm/core/switch/1/flow/json";
+	public static String REST_URL = "http://10.109.253.20:8080";//"http://10.108.164.211:8080/wm/core/controller/switches/json";//"http://10.108.164.211:8080/wm/core/switch/1/flow/json";
 	private static String API_KEY = "your api key";
 	private static String SECRET_KEY = "your secret key";
 	private static int index = 2;
@@ -132,14 +132,14 @@ public class RestProcess {///wm/device/
 			String DPID = devjson.getJSONObject(0).getJSONArray("attachmentPoint")
 					.length() > 0 ? devjson.getJSONObject(0).getJSONArray("attachmentPoint")
 					.getJSONObject(0).getString("switchDPID") : "";
-			String url = REST_URL + "/wm/core/counter/all/json";
-			String body = doClientGet(url);
-			JSONObject json = new JSONObject(body);
-			System.out.println(json);
-			Flow dpidlist = new Flow(json.getString("dpid"));
-			dpidlist.setDpid(REST_URL);
-			dpidlist.setFlowCount("" + json.getInt("controller__OFPacketIn"));
-			all.add(dpidlist);
+//			String url = REST_URL + "/wm/core/counter/all/json";
+//			String body = doClientGet(url);
+//			JSONObject json = new JSONObject(body);
+//			System.out.println(json);
+//			Flow dpidlist = new Flow(json.getString("dpid"));
+//			dpidlist.setDpid(REST_URL);
+//			dpidlist.setFlowCount("" + json.getInt("controller__OFPacketIn"));
+//			all.add(dpidlist);
 
 			String switchurl = REST_URL + "/wm/core/controller/switches/json";
 			String switchbody = doClientGet(switchurl);
@@ -154,10 +154,10 @@ public class RestProcess {///wm/device/
 //				list.setDpid(DPID+"__"+(devjson.getJSONObject(i)
 //						.getJSONArray("attachmentPoint").length() > 0 ? devjson.getJSONObject(i)
 //								.getJSONArray("attachmentPoint").getJSONObject(0).getInt("port") : ""));
-				list.setFlowCount("" + json.getInt(dpid
-//						+"__"+(devjson.getJSONObject(i).getJSONArray("attachmentPoint").length() > 0 ? devjson.getJSONObject(i)
-//								.getJSONArray("attachmentPoint").getJSONObject(0).getInt("port") : "")
-						+ "__OFPacketIn"));
+//				list.setFlowCount("" + json.getInt(dpid
+////						+"__"+(devjson.getJSONObject(i).getJSONArray("attachmentPoint").length() > 0 ? devjson.getJSONObject(i)
+////								.getJSONArray("attachmentPoint").getJSONObject(0).getInt("port") : "")
+//						+ "__OFPacketIn"));
 				all.add(list);
 			}
 			return all;

@@ -29,6 +29,7 @@ public class CrossGroupMsgForwardQueue extends Thread {
 	public boolean enqueque(ForwardMsg wsnmsg) {
 		boolean success = false;
 		success = queue.offer(wsnmsg);
+		System.out.println("queue.size:" + queue.size());
 		return success;
 	}
 
@@ -42,8 +43,9 @@ public class CrossGroupMsgForwardQueue extends Thread {
 	}
 
 	private boolean processMsg(ForwardMsg wsnMsg) {
-		if (wsnMsg == null || wsnMsg.getDest() == null) return false;
+//		if (wsnMsg == null || wsnMsg.getDest() == null) return false;
 		String dstIP = wsnMsg.getDest().getAddr();
+		System.out.println("dstIP: " + dstIP);
 		int port = wsnMsg.getDest().getPort();
 //		NioDatagramConnector minaConnector = MinaUtil.createDatagramConnector();
 //		ConnectFuture cf = minaConnector.connect(new InetSocketAddress(dstIP, port));
@@ -53,13 +55,18 @@ public class CrossGroupMsgForwardQueue extends Thread {
 //		return future.isWritten();
 		try {
 //			byte[] msg = new byte[] { 'h', 'e', 'l', 'l', 'o' };
-			String add = "";
+//			String add = "";
 //			if(topic2Addr.containsKey(wsnMsg.getKeyDest().))
-			Inet6Address inetAddress = (Inet6Address) Inet6Address.getByName(wsnMsg.getDest().getAddr());//��������������������IP��ַ
+
+//			Inet6Address inetAddress = (Inet6Address) Inet6Address.getByName(wsnMsg.getDest().getAddr());//��������������������IP��ַ
+			Inet6Address inetAddress = (Inet6Address) Inet6Address.getByName("FF01:0000:0000:0000:0001:2345:6789:abcd");
 			byte[] msg = wsnMsg.getMsg().msgToString().getBytes();
 			DatagramPacket datagramPacket = new DatagramPacket(msg, msg.length, inetAddress, 7777);//���ݰ�������Ϣ���ݣ���Ϣ���ȣ��ಥIP�Ͷ˿�
 			MulticastSocket multicastSocket = new MulticastSocket();
+			System.out.println("datagramPacket hostName:" + datagramPacket.getAddress().getHostName());
 			multicastSocket.send(datagramPacket);//�������ݰ�
+			counter++;
+			if(counter % 100 == 0) System.out.println(System.currentTimeMillis() + "counter:" + counter);
 			return true;
 		} catch (Exception exception) {
 			exception.printStackTrace();
@@ -67,10 +74,13 @@ public class CrossGroupMsgForwardQueue extends Thread {
 		}
 	}
 
+	static int counter = 0;
 	public void run() {
 		while (true) {
 			try {
+				if(queue.size() == 0) continue;
 				ForwardMsg msg = queue.take();
+				System.out.println("queue take:");
 				if (!processMsg(msg)) {
 					queue.put(msg);
 				}

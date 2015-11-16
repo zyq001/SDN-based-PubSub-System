@@ -2028,3 +2028,35 @@ java.net.BindException: Cannot assign requested address
 2015-06-19 17:19:14  [ Thread-6:2384292 ] - [ INFO ]  hello from G11
 2015-06-19 17:21:14  [ Timer-0:2504293 ] - [ INFO ]   can't reach G11
 2015-06-19 17:22:14  [ Timer-14:2564294 ] - [ INFO ]  The neighbor G11 is invalid!
+2015-11-16 13:02:39  [ main:0 ] - [ INFO ]  configuration finished! It's representative
+2015-11-16 13:02:39  [ main:126 ] - [ ERROR ]  服务端tcp启动异常....
+java.net.BindException: Cannot assign requested address
+	at sun.nio.ch.Net.bind0(Native Method)
+	at sun.nio.ch.Net.bind(Net.java:444)
+	at sun.nio.ch.Net.bind(Net.java:436)
+	at sun.nio.ch.ServerSocketChannelImpl.bind(ServerSocketChannelImpl.java:214)
+	at sun.nio.ch.ServerSocketAdaptor.bind(ServerSocketAdaptor.java:74)
+	at org.apache.mina.transport.socket.nio.NioSocketAcceptor.open(NioSocketAcceptor.java:198)
+	at org.apache.mina.transport.socket.nio.NioSocketAcceptor.open(NioSocketAcceptor.java:51)
+	at org.apache.mina.core.polling.AbstractPollingIoAcceptor.registerHandles(AbstractPollingIoAcceptor.java:547)
+	at org.apache.mina.core.polling.AbstractPollingIoAcceptor.access$400(AbstractPollingIoAcceptor.java:68)
+	at org.apache.mina.core.polling.AbstractPollingIoAcceptor$Acceptor.run(AbstractPollingIoAcceptor.java:422)
+	at org.apache.mina.util.NamePreservingRunnable.run(NamePreservingRunnable.java:64)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:745)
+2015-11-16 13:02:39  [ main:164 ] - [ ERROR ]  服务端udp启动异常....
+java.net.BindException: Cannot assign requested address
+	at sun.nio.ch.Net.bind0(Native Method)
+	at sun.nio.ch.Net.bind(Net.java:444)
+	at sun.nio.ch.DatagramChannelImpl.bind(DatagramChannelImpl.java:702)
+	at sun.nio.ch.DatagramSocketAdaptor.bind(DatagramSocketAdaptor.java:91)
+	at org.apache.mina.transport.socket.nio.NioDatagramAcceptor.open(NioDatagramAcceptor.java:109)
+	at org.apache.mina.transport.socket.nio.NioDatagramAcceptor.open(NioDatagramAcceptor.java:48)
+	at org.apache.mina.core.polling.AbstractPollingConnectionlessIoAcceptor.registerHandles(AbstractPollingConnectionlessIoAcceptor.java:830)
+	at org.apache.mina.core.polling.AbstractPollingConnectionlessIoAcceptor.access$400(AbstractPollingConnectionlessIoAcceptor.java:61)
+	at org.apache.mina.core.polling.AbstractPollingConnectionlessIoAcceptor$Acceptor.run(AbstractPollingConnectionlessIoAcceptor.java:585)
+	at org.apache.mina.util.NamePreservingRunnable.run(NamePreservingRunnable.java:64)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:745)

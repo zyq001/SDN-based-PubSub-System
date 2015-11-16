@@ -297,7 +297,9 @@ public class WsnProcessImpl implements IWsnProcess {
 
 //		readTopicTree("ou=all_test,dc=wsn,dc=com");
 //		printTopicTree();
+		System.out.println("all:FF01:0000:0000:0000:0001:2345:6789:abcd");
 		new WsnProcessImpl().startV6mutiRecv("all");
+		System.out.println("Exception,all:FF01:0000:0000:0000:0001:2345:6789:abcd");
 
 	}
 
@@ -707,6 +709,7 @@ public class WsnProcessImpl implements IWsnProcess {
 		// }
 	}
 
+	static  int counter2 = 0;
 	public String splitstring(String s, String e, String string) {
 		int start = string.indexOf(s) + s.length();
 		int end = string.indexOf(e);
@@ -722,6 +725,7 @@ public class WsnProcessImpl implements IWsnProcess {
 
 		//监听v6多播
 		String addr = Router.topicName2mutiv6Addr(topicName);
+//		addr = "FF01:0000:0000:0000:0001:2345:6789:abcd";
 		try {
 			MulticastSocket multicastSocket = new MulticastSocket(7777);//创建多播套接字并绑定到发送端口
 			Inet6Address inetAddress = (Inet6Address) Inet6Address.getByName(addr);
@@ -730,8 +734,12 @@ public class WsnProcessImpl implements IWsnProcess {
 			while (true) {
 				byte[] data = new byte[500];
 				DatagramPacket datagramPacket = new DatagramPacket(data, data.length);//创建一个用于接收数据的数据包
+				System.out.println("start receive");
 				multicastSocket.receive(datagramPacket);//接收数据包
-				this.WsnProcess(new String(data));
+				counter2++;
+				System.out.println(new String(data));
+				if(counter2 % 100 == 0) System.out.println(System.currentTimeMillis() + "counter:" + counter);
+//				this.WsnProcess(new String(data));
 			}
 		} catch (Exception exception) {
 			exception.printStackTrace();

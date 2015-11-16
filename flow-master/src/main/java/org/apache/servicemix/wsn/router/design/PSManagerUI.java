@@ -497,7 +497,7 @@ public class PSManagerUI implements IAdminUI {
 		groupConf.setLayout(new GridLayout(1, 0, 5, 0));
 
 		// guocheng
-		this.refreshInfo();
+//		this.refreshInfo();
 		groupsInfoTabbedPane.addTab("设备信息", null, devConf, "设备信息");
 		groupsInfoTabbedPane.addTab("流量信息", null, flowConf, "流量信息");
 
@@ -2716,7 +2716,8 @@ public class PSManagerUI implements IAdminUI {
 
 		flowConf.setLayout(new GridLayout(1, 0, 5, 0));
 
-		ArrayList<Flow> flow = RestProcess.getFlowInfo();
+//		ArrayList<Flow> flow = RestProcess.getFlowInfo();
+		ArrayList<Flow> flow = new ArrayList<Flow>();
 		JTable jFlowTab = new JTable(flow.size(), 4);
 		TableColumn firsetColumn = jFlowTab.getColumnModel().getColumn(0);
 		firsetColumn.setPreferredWidth(80);
@@ -2728,7 +2729,7 @@ public class PSManagerUI implements IAdminUI {
 		threadColumn.setMinWidth(80);
 
 		flowConf.add(jFlowTab);
-		jFlowTab.setValueAt("控制器：", 0, 0);
+//		jFlowTab.setValueAt("控制器：", 0, 0);
 		jFlowTab.setValueAt(flow.get(0).getDpid(), 0, 1);
 		jFlowTab.setValueAt("总流量：", 0, 2);
 		jFlowTab.setValueAt(flow.get(0).getFlowCount(), 0, 3);
