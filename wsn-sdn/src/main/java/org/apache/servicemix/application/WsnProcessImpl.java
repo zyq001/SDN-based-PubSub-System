@@ -1,6 +1,8 @@
 package org.apache.servicemix.application;
 
 import org.Mina.shorenMinaTest.MinaUtil;
+import org.Mina.shorenMinaTest.msg.WsnMsg;
+import org.Mina.shorenMinaTest.msg.tcp.highPriority;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.methods.PostMethod;
@@ -991,13 +993,17 @@ public class WsnProcessImpl implements IWsnProcess {
 				multicastSocket.joinGroup(inetAddress);//多播套接字加入多播组
 
 				while (true) {
-					byte[] data = new byte[500];
+					byte[] data = new byte[1000];
 					DatagramPacket datagramPacket = new DatagramPacket(data, data.length);//创建一个用于接收数据的数据包
-//				System.out.println("start receive");
+				System.out.println("start receive");
 					multicastSocket.receive(datagramPacket);//接收数据包
 					counter2++;
 //				System.out.println(new String(data));
 					if (counter2 % 1000 == 0) System.out.println(System.currentTimeMillis() + "counter:" + counter2);
+					String msgString = new String(data);
+					System.out.println(msgString);
+					WsnMsg msg = MinaUtil.stringToMsg(msgString, new highPriority());
+					org.Mina.shorenMinaTest.mgr.RtMgr.getInstance().getState().processMsg(msg);
 //				this.WsnProcess(new String(data));
 				}
 			} catch (Exception exception) {

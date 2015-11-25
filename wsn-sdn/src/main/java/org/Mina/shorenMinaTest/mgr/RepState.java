@@ -37,6 +37,199 @@ public class RepState extends AState {
 		this.mgr = mgr;
 	}
 
+
+	public void processMsg(WsnMsg msg) {
+
+		// log.info("to processNotisMsg");
+		// System.out.println("process notis msg");
+
+		if (msg instanceof MsgNotis) {
+
+			final org.Mina.shorenMinaTest.msg.tcp.MsgNotis mns = (org.Mina.shorenMinaTest.msg.tcp.MsgNotis) msg;
+
+			mns.sender = localAddr;
+
+			String splited[] = mns.topicName.split(":");
+			String ex = "";
+			boolean filtered = false;
+			for (int i = 0; i < splited.length; i++) {
+				if (i > 0)
+					ex += ":";
+				ex += splited[i];
+				WsnPolicyMsg wpm = ShorenUtils.decodePolicyMsg(ex);
+				if (wpm != null) {
+					for (TargetGroup tg : wpm.getAllGroups()) {
+						if (tg.getName().equals(groupName) && tg.isAllMsg()) {
+							filtered = true;
+							break;
+						}
+					}
+				}
+			}
+
+			if (!filtered) {
+				boolean send = false;
+				for (String topic : org.apache.servicemix.wsn.router.mgr.base.SysInfo.clientTable) {
+					if (this.isIncluded(topic, mns.topicName)) {
+						send = true;
+						break;
+					}
+				}
+				if (send
+						&& !mns.originatorAddr
+						.equals(org.apache.servicemix.wsn.router.mgr.base.SysInfo.localAddr))// �����ж��Ĳ��Ҳ�����Ϣ�����ߣ����Ͻ�wsn��������ط����ʺ������̣߳�ȫ�ֱ�����ֻ����Ҳ���������
+				{
+
+					try {
+						SendNotification SN = new SendNotification();// �����ϲ�wsn�Ľӿ�
+						SN.send(mns.doc);
+						org.apache.servicemix.wsn.router.mgr.RtMgr.subtract();
+					} catch (Exception e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+						log.warn(e1);
+					}
+				}
+
+				send = false;
+				for (String topic : org.apache.servicemix.wsn.router.mgr.base.SysInfo.brokerTable
+						.keySet()) {
+					if (this.isIncluded(topic, mns.topicName)) {
+						send = true;
+						break;
+					}
+				}
+				if (send) {
+					this.spreadInLocalGroup(mns);
+				}
+
+			}
+
+		} else if (msg instanceof highPriority) {
+
+			final org.Mina.shorenMinaTest.msg.tcp.highPriority mns = (org.Mina.shorenMinaTest.msg.tcp.highPriority) msg;
+
+			mns.sender = localAddr;
+
+			String splited[] = mns.topicName.split(":");
+			String ex = "";
+			boolean filtered = false;
+			for (int i = 0; i < splited.length; i++) {
+				if (i > 0)
+					ex += ":";
+				ex += splited[i];
+				WsnPolicyMsg wpm = ShorenUtils.decodePolicyMsg(ex);
+				if (wpm != null) {
+					for (TargetGroup tg : wpm.getAllGroups()) {
+						if (tg.getName().equals(groupName) && tg.isAllMsg()) {
+							filtered = true;
+							break;
+						}
+					}
+				}
+			}
+
+			if (!filtered) {
+				boolean send = false;
+				for (String topic : org.apache.servicemix.wsn.router.mgr.base.SysInfo.clientTable) {
+					if (this.isIncluded(topic, mns.topicName)) {
+						send = true;
+						break;
+					}
+				}
+				if (send
+						&& !mns.originatorAddr
+						.equals(org.apache.servicemix.wsn.router.mgr.base.SysInfo.localAddr))// �����ж��Ĳ��Ҳ�����Ϣ�����ߣ����Ͻ�wsn��������ط����ʺ������̣߳�ȫ�ֱ�����ֻ����Ҳ���������
+				{
+
+					try {
+						SendNotification SN = new SendNotification();// �����ϲ�wsn�Ľӿ�
+						SN.send(mns.doc);
+						org.apache.servicemix.wsn.router.mgr.RtMgr.subtract();
+					} catch (Exception e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+						log.warn(e1);
+					}
+				}
+
+				send = false;
+				for (String topic : org.apache.servicemix.wsn.router.mgr.base.SysInfo.brokerTable
+						.keySet()) {
+					if (this.isIncluded(topic, mns.topicName)) {
+						send = true;
+						break;
+					}
+				}
+				if (send) {
+					this.spreadInLocalGroup(mns);
+				}
+
+			}
+		} else if (msg instanceof org.Mina.shorenMinaTest.msg.tcp.lowPriority) {
+
+			final org.Mina.shorenMinaTest.msg.tcp.lowPriority mns = (org.Mina.shorenMinaTest.msg.tcp.lowPriority) msg;
+
+			mns.sender = localAddr;
+
+			String splited[] = mns.topicName.split(":");
+			String ex = "";
+			boolean filtered = false;
+			for (int i = 0; i < splited.length; i++) {
+				if (i > 0)
+					ex += ":";
+				ex += splited[i];
+				WsnPolicyMsg wpm = ShorenUtils.decodePolicyMsg(ex);
+				if (wpm != null) {
+					for (TargetGroup tg : wpm.getAllGroups()) {
+						if (tg.getName().equals(groupName) && tg.isAllMsg()) {
+							filtered = true;
+							break;
+						}
+					}
+				}
+			}
+
+			if (!filtered) {
+				boolean send = false;
+				for (String topic : org.apache.servicemix.wsn.router.mgr.base.SysInfo.clientTable) {
+					if (this.isIncluded(topic, mns.topicName)) {
+						send = true;
+						break;
+					}
+				}
+				if (send
+						&& !mns.originatorAddr
+						.equals(org.apache.servicemix.wsn.router.mgr.base.SysInfo.localAddr))// �����ж��Ĳ��Ҳ�����Ϣ�����ߣ����Ͻ�wsn��������ط����ʺ������̣߳�ȫ�ֱ�����ֻ����Ҳ���������
+				{
+
+					try {
+						SendNotification SN = new SendNotification();// �����ϲ�wsn�Ľӿ�
+						SN.send(mns.doc);
+						org.apache.servicemix.wsn.router.mgr.RtMgr.subtract();
+					} catch (Exception e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+						log.warn(e1);
+					}
+				}
+
+				send = false;
+				for (String topic : org.apache.servicemix.wsn.router.mgr.base.SysInfo.brokerTable
+						.keySet()) {
+					if (this.isIncluded(topic, mns.topicName)) {
+						send = true;
+						break;
+					}
+				}
+				if (send) {
+					this.spreadInLocalGroup(mns);
+				}
+			}
+		}
+//		msg.processRepMsg(session);
+	}
+
 	/*
 	 * public void processMsg(IoSession session, WsnMsg msg) {
 	 * msg.processRepMsg(session); }
@@ -231,7 +424,7 @@ public class RepState extends AState {
 				}
 			}
 		}
-		msg.processRepMsg(session);
+//		msg.processRepMsg(session);
 	}
 
 	public boolean isIncluded(String mother, String child) {

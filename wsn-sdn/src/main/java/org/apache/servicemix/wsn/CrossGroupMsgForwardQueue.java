@@ -12,7 +12,7 @@ import java.util.concurrent.LinkedBlockingDeque;
 /**
  * Created by root on 15-10-8.
  */
-public class CrossGroupMsgForwardQueue extends Thread {
+public class CrossGroupMsgForwardQueue implements Runnable {
 
 	static int counter = 0;
 	private static CrossGroupMsgForwardQueue INSTANCE;
@@ -77,10 +77,12 @@ public class CrossGroupMsgForwardQueue extends Thread {
 		}
 	}
 
+	@Override
 	public void run() {
 		while (true) {
 			try {
-				if (queue.size() == 0) continue;
+//				if (queue.size() == 0) continue;
+				System.out.println("bef run");
 				ForwardMsg msg = queue.take();
 				System.out.println("queue take:");
 				if (!processMsg(msg)) {
@@ -91,4 +93,20 @@ public class CrossGroupMsgForwardQueue extends Thread {
 			}
 		}
 	}
+//	@Override
+//	public void run() {
+//		while (true) {
+//			try {
+////				if (queue.size() == 0) continue;
+//				System.out.println("bef run");
+//				ForwardMsg msg = queue.take();
+//				System.out.println("queue take:");
+//				if (!processMsg(msg)) {
+//					queue.put(msg);
+//				}
+//			} catch (InterruptedException e) {
+//				e.printStackTrace();
+//			}
+//		}
+//	}
 }

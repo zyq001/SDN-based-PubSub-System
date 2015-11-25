@@ -58,4 +58,6 @@ public abstract class AState extends SysInfo {
 //	public void forwardOtherMsg(Object qmn){}
 
 	abstract public void processMsg(IoSession session, WsnMsg msg);
+
+	abstract public void processMsg( WsnMsg msg);
 }

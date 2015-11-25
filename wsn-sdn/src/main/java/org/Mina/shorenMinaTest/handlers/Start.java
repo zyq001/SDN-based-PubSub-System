@@ -105,9 +105,15 @@ public class Start {
 		}
 		Endpoint.publish(args[0], wsnprocess);
 
+		System.out.println("bef start");
+		new Thread(CrossGroupMsgForwardQueue.grtInstance()).start();
+		System.out.println("aft start");
+
 		RtMgr.getInstance();
 		initNode();
 		MsgQueueMgr.getInstance();
+
+
 	}
     public  static  void send(){
 		try{

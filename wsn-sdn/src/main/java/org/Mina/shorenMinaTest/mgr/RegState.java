@@ -28,4 +28,9 @@ public class RegState extends AState {
 		msg.processRegMsg(session);
 	}
 
+	public void processMsg( WsnMsg msg) {
+//		msg.processRegMsg(new IoSession()) {
+//		});
+	}
+
 }

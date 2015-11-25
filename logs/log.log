@@ -28,3 +28,81 @@ java.net.BindException: Cannot assign requested address: bind
 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
 	at java.lang.Thread.run(Thread.java:745)
+2015-11-25 15:08:21  [ Thread-1:0 ] - [ INFO ]  configuration finished! It's representative
+2015-11-25 15:08:21  [ Thread-1:119 ] - [ INFO ]  local address: 10.108.167.134	port: 2001
+2015-11-25 15:08:21  [ Thread-1:121 ] - [ INFO ]  multicast address: 230.0.10.109
+2015-11-25 15:08:21  [ Thread-1:349 ] - [ INFO ]  org.apache.servicemix.wsn.router.msg.tcp.MsgNewGroup_@7f2b3c
+2015-11-25 15:08:42  [ Thread-1:21400 ] - [ WARN ]  java.net.ConnectException: Connection timed out: connect
+2015-11-25 15:09:03  [ Thread-1:42399 ] - [ WARN ]  java.net.ConnectException: Connection timed out: connect
+2015-11-25 15:11:13  [ Thread-1:172104 ] - [ INFO ]  join finished!
+2015-11-25 15:11:19  [ main:178288 ] - [ INFO ]  configuration finished! It's representative
+2015-11-25 15:11:19  [ main:178737 ] - [ INFO ]  服务端启动成功... tcp端口号为：30008
+2015-11-25 15:11:19  [ main:178862 ] - [ INFO ]  服务端启动成功... udp端口号为：30002
+2015-11-25 15:25:22  [ main:0 ] - [ INFO ]  configuration finished! It's regular
+2015-11-25 15:25:22  [ main:43 ] - [ WARN ]  java.net.BindException: Address already in use: JVM_Bind
+2015-11-25 15:25:22  [ main:87 ] - [ INFO ]  local address: 10.108.167.134	port: 2001
+2015-11-25 15:25:22  [ main:89 ] - [ INFO ]  multicast address: 230.0.10.109
+2015-11-25 15:25:22  [ main:439 ] - [ INFO ]  successfully join into group:G9
+2015-11-25 15:25:27  [ main:5429 ] - [ INFO ]  join finished!
+2015-11-25 15:25:59  [ main:0 ] - [ INFO ]  configuration finished! It's regular
+2015-11-25 15:26:00  [ main:84 ] - [ INFO ]  local address: 10.108.167.134	port: 2001
+2015-11-25 15:26:00  [ main:86 ] - [ INFO ]  multicast address: 230.0.10.109
+2015-11-25 15:26:00  [ Thread-7:347 ] - [ INFO ]  No this TCP msg!
+2015-11-25 15:26:00  [ Thread-8:350 ] - [ INFO ]  No this TCP msg!
+2015-11-25 15:26:00  [ Thread-9:352 ] - [ INFO ]  No this TCP msg!
+2015-11-25 15:26:00  [ main:353 ] - [ INFO ]  rep of group G9 no longer exist
+2015-11-25 15:26:00  [ main:391 ] - [ INFO ]  switch to rep state
+2015-11-25 15:26:02  [ main:2596 ] - [ INFO ]  org.apache.servicemix.wsn.router.msg.tcp.MsgNewGroup_@d6ddda
+2015-11-25 15:26:23  [ main:23633 ] - [ WARN ]  java.net.ConnectException: Connection timed out: connect
+2015-11-25 15:26:44  [ main:44637 ] - [ WARN ]  java.net.ConnectException: Connection timed out: connect
+2015-11-25 15:28:53  [ main:173781 ] - [ INFO ]  join finished!
+2015-11-25 15:28:55  [ main:175435 ] - [ INFO ]  configuration finished! It's representative
+2015-11-25 15:28:55  [ main:175842 ] - [ INFO ]  服务端启动成功... tcp端口号为：30008
+2015-11-25 15:28:55  [ main:175920 ] - [ INFO ]  服务端启动成功... udp端口号为：30002
+2015-11-25 15:35:16  [ Thread-1:0 ] - [ INFO ]  configuration finished! It's regular
+2015-11-25 15:35:17  [ Thread-1:74 ] - [ INFO ]  local address: 10.108.167.134	port: 2001
+2015-11-25 15:35:17  [ Thread-1:75 ] - [ INFO ]  multicast address: 230.0.10.109
+2015-11-25 15:35:17  [ Thread-7:339 ] - [ INFO ]  No this TCP msg!
+2015-11-25 15:35:17  [ Thread-8:342 ] - [ INFO ]  No this TCP msg!
+2015-11-25 15:35:17  [ Thread-9:344 ] - [ INFO ]  No this TCP msg!
+2015-11-25 15:35:17  [ Thread-1:345 ] - [ INFO ]  rep of group G9 no longer exist
+2015-11-25 15:35:17  [ Thread-1:384 ] - [ INFO ]  switch to rep state
+2015-11-25 15:35:19  [ Thread-1:2561 ] - [ INFO ]  org.apache.servicemix.wsn.router.msg.tcp.MsgNewGroup_@1aa7971
+2015-11-25 15:35:22  [ Thread-1:5641 ] - [ INFO ]  join finished!
+2015-11-25 15:35:24  [ main:7263 ] - [ INFO ]  configuration finished! It's representative
+2015-11-25 15:35:24  [ main:7697 ] - [ INFO ]  服务端启动成功... tcp端口号为：30008
+2015-11-25 15:35:24  [ main:7811 ] - [ INFO ]  服务端启动成功... udp端口号为：30002
+2015-11-25 15:46:31  [ Thread-1:0 ] - [ INFO ]  configuration finished! It's regular
+2015-11-25 15:46:31  [ Thread-1:36 ] - [ WARN ]  java.net.BindException: Address already in use: JVM_Bind
+2015-11-25 15:46:31  [ Thread-1:72 ] - [ INFO ]  local address: 10.108.167.134	port: 2001
+2015-11-25 15:46:31  [ Thread-1:73 ] - [ INFO ]  multicast address: 230.0.10.109
+2015-11-25 15:46:31  [ Thread-1:336 ] - [ INFO ]  successfully join into group:G9
+2015-11-25 15:46:34  [ Thread-1:3118 ] - [ INFO ]  join finished!
+2015-11-25 15:47:02  [ main:0 ] - [ INFO ]  configuration finished! It's regular
+2015-11-25 15:47:02  [ main:73 ] - [ INFO ]  local address: 10.108.167.134	port: 2001
+2015-11-25 15:47:02  [ main:74 ] - [ INFO ]  multicast address: 230.0.10.109
+2015-11-25 15:47:02  [ Thread-7:336 ] - [ INFO ]  No this TCP msg!
+2015-11-25 15:47:02  [ Thread-8:339 ] - [ INFO ]  No this TCP msg!
+2015-11-25 15:47:02  [ Thread-9:341 ] - [ INFO ]  No this TCP msg!
+2015-11-25 15:47:02  [ main:342 ] - [ INFO ]  rep of group G9 no longer exist
+2015-11-25 15:47:02  [ main:381 ] - [ INFO ]  switch to rep state
+2015-11-25 15:47:04  [ main:2615 ] - [ INFO ]  org.apache.servicemix.wsn.router.msg.tcp.MsgNewGroup_@974ce
+2015-11-25 15:47:25  [ main:23666 ] - [ WARN ]  java.net.ConnectException: Connection timed out: connect
+2015-11-25 15:47:46  [ main:44666 ] - [ WARN ]  java.net.ConnectException: Connection timed out: connect
+2015-11-25 15:49:55  [ main:173904 ] - [ INFO ]  join finished!
+2015-11-25 15:50:33  [ main:211148 ] - [ INFO ]  configuration finished! It's representative
+2015-11-25 15:50:33  [ main:211569 ] - [ INFO ]  服务端启动成功... tcp端口号为：30008
+2015-11-25 15:50:33  [ main:211648 ] - [ INFO ]  服务端启动成功... udp端口号为：30002
+2015-11-25 15:53:03  [ Thread-1:0 ] - [ INFO ]  configuration finished! It's regular
+2015-11-25 15:53:03  [ Thread-1:76 ] - [ INFO ]  local address: 10.108.167.134	port: 2001
+2015-11-25 15:53:03  [ Thread-1:77 ] - [ INFO ]  multicast address: 230.0.10.109
+2015-11-25 15:53:03  [ Thread-7:363 ] - [ INFO ]  No this TCP msg!
+2015-11-25 15:53:03  [ Thread-8:366 ] - [ INFO ]  No this TCP msg!
+2015-11-25 15:53:03  [ Thread-9:369 ] - [ INFO ]  No this TCP msg!
+2015-11-25 15:53:03  [ Thread-1:370 ] - [ INFO ]  rep of group G9 no longer exist
+2015-11-25 15:53:03  [ Thread-1:410 ] - [ INFO ]  switch to rep state
+2015-11-25 15:53:06  [ Thread-1:2593 ] - [ INFO ]  org.apache.servicemix.wsn.router.msg.tcp.MsgNewGroup_@588b9b
+2015-11-25 15:53:09  [ Thread-1:5583 ] - [ INFO ]  join finished!
+2015-11-25 15:53:24  [ main:21215 ] - [ INFO ]  configuration finished! It's representative
+2015-11-25 15:53:25  [ main:21612 ] - [ INFO ]  服务端启动成功... tcp端口号为：30008
+2015-11-25 15:53:25  [ main:21690 ] - [ INFO ]  服务端启动成功... udp端口号为：30002
