@@ -1,7 +1,7 @@
 
 backupAdministrator:10.108.167.88
 
-localAddr:10.108.167.7
+localAddr:10.108.167.134
 
 ldapAddr:10.108.167.7
 

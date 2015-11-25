@@ -14,15 +14,17 @@ import java.util.concurrent.LinkedBlockingDeque;
  */
 public class CrossGroupMsgForwardQueue extends Thread {
 
+	static int counter = 0;
 	private static CrossGroupMsgForwardQueue INSTANCE;
 	public BlockingQueue<ForwardMsg> queue;
 
 	private CrossGroupMsgForwardQueue() {
-		queue = new LinkedBlockingDeque<ForwardMsg>();
+		queue = new LinkedBlockingDeque<>();
 	}
 
 	public static CrossGroupMsgForwardQueue grtInstance() {
-		if (INSTANCE == null) INSTANCE = new CrossGroupMsgForwardQueue();
+		if (INSTANCE == null)
+			INSTANCE = new CrossGroupMsgForwardQueue();
 		return INSTANCE;
 	}
 
@@ -66,7 +68,8 @@ public class CrossGroupMsgForwardQueue extends Thread {
 			System.out.println("datagramPacket hostName:" + datagramPacket.getAddress().getHostName());
 			multicastSocket.send(datagramPacket);//�������ݰ�
 			counter++;
-			if(counter % 100 == 0) System.out.println(System.currentTimeMillis() + "counter:" + counter);
+			if (counter % 100 == 0)
+				System.out.println(System.currentTimeMillis() + "counter:" + counter);
 			return true;
 		} catch (Exception exception) {
 			exception.printStackTrace();
@@ -74,11 +77,10 @@ public class CrossGroupMsgForwardQueue extends Thread {
 		}
 	}
 
-	static int counter = 0;
 	public void run() {
 		while (true) {
 			try {
-				if(queue.size() == 0) continue;
+				if (queue.size() == 0) continue;
 				ForwardMsg msg = queue.take();
 				System.out.println("queue take:");
 				if (!processMsg(msg)) {

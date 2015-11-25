@@ -1,6 +1,6 @@
 package org.apache.servicemix.application;
 
-import edu.bupt.wangfu.ldap.TopicEntry;
+import com.bupt.wangfu.ldap.TopicEntry;
 
 import java.io.Serializable;
 import java.util.ArrayList;

@@ -1,6 +1,6 @@
 package org.apache.servicemix.wsn.router.design;
 
-import edu.bupt.wangfu.ldap.TopicEntry;
+import com.bupt.wangfu.ldap.TopicEntry;
 import edu.bupt.wangfu.sdn.floodlight.RestProcess;
 import edu.bupt.wangfu.sdn.info.DevInfo;
 import edu.bupt.wangfu.sdn.info.Flow;

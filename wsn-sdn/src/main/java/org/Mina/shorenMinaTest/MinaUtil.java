@@ -25,6 +25,7 @@ import org.apache.mina.transport.socket.nio.NioSocketConnector;
 
 import java.io.*;
 import java.lang.reflect.Field;
+import java.net.Inet6Address;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.nio.charset.Charset;
@@ -338,12 +339,12 @@ public class MinaUtil {
 	public static NioDatagramAcceptor createDatagramAcceptor(String ip, int port) {
 		NioDatagramAcceptor acceptor = new NioDatagramAcceptor();
 		// 设置过滤器  
-		setFilters(acceptor);
+//		setFilters(acceptor);
 		acceptor.getSessionConfig().setReceiveBufferSize(100000000);//100MB
 		acceptor.setHandler(new DatagramAcceptorHandler());
 		// 绑定端口  
 		try {
-			acceptor.bind(new InetSocketAddress(InetAddress.getByName(ip), port));
+			acceptor.bind(new InetSocketAddress(Inet6Address.getByName(ip), port));
 //			acceptor.bind(new InetSocketAddress(InetAddress.getByName("fe80::5054:ff:fe98:bec0"), port));
 
 			logger.info("服务端启动成功... udp端口号为：" + port);
@@ -358,7 +359,7 @@ public class MinaUtil {
 	public static NioDatagramConnector createDatagramConnector() {
 		NioDatagramConnector connector = new NioDatagramConnector();
 		// 设置过滤器  
-		setFilters(connector);
+//		setFilters(connector);
 		connector.setHandler(new DatagramConnectorHandler());
 		connector.getSessionConfig().setSendBufferSize(100000000);//100MB
 		connector.getSessionConfig().setIdleTime(IdleStatus.BOTH_IDLE, IDLE_TIME);

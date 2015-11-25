@@ -36,7 +36,7 @@ public class Router extends SysInfo implements IRouter {
 
 	public static String topicName2mutiv6Addr(String topicName) {
 
-		if(topicName.equals("all")) return "FF01:0000:0000:0000:0001:2345:6789:abcd";
+		if (topicName.equals("all")) return "FF01:0000:0000:0000:0001:2345:6789:abcd";
 		if (topic2Addr.containsKey(topicName))
 			return topic2Addr.get(topicName);
 		String[] topicPath = topicName.split(":");

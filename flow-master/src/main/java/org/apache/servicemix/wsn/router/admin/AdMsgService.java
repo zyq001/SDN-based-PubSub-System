@@ -1,8 +1,8 @@
 package org.apache.servicemix.wsn.router.admin;
 
-import edu.bupt.wangfu.ldap.Ldap;
-import edu.bupt.wangfu.ldap.MsgTopicModify;
-import edu.bupt.wangfu.ldap.MsgTopicModify_;
+import com.bupt.wangfu.ldap.Ldap;
+import com.bupt.wangfu.ldap.MsgTopicModify;
+import com.bupt.wangfu.ldap.MsgTopicModify_;
 import edu.bupt.wangfu.sdn.info.Controller;
 import org.apache.servicemix.application.WSNTopicObject;
 import org.apache.servicemix.wsn.router.design.Data;

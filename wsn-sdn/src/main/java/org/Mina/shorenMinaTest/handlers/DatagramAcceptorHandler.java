@@ -17,6 +17,9 @@ import org.apache.mina.core.session.IoSession;
  */
 public class DatagramAcceptorHandler extends IoHandlerAdapter {
 
+
+	static int counter = 0;
+
 	protected static Logger logger = Logger.getLogger(SocketAcceptorHandler.class);
 
 	// 当一个新客户端连接后触发此方法.
@@ -34,10 +37,14 @@ public class DatagramAcceptorHandler extends IoHandlerAdapter {
 	@Override
 	public void messageReceived(IoSession session, Object message) throws Exception {
 		System.out.println("recieve UDP MSG");
-		if (message instanceof WsnMsg) {
-			WsnMsg msg = (WsnMsg) message;
-			RtMgr.getInstance().getState().processMsg(session, msg);
-		}
+//		if (message instanceof WsnMsg) {
+//			WsnMsg msg = (WsnMsg) message;
+//			RtMgr.getInstance().getState().processMsg(session, msg);
+//		}
+
+		counter++;
+		if(counter % 1000 == 0) System.out.println(System.currentTimeMillis() + "counter:" + counter);
+
 	}
 
 	// 当信息已经传送给客户端后触发此方法.

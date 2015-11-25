@@ -12,6 +12,9 @@ import org.Mina.shorenMinaTest.queues.UDPForwardMsg;
 import org.Mina.shorenMinaTest.router.MsgSubsForm;
 import org.Mina.shorenMinaTest.router.generateNode;
 import org.apache.log4j.PropertyConfigurator;
+import org.apache.mina.core.buffer.IoBuffer;
+import org.apache.mina.core.future.ConnectFuture;
+import org.apache.mina.transport.socket.nio.NioDatagramConnector;
 import org.apache.servicemix.application.WsnProcessImpl;
 import org.apache.servicemix.wsn.CrossGroupMsgForwardQueue;
 import org.apache.servicemix.wsn.router.router.Router;
@@ -21,17 +24,17 @@ import javax.xml.ws.Endpoint;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
-import java.net.DatagramPacket;
-import java.net.DatagramSocket;
-import java.net.InetAddress;
+import java.net.*;
+import java.nio.charset.CharacterCodingException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 //import org.Mina.shorenMinaTest.queues.Destination;
 
 public class Start {
-	public static RtMgr mgr ;
+	public static RtMgr mgr;
 	public static ArrayList<String> forwardIP = new ArrayList<String>();//存储转发目的ip的变量
 	public static ArrayList<MsgSubsForm> nodeList = new ArrayList<MsgSubsForm>();
 	public static MsgSubsForm groupTableRoot = null;
@@ -42,45 +45,87 @@ public class Start {
 	private static int totalCount = 0;
 
 	public static void main(String[] args) {
-//		mgr = RtMgr.getInstance();
+
 		PropertyConfigurator.configure("log4j.properties");
 
-		MsgNotis msg = new MsgNotis();
-		msg.doc = "test";
-		msg.originatorAddr = "localhost";
-		msg.topicName = "all";
-		msg.sender = "localhost";
-//		msg.topicName = nom.getTopicName();
-//		msg.doc = nom.getDoc();
-		msg.originatorGroup = "G1";
-//		msg.originatorAddr = localAddr;
-		msg.sendDate = new Date().toString();
-
-		CrossGroupMsgForwardQueue.grtInstance().start();
-
-		int counter = 10000;
-		while(counter-- > 0) {
-			generateMsgNoticeMsg(msg);
-//			try {
-//				Thread.sleep(100);
-//			} catch (InterruptedException e) {
-//				e.printStackTrace();
-//			}
-		}
-//		WsnProcessImpl wsnprocess = new WsnProcessImpl();
+//		MsgNotis msg = new MsgNotis();
+//		msg.doc = "test";
+//		msg.originatorAddr = "localhost";
+//		msg.topicName = "all";
+//		msg.sender = "localhost";
+////		msg.topicName = nom.getTopicName();
+////		msg.doc = nom.getDoc();
+//		msg.originatorGroup = "G1";
+////		msg.originatorAddr = localAddr;
+//		msg.sendDate = new Date().toString();
+//
+//		NioDatagramConnector connector = MinaUtil.createDatagramConnector();
+//		ConnectFuture cf = null;
 //		try {
-//			wsnprocess.init();
-//		} catch (JAXBException e) {
-//			// TODO Auto-generated catch block
+//			cf = connector.connect(new InetSocketAddress(Inet6Address.getByName("FF01:0000:0000:0000:0001:2345:6789:abcd"), 7777));
+//		} catch (UnknownHostException e) {
 //			e.printStackTrace();
 //		}
-//		Endpoint.publish(args[0], wsnprocess);
+////		CrossGroupMsgForwardQueue.grtInstance().start();
 //
-//		RtMgr.getInstance();
-//		initNode();
-//		MsgQueueMgr.getInstance();
-	}
+//		cf.awaitUninterruptibly();
+//
+//		int counter = 100000;
+//		while (counter-- > 1) {
+////			System.out.println("counter: "+counter);
+////            send();
+////			generateMsgNoticeMsg(msg);
+//
+////			cf.awaitUninterruptibly();
+//
+////			IoBuffer buffer = IoBuffer.allocate(64);
+////
+////			buffer.put("ttttttttttttttttt".getBytes());
+////
+////			buffer.flip();
+//			cf.getSession().write("tttttttttttttttttttttttttttttttttttttttttttttt");
+//
+//
+//
+//
+////			try {
+////				Thread.sleep(100);
+////			} catch (InterruptedException e) {
+////				e.printStackTrace();
+////			}
+//		}
+//		cf.getSession().write("tttt!");
 
+		WsnProcessImpl wsnprocess = new WsnProcessImpl();
+		try {
+			wsnprocess.init();
+		} catch (JAXBException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Endpoint.publish(args[0], wsnprocess);
+
+		RtMgr.getInstance();
+		initNode();
+		MsgQueueMgr.getInstance();
+	}
+    public  static  void send(){
+		try{
+			byte[] msg = new byte[] { 'h', 'e', 'l', 'l', 'o' };
+			String ipv6Add = "FF01:0000:0000:0000:0001:2345:6789:abcd";
+
+			Inet6Address inetAddress = (Inet6Address) Inet6Address.getByName(ipv6Add);
+			System.out.println(new String(msg));
+			DatagramPacket datagramPacket = new DatagramPacket(msg, msg.length,inetAddress, 7776);
+			MulticastSocket multicastSocket = new MulticastSocket();
+			multicastSocket.send(datagramPacket);
+		}catch  (Exception exception) {
+
+			exception.printStackTrace();
+
+		}
+
+	}
 	public static void initNode() {
 		generateNode.generateNodeList(nodeList);
 		groupTableRoot = nodeList.get(0);
@@ -124,8 +169,11 @@ public class Start {
 		UDPtotalCount = 0;
 	}
 
+
+//	public static void 
+
 	public static void generateMsgNoticeMsg(MsgNotis msg) {
-		ArrayList<String> fwIP = new ArrayList<String>();
+		ArrayList<String> fwIP = new ArrayList<>();
 
 		String v6MutiAddr = Router.topicName2mutiv6Addr(msg.topicName);
 		System.out.println(v6MutiAddr);

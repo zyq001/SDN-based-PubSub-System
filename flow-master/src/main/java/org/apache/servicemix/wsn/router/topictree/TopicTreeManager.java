@@ -5,8 +5,8 @@
  * */
 package org.apache.servicemix.wsn.router.topictree;
 
-import edu.bupt.wangfu.ldap.Ldap;
-import edu.bupt.wangfu.ldap.TopicEntry;
+import com.bupt.wangfu.ldap.Ldap;
+import com.bupt.wangfu.ldap.TopicEntry;
 import org.apache.servicemix.application.WSNTopicObject;
 import org.apache.servicemix.wsn.router.admin.AdminMgr;
 import org.apache.servicemix.wsn.router.design.Data;

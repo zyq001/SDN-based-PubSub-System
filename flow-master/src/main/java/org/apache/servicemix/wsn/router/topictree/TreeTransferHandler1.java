@@ -1,7 +1,7 @@
 package org.apache.servicemix.wsn.router.topictree;
 
-import edu.bupt.wangfu.ldap.Ldap;
-import edu.bupt.wangfu.ldap.TopicEntry;
+import com.bupt.wangfu.ldap.Ldap;
+import com.bupt.wangfu.ldap.TopicEntry;
 import org.apache.servicemix.wsn.router.design.Data;
 import org.apache.servicemix.wsn.router.msg.tcp.UpdateTree;
 

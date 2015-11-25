@@ -1,10 +1,12 @@
 package org.apache.servicemix.application;
 
+import org.Mina.shorenMinaTest.MinaUtil;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.mina.transport.socket.nio.NioDatagramAcceptor;
 import org.apache.servicemix.jmsImpl.JmsNotificationBrokerImpl;
 import org.apache.servicemix.jmsImpl.JmsSubscriptionImpl;
 import org.apache.servicemix.wsn.AbstractNotificationBroker;
@@ -45,16 +47,17 @@ import java.util.concurrent.ConcurrentHashMap;
 @WebService(endpointInterface = "org.apache.servicemix.application.IWsnProcess", serviceName = "IWsnProcess")
 public class WsnProcessImpl implements IWsnProcess {
 	public static List<ListItem> localtable;
-	public static Queue<String> mes = new LinkedList<String>();
+	public static Queue<String> mes = new LinkedList<>();
 	public static WSNTopicObject topicTree;
 	public static String newsubscribeaddree;
 	public static String newtopic;
 	public static int countsubscr = 0;
-	public static HashMap<String, ArrayList<subscribeTime>> subscribeMap = new HashMap<String, ArrayList<subscribeTime>>();
-	public static HashMap<String, ArrayList<Double>> subzuobiao = new HashMap<String, ArrayList<Double>>();
-	public static Map<String, Integer> subCount = new ConcurrentHashMap<String, Integer>();
+	public static HashMap<String, ArrayList<subscribeTime>> subscribeMap = new HashMap<>();
+	public static HashMap<String, ArrayList<Double>> subzuobiao = new HashMap<>();
+	public static Map<String, Integer> subCount = new ConcurrentHashMap<>();
+	static int counter2 = 0;
 	private static int counter = 0;
-	private static Map<String, MessageProducer> topicMap = new LinkedHashMap<String, MessageProducer>();
+	private static Map<String, MessageProducer> topicMap = new LinkedHashMap<>();
 	private static Log log = LogFactory.getLog(WsnProcessImpl.class);
 	protected JAXBContext jaxbContext;
 	protected Set<Class> endpointInterfaces;
@@ -69,7 +72,7 @@ public class WsnProcessImpl implements IWsnProcess {
 
 	public static JAXBContext createJAXBContext(Iterable<Class> interfaceClasses)
 			throws JAXBException {
-		List<Class> classes = new ArrayList<Class>();
+		List<Class> classes = new ArrayList<>();
 		classes.add(XmlException.class);
 		for (Class interfaceClass : interfaceClasses) {
 			for (Method mth : interfaceClass.getMethods()) {
@@ -130,6 +133,7 @@ public class WsnProcessImpl implements IWsnProcess {
 			// 发送请求空object
 			WSNTopicObject requestTopicTree = new WSNTopicObject();
 			oos.writeObject(requestTopicTree);
+			System.out.println("send topictree download request");
 			// 接收TopicTree
 			while (true) {
 				recieveTopicTee = ois.readObject();
@@ -251,7 +255,7 @@ public class WsnProcessImpl implements IWsnProcess {
 					System.out.println();
 				}
 			}
-			Queue<WSNTopicObject> newtopicQueue = new LinkedList<WSNTopicObject>();
+			Queue<WSNTopicObject> newtopicQueue = new LinkedList<>();
 			newtopicQueue.offer(newtopicTree);
 			while (!newtopicQueue.isEmpty()) {
 				WSNTopicObject x2 = newtopicQueue.poll();
@@ -298,11 +302,33 @@ public class WsnProcessImpl implements IWsnProcess {
 //		readTopicTree("ou=all_test,dc=wsn,dc=com");
 //		printTopicTree();
 		System.out.println("all:FF01:0000:0000:0000:0001:2345:6789:abcd");
-		new WsnProcessImpl().startV6mutiRecv("all");
+//		new WsnProcessImpl().startV6mutiRecv("all");
+//		receive();
+
+		NioDatagramAcceptor datagramAcceptor = MinaUtil.createDatagramAcceptor("FF01:0000:0000:0000:0001:2345:6789:abcd", 7777);
+		datagramAcceptor.bind();
+
 		System.out.println("Exception,all:FF01:0000:0000:0000:0001:2345:6789:abcd");
 
 	}
-
+    public static void receive(){
+		try {
+			MulticastSocket multicastSocket = new MulticastSocket(7776);//创建多播套接字并绑定到发送端口
+			Inet6Address inetAddress = (Inet6Address) Inet6Address.getByName("FF01:0000:0000:0000:0001:2345:6789:abcd");
+			multicastSocket.joinGroup(inetAddress);//多播套接字加入多播组
+			System.out.println("1111111");
+			while (true) {
+				byte[] data = new byte[15];
+				DatagramPacket datagramPacket = new DatagramPacket(data,data.length);//创建一个用于接收数据的数据包
+				System.out.println("2222222");
+				multicastSocket.receive(datagramPacket);//接收数据包
+				System.out.println("3333333");
+				System.out.println(new String(data));
+			}
+		} catch (Exception exception) {
+			exception.printStackTrace();
+		}
+	}
 	public void init() throws JAXBException {
 		String url = "tcp://localhost:61616";
 		/*
@@ -347,7 +373,7 @@ public class WsnProcessImpl implements IWsnProcess {
 	}
 
 	public Set<Class> createEndpointInterfaces() {
-		Set<Class> Interfaces = new HashSet<Class>();
+		Set<Class> Interfaces = new HashSet<>();
 		// Check additional interfaces
 		for (Class pojoClass = createpullpoint.getClass(); pojoClass != Object.class; pojoClass = pojoClass
 				.getSuperclass()) {
@@ -582,7 +608,8 @@ public class WsnProcessImpl implements IWsnProcess {
 				e.printStackTrace();
 			}
 			countsubscr++;
-			startV6mutiRecv(newtopic);
+			new Thread( new StartV6mutiRecv(newtopic)).start();
+//			startV6mutiRecv(newtopic);
 			System.out.println("topic:" + newtopic + "-----sum:" + countsubscr);
 			// System.out.println("sub1----------------------"+AbstractNotificationBroker.subscriptions);
 			return convertResponse(output, webMethod);
@@ -709,7 +736,6 @@ public class WsnProcessImpl implements IWsnProcess {
 		// }
 	}
 
-	static  int counter2 = 0;
 	public String splitstring(String s, String e, String string) {
 		int start = string.indexOf(s) + s.length();
 		int end = string.indexOf(e);
@@ -734,11 +760,11 @@ public class WsnProcessImpl implements IWsnProcess {
 			while (true) {
 				byte[] data = new byte[500];
 				DatagramPacket datagramPacket = new DatagramPacket(data, data.length);//创建一个用于接收数据的数据包
-				System.out.println("start receive");
+//				System.out.println("start receive");
 				multicastSocket.receive(datagramPacket);//接收数据包
 				counter2++;
-				System.out.println(new String(data));
-				if(counter2 % 100 == 0) System.out.println(System.currentTimeMillis() + "counter:" + counter);
+//				System.out.println(new String(data));
+				if (counter2 % 1000 == 0) System.out.println(System.currentTimeMillis() + "counter:" + counter2);
 //				this.WsnProcess(new String(data));
 			}
 		} catch (Exception exception) {
@@ -939,5 +965,46 @@ public class WsnProcessImpl implements IWsnProcess {
 		}
 
 	}
+
+	static class StartV6mutiRecv implements  Runnable{
+
+		String topicName = "all";
+		public StartV6mutiRecv(String topic){
+			this.topicName = topic;
+		}
+
+
+		@Override
+		public void run() {
+			if (!subCount.containsKey(topicName)) {
+				subCount.put(topicName, 1);
+			} else {
+				subCount.put(topicName, subCount.get(topicName) + 1);
+			}
+
+			//监听v6多播
+			String addr = Router.topicName2mutiv6Addr(topicName);
+//		addr = "FF01:0000:0000:0000:0001:2345:6789:abcd";
+			try {
+				MulticastSocket multicastSocket = new MulticastSocket(7777);//创建多播套接字并绑定到发送端口
+				Inet6Address inetAddress = (Inet6Address) Inet6Address.getByName(addr);
+				multicastSocket.joinGroup(inetAddress);//多播套接字加入多播组
+
+				while (true) {
+					byte[] data = new byte[500];
+					DatagramPacket datagramPacket = new DatagramPacket(data, data.length);//创建一个用于接收数据的数据包
+//				System.out.println("start receive");
+					multicastSocket.receive(datagramPacket);//接收数据包
+					counter2++;
+//				System.out.println(new String(data));
+					if (counter2 % 1000 == 0) System.out.println(System.currentTimeMillis() + "counter:" + counter2);
+//				this.WsnProcess(new String(data));
+				}
+			} catch (Exception exception) {
+				exception.printStackTrace();
+			}
+		}
+	}
+
 
 }
