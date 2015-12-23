@@ -11,4 +11,13 @@ public class WSNHost extends DevInfo {
 	public String mac;
 	private Map<String, List<String>> subers = new ConcurrentHashMap<String, List<String>>();
 
+	@Override
+	public String getMac() {
+		return mac;
+	}
+
+	@Override
+	public void setMac(String mac) {
+		this.mac = mac;
+	}
 }

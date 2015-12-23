@@ -224,7 +224,6 @@ public class Configuration {
 		text_7.setText("" + initInfo.lostThreshold);
 		text_8.setText("" + initInfo.scanPeriod);
 		text_9.setText("" + initInfo.sendPeriod);
-
 		text.setText(initInfo.repAddr);
 	}
 }

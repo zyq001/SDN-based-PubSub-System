@@ -15,16 +15,16 @@ public class Controller {
 
 
 	//all switches in the group
-	private Map<String, Switch> switchMap = new ConcurrentHashMap<String, Switch>();
+	private Map<String, Switch> switchMap = new ConcurrentHashMap<>();
 
 
 	private Switch repSwitch;
 
 
 	//switchs connected to other groups, cross-group route calc need
-	private Map<String, Switch> boardSwitch = new ConcurrentHashMap<String, Switch>();
+	private Map<String, Switch> boardSwitch = new ConcurrentHashMap<>();
 
-	private List<String> topics = new ArrayList<String>();
+	private List<String> topics = new ArrayList<>();
 
 
 	public Controller(String controllerAddr) {
@@ -40,7 +40,6 @@ public class Controller {
 	}
 
 	public boolean isAlive() {
-
 		return true;
 	}
 
@@ -69,10 +68,7 @@ public class Controller {
 	}
 
 	public void reflashSwitchMap() {
-
-
-		switchMap = GlobleUtil.getRealtimeSwitchs(this);
-
+//		switchMap = GlobleUtil.getRealtimeSwitchs(this);
 	}
 
 	public String getUrl() {

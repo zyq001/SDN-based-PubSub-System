@@ -8,6 +8,11 @@ import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.mina.core.service.IoAcceptor;
+import org.apache.mina.core.session.IdleStatus;
+import org.apache.mina.filter.codec.ProtocolCodecFilter;
+import org.apache.mina.filter.codec.textline.TextLineCodecFactory;
+import org.apache.mina.filter.logging.LoggingFilter;
 import org.apache.mina.transport.socket.nio.NioDatagramAcceptor;
 import org.apache.servicemix.jmsImpl.JmsNotificationBrokerImpl;
 import org.apache.servicemix.jmsImpl.JmsSubscriptionImpl;
@@ -40,6 +45,7 @@ import java.lang.IllegalStateException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.*;
+import java.nio.charset.Charset;
 import java.util.*;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentHashMap;
@@ -307,13 +313,16 @@ public class WsnProcessImpl implements IWsnProcess {
 //		new WsnProcessImpl().startV6mutiRecv("all");
 //		receive();
 
-		NioDatagramAcceptor datagramAcceptor = MinaUtil.createDatagramAcceptor("FF01:0000:0000:0000:0001:2345:6789:abcd", 7777);
+//		NioDatagramAcceptor datagramAcceptor = MinaUtil.createDatagramAcceptor("FF01:0000:0000:0000:0001:2345:6789:abcd", 7777);
+		NioDatagramAcceptor datagramAcceptor = MinaUtil.createDatagramAcceptor("10.109.253.2", 7777);
+
 		datagramAcceptor.bind();
 
 		System.out.println("Exception,all:FF01:0000:0000:0000:0001:2345:6789:abcd");
 
 	}
-    public static void receive(){
+
+	public static void receive() {
 		try {
 			MulticastSocket multicastSocket = new MulticastSocket(7776);//创建多播套接字并绑定到发送端口
 			Inet6Address inetAddress = (Inet6Address) Inet6Address.getByName("FF01:0000:0000:0000:0001:2345:6789:abcd");
@@ -321,7 +330,7 @@ public class WsnProcessImpl implements IWsnProcess {
 			System.out.println("1111111");
 			while (true) {
 				byte[] data = new byte[15];
-				DatagramPacket datagramPacket = new DatagramPacket(data,data.length);//创建一个用于接收数据的数据包
+				DatagramPacket datagramPacket = new DatagramPacket(data, data.length);//创建一个用于接收数据的数据包
 				System.out.println("2222222");
 				multicastSocket.receive(datagramPacket);//接收数据包
 				System.out.println("3333333");
@@ -331,6 +340,7 @@ public class WsnProcessImpl implements IWsnProcess {
 			exception.printStackTrace();
 		}
 	}
+
 	public void init() throws JAXBException {
 		String url = "tcp://localhost:61616";
 		/*
@@ -610,7 +620,7 @@ public class WsnProcessImpl implements IWsnProcess {
 				e.printStackTrace();
 			}
 			countsubscr++;
-			new Thread( new StartV6mutiRecv(newtopic)).start();
+			new Thread(new StartV6mutiRecv(newtopic)).start();
 //			startV6mutiRecv(newtopic);
 			System.out.println("topic:" + newtopic + "-----sum:" + countsubscr);
 			// System.out.println("sub1----------------------"+AbstractNotificationBroker.subscriptions);
@@ -801,7 +811,6 @@ public class WsnProcessImpl implements IWsnProcess {
 						}
 					}
 				} else {
-
 					log.error("subscribe faild! there is not this topic in the topic tree!");
 					break;
 				}
@@ -934,6 +943,51 @@ public class WsnProcessImpl implements IWsnProcess {
 		}
 	}
 
+	static class StartV6mutiRecv implements Runnable {
+
+		String topicName = "all";
+
+		public StartV6mutiRecv(String topic) {
+			this.topicName = topic;
+		}
+
+
+		@Override
+		public void run() {
+			if (!subCount.containsKey(topicName)) {
+				subCount.put(topicName, 1);
+			} else {
+				subCount.put(topicName, subCount.get(topicName) + 1);
+			}
+
+			//监听v6多播
+			String addr = Router.topicName2mutiv6Addr(topicName);
+//		addr = "FF01:0000:0000:0000:0001:2345:6789:abcd";
+			try {
+				MulticastSocket multicastSocket = new MulticastSocket(7777);//创建多播套接字并绑定到发送端口
+				Inet6Address inetAddress = (Inet6Address) Inet6Address.getByName(addr);
+				multicastSocket.joinGroup(inetAddress);//多播套接字加入多播组
+
+				while (true) {
+					byte[] data = new byte[1000];
+					DatagramPacket datagramPacket = new DatagramPacket(data, data.length);//创建一个用于接收数据的数据包
+					System.out.println("start receive");
+					multicastSocket.receive(datagramPacket);//接收数据包
+					counter2++;
+//				System.out.println(new String(data));
+					if (counter2 % 1000 == 0) System.out.println(System.currentTimeMillis() + "counter:" + counter2);
+					String msgString = new String(data);
+					System.out.println(msgString);
+					WsnMsg msg = MinaUtil.stringToMsg(msgString, new highPriority());
+					org.Mina.shorenMinaTest.mgr.RtMgr.getInstance().getState().processMsg(msg);
+//				this.WsnProcess(new String(data));
+				}
+			} catch (Exception exception) {
+				exception.printStackTrace();
+			}
+		}
+	}
+
 	// 向管理员注册
 	public class mgrInstance implements Runnable {
 
@@ -966,50 +1020,6 @@ public class WsnProcessImpl implements IWsnProcess {
 			this.date = date;
 		}
 
-	}
-
-	static class StartV6mutiRecv implements  Runnable{
-
-		String topicName = "all";
-		public StartV6mutiRecv(String topic){
-			this.topicName = topic;
-		}
-
-
-		@Override
-		public void run() {
-			if (!subCount.containsKey(topicName)) {
-				subCount.put(topicName, 1);
-			} else {
-				subCount.put(topicName, subCount.get(topicName) + 1);
-			}
-
-			//监听v6多播
-			String addr = Router.topicName2mutiv6Addr(topicName);
-//		addr = "FF01:0000:0000:0000:0001:2345:6789:abcd";
-			try {
-				MulticastSocket multicastSocket = new MulticastSocket(7777);//创建多播套接字并绑定到发送端口
-				Inet6Address inetAddress = (Inet6Address) Inet6Address.getByName(addr);
-				multicastSocket.joinGroup(inetAddress);//多播套接字加入多播组
-
-				while (true) {
-					byte[] data = new byte[1000];
-					DatagramPacket datagramPacket = new DatagramPacket(data, data.length);//创建一个用于接收数据的数据包
-				System.out.println("start receive");
-					multicastSocket.receive(datagramPacket);//接收数据包
-					counter2++;
-//				System.out.println(new String(data));
-					if (counter2 % 1000 == 0) System.out.println(System.currentTimeMillis() + "counter:" + counter2);
-					String msgString = new String(data);
-					System.out.println(msgString);
-					WsnMsg msg = MinaUtil.stringToMsg(msgString, new highPriority());
-					org.Mina.shorenMinaTest.mgr.RtMgr.getInstance().getState().processMsg(msg);
-//				this.WsnProcess(new String(data));
-				}
-			} catch (Exception exception) {
-				exception.printStackTrace();
-			}
-		}
 	}
 
 

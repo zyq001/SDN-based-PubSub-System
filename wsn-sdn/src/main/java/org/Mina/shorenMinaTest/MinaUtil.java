@@ -4,7 +4,6 @@
  */
 package org.Mina.shorenMinaTest;
 
-import org.Mina.shorenMinaTest.filters.ShorenCodecFactory;
 import org.Mina.shorenMinaTest.handlers.DatagramAcceptorHandler;
 import org.Mina.shorenMinaTest.handlers.DatagramConnectorHandler;
 import org.Mina.shorenMinaTest.handlers.SocketAcceptorHandler;
@@ -13,10 +12,13 @@ import org.Mina.shorenMinaTest.msg.WsnMsg;
 import org.Mina.shorenMinaTest.msg.tcp.MsgInsert;
 import org.Mina.shorenMinaTest.queues.MsgQueueMgr;
 import org.apache.log4j.Logger;
+import org.apache.mina.core.service.IoAcceptor;
+import org.apache.mina.core.service.IoConnector;
 import org.apache.mina.core.service.IoService;
 import org.apache.mina.core.session.IdleStatus;
 import org.apache.mina.core.session.IoSession;
 import org.apache.mina.filter.codec.ProtocolCodecFilter;
+import org.apache.mina.filter.codec.textline.TextLineCodecFactory;
 import org.apache.mina.filter.executor.ExecutorFilter;
 import org.apache.mina.transport.socket.nio.NioDatagramAcceptor;
 import org.apache.mina.transport.socket.nio.NioDatagramConnector;
@@ -25,6 +27,7 @@ import org.apache.mina.transport.socket.nio.NioSocketConnector;
 
 import java.io.*;
 import java.lang.reflect.Field;
+import java.net.Inet4Address;
 import java.net.Inet6Address;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
@@ -339,14 +342,15 @@ public class MinaUtil {
 	public static NioDatagramAcceptor createDatagramAcceptor(String ip, int port) {
 		NioDatagramAcceptor acceptor = new NioDatagramAcceptor();
 		// 设置过滤器  
-//		setFilters(acceptor);
-		acceptor.getSessionConfig().setReceiveBufferSize(100000000);//100MB
+		setFilters(acceptor);
+		acceptor.getSessionConfig().setReadBufferSize(100000000);//100MB
+		acceptor.getSessionConfig().setIdleTime(IdleStatus.BOTH_IDLE, 10);
 		acceptor.setHandler(new DatagramAcceptorHandler());
 		// 绑定端口  
 		try {
-			acceptor.bind(new InetSocketAddress(Inet6Address.getByName(ip), port));
+//			acceptor.bind(new InetSocketAddress(Inet6Address.getByName(ip), port));
+			acceptor.bind(new InetSocketAddress(Inet4Address.getByName(ip), port));
 //			acceptor.bind(new InetSocketAddress(InetAddress.getByName("fe80::5054:ff:fe98:bec0"), port));
-
 			logger.info("服务端启动成功... udp端口号为：" + port);
 		} catch (IOException e) {
 			logger.error("服务端udp启动异常....", e);
@@ -359,7 +363,7 @@ public class MinaUtil {
 	public static NioDatagramConnector createDatagramConnector() {
 		NioDatagramConnector connector = new NioDatagramConnector();
 		// 设置过滤器  
-//		setFilters(connector);
+		setFilters(connector);
 		connector.setHandler(new DatagramConnectorHandler());
 		connector.getSessionConfig().setSendBufferSize(100000000);//100MB
 		connector.getSessionConfig().setIdleTime(IdleStatus.BOTH_IDLE, IDLE_TIME);
@@ -368,16 +372,16 @@ public class MinaUtil {
 		return connector;
 	}
 
-	public static NioDatagramConnector CreatBoardcast() {
-		NioDatagramConnector connector = new NioDatagramConnector();
-		// 设置过滤器  
-		setFilters(connector);
-		connector.setHandler(new DatagramConnectorHandler());
-		connector.getSessionConfig().setIdleTime(IdleStatus.BOTH_IDLE, IDLE_TIME);
-		//	ConnectFuture cf = connector.connect(new InetSocketAddress(ip, port));//建立连接
-		//     cf.awaitUninterruptibly();//等待连接创建完成
-		return connector;
-	}
+//	public static NioDatagramConnector CreatBoardcast() {
+//		NioDatagramConnector connector = new NioDatagramConnector();
+//		// 设置过滤器
+//		setFilters(connector);
+//		connector.setHandler(new DatagramConnectorHandler());
+//		connector.getSessionConfig().setIdleTime(IdleStatus.BOTH_IDLE, IDLE_TIME);
+//		//	ConnectFuture cf = connector.connect(new InetSocketAddress(ip, port));//建立连接
+//		//     cf.awaitUninterruptibly();//等待连接创建完成
+//		return connector;
+//	}
 
 	//每一对client和server的配置一致,这里主要是对过滤链的配置
 	//config acceptor and connector with filters
@@ -386,8 +390,8 @@ public class MinaUtil {
 
 //		service.getFilterChain().addLast("logger", new LoggingFilter());  
 		service.getFilterChain().addLast("codec1",
-				//new ProtocolCodecFilter(new TextLineCodecFactory(Charset.forName("UTF-8"))));
-				new ProtocolCodecFilter(new ShorenCodecFactory(Charset.forName("UTF-8"))));
+				new ProtocolCodecFilter(new TextLineCodecFactory(Charset.forName("UTF-8"))));
+//				new ProtocolCodecFilter(new ShorenCodecFactory(Charset.forName("UTF-8"))));
 
 //		service.getFilterChain().addLast("filterthreadPool", new ExecutorFilter(Executors.newCachedThreadPool()));
 	}

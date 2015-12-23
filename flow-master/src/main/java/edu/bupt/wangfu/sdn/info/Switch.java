@@ -27,7 +27,9 @@ public class Switch extends DevInfo {
 	public Map<Integer, DevInfo> getWsnDevMap() {
 		return wsnDevMap;
 	}
-
+    public void put(int port, DevInfo devInfo){
+		this.wsnDevMap.put(port ,devInfo);
+	}
 	public void setWsnDevMap(Map<Integer, DevInfo> wsnDevMap) {
 		this.wsnDevMap = wsnDevMap;
 	}

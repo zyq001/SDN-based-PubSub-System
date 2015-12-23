@@ -14,7 +14,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static org.apache.servicemix.wsn.router.router.LCW.Dijkstra.Dijsktra;
+import static org.apache.servicemix.wsn.router.router.LCW.Dijkstra.dijkstra;
+import static org.apache.servicemix.wsn.router.router.LCW.Dijkstra.getEachStop;
 
 /**
  * 计算指定名称的转发路由
@@ -131,7 +132,7 @@ public class Router extends SysInfo implements IRouter {
 		int[][] weight = new int[1000][1000];
 		for (int i = 0; i < 1000; i++)
 			for (int j = 0; j < 1000; j++)
-				i = M;
+				weight[i][j] = M;
 
 		ArrayList<Controller> controllers_1 = new ArrayList<>();
 
@@ -148,29 +149,30 @@ public class Router extends SysInfo implements IRouter {
 
 			String topicCodeLength = getTopicLength(topicCode);
 
-			topicCode = Integer.toBinaryString(Integer.valueOf(topicCode).byteValue());
+			topicCode = Integer.toBinaryString(Integer.valueOf(topicCode).byteValue());//topicCode从10进制字符串转为2进制字符串
 			String newTopicCode = "11111111" + "0000" + "1110" + "10" + topicCodeLength + topicCode;
 
-			String finalNewTopicCode = getNewTopicCode(newTopicCode);
+			String finalNewTopicCode = getNewTopicCode(newTopicCode);//结尾补0
 
 			topicCodes.put(topicName, finalNewTopicCode);
 		}
 
-//      先只匹配第一个主题，这里假定它是有订阅主题的
-		//？这里要按照已有的主题树进行计算，从WSNTopicObject.topicTree.childrens.getName这样，获取每个一级子主题的名字
-		List<String> subTopics = controllers.get(0).getTopics();
-		curTopic = subTopics.get(0);
-//            for (String topic : subTopics) {
-//                curTopic = topic;
-//            }
-
 		ArrayList<Switch> weightIdList = new ArrayList<>();
+		List<String> subTopics = new ArrayList<>();//subTopics存的是这个Controller上面订阅的主题
 		//这里是标记每个Switch的编号
 		for (Controller controller : controllers.values()) {
 			controllers_1.add(controller);
+			for (String s : controller.getTopics()) {
+				//？这里要按照已有的主题树进行计算，就是父主题下每层子主题都要写进去
+				// 从WSNTopicObject.topicTree.childrens.getName这样，获取每个一级子主题的名字
+				subTopics.add(s);
+			}
 			Switch rep = controller.getRepSwitch();
 			weightIdList.add(rep);
 		}
+
+//      这里假定它是有订阅主题的，先只匹配第一个主题
+		curTopic = subTopics.get(0);
 
 		//遍历所有控制器，找到所有连通路，构建邻接表
 		for (Controller controller : controllers.values()) {
@@ -198,7 +200,7 @@ public class Router extends SysInfo implements IRouter {
 		int[][] finalDecision = new int[1000][1000];//第一个下标：第几个订阅点；第二个下标：中间的跳转路径
 
 		for (int i = 0; i < sub.size(); i++) {
-			int[][] path = Dijsktra(weight, sub.get(i));/*算出来第i个订阅点到其他各个发布点的路径，
+			int[][] path = getEachStop(weight, sub.get(i));/*算出来第i个订阅点到其他各个发布点的路径，
 			path的第一个下标：第几个发布点；第二个下标：中间的跳转路径*/
 			int shortestPubNo = -1;
 			int shortestDistance = 0;
@@ -252,6 +254,35 @@ public class Router extends SysInfo implements IRouter {
 		return flows;
 	}
 
+	public static ArrayList<int[]> getEachRoute(int[][] connected, ArrayList<Integer> subers) {
+
+		int[][] weight = connected;//会更改connected的值，所以需要预先存一份
+		ArrayList<int[]> res = new ArrayList<>();
+
+		for (int k = 0; k < subers.size(); k++) {
+			int start = subers.get(k);
+
+			int[][] path = getEachStop(weight, start);//path[i][j]到第i个节点路上的第j跳
+			weight = connected;
+			int[] shortPath = dijkstra(weight, start);//shortPath[i]到第i个节点的总长度
+
+			int shortestPath = shortPath[0];
+			int shortestPathNum = 0;
+			for (int i = 1; i < shortPath.length; i++) {
+				if (shortPath[i] < shortestPath) {
+					shortestPath = shortPath[i];
+					shortestPathNum = i;
+				}
+			}
+
+			//！这里需要确保有至少一条联通路
+			int[] eachStop = path[shortestPathNum];
+			res.add(eachStop);
+		}
+
+		return res;
+	}
+
 	public static Integer getNextJumpPort(Switch curSwitch, ArrayList<Switch> weightIdList, int[] path, int j) {
 		Integer nextJumpWeightId = path[j - 1];
 		Switch s = weightIdList.get(nextJumpWeightId);
@@ -264,6 +295,53 @@ public class Router extends SysInfo implements IRouter {
 		}
 
 		return 0;
+	}
+
+	public static void main(String args[]) {
+		/*Controller G2 = new Controller("10.109.253.2");
+		Switch br0 = new Switch();
+		G2.getSwitchMap().put("dpid", br0);
+
+		Controller G21 = new Controller("10.109.253.2");
+		Switch br1 = new Switch();
+		G21.getSwitchMap().put("dpidbr1", br1);
+
+
+		Controller G22 = new Controller("10.109.253.2");
+		Switch br2 = new Switch();
+		G21.getSwitchMap().put("dpidbr2", br2);
+
+
+		Controller G23 = new Controller("10.109.253.2");
+		Switch br3 = new Switch();
+		G21.getSwitchMap().put("dpidbr3", br3);
+
+		Controller G3 = new Controller("10.109.253.3");
+		Switch br0G3 = new Switch();
+		G21.getSwitchMap().put("dpidbr0G3", br0G3);
+
+		Controller G4 = new Controller("10.109.253.4");
+		Switch br0G4 = new Switch();
+		G21.getSwitchMap().put("dpidbr0G4", br0G4);
+
+		GlobleUtil.getInstance().controllers.put("G2", G2);
+		GlobleUtil.getInstance().controllers.put("G3", G3);
+		GlobleUtil.getInstance().controllers.put("G4", G4);*/
+
+		int[][] weight = {
+				{0, 10, M, 30, 100},
+				{M, 0, 50, M, M},
+				{M, M, 0, M, 10},
+				{M, M, 20, 0, 60},
+				{M, M, M, M, 0}
+		};
+
+		ArrayList<Integer> subers = new ArrayList<>();
+		subers.add(0);
+
+		ArrayList<int[]> res = getEachRoute(weight, subers);
+
+		System.out.println("dd");
 	}
 
 	public void route(String topic) {

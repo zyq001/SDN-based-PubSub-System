@@ -5,8 +5,6 @@
 package org.Mina.shorenMinaTest.handlers;
 
 import org.Mina.shorenMinaTest.MinaUtil;
-import org.Mina.shorenMinaTest.mgr.RtMgr;
-import org.Mina.shorenMinaTest.msg.WsnMsg;
 import org.apache.log4j.Logger;
 import org.apache.mina.core.service.IoHandlerAdapter;
 import org.apache.mina.core.session.IdleStatus;
@@ -17,20 +15,21 @@ import org.apache.mina.core.session.IoSession;
  */
 public class DatagramAcceptorHandler extends IoHandlerAdapter {
 
-
-	static int counter = 0;
-
 	protected static Logger logger = Logger.getLogger(SocketAcceptorHandler.class);
+	static int counter = 0;
 
 	// 当一个新客户端连接后触发此方法.
 	public void sessionCreated(IoSession session) {
 		MinaUtil.iniSessionReferance(session);
+		System.out.println("recieve UDP MSG");
+
 	}
 
 	// 当一个客端端连结进入时
 	@Override
 	public void sessionOpened(IoSession session) throws Exception {
 
+		System.out.println("Opened");
 	}
 
 	// 当客户端发送的消息到达时:
@@ -43,8 +42,8 @@ public class DatagramAcceptorHandler extends IoHandlerAdapter {
 //		}
 
 		counter++;
-		if(counter % 1000 == 0) System.out.println(System.currentTimeMillis() + "counter:" + counter);
-
+//		if (counter % 1000 == 0)
+			System.out.println(System.currentTimeMillis() + "counter:" + counter);
 	}
 
 	// 当信息已经传送给客户端后触发此方法.
