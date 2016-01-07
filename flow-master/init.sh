@@ -16,10 +16,11 @@ sudo apt-get install ant
 sudo apt-get install
 
 ##queue, init in switch; 3 queues, based on experental bandWidth, runtime bandWidth need to be abtain automaticly
-ovs-vsctl -- set port s3-eth1 qos=@newqos -- --id=@newqos create qos type=linux-htb \
-queues=0=@q0,1=@q1 -- --id=@q0 create queue other-config:min-rate=200000000 \
-other-config:max-rate=800000000 -- --id=@q1 create queue other-config:min-rate=50000 \
-other-config:max-rate=50000000
+ovs-vsctl -- set port tap2 qos=@newqos -- --id=@newqos create qos type=linux-htb \
+queues=0=@q0,1=@q1,2=@q2 -- --id=@q0 create queue other-config:min-rate=5000000 \
+other-config:max-rate=8000000 -- --id=@q1 create queue other-config:min-rate=3000000 \
+other-config:max-rate=5000000 -- --id=@q2 create queue other-config:min-rate=500000 \
+other-config:max-rate=3000000
 
 ovs-vsctl -- set port s3-eth1 qos=@newqos -- --id=@newqos create qos type=linux-htb \
 queues=0=@q0,1=@q1 -- --id=@q0 create queue other-config:min-rate=200000000 \
@@ -30,6 +31,5 @@ ovs-vsctl -- set port s3-eth1 qos=@newqos -- --id=@newqos create qos type=linux-
 queues=0=@q0,1=@q1 -- --id=@q0 create queue other-config:min-rate=200000000 \
 other-config:max-rate=800000000 -- --id=@q1 create queue other-config:min-rate=50000 \
 other-config:max-rate=50000000
-
 
 ##note

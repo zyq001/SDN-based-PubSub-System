@@ -6,6 +6,7 @@ import edu.bupt.wangfu.sdn.info.Flow;
 import edu.bupt.wangfu.sdn.info.Switch;
 import org.apache.servicemix.application.WSNTopicObject;
 import org.apache.servicemix.wsn.router.mgr.base.SysInfo;
+import org.apache.servicemix.wsn.router.router.LCW.Dijkstra;
 import org.apache.servicemix.wsn.router.topictree.TopicTreeManager;
 import org.json.JSONObject;
 
@@ -14,7 +15,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static org.apache.servicemix.wsn.router.router.LCW.Dijkstra.dijkstra;
 import static org.apache.servicemix.wsn.router.router.LCW.Dijkstra.getEachStop;
 
 /**
@@ -28,8 +28,51 @@ import static org.apache.servicemix.wsn.router.router.LCW.Dijkstra.getEachStop;
 
 public class Router extends SysInfo implements IRouter {
 
+	public static HashMap<String, String> topicCodes = new HashMap<>();//key是topicName，value是topicCode
 	static long flowcount = 0;
 	static int M = 10000;
+
+	public static Switch weight2Switch(Controller controller, Integer curSwitchWeight) {
+		String curSwitchDpid = GlobleUtil.switchMap.get(curSwitchWeight);
+		Switch curSwitch = GlobleUtil.findSwitch(curSwitchDpid, controller);
+		return curSwitch;
+	}
+
+	public static Integer getRoutePort(Switch src, Switch dst) {
+		for (Map.Entry<Integer, DevInfo> entry : src.getWsnDevMap().entrySet()) {
+			if (entry.getValue() instanceof Switch) {
+				Switch maybeDst = (Switch) entry.getValue();
+				if (maybeDst.equals(dst)) {
+					return entry.getKey();
+				}
+			}
+		}
+		return null;
+	}
+
+	public static void downRouteFlow(Controller controller, int[] route) {
+		for (int i = 0; i < route.length; i++) {
+			if (route[i] == M) break;
+			else {
+				Switch curSwitch = weight2Switch(controller, route[i]);
+
+				Map<Integer, DevInfo> devMap = curSwitch.getWsnDevMap();
+				//这里需要算两个端口：之前、之后两个交换机连接的端口
+				if (i - 1 >= 0) {
+					Switch pre = weight2Switch(controller, route[i - 1]);
+					Integer p1 = getRoutePort(curSwitch, pre);
+					Flow f = generateFlow(curSwitch, "abc", p1 != null ? p1.toString() : null);
+					GlobleUtil.downFlow(controller, f);
+				}
+				if (route[i + 1] != M) {
+					Switch next = weight2Switch(controller, route[i + 1]);
+					Integer p2 = getRoutePort(curSwitch, next);
+					Flow f = generateFlow(curSwitch, "abc", p2 != null ? p2.toString() : null);
+					GlobleUtil.downFlow(controller, f);
+				}
+			}
+		}
+	}
 
 	public static boolean adjustRoute() {
 		boolean success = false;
@@ -46,6 +89,8 @@ public class Router extends SysInfo implements IRouter {
 
 		return success;
 	}
+
+//	public static String
 
 	public static String getTopicLength(String topicCode) {
 		char[] finalTC = new char[7];
@@ -64,8 +109,6 @@ public class Router extends SysInfo implements IRouter {
 		String res = String.valueOf(finalTC);
 		return res;
 	}
-
-//	public static String
 
 	public static String topicCode2mutiv6Addr(String topicCode) {
 		topicCode = Integer.toBinaryString(Integer.valueOf(topicCode).byteValue());
@@ -93,7 +136,6 @@ public class Router extends SysInfo implements IRouter {
 					}
 				}
 			} else {
-
 //				log.error("subscribe faild! there is not this topic in the topic tree!");
 				return "faild";
 			}
@@ -102,7 +144,6 @@ public class Router extends SysInfo implements IRouter {
 	}
 
 	public static String getNewTopicCode(String newTopicCode) {
-
 		char[] tmp = new char[128];
 		for (int i = 0; i < tmp.length; i++) {
 			tmp[i] = '0';
@@ -139,7 +180,6 @@ public class Router extends SysInfo implements IRouter {
 //      这里有个问题，如果是按照主题匹配的话，那么应该返回的就是主题和流表的Map
 //      HashMap<String,List<Flow>>
 
-		HashMap<String, String> topicCodes = new HashMap<>();//key是topicName，value是topicCode
 
 		//获取LDAP中存储的一级主题名称
 		List<WSNTopicObject> topics = TopicTreeManager.topicTree.getChildrens();
@@ -231,51 +271,66 @@ public class Router extends SysInfo implements IRouter {
 			for (int j = path.length - 1; j > 0; j--) {
 				Switch curSwitch = weightIdList.get(path[path.length - 1]);//从发布点倒着往回找
 
-				String dpid = curSwitch.getDPID();
+//				这个Calculate函数暂时不用了，所以这里先注掉了
+//				Flow f = generateFlow(curSwitch, topicCodes, "Flood");
 
-				HashMap<String, String> parms = new HashMap<>();
-				parms.put("switch", curSwitch.getMac());
-				parms.put("name", "flow-mod-" + flowcount++);//不是写死的，最好每个流表不一样
-				parms.put("cookie", "0");
-				parms.put("priority", "32768");
-				parms.put("ipv6_dst", topicCodes.get(curTopic));
-				parms.put("active", "true");
-
-				Integer nextJumpPort = getNextJumpPort(suber, weightIdList, path, j);
-				parms.put("actions", "output=" + nextJumpPort.toString());//应当是path[j+1]这个Switch对应的端口
-
-				Flow f = new Flow(dpid);
-				JSONObject content = new JSONObject(parms);
-				f.setContent(content);
-
-				flows.add(f);
+//				flows.add(f);
 			}
 		}
 		return flows;
 	}
 
-	public static ArrayList<int[]> getEachRoute(int[][] connected, ArrayList<Integer> subers) {
+	public static Flow generateFlow(Switch curSwitch, String curTopic, String targetPort) {
+		String dpid = curSwitch.getDPID();
 
-		int[][] weight = connected;//会更改connected的值，所以需要预先存一份
+		HashMap<String, String> parms = new HashMap<>();
+		parms.put("switch", dpid);
+		parms.put("name", "flow-mod-" + flowcount++);//！不是写死的，最好每个流表不一样
+		parms.put("cookie", "0");
+		parms.put("priority", "32768");
+//		parms.put("ipv6_dst", topicCodes.get(curTopic));
+//		parms.put("ipv6_dst", topicName2mutiv6Addr(curTopic));//测试v6地址转化函数
+		parms.put("ipv6_dst", "FF01:0000:0000:0000:0001:2345:6789:ABCD");//测试openflow协议
+		parms.put("active", "true");
+
+		parms.put("actions", "output=" + targetPort);
+		parms.put("eth_type", "0x86dd");
+
+		Flow f = new Flow(dpid);
+		JSONObject content = new JSONObject(parms);
+		f.setContent(content);
+
+		return f;
+	}
+
+	public static ArrayList<int[]> getEachRoute_wrong(int[][] connected, ArrayList<Integer> subers) {
+
+		int[][] weight = new int[connected.length][connected[0].length];
+		for (int i = 0; i < connected.length; i++) {
+			for (int j = 0; j < connected[0].length; j++) {
+				weight[i][j] = connected[i][j];// 会更改connected的值，所以需要预先存一份
+			}
+		}
+
 		ArrayList<int[]> res = new ArrayList<>();
 
 		for (int k = 0; k < subers.size(); k++) {
 			int start = subers.get(k);
 
-			int[][] path = getEachStop(weight, start);//path[i][j]到第i个节点路上的第j跳
-			weight = connected;
-			int[] shortPath = dijkstra(weight, start);//shortPath[i]到第i个节点的总长度
+			int[][] path = Dijkstra.getEachStop(connected, start);// path[i][j]到第i个节点路上的第j跳
+			connected = weight;
+			int[] shortPath = Dijkstra.dijkstra(connected, start);// shortPath[i]到第i个节点的总长度
 
-			int shortestPath = shortPath[0];
+			int shortestPath = M;
 			int shortestPathNum = 0;
-			for (int i = 1; i < shortPath.length; i++) {
-				if (shortPath[i] < shortestPath) {
+			for (int i = 0; i < shortPath.length; i++) {
+				if (shortPath[i] > 0 && shortPath[i] < shortestPath) {
 					shortestPath = shortPath[i];
 					shortestPathNum = i;
 				}
 			}
 
-			//！这里需要确保有至少一条联通路
+			// ！这里需要确保有至少一条联通路
 			int[] eachStop = path[shortestPathNum];
 			res.add(eachStop);
 		}
@@ -283,7 +338,25 @@ public class Router extends SysInfo implements IRouter {
 		return res;
 	}
 
-	public static Integer getNextJumpPort(Switch curSwitch, ArrayList<Switch> weightIdList, int[] path, int j) {
+	//发布者到每一个订阅者的路径
+	public static ArrayList<int[]> getEachRoute(int[][] connected, ArrayList<Integer> pubers) {
+
+		ArrayList<int[]> res = new ArrayList<>();
+
+		for (int k = 0; k < pubers.size(); k++) {
+			int start = pubers.get(k);
+
+			int[][] path = Dijkstra.getEachStop(connected, start);// path[i][j]到第i个节点路上的第j跳
+
+			for (int i = 0; i < path.length; i++) {
+				res.add(path[i]);
+			}
+		}
+
+		return res;
+	}
+
+	/*public static Integer getNextJumpPort(Switch curSwitch, ArrayList<Switch> weightIdList, int[] path, int j) {
 		Integer nextJumpWeightId = path[j - 1];
 		Switch s = weightIdList.get(nextJumpWeightId);
 
@@ -296,8 +369,70 @@ public class Router extends SysInfo implements IRouter {
 
 		return 0;
 	}
+*/
+	public static void main(String args[]) throws InterruptedException {
 
-	public static void main(String args[]) {
+//		int[][] weight = new int[20][20];
+		int[][] weight;
+		ArrayList<Integer> subers = new ArrayList<>();//存的是数字，也即Switch在邻接表中的序号
+		ArrayList<Integer> pubers = new ArrayList<>();
+
+		String[] subers_dpid = {"00:00:16:18:67:3a:db:47",
+				"00:00:9e:50:72:0c:5c:4e",
+				"00:00:f2:8d:9c:69:51:43",
+				"00:00:8a:54:d0:dc:26:44",
+				"00:00:5c:f3:fc:db:63:a2"};
+
+		Controller G2 = new Controller("http://10.109.253.2:8080");
+
+		long t1 = System.currentTimeMillis();
+		//获取拓扑邻接表
+		Map<String, Switch> pubersMap = GlobleUtil.getAllSwitch(G2);
+		GlobleUtil.initFunc(G2);
+		weight = GlobleUtil.getTopology(G2);
+
+		String[] pubers_dpid = new String[pubersMap.size()];
+		int x = 0;//把所有Switch的dpid存起来
+		for (Map.Entry<String, Switch> entry : pubersMap.entrySet()) {
+			pubers_dpid[x] = entry.getKey();
+			x++;
+		}
+
+		long t2 = System.currentTimeMillis();
+		//用dpid在邻接表中查找相应交换机的序号
+		for (int i = 0; i < subers_dpid.length; i++) {
+			for (Map.Entry<Integer, String> entry : GlobleUtil.switchMap.entrySet()) {
+				if (subers_dpid[i].equals(entry.getValue())) {
+					subers.add(entry.getKey());
+				}
+			}
+		}
+		for (int i = 0; i < pubers_dpid.length; i++) {
+			for (Map.Entry<Integer, String> entry : GlobleUtil.switchMap.entrySet()) {
+				if (pubers_dpid[i].equals(entry.getValue())) {
+					pubers.add(entry.getKey());
+				}
+			}
+		}
+
+		long t3 = System.currentTimeMillis();
+		//计算路由跳转
+//		ArrayList<int[]> res = getEachRoute_wrong(weight, subers);
+		ArrayList<int[]> res = getEachRoute(weight, pubers);
+
+		long t4 = System.currentTimeMillis();
+		//下发流表
+		for (int[] route : res) {
+			downRouteFlow(G2, route);
+		}
+		long t5 = System.currentTimeMillis();
+
+		long tmp = t5 - t1;
+		System.out.println("t5-t1==" + String.valueOf(tmp));
+		tmp = t4 - t3;
+		System.out.println("t4-t3==" + String.valueOf(tmp));
+
+
 		/*Controller G2 = new Controller("10.109.253.2");
 		Switch br0 = new Switch();
 		G2.getSwitchMap().put("dpid", br0);
@@ -327,21 +462,6 @@ public class Router extends SysInfo implements IRouter {
 		GlobleUtil.getInstance().controllers.put("G2", G2);
 		GlobleUtil.getInstance().controllers.put("G3", G3);
 		GlobleUtil.getInstance().controllers.put("G4", G4);*/
-
-		int[][] weight = {
-				{0, 10, M, 30, 100},
-				{M, 0, 50, M, M},
-				{M, M, 0, M, 10},
-				{M, M, 20, 0, 60},
-				{M, M, M, M, 0}
-		};
-
-		ArrayList<Integer> subers = new ArrayList<>();
-		subers.add(0);
-
-		ArrayList<int[]> res = getEachRoute(weight, subers);
-
-		System.out.println("dd");
 	}
 
 	public void route(String topic) {

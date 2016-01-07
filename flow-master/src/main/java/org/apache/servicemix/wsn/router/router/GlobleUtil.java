@@ -8,24 +8,25 @@ import org.apache.commons.httpclient.methods.GetMethod;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.net.Inet4Address;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Created by root on 15-10-6.
  */
-public class GlobleUtil{
+public class GlobleUtil {
 	public static List<Flow> initFlows = new ArrayList<>();
 	public static String REST_URL = "http://10.109.253.2:8080";//nll
+	public static Map<Integer, String> switchMap = new HashMap<>();//用于保存邻接矩阵的下标与交换机的对应关系
+	public static int[][] weight = new int[20][20];//用于保存每次更新时当前交换机之间的连接关系
+	public static int[][] weight_first = new int[20][20];//用于保存本次更新时上一次存储的交换机之间的连接关系
+	private static int M = 10000; // 此路不通
 	private static GlobleUtil INSTANCE;
 	private static int index = 2;//nll
 	private static Timer timer = new Timer();
-	public Map<String, Controller> controllers = new ConcurrentHashMap<>();
 	private static Map<Integer, DevInfo> wsnDevMap = new ConcurrentHashMap<>();//交换机所连接的所设备
-	private static Map<Integer, String> switchMap = new HashMap<>();//用于保存邻接矩阵的下标与交换机的对应关系
-	public static int[][] weight = new int[20][20];//用于保存每次更新时当前交换机之间的连接关系
-	public static int[][] weight_first = new int[20][20];//用于保存本次更新时上一次存储的交换机之间的连接关系
+	public Map<String, Controller> controllers = new ConcurrentHashMap<>();
+
 	public GlobleUtil() {
 		//init static initFlows{queueFlow, topics}
 		Flow flow = new Flow("queue");
@@ -35,51 +36,59 @@ public class GlobleUtil{
 	}
 
 
-
-	public  static Map<String, Switch> getAllSwitch(Controller controller){//获取当前controller下所有交换机的dpid
+	public static Map<String, Switch> getAllSwitch(Controller controller) {//获取当前controller下所有交换机的dpid
 		Map<String, Switch> switches = new HashMap<>();
 		String url = controller.getUrl() + "/wm/core/controller/switches/json";
 		String body = doClientGet(url);
 		JSONArray json = new JSONArray(body);
-		for (int i = 0; i < json.length(); i++){
+		for (int i = 0; i < json.length(); i++) {
 			Switch swc = new Switch();
 			String DPID = json.getJSONObject(i).getString("switchDPID");
-			String mac = "00:00:"+DPID;
+
+			String mac = "";
+			String[] tmp = DPID.split(":");
+			for (int j = 2; j < tmp.length; j++) {
+				if (j != tmp.length - 1)
+					mac = mac + tmp[j] + ":";
+				else
+					mac = mac + tmp[j];
+			}
+
 			swc.setDPID(DPID);
 			swc.setMac(mac);
-			controller.getSwitchMap().put(DPID ,swc);
+			controller.getSwitchMap().put(DPID, swc);
 		}
 		return controller.getSwitchMap();
 	}
 
-	public static Map<String, Switch> getRealtimeHosts(Controller controller){
+	public static Map<String, Switch> getRealtimeHosts(Controller controller) {
 		String url = controller.getUrl() + "/wm/device/";
 		String body = doClientGet(url);
 		JSONArray json = new JSONArray(body);
 		int flag = 0;
-		for(int i =0;i<json.length();i++){
+		for (int i = 0; i < json.length(); i++) {
 			JSONArray mac = json.getJSONObject(i).getJSONArray("mac");
 			String macAdd = mac.get(0).toString();
 //			System.out.println("&&&&" + macAdd);
-			String DPID = "00:00:"+macAdd;
-			for(Map.Entry<String ,Switch> entry : controller.getSwitchMap().entrySet()){
+			String DPID = "00:00:" + macAdd;
+			for (Map.Entry<String, Switch> entry : controller.getSwitchMap().entrySet()) {
 				Switch swt = entry.getValue();
-				if(swt.getDPID().equals(DPID))
-					flag =1;
+				if (swt.getDPID().equals(DPID))
+					flag = 1;
 			}
-			if(flag==0){//不存在这个DPID的交换机,则该设备是一个主机，需加入邻居中
+			if (flag == 0) {//不存在这个DPID的交换机,则该设备是一个主机，需加入邻居中
 				JSONArray array = json.getJSONObject(i).getJSONArray("attachmentPoint");
-				for(int j = 0;j<array.length();j++){
+				for (int j = 0; j < array.length(); j++) {
 //						System.out.println("^^^^"+array.length());
 					String switchDPID = array.getJSONObject(j).getString("switchDPID");
 //					System.out.println("DPID" + switchDPID);
 					WSNHost host = new WSNHost();
 					host.setMac(macAdd);
 					int port = array.getJSONObject(j).getInt("port");
-					Switch swtch = findSwitch(switchDPID , controller);
-					swtch.put(port ,host);
+					Switch swtch = findSwitch(switchDPID, controller);
+					swtch.put(port, host);
 
-					System.out.println("****"+port+"   "+swtch.getDPID());
+					System.out.println("****" + port + "   " + swtch.getDPID());
 
 				}
 			}
@@ -129,13 +138,13 @@ public class GlobleUtil{
 							}
 							if (flag) {
 								System.out.println("a switch is added...");
-								System.out.println("the DPID of this switch is :"+swth.getDPID());
+								System.out.println("the DPID of this switch is :" + swth.getDPID());
 								wsnDevMap.put(portNum, swth);
 							} else {
 								System.out.println("a host is added...");
 								WSNHost host = new WSNHost();
 								host.setMac(macAddr);
-								System.out.println("the macAddr of this host is : "+macAddr);
+								System.out.println("the macAddr of this host is : " + macAddr);
 								wsnDevMap.put(portNum, host);
 							}
 							swc.setWsnDevMap(wsnDevMap);
@@ -144,15 +153,15 @@ public class GlobleUtil{
 				}
 				switches.put(DPID, swc);
 			}
-			for (Map.Entry<String, Switch> entry : switches.entrySet()){
-				System.out.println("the switch is : "+ entry.getValue().getDPID());
+			for (Map.Entry<String, Switch> entry : switches.entrySet()) {
+				System.out.println("the switch is : " + entry.getValue().getDPID());
 			}
 			return switches;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		for (Map.Entry<String, Switch> entry : switches.entrySet()){
-			System.out.println("the switch is : "+ entry.getValue().getDPID());
+		for (Map.Entry<String, Switch> entry : switches.entrySet()) {
+			System.out.println("the switch is : " + entry.getValue().getDPID());
 		}
 		return switches;
 	}
@@ -182,38 +191,40 @@ public class GlobleUtil{
 		}
 
 	}
-	public static void initFunc(int [][] weight , Controller controller){//初始化数组与对应的Map
+
+	public static void initFunc(Controller controller) {//初始化数组与对应的Map
 		int flag = 0;
-		for(int i = 0;i<weight.length;i++)
-			for(int j =0;j<weight[i].length;j++)
-				weight[i][j] = 0;//初始化二维数组，0值表示不连接，初始为全部未连接
-		for(Map.Entry<String ,Switch> entry : controller.getSwitchMap().entrySet()){
+		for (int i = 0; i < weight.length; i++)
+			for (int j = 0; j < weight[i].length; j++)
+				weight[i][j] = M;//初始化二维数组，M值表示不连接，初始为全部未连接
+		for (Map.Entry<String, Switch> entry : controller.getSwitchMap().entrySet()) {
 			Switch swt = entry.getValue();
 			switchMap.put(flag, swt.getDPID());
 			flag++;
 		}
 	}
-	public static int[][] getTopology(Controller controller){//获取交换机之间的连接关系，将结果更新到邻接矩阵中
+
+	public static int[][] getTopology(Controller controller) {//获取交换机之间的连接关系，将结果更新到邻接矩阵中
 		String url = controller.getUrl() + "/wm/topology/links/json";
 		String body = doClientGet(url);
 		JSONArray json = new JSONArray(body);
-		for(int i =0;i<json.length();i++){
-			if(json.getJSONObject(i).getString("direction").equals("bidirectional")){//当连接是双向的时候才会进行记录，单向的忽略
+		for (int i = 0; i < json.length(); i++) {
+			if (json.getJSONObject(i).getString("direction").equals("bidirectional")) {//当连接是双向的时候才会进行记录，单向的忽略
 				int port = json.getJSONObject(i).getInt("src-port");
 				String dpid = json.getJSONObject(i).getString("src-switch");
-				System.out.println("****"+dpid);
+				System.out.println("****" + dpid);
 				Switch swt = findSwitch(dpid, controller);
 				String dst_dpid = json.getJSONObject(i).getString("dst-switch");
 				int dst_port = json.getJSONObject(i).getInt("dst-port");
-				Switch dest_swt = findSwitch(dst_dpid , controller);
-				swt.put(port , dest_swt);//将邻居交换机加入
-				dest_swt.put(dst_port ,swt);//由于是双向的，所以都要加入
-				int row = 0 ;
-				int column =0;
-				for(Map.Entry<Integer, String> entry: switchMap.entrySet()){
-					if(entry.getValue().equals(dpid))
+				Switch dest_swt = findSwitch(dst_dpid, controller);
+				swt.put(port, dest_swt);//将邻居交换机加入
+				dest_swt.put(dst_port, swt);//由于是双向的，所以都要加入
+				int row = 0;
+				int column = 0;
+				for (Map.Entry<Integer, String> entry : switchMap.entrySet()) {
+					if (entry.getValue().equals(dpid))
 						row = entry.getKey();
-					if(entry.getValue().equals(dst_dpid))
+					if (entry.getValue().equals(dst_dpid))
 						column = entry.getKey();
 				}
 				weight[row][column] = 1;
@@ -224,27 +235,27 @@ public class GlobleUtil{
 		return weight;
 	}
 
-	public static Switch findSwitch(String dpid , Controller controller){//用来判断所给的DPID的交换机是否已存在
+	public static Switch findSwitch(String dpid, Controller controller) {//用来判断所给的DPID的交换机是否已存在
 		boolean flag = false;
 		Switch swtch = new Switch();
-		for(Map.Entry<String ,Switch> entry : controller.getSwitchMap().entrySet()){
+		for (Map.Entry<String, Switch> entry : controller.getSwitchMap().entrySet()) {
 			Switch swt = entry.getValue();
-			if(swt.getDPID().equals(dpid)){//存在则直接返回
-				flag = true ;
+			if (swt.getDPID().equals(dpid)) {//存在则直接返回
+				flag = true;
 				return swt;
-			}
-			else
+			} else
 				flag = false;
 		}
-		if(!flag){//不存在就新建，并加入
+		if (!flag) {//不存在就新建，并加入
 //			Switch swtch = new Switch();
 			swtch.setDPID(dpid);
-			controller.getSwitchMap().put(dpid , swtch);
+			controller.getSwitchMap().put(dpid, swtch);
 			return swtch;
 		}
 		return swtch;
 	}
-//    @Override
+
+	//    @Override
 //	public void run(){
 //		Controller controller = new Controller("http://10.109.253.2:8080");
 //		getAllSwitch(controller);
@@ -255,7 +266,7 @@ public class GlobleUtil{
 //		getTopology(controller);
 //		for (int i = 0; i < weight.length; i++) {
 //			for (int j = 0; j < weight[i].length; j++) {
-//				if(weight_first!= weight){
+//				if(weight_first[i][j]!= weight[i][j]){
 //					//这里调用lcw的函数；
 //				}
 //					System.out.print(weight[i][j] + " ");
@@ -292,7 +303,7 @@ public class GlobleUtil{
 		for (Map.Entry<String, Switch> entry : controller.getSwitchMap().entrySet()) {
 			System.out.println("*" + entry.getValue().getDPID());
 		}
-		initFunc(weight, controller);
+		initFunc(controller);
 		getTopology(controller);
 		for (int i = 0; i < weight.length; i++) {
 			for (int j = 0; j < weight[i].length; j++) {
@@ -301,28 +312,28 @@ public class GlobleUtil{
 			System.out.println();
 		}
 		getRealtimeHosts(controller);
-		int j =0;
+		int j = 0;
 		for (Map.Entry<String, Switch> entry : controller.getSwitchMap().entrySet()) {
 //			System.out.println("*" + entry.getValue().getDPID());
-			if(entry.getValue().getDPID().equals("00:00:ee:2d:00:5a:16:45")){
-				Map<Integer , DevInfo> map = entry.getValue().getWsnDevMap();
-				for(Map.Entry<Integer , DevInfo> entry1: map.entrySet()){
+			if (entry.getValue().getDPID().equals("00:00:ee:2d:00:5a:16:45")) {
+				Map<Integer, DevInfo> map = entry.getValue().getWsnDevMap();
+				for (Map.Entry<Integer, DevInfo> entry1 : map.entrySet()) {
 					j++;
-					if(entry1.getValue() instanceof Switch)
-						System.out.println("Switch :" +entry1.getKey()+"  "+((Switch) entry1.getValue()).getDPID());
-					else if(entry1.getValue() instanceof WSNHost){
+					if (entry1.getValue() instanceof Switch)
+						System.out.println("Switch :" + entry1.getKey() + "  " + ((Switch) entry1.getValue()).getDPID());
+					else if (entry1.getValue() instanceof WSNHost) {
 						System.out.println("++++++");
 						System.out.println("Host :" + entry1.getKey() + "  " + ((WSNHost) entry1.getValue()).getMac());
 					}
 
 				}
-				System.out.println("j:"+j);
+				System.out.println("j:" + j);
 			}
 		}
 
 	}
 
-//	public static void detectChange(final Controller controller){//设定计时器，定时检查维护拓扑结构
+	//	public static void detectChange(final Controller controller){//设定计时器，定时检查维护拓扑结构
 //		Timer timer = new Timer();
 //		timer.schedule(new refeshTask(){
 //			GlobleUtil globleUtil = new GlobleUtil();
@@ -394,7 +405,8 @@ public class GlobleUtil{
 
 	public static boolean downFlow(Controller controller, Flow flow) {
 		boolean success = false;
-		return RestProcess.doClientPost(controller.url, flow.getContent()).get(0).equals("200");
+		String staticFlowPushUri = controller.url + "/wm/staticflowpusher/json";
+		return RestProcess.doClientPost(staticFlowPushUri, flow.getContent()).get(0).equals("200");
 
 	}
 
@@ -402,6 +414,7 @@ public class GlobleUtil{
 		if (INSTANCE == null) INSTANCE = new GlobleUtil();
 		return INSTANCE;
 	}
+
 	/*
 	public static void main(String args[]) {
 //		GlobleUtil globleUtil = new GlobleUtil();
