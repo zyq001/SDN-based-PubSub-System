@@ -31,18 +31,19 @@ public class QueueAdjust extends Thread {
 
 	private void adjustController(Controller controller) {
 		Map<String, Switch> switchs = controller.getSwitchMap();
-
 		for (Switch sw : switchs.values()) {
 			Map<Integer, DevInfo> ports = sw.getWsnDevMap();
 			for (Integer port : ports.keySet()) {
-				double speed = SflowAPI.getSpeed(sw.getIpAddr(), "" + port + ".ifinpkts");
+				double speed = SflowAPI.getSpeed(sw.getIpAddr(), port, ".ifinpkts");
 				double bandWidth = ports.get(port).hashCode();
 				if (speed > bandWidth / 2 && speed <= bandWidth * 2 / 3) {//weak
-					QueueManagerment.enQueue(controller, sw.getDPID(), port, "30003", "1.1");
-
+					QueueManagerment.enQueue(controller, sw.getDPID(), port, "3", "q3");
 				} else if (speed > bandWidth * 2 / 3) {
-					QueueManagerment.enQueue(controller, sw.getDPID(), port, "30002", "1.1");
-					QueueManagerment.enQueue(controller, sw.getDPID(), port, "30003", "1.2");
+					QueueManagerment.enQueue(controller, sw.getDPID(), port, "2", "q2");
+					QueueManagerment.enQueue(controller, sw.getDPID(), port, "3", "q1");
+				}else if (speed > bandWidth * 2 / 3) {
+					QueueManagerment.enQueue(controller, sw.getDPID(), port, "2", "q2");
+					QueueManagerment.enQueue(controller, sw.getDPID(), port, "3", "q1");
 				}
 			}
 		}

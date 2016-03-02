@@ -1,7 +1,5 @@
 package edu.bupt.wangfu.sdn.info;
 
-import org.apache.servicemix.wsn.router.router.GlobleUtil;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;

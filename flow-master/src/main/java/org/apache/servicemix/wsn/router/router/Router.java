@@ -10,10 +10,7 @@ import org.apache.servicemix.wsn.router.router.LCW.Dijkstra;
 import org.apache.servicemix.wsn.router.topictree.TopicTreeManager;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static org.apache.servicemix.wsn.router.router.LCW.Dijkstra.getEachStop;
 
@@ -282,15 +279,12 @@ public class Router extends SysInfo implements IRouter {
 
 	public static Flow generateFlow(Switch curSwitch, String curTopic, String targetPort) {
 		String dpid = curSwitch.getDPID();
-
 		HashMap<String, String> parms = new HashMap<>();
 		parms.put("switch", dpid);
-		parms.put("name", "flow-mod-" + flowcount++);//！不是写死的，最好每个流表不一样
+		parms.put("name", "flow-mod-" + flowcount++);//为每个流表指定唯一的名称
 		parms.put("cookie", "0");
 		parms.put("priority", "32768");
-//		parms.put("ipv6_dst", topicCodes.get(curTopic));
-//		parms.put("ipv6_dst", topicName2mutiv6Addr(curTopic));//测试v6地址转化函数
-		parms.put("ipv6_dst", "FF01:0000:0000:0000:0001:2345:6789:ABCD");//测试openflow协议
+		parms.put("ipv6_dst", topicName2mutiv6Addr(curTopic));//测试v6地址转化函数
 		parms.put("active", "true");
 
 		parms.put("actions", "output=" + targetPort);
@@ -339,7 +333,12 @@ public class Router extends SysInfo implements IRouter {
 	}
 
 	//发布者到每一个订阅者的路径
-	public static ArrayList<int[]> getEachRoute(int[][] connected, ArrayList<Integer> pubers) {
+	public static ArrayList<int[]> getEachRoute(int[][] connected, ArrayList<Integer> subers, ArrayList<Integer> pubers) {
+
+		HashSet<Integer> subersSet = new HashSet<>();
+		for (int i = 0; i < subers.size(); i++) {
+			subersSet.add(subers.get(i));
+		}
 
 		ArrayList<int[]> res = new ArrayList<>();
 
@@ -349,7 +348,14 @@ public class Router extends SysInfo implements IRouter {
 			int[][] path = Dijkstra.getEachStop(connected, start);// path[i][j]到第i个节点路上的第j跳
 
 			for (int i = 0; i < path.length; i++) {
-				res.add(path[i]);
+				if (subersSet.contains(i)) {
+					System.out.print("从集群G" + k + "出发到集群G" + i + "的最短路径为：");
+					for (int j = 0; (j < path[i].length) && (path[i][j] != M); j++) {
+						System.out.print("集群G" + path[i][j] + "  ");
+					}
+					System.out.println("");
+					res.add(path[i]);//结果中只保存发布者到订阅者的路径
+				}
 			}
 		}
 
@@ -372,16 +378,47 @@ public class Router extends SysInfo implements IRouter {
 */
 	public static void main(String args[]) throws InterruptedException {
 
-//		int[][] weight = new int[20][20];
 		int[][] weight;
 		ArrayList<Integer> subers = new ArrayList<>();//存的是数字，也即Switch在邻接表中的序号
 		ArrayList<Integer> pubers = new ArrayList<>();
 
-		String[] subers_dpid = {"00:00:16:18:67:3a:db:47",
-				"00:00:9e:50:72:0c:5c:4e",
-				"00:00:f2:8d:9c:69:51:43",
-				"00:00:8a:54:d0:dc:26:44",
-				"00:00:5c:f3:fc:db:63:a2"};
+		String[] subers_dpid = {
+//				"00:00:c2:a2:d4:ef:c8:44"
+//				, "00:00:86:81:98:72:62:4a"
+//				, "00:00:c6:0a:ac:40:a1:4c"
+//				, "00:00:6a:90:b5:9a:33:49"
+//				, "00:00:2a:69:28:52:f9:4e"
+//
+//				, "00:00:56:90:44:b0:f3:45"
+				"00:00:ca:94:c3:9a:ef:45"
+//				, "00:00:d6:73:da:66:58:43"
+				, "00:00:ce:d5:21:2f:6f:46"
+//				, "00:00:ea:24:14:b0:6f:42"
+//
+//				, "00:00:d6:1d:6e:3d:4e:4f"
+//				, "00:00:5e:30:4b:5b:b1:48"
+//				, "00:00:7e:4b:d5:c8:a7:47"
+//				, "00:00:a6:f6:6c:3e:24:4a"
+//				, "00:00:fe:95:4f:a4:ec:4a"
+//
+//				, "00:00:6a:de:3e:bf:bf:47"
+//				, "00:00:6a:f3:27:c7:81:4c"
+//				, "00:00:fa:a1:57:d5:e3:43"
+//				, "00:00:ee:64:c2:b4:9c:4a"
+//				, "00:00:ea:1c:5e:b6:76:46"
+//
+//				, "00:00:9a:94:bd:49:8d:4c"
+//				, "00:00:3a:51:c2:d5:a1:47"
+//				, "00:00:c6:d1:f4:d3:60:42"
+//				, "00:00:6e:63:6e:33:e4:47"
+//				, "00:00:22:68:40:cf:eb:4d"
+//
+//				, "00:00:86:ae:cb:b8:08:41"
+//				, "00:00:96:f2:06:e4:86:4b"
+//				, "00:00:62:3d:32:d1:d6:41"
+//				, "00:00:ce:ab:c5:4a:db:4d"
+//				, "00:00:a6:d5:76:9c:4a:43"
+		};
 
 		Controller G2 = new Controller("http://10.109.253.2:8080");
 
@@ -392,7 +429,7 @@ public class Router extends SysInfo implements IRouter {
 		weight = GlobleUtil.getTopology(G2);
 
 		String[] pubers_dpid = new String[pubersMap.size()];
-		int x = 0;//把所有Switch的dpid存起来
+		int x = 0;//把所有Switch的dpid存起来，都是发布者
 		for (Map.Entry<String, Switch> entry : pubersMap.entrySet()) {
 			pubers_dpid[x] = entry.getKey();
 			x++;
@@ -418,7 +455,7 @@ public class Router extends SysInfo implements IRouter {
 		long t3 = System.currentTimeMillis();
 		//计算路由跳转
 //		ArrayList<int[]> res = getEachRoute_wrong(weight, subers);
-		ArrayList<int[]> res = getEachRoute(weight, pubers);
+		ArrayList<int[]> res = getEachRoute(weight, subers, pubers);
 
 		long t4 = System.currentTimeMillis();
 		//下发流表
@@ -428,40 +465,11 @@ public class Router extends SysInfo implements IRouter {
 		long t5 = System.currentTimeMillis();
 
 		long tmp = t5 - t1;
-		System.out.println("t5-t1==" + String.valueOf(tmp));
+		System.out.println("总时长 == " + String.valueOf(tmp));
+		tmp = t2 - t1;
+		System.out.println("获取拓扑 == " + String.valueOf(tmp));
 		tmp = t4 - t3;
-		System.out.println("t4-t3==" + String.valueOf(tmp));
-
-
-		/*Controller G2 = new Controller("10.109.253.2");
-		Switch br0 = new Switch();
-		G2.getSwitchMap().put("dpid", br0);
-
-		Controller G21 = new Controller("10.109.253.2");
-		Switch br1 = new Switch();
-		G21.getSwitchMap().put("dpidbr1", br1);
-
-
-		Controller G22 = new Controller("10.109.253.2");
-		Switch br2 = new Switch();
-		G21.getSwitchMap().put("dpidbr2", br2);
-
-
-		Controller G23 = new Controller("10.109.253.2");
-		Switch br3 = new Switch();
-		G21.getSwitchMap().put("dpidbr3", br3);
-
-		Controller G3 = new Controller("10.109.253.3");
-		Switch br0G3 = new Switch();
-		G21.getSwitchMap().put("dpidbr0G3", br0G3);
-
-		Controller G4 = new Controller("10.109.253.4");
-		Switch br0G4 = new Switch();
-		G21.getSwitchMap().put("dpidbr0G4", br0G4);
-
-		GlobleUtil.getInstance().controllers.put("G2", G2);
-		GlobleUtil.getInstance().controllers.put("G3", G3);
-		GlobleUtil.getInstance().controllers.put("G4", G4);*/
+		System.out.println("计算路由 == " + String.valueOf(tmp));
 	}
 
 	public void route(String topic) {

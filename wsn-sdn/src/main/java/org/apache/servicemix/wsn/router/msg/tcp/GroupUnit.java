@@ -1,15 +1,14 @@
 package org.apache.servicemix.wsn.router.msg.tcp;
 
+import edu.bupt.wangfu.sdn.info.Switch;
+
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class GroupUnit implements Serializable {
-
 	//保存group的基本信息
-
-	/**
-	 *
-	 */
 	private static final long serialVersionUID = 1L;
 
 	public String addr;//group的地址
@@ -25,6 +24,8 @@ public class GroupUnit implements Serializable {
 	public long id; //代表设置时间
 
 	public int uPort; //group的UDP端口号
+	//边界交换机
+	private Map<String, Switch> boardSwitch = new ConcurrentHashMap<>();
 
 	public GroupUnit(String addr, int port, String name) {
 		this.addr = addr;

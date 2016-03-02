@@ -16,7 +16,7 @@ public class DistBtnNebr extends WsnMsg implements Serializable {
 	/**
 	 *
 	 */
-	public int dist; // ����ھӵľ���
+	public int dist; // ??????????
 
 	public void setDistBtnNebr(int dist) {
 		this.dist = dist;
@@ -32,14 +32,14 @@ public class DistBtnNebr extends WsnMsg implements Serializable {
 
 	public void processRegMsg(IoSession session) {
 		ArrayList<String> forwardIp = getForwardIp();
-		//���Կ��λ�ã��ɲ��Կ�������ip
+		//??????��???????????????ip
 		ForwardMsg forwardMsg = new TCPForwardMsg(forwardIp, SysInfo.gettPort(), this);
 		MsgQueueMgr.addTCPMsgInQueue(forwardMsg);
 	}
 
 	public void processRepMsg(IoSession session) {
 		ArrayList<String> forwardIp = getForwardIp();
-		//���Կ��λ�ã��ɲ��Կ�������ip
+		//??????��???????????????ip
 		ForwardMsg forwardMsg = new TCPForwardMsg(forwardIp, SysInfo.gettPort(), this);
 		MsgQueueMgr.addTCPMsgInQueue(forwardMsg);
 	}

@@ -32,9 +32,9 @@ public class WsnMsg {
 
 	public void processRegMsg(IoSession session) {
 
-	//AState state = RtMgr.getInstance().getState();
-	System.out.println("there is no method defined for this class!");
-}
+		//AState state = RtMgr.getInstance().getState();
+		System.out.println("there is no method defined for this class!");
+	}
 
 	public void processRepMsg(IoSession session) {
 

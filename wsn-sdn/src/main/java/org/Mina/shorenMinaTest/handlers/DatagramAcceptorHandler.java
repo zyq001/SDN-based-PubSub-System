@@ -43,7 +43,7 @@ public class DatagramAcceptorHandler extends IoHandlerAdapter {
 
 		counter++;
 //		if (counter % 1000 == 0)
-			System.out.println(System.currentTimeMillis() + "counter:" + counter);
+		System.out.println(System.currentTimeMillis() + "counter:" + counter);
 	}
 
 	// 当信息已经传送给客户端后触发此方法.

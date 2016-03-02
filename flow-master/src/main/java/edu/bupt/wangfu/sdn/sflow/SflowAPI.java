@@ -10,9 +10,10 @@ import org.json.JSONObject;
  */
 public class SflowAPI {
 
-	public static double getSpeed(String agent, String metric) {
+	public static double getSpeed(String agent, int port, String metric) {
 		double speed = 0;
-		String url = "http://" + Configure.sflowServer + ":8008/metric/" + agent + "/" + metric + "/json";
+		String url = "http://" + Configure.sflowServer + ":8008/metric/" + agent + "/" + port
+				+ "." +metric + "/json";
 		String result = RestProcess.doClientGet(url);
 		try {
 			speed = Double.valueOf(new JSONObject(result).get("metricValue").toString());

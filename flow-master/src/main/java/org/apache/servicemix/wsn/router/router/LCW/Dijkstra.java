@@ -5,11 +5,11 @@ public class Dijkstra {
 
 	public static void main(String[] args) {
 		int[][] weight1 = {// 邻接矩阵
-				{ 0, 3, 2000, 7, M }, { 3, 0, 4, 2, M }, { M, 4, 0, 5, 4 },
-				{ 7, 2, 5, 0, 6 }, { M, M, 4, 6, 0 } };
+				{0, 3, 2000, 7, M}, {3, 0, 4, 2, M}, {M, 4, 0, 5, 4},
+				{7, 2, 5, 0, 6}, {M, M, 4, 6, 0}};
 
-		int[][] weight2 = { { 0, 10, M, 30, 100 }, { M, 0, 50, M, M },
-				{ M, M, 0, M, 10 }, { M, M, 20, 0, 60 }, { M, M, M, M, 0 } };
+		int[][] weight2 = {{0, 10, M, 30, 100}, {M, 0, 50, M, M},
+				{M, M, 0, M, 10}, {M, M, 20, 0, 60}, {M, M, M, M, 0}};
 
 		int start = 0;
 		// int[] shortPath = dijkstra(weight2, start);
@@ -111,9 +111,9 @@ public class Dijkstra {
 			}
 		}
 
-		for (int i = 0; i < n; i++) {
-			System.out.println("从" + start + "出发到" + i + "的最短路径为：" + path[i]);
-		}
+//		for (int i = 0; i < n; i++) {
+//			System.out.println("从" + start + "出发到" + i + "的最短路径为：" + path[i]);
+//		}
 
 		int[][] path_1 = new int[n][n];// ！自己添加的一个二维数组，第一个下标表示目标交换机，第二个表示一路上的各个节点
 		for (int i = 0; i < n; i++)

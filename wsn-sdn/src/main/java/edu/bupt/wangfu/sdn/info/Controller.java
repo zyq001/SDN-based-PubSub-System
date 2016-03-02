@@ -1,7 +1,5 @@
 package edu.bupt.wangfu.sdn.info;
 
-import org.apache.servicemix.wsn.router.router.GlobleUtil;
-
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -30,10 +28,10 @@ public class Controller {
 		this.switchMap = switchMap;
 	}
 
-	public void reflashSwitchMap() {
-
-		switchMap = GlobleUtil.getRealtimeSwitchs(this);
-
-	}
+//	public void reflashSwitchMap() {
+//
+//		switchMap = GlobleUtil.getRealtimeSwitchs(this);
+//
+//	}
 
 }

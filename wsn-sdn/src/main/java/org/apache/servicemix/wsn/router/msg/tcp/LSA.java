@@ -8,6 +8,7 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class LSA implements Serializable {
@@ -21,14 +22,14 @@ public class LSA implements Serializable {
 	public ArrayList<String> lostGroup; // 丢失集群，若无丢失则为空
 	public ArrayList<String> subsTopics; // 发送源的订阅
 	public ArrayList<String> cancelTopics; //发送源取消的订阅
-	public ConcurrentHashMap<String, DistBtnNebr> distBtnNebrs; // 发送源与邻居的距离
+	public ConcurrentHashMap<GroupUnit, List<String>> distBtnNebrs; // 集群及其邻居
 	public long sendTime; //发送时间
 
 	public LSA() {
 		lostGroup = new ArrayList<String>();
 		subsTopics = new ArrayList<String>();
 		cancelTopics = new ArrayList<String>();
-		distBtnNebrs = new ConcurrentHashMap<String, DistBtnNebr>();
+//		distBtnNebrs = new ConcurrentHashMap<String, DistBtnNebr>();
 	}
 
 	public void copyLSA(LSA lsa) {

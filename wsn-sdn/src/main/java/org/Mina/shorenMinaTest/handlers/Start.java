@@ -12,8 +12,6 @@ import org.Mina.shorenMinaTest.router.MsgSubsForm;
 import org.Mina.shorenMinaTest.router.generateNode;
 import org.apache.log4j.PropertyConfigurator;
 import org.apache.mina.core.future.ConnectFuture;
-import org.apache.mina.core.service.IoConnector;
-import org.apache.mina.transport.socket.DatagramConnector;
 import org.apache.mina.transport.socket.nio.NioDatagramConnector;
 import org.apache.servicemix.wsn.CrossGroupMsgForwardQueue;
 import org.apache.servicemix.wsn.router.router.Router;

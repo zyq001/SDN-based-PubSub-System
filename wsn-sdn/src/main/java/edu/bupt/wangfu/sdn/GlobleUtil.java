@@ -42,18 +42,18 @@ public class GlobleUtil {
 		return INSTANCE;
 	}
 
-	public void init() {
-		//get realtime global info
-		reflashGlobleInfo();
-
-		//init all switchs
-		for (Map.Entry<String, Controller> entry : controllers.entrySet()) {
-			Controller controller = entry.getValue();
-			initSwitchs(controller);
-		}
-
-
-	}
+//	public void init() {
+//		//get realtime global info
+//		reflashGlobleInfo();
+//
+//		//init all switchs
+//		for (Map.Entry<String, Controller> entry : controllers.entrySet()) {
+//			Controller controller = entry.getValue();
+//			initSwitchs(controller);
+//		}
+//
+//
+//	}
 
 	public boolean initSwitchs(Controller controller) {
 		boolean success = false;
@@ -64,29 +64,29 @@ public class GlobleUtil {
 		return success;
 	}
 
-	public boolean reflashGlobleInfo() {
+//	public boolean reflashGlobleInfo() {
+//
+//		//Traversal controllers, GET global realtime status
+//		for (Map.Entry<String, Controller> entry : controllers.entrySet()) {
+//			Controller controller = entry.getValue();
+//			if (!controller.isAlive()) {
+//				controllers.remove(entry.getKey());
+//				continue;
+//			}
+//			controller.reflashSwitchMap();
+//		}
+//		return true;
+//	}
 
-		//Traversal controllers, GET global realtime status
-		for (Map.Entry<String, Controller> entry : controllers.entrySet()) {
-			Controller controller = entry.getValue();
-			if (!controller.isAlive()) {
-				controllers.remove(entry.getKey());
-				continue;
-			}
-			controller.reflashSwitchMap();
-		}
-		return true;
-	}
-
-	public synchronized void addController(String controllerAddr) {
-
-		Controller newController = new Controller(controllerAddr);
-
-		newController.reflashSwitchMap();
-
-		controllers.put(controllerAddr, newController);
-
-	}
+//	public synchronized void addController(String controllerAddr) {
+//
+//		Controller newController = new Controller(controllerAddr);
+//
+//		newController.reflashSwitchMap();
+//
+//		controllers.put(controllerAddr, newController);
+//
+//	}
 
 	public boolean downFlow(String url, JSONObject content) {
 		boolean success = false;

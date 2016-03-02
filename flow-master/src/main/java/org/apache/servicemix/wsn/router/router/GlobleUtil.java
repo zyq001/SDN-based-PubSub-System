@@ -18,7 +18,7 @@ public class GlobleUtil {
 	public static List<Flow> initFlows = new ArrayList<>();
 	public static String REST_URL = "http://10.109.253.2:8080";//nll
 	public static Map<Integer, String> switchMap = new HashMap<>();//用于保存邻接矩阵的下标与交换机的对应关系
-	public static int[][] weight = new int[20][20];//用于保存每次更新时当前交换机之间的连接关系
+	public static int[][] weight = new int[200][200];//用于保存每次更新时当前交换机之间的连接关系
 	public static int[][] weight_first = new int[20][20];//用于保存本次更新时上一次存储的交换机之间的连接关系
 	private static int M = 10000; // 此路不通
 	private static GlobleUtil INSTANCE;
@@ -183,7 +183,7 @@ public class GlobleUtil {
 		}
 	}
 
-	public static void getRealtimeSwithchs(Map<String, Controller> controllers) {
+	public static void getRealtimeSwitchs(Map<String, Controller> controllers) {
 		for (Map.Entry<String, Controller> entry : controllers.entrySet()) {
 			Controller controller = entry.getValue();
 			Map<String, Switch> map = getRealtimeSwitchs2(controller);
@@ -209,18 +209,17 @@ public class GlobleUtil {
 		String body = doClientGet(url);
 		JSONArray json = new JSONArray(body);
 		for (int i = 0; i < json.length(); i++) {
-			if (json.getJSONObject(i).getString("direction").equals("bidirectional")) {//当连接是双向的时候才会进行记录，单向的忽略
+			//当连接是双向的时候才会进行记录，单向的忽略
+			if (json.getJSONObject(i).getString("direction").equals("bidirectional")) {
 				int port = json.getJSONObject(i).getInt("src-port");
 				String dpid = json.getJSONObject(i).getString("src-switch");
-				System.out.println("****" + dpid);
 				Switch swt = findSwitch(dpid, controller);
 				String dst_dpid = json.getJSONObject(i).getString("dst-switch");
 				int dst_port = json.getJSONObject(i).getInt("dst-port");
 				Switch dest_swt = findSwitch(dst_dpid, controller);
 				swt.put(port, dest_swt);//将邻居交换机加入
 				dest_swt.put(dst_port, swt);//由于是双向的，所以都要加入
-				int row = 0;
-				int column = 0;
+				int row = 0, column = 0;
 				for (Map.Entry<Integer, String> entry : switchMap.entrySet()) {
 					if (entry.getValue().equals(dpid))
 						row = entry.getKey();
@@ -231,7 +230,6 @@ public class GlobleUtil {
 				weight[column][row] = 1;
 			}
 		}
-//		weight_first = weight;
 		return weight;
 	}
 
