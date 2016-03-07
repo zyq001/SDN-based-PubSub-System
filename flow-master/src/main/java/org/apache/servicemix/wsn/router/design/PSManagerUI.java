@@ -497,7 +497,7 @@ public class PSManagerUI implements IAdminUI {
 		groupConf.setLayout(new GridLayout(1, 0, 5, 0));
 
 		// guocheng
-//		this.refreshInfo();
+		this.refreshInfo();
 		groupsInfoTabbedPane.addTab("设备信息", null, devConf, "设备信息");
 		groupsInfoTabbedPane.addTab("流量信息", null, flowConf, "流量信息");
 
