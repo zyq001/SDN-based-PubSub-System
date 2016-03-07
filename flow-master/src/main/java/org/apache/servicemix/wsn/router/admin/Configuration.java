@@ -41,6 +41,8 @@ public class Configuration {
 					Amgr.port2 = Integer.parseInt(s[1].trim());
 				} else if (s[0].equals("ldapAddr")) {
 					Amgr.ldapAddr = s[1].trim();
+				} else if (s[0].equals("floodLightIP")) {
+					Amgr.globalControllerAddr = s[1].trim();
 				}
 			}
 

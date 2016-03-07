@@ -26,6 +26,7 @@ public class AdminMgr extends AdminBase implements HrtMsgHdlr, Runnable, IAdmin 
 	public static int port2;//负责监听tcp的端口，暂存配置文件中的端口
 	protected static String SendHrtObj;//存放需要发送心跳和同步信息的对象
 	public ServerSocket serverSocket;//tcp socket
+	public static String globalControllerAddr;
 	//管理员备份所需信息
 	public String localAddr;//管理员本地地址
 
