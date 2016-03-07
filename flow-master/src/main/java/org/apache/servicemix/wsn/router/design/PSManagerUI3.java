@@ -56,7 +56,7 @@
 //import org.eclipse.swt.widgets.TableItem;
 //import org.eclipse.swt.widgets.Text;
 //
-//import com.bupt.wangfu.ldap.TopicEntry;
+//import com.bupt.wangfu.TopicEntry;
 //
 //import javax.swing.JTextArea;
 //import javax.swing.JToggleButton;

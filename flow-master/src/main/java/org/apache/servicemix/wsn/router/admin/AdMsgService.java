@@ -1,8 +1,8 @@
 package org.apache.servicemix.wsn.router.admin;
 
 import com.bupt.wangfu.ldap.Ldap;
-import com.bupt.wangfu.ldap.MsgTopicModify;
-import com.bupt.wangfu.ldap.MsgTopicModify_;
+//import com.bupt.wangfu.ldap.MsgTopicModify;
+//import com.bupt.wangfu.ldap.MsgTopicModify_;
 import edu.bupt.wangfu.sdn.info.Controller;
 import org.apache.servicemix.application.WSNTopicObject;
 import org.apache.servicemix.wsn.router.design.Data;
@@ -285,22 +285,22 @@ public class AdMsgService extends AdminBase implements Runnable {
 						System.out.println("groups变化,新的groups为" + groups.keys());
 					}
 				}
-			} else if (msg instanceof MsgTopicModify) {
-
-				try {
-					PSManagerUI.topicTreeManager.lu = new Ldap();
-					PSManagerUI.topicTreeManager.lu.connectLdap(AdminMgr.ldapAddr, "cn=Manager,dc=wsn,dc=com", "123456");
-
-					PSManagerUI.topicTreeManager.reload_LibTrees();
-					PSManagerUI.topicTreeM.invalidate();
-					PSManagerUI.topicTreeManager.data.sendNotification(new UpdateTree(System.currentTimeMillis()));
-					Data.sendNotification(new UpdateTree(System.currentTimeMillis()));
-				} catch (NamingException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-
-				oos.writeObject(new MsgTopicModify_());
+//			} else if (msg instanceof MsgTopicModify) {
+//
+//				try {
+//					PSManagerUI.topicTreeManager.lu = new Ldap();
+//					PSManagerUI.topicTreeManager.lu.connectLdap(AdminMgr.ldapAddr, "cn=Manager,dc=wsn,dc=com", "123456");
+//
+//					PSManagerUI.topicTreeManager.reload_LibTrees();
+//					PSManagerUI.topicTreeM.invalidate();
+//					PSManagerUI.topicTreeManager.data.sendNotification(new UpdateTree(System.currentTimeMillis()));
+//					Data.sendNotification(new UpdateTree(System.currentTimeMillis()));
+//				} catch (NamingException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
+//
+//				oos.writeObject(new MsgTopicModify_());
 
 			} else if (msg instanceof MsgSubs) {
 				MsgSubs mss = (MsgSubs) msg;

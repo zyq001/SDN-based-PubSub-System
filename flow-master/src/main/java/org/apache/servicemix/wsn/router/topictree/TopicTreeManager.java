@@ -242,11 +242,7 @@ public class TopicTreeManager {
 					ut.newName = ut.oldName.replace(tempentry.getTopicName(), newname);
 					ut.change = 0;
 					//   data.sendNotification(ut);
-					try {
-						lu.rename(tempentry, newname);
-					} catch (NamingException e1) {
-						e1.printStackTrace();
-					}
+					lu.rename(tempentry, newname);
 
 					treenode.setUserObject(tempentry);//????????treenode
 
