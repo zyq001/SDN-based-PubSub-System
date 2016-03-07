@@ -145,6 +145,7 @@ public class PSManagerUI implements IAdminUI {
 	private JButton btnNewButton_1;
 	private JButton btnNewButton_2;
 	private JButton btnNewButton_3;
+	private JTable jFlowTab;
 
 	// private JList<? extends E> list;
 
@@ -2718,7 +2719,7 @@ public class PSManagerUI implements IAdminUI {
 
 //		ArrayList<Flow> flow = RestProcess.getFlowInfo();
 		ArrayList<Flow> flow = new ArrayList<Flow>();
-		JTable jFlowTab = new JTable(flow.size(), 4);
+		jFlowTab = new JTable(flow.size(), 4);
 		TableColumn firsetColumn = jFlowTab.getColumnModel().getColumn(0);
 		firsetColumn.setPreferredWidth(80);
 		firsetColumn.setMaxWidth(80);

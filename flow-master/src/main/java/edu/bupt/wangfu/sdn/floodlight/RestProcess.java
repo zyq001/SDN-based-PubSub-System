@@ -52,6 +52,7 @@ public class RestProcess {///wm/device/
 			info.setTotalMem(json.getString("total"));
 			info.setFreeMem(json.getString("free"));
 
+			System.out.println("info: "+ info);
 			return info;
 		} catch (Exception e) {
 			e.printStackTrace();
