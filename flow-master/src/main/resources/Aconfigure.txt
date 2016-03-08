@@ -1,13 +1,13 @@
 
 backupAdministrator:10.108.167.88
 
-localAddr:192.168.100.2
+localAddr:10.108.164.153
 
 ldapAddr:10.109.253.27
 
-floodLightIP:192.168.100.2
+floodLightIP:10.109.253.2
 
-sflowServerIP:192.168.100.2
+sflowServerIP:10.109.253.2
 
 uPort:2005
 

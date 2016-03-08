@@ -10,6 +10,7 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
+import org.apache.servicemix.wsn.router.admin.AdminMgr;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -23,7 +24,7 @@ import java.util.List;
 //import org.apache.http.client.HttpClient;
 
 public class RestProcess {///wm/device/
-	public static String REST_URL = "http://10.109.253.20:8080";//"http://10.108.164.211:8080/wm/core/controller/switches/json";//"http://10.108.164.211:8080/wm/core/switch/1/flow/json";
+	public static String REST_URL = "http://10.109.253.2:8080";//"http://10.108.164.211:8080/wm/core/controller/switches/json";//"http://10.108.164.211:8080/wm/core/switch/1/flow/json";
 	private static String API_KEY = "your api key";
 	private static String SECRET_KEY = "your secret key";
 	private static int index = 2;
@@ -48,9 +49,9 @@ public class RestProcess {///wm/device/
 			String body = doClientGet(url);
 			JSONObject json = new JSONObject(body);
 
-			info.setUrl(REST_URL.split("//")[1].split(":")[0]);
-			info.setTotalMem(json.getString("total"));
-			info.setFreeMem(json.getString("free"));
+			info.setUrl(url.split("//")[1].split(":")[0]);
+			info.setTotalMem(json.get("total").toString());
+			info.setFreeMem(json.get("free").toString());
 
 			System.out.println("info: "+ info);
 			return info;
@@ -63,7 +64,7 @@ public class RestProcess {///wm/device/
 	public static MemoryInfo getMemory() {
 		MemoryInfo info = new MemoryInfo();
 		try {
-			String url = REST_URL + "/wm/core/memory/json";
+			String url = "http://" + AdminMgr.globalControllerAddr + ":8080" + "/wm/core/memory/json";
 			String body = doClientGet(url);
 			JSONObject json = new JSONObject(body);
 
@@ -81,7 +82,7 @@ public class RestProcess {///wm/device/
 	public static ArrayList<DevInfo> getDevInfo() {
 		ArrayList<DevInfo> all = new ArrayList<DevInfo>();
 		try {
-			String url = REST_URL + "/wm/device/";
+			String url = "http://" + AdminMgr.globalControllerAddr + ":8080" + "/wm/device/";
 			String body = doClientGet(url);
 			JSONArray json = new JSONArray(body);
 			System.out.println(body);
@@ -107,7 +108,7 @@ public class RestProcess {///wm/device/
 
 	public static void downRuntimeTopology() {
 
-		String topoString = doClientGet(REST_URL + "/wm/topology/links/json");
+		String topoString = doClientGet("http://" + AdminMgr.globalControllerAddr + ":8080" + "/wm/topology/links/json");
 		JSONArray topoArray = null;
 		topoArray = new JSONArray(topoString);
 
@@ -125,7 +126,7 @@ public class RestProcess {///wm/device/
 	public static ArrayList<Flow> getFlowInfo() {
 		ArrayList<Flow> all = new ArrayList<Flow>();
 		try {
-			String devurl = REST_URL + "/wm/device/";
+			String devurl = "http://" + AdminMgr.globalControllerAddr + ":8080" + "/wm/device/";
 			String devbody = doClientGet(devurl);
 			JSONArray devjson = new JSONArray(devbody);
 			System.out.println(devjson);
@@ -142,7 +143,7 @@ public class RestProcess {///wm/device/
 //			dpidlist.setFlowCount("" + json.getInt("controller__OFPacketIn"));
 //			all.add(dpidlist);
 
-			String switchurl = REST_URL + "/wm/core/controller/switches/json";
+			String switchurl = "http://" + AdminMgr.globalControllerAddr + ":8080" + "/wm/core/controller/switches/json";
 			String switchbody = doClientGet(switchurl);
 			JSONArray switchjson = new JSONArray(switchbody);
 			System.out.println(switchjson);
@@ -268,7 +269,7 @@ public class RestProcess {///wm/device/
 
 	public static List<String> AddFlow(JSONObject flow) throws IOException {
 
-		String staticFlowUrl = REST_URL + "wm/staticflowentrypusher/json";
+		String staticFlowUrl = "http://" + AdminMgr.globalControllerAddr + ":8080" + "wm/staticflowentrypusher/json";
 
 		return doClientPost(staticFlowUrl, flow);
 	}
