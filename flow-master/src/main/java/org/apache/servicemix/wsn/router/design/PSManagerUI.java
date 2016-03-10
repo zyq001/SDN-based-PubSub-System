@@ -2173,6 +2173,7 @@ public class PSManagerUI implements IAdminUI {
 							groupControllerButton.setVerticalTextPosition(SwingConstants.BOTTOM);
 							groupControllerButton.setSelectedIcon(new ImageIcon("./res/Controller.png"));
 							groupControllerButton.setIcon(new ImageIcon("./res/Controller.png"));
+							groupMember.add(groupControllerButton);
 
 							Map<String, Switch> groupSwitchMap = groupController.getSwitchMap();
 							for(String switchName: groupSwitchMap.keySet()){
@@ -2184,6 +2185,7 @@ public class PSManagerUI implements IAdminUI {
 								groupSwitchButton.setVerticalTextPosition(SwingConstants.BOTTOM);
 								groupSwitchButton.setSelectedIcon(new ImageIcon("./res/switch.png"));
 								groupSwitchButton.setIcon(new ImageIcon("./res/switch.png"));
+								groupMember.add(groupSwitchButton);
 							}
 
 
