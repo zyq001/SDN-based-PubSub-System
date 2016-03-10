@@ -16,7 +16,7 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class GlobleUtil {
 	public static List<Flow> initFlows = new ArrayList<>();
-	public static String REST_URL = "http://10.109.253.2:8080";//nll
+	public static String REST_URL = "http://192.168.10.2:8080";//nll
 	public static Map<Integer, String> switchMap = new HashMap<>();//用于保存邻接矩阵的下标与交换机的对应关系
 	public static int[][] weight = new int[200][200];//用于保存每次更新时当前交换机之间的连接关系
 	public static int[][] weight_first = new int[20][20];//用于保存本次更新时上一次存储的交换机之间的连接关系
@@ -296,7 +296,7 @@ public class GlobleUtil {
 //
 //	}
 	public static void main(String args[]) {
-		Controller controller = new Controller("http://10.109.253.2:8080");
+		Controller controller = new Controller("http://192.168.10.2:8080");
 		getAllSwitch(controller);
 		for (Map.Entry<String, Switch> entry : controller.getSwitchMap().entrySet()) {
 			System.out.println("*" + entry.getValue().getDPID());
