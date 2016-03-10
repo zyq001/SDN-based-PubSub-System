@@ -7,15 +7,19 @@ import org.Mina.shorenMinaTest.msg.tcp.MsgNotis;
 import org.Mina.shorenMinaTest.msg.tcp.highPriority;
 import org.Mina.shorenMinaTest.msg.tcp.lowPriority;
 import org.Mina.shorenMinaTest.queues.ForwardMsg;
+import org.Mina.shorenMinaTest.queues.MsgQueueMgr;
 import org.Mina.shorenMinaTest.queues.UDPForwardMsg;
 import org.Mina.shorenMinaTest.router.MsgSubsForm;
 import org.Mina.shorenMinaTest.router.generateNode;
 import org.apache.log4j.PropertyConfigurator;
 import org.apache.mina.core.future.ConnectFuture;
 import org.apache.mina.transport.socket.nio.NioDatagramConnector;
+import org.apache.servicemix.application.WsnProcessImpl;
 import org.apache.servicemix.wsn.CrossGroupMsgForwardQueue;
 import org.apache.servicemix.wsn.router.router.Router;
 
+import javax.xml.bind.JAXBException;
+import javax.xml.ws.Endpoint;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
@@ -51,61 +55,61 @@ public class Start {
 ////		msg.originatorAddr = localAddr;
 //		msg.sendDate = new Date().toString();
 //
-		NioDatagramConnector connector = MinaUtil.createDatagramConnector();
-		ConnectFuture cf = null;
-		try {
-//			cf = connector.connect(new InetSocketAddress(Inet6Address.getByName("FF01:0000:0000:0000:0001:2345:6789:abcd"), 7777));
-			cf = connector.connect(new InetSocketAddress(Inet4Address.getByName("10.109.253.2"), 7777));
-		} catch (UnknownHostException e) {
-			e.printStackTrace();
-		}
-//		CrossGroupMsgForwardQueue.grtInstance().start();
-
-		cf.awaitUninterruptibly();
-
-		int counter = 100000;
-		while (counter-- > 1) {
-			System.out.println("counter: " + counter);
-//            send();
-//			generateMsgNoticeMsg(msg);
-
-//			cf.awaitUninterruptibly();
-
-//			IoBuffer buffer = IoBuffer.allocate(64);
-//
-//			buffer.put("ttttttttttttttttt".getBytes());
-//
-//			buffer.flip();
-			cf.getSession().write("tttttttttttttttttttttttttttttttttttttttttttttt");
-
-
-			try {
-				Thread.sleep(100);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-		}
-		cf.getSession().write("tttt!");
-
-		cf.getSession().getCloseFuture().awaitUninterruptibly();
-		connector.dispose();
-
-//		WsnProcessImpl wsnprocess = new WsnProcessImpl();
+//		NioDatagramConnector connector = MinaUtil.createDatagramConnector();
+//		ConnectFuture cf = null;
 //		try {
-//			wsnprocess.init();
-//		} catch (JAXBException e) {
-//			// TODO Auto-generated catch block
+////			cf = connector.connect(new InetSocketAddress(Inet6Address.getByName("FF01:0000:0000:0000:0001:2345:6789:abcd"), 7777));
+//			cf = connector.connect(new InetSocketAddress(Inet4Address.getByName("10.109.253.2"), 7777));
+//		} catch (UnknownHostException e) {
 //			e.printStackTrace();
 //		}
-//		Endpoint.publish(args[0], wsnprocess);
+////		CrossGroupMsgForwardQueue.grtInstance().start();
 //
-//		System.out.println("bef start");
-//		new Thread(CrossGroupMsgForwardQueue.grtInstance()).start();
-//		System.out.println("aft start");
+//		cf.awaitUninterruptibly();
 //
-//		RtMgr.getInstance();
-//		initNode();
-//		MsgQueueMgr.getInstance();
+//		int counter = 100000;
+//		while (counter-- > 1) {
+//			System.out.println("counter: " + counter);
+////            send();
+////			generateMsgNoticeMsg(msg);
+//
+////			cf.awaitUninterruptibly();
+//
+////			IoBuffer buffer = IoBuffer.allocate(64);
+////
+////			buffer.put("ttttttttttttttttt".getBytes());
+////
+////			buffer.flip();
+//			cf.getSession().write("tttttttttttttttttttttttttttttttttttttttttttttt");
+//
+//
+//			try {
+//				Thread.sleep(100);
+//			} catch (InterruptedException e) {
+//				e.printStackTrace();
+//			}
+//		}
+//		cf.getSession().write("tttt!");
+//
+//		cf.getSession().getCloseFuture().awaitUninterruptibly();
+//		connector.dispose();
+
+		WsnProcessImpl wsnprocess = new WsnProcessImpl();
+		try {
+			wsnprocess.init();
+		} catch (JAXBException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Endpoint.publish(args[0], wsnprocess);
+
+		System.out.println("bef start");
+		new Thread(CrossGroupMsgForwardQueue.grtInstance()).start();
+		System.out.println("aft start");
+
+		RtMgr.getInstance();
+		initNode();
+		MsgQueueMgr.getInstance();
 
 
 	}
