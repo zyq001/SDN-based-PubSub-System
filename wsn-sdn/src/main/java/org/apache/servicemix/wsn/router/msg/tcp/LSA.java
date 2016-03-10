@@ -22,7 +22,7 @@ public class LSA implements Serializable {
 	public ArrayList<String> lostGroup; // 丢失集群，若无丢失则为空
 	public ArrayList<String> subsTopics; // 发送源的订阅
 	public ArrayList<String> cancelTopics; //发送源取消的订阅
-	public ConcurrentHashMap<GroupUnit, List<String>> distBtnNebrs; // 集群及其邻居
+	public ConcurrentHashMap<String, DistBtnNebr> distBtnNebrs; // 集群及其邻居
 	public long sendTime; //发送时间
 
 	public LSA() {

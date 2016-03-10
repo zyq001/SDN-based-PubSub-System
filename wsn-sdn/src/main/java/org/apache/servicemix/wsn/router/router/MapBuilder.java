@@ -5,14 +5,7 @@ import org.apache.servicemix.wsn.router.msg.tcp.LSA;
 import java.util.*;
 
 public class MapBuilder {
-	/**
-	 * ��ʼ��
-	 *
-	 * @param piΪȫ������
-	 * @param openΪΪ�����Ľڵ�
-	 * @param closeΪ�Ѿ������Ľڵ㣬�趨open�����ĵ�һ�����ȷ���close��
-	 * @return��ʼ�ڵ㣬��close�е�Ԫ��
-	 */
+
 	public Node build(Collection<LSA> lsdb, ArrayList<String> goal, TreeMap<String, Node> open, Map<String, Node> close, ArrayList<String> free, ArrayList<String> reach) {
 		if (lsdb.isEmpty() || goal.isEmpty())
 			return null;

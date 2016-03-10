@@ -2,14 +2,13 @@ package org.apache.servicemix.wsn.router.design;
 
 import com.bupt.wangfu.ldap.TopicEntry;
 import edu.bupt.wangfu.sdn.floodlight.RestProcess;
-import edu.bupt.wangfu.sdn.info.DevInfo;
-import edu.bupt.wangfu.sdn.info.Flow;
-import edu.bupt.wangfu.sdn.info.MemoryInfo;
+import edu.bupt.wangfu.sdn.info.*;
 import org.apache.servicemix.wsn.router.admin.AdminMgr;
 import org.apache.servicemix.wsn.router.mgr.BrokerUnit;
 import org.apache.servicemix.wsn.router.msg.tcp.GroupUnit;
 import org.apache.servicemix.wsn.router.msg.tcp.MsgConf_;
 import org.apache.servicemix.wsn.router.msg.tcp.MsgLookupGroupMember_;
+import org.apache.servicemix.wsn.router.router.GlobleUtil;
 import org.apache.servicemix.wsn.router.topictree.TopicTreeManager;
 import org.apache.servicemix.wsn.router.wsnPolicy.ShorenUtils;
 import org.apache.servicemix.wsn.router.wsnPolicy.msgs.TargetGroup;
@@ -2162,6 +2161,32 @@ public class PSManagerUI implements IAdminUI {
 						} else {
 
 							groupMember.removeAll();
+
+							//添加交换机和控制器
+							String groupControllerAddr = GlobleUtil.getInstance().group2controller.get(groupName);
+							Controller groupController = GlobleUtil.getInstance().controllers.get(groupControllerAddr);
+							final JButton groupControllerButton = new JButton("Controller:" + groupControllerAddr);
+							groupControllerButton.setToolTipText("Group " + groupName + "'s Controller:" + groupControllerAddr);
+							groupControllerButton.setPreferredSize(new Dimension(122, 80));
+							groupControllerButton.setSize(new Dimension(122, 80));
+							groupControllerButton.setHorizontalTextPosition(SwingConstants.CENTER);
+							groupControllerButton.setVerticalTextPosition(SwingConstants.BOTTOM);
+							groupControllerButton.setSelectedIcon(new ImageIcon("./res/Controller.png"));
+							groupControllerButton.setIcon(new ImageIcon("./res/Controller.png"));
+
+							Map<String, Switch> groupSwitchMap = groupController.getSwitchMap();
+							for(String switchName: groupSwitchMap.keySet()){
+								final JButton groupSwitchButton = new JButton("Switch:" + switchName);
+								groupSwitchButton.setToolTipText("Group " + groupName + "'s Switch:" + switchName);
+								groupSwitchButton.setPreferredSize(new Dimension(122, 80));
+								groupSwitchButton.setSize(new Dimension(122, 80));
+								groupSwitchButton.setHorizontalTextPosition(SwingConstants.CENTER);
+								groupSwitchButton.setVerticalTextPosition(SwingConstants.BOTTOM);
+								groupSwitchButton.setSelectedIcon(new ImageIcon("./res/switch.png"));
+								groupSwitchButton.setIcon(new ImageIcon("./res/switch.png"));
+							}
+
+
 							for (BrokerUnit temMem : groupMem.members) {
 								String memName = temMem.addr;
 								final JButton buttonName1 = new JButton(memName);

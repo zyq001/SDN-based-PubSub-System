@@ -27,6 +27,8 @@ public class Controller {
 
 	public Controller(String controllerAddr) {
 		this.url = controllerAddr;
+		if(!controllerAddr.startsWith("http://"))
+			this.url = "http://" + controllerAddr;
 	}
 
 	public Switch getRepSwitch() {

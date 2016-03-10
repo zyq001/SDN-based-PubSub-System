@@ -113,7 +113,7 @@ public class AdMsgService extends AdminBase implements Runnable {
 
 				String controllerAddr = mng.controllerAddr;
 				if (!GlobleUtil.getInstance().controllers.containsKey(controllerAddr)) {
-
+					GlobleUtil.getInstance().group2controller.put(mng.name, mng.controllerAddr);
 					GlobleUtil.getInstance().addController(controllerAddr);
 				}
 				oos.writeObject(mng_);

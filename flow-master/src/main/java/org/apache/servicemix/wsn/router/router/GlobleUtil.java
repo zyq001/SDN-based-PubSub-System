@@ -5,6 +5,7 @@ import edu.bupt.wangfu.sdn.info.*;
 import edu.bupt.wangfu.sdn.queue.QueueManagerment;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.GetMethod;
+import org.apache.servicemix.wsn.router.admin.AdminMgr;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -16,7 +17,7 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class GlobleUtil {
 	public static List<Flow> initFlows = new ArrayList<>();
-	public static String REST_URL = "http://192.168.10.2:8080";//nll
+//	public static String REST_URL = "http://10.109.253.2:8080";//nll
 	public static Map<Integer, String> switchMap = new HashMap<>();//用于保存邻接矩阵的下标与交换机的对应关系
 	public static int[][] weight = new int[200][200];//用于保存每次更新时当前交换机之间的连接关系
 	public static int[][] weight_first = new int[20][20];//用于保存本次更新时上一次存储的交换机之间的连接关系
@@ -26,9 +27,15 @@ public class GlobleUtil {
 	private static Timer timer = new Timer();
 	private static Map<Integer, DevInfo> wsnDevMap = new ConcurrentHashMap<>();//交换机所连接的所设备
 	public Map<String, Controller> controllers = new ConcurrentHashMap<>();
+	public Map<String, String> group2controller = new ConcurrentHashMap<String, String>();
+	public Controller centerController;
 
-	public GlobleUtil() {
+	private GlobleUtil() {
+		group2controller.put("G2", "10.109.253.2");
+		group2controller.put("G3", "10.109.253.3");
+		group2controller.put("G4", "10.109.253.4");
 		//init static initFlows{queueFlow, topics}
+		centerController = new Controller(AdminMgr.globalControllerAddr);
 		Flow flow = new Flow("queue");
 		initFlows.add(flow);
 		// start timer to recaclateRoute
@@ -296,7 +303,7 @@ public class GlobleUtil {
 //
 //	}
 	public static void main(String args[]) {
-		Controller controller = new Controller("http://192.168.10.2:8080");
+		Controller controller = new Controller("http://10.109.253.2:8080");
 		getAllSwitch(controller);
 		for (Map.Entry<String, Switch> entry : controller.getSwitchMap().entrySet()) {
 			System.out.println("*" + entry.getValue().getDPID());
