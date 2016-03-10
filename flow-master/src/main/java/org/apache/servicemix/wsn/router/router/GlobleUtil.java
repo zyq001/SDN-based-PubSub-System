@@ -36,6 +36,7 @@ public class GlobleUtil {
 		group2controller.put("G4", "10.109.253.4");
 		//init static initFlows{queueFlow, topics}
 		centerController = new Controller(AdminMgr.globalControllerAddr);
+		controllers.put(AdminMgr.globalControllerAddr, centerController);
 		Flow flow = new Flow("queue");
 		initFlows.add(flow);
 		// start timer to recaclateRoute
@@ -411,7 +412,8 @@ public class GlobleUtil {
 	public static boolean downFlow(Controller controller, Flow flow) {
 		boolean success = false;
 		String staticFlowPushUri = controller.url + "/wm/staticflowpusher/json";
-		return RestProcess.doClientPost(staticFlowPushUri, flow.getContent()).get(0).equals("200");
+		List<String> result = RestProcess.doClientPost(staticFlowPushUri, flow.getContent());
+		return result.size() < 1? true: result.get(0).equals("200");
 
 	}
 

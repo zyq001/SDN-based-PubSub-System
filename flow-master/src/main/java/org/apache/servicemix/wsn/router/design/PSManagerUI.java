@@ -2742,8 +2742,8 @@ public class PSManagerUI implements IAdminUI {
 
 		flowConf.setLayout(new GridLayout(1, 0, 5, 0));
 
-//		ArrayList<Flow> flow = RestProcess.getFlowInfo();
-		ArrayList<Flow> flow = new ArrayList<Flow>();
+		ArrayList<Flow> flow = RestProcess.getFlowInfo();
+//		ArrayList<Flow> flow = new ArrayList<Flow>();
 		jFlowTab = new JTable(flow.size(), 4);
 		TableColumn firsetColumn = jFlowTab.getColumnModel().getColumn(0);
 		firsetColumn.setPreferredWidth(80);

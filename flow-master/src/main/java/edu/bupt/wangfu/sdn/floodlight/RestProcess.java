@@ -149,7 +149,7 @@ public class RestProcess {///wm/device/
 			System.out.println(switchjson);
 
 			for (int i = 0; i < switchjson.length(); i++) {//test
-				String dpid = switchjson.getJSONObject(i).getString("dpid");
+				String dpid = switchjson.getJSONObject(i).getString("switchDPID");
 
 				Flow list = new Flow(dpid);
 				list.setDpid(dpid);
@@ -186,7 +186,7 @@ public class RestProcess {///wm/device/
 
 	public static List<String> doClientPost(String url, JSONObject jo) {
 		List<String> result = new ArrayList<String>();
-
+		if(jo == null) return result;
 		HttpPost method = new HttpPost(url);
 		StringEntity entity = new StringEntity(jo.toString(), "utf-8");
 		method.setHeader("Content-Type", "application/json; charset=UTF-8");

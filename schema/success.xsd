@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?><schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.example.org/xsd/" targetNamespace="http://www.example.org/xsd/">
+  <topic name="all:Test:scxtoday" type="tns:ComplexType"/>
+
+  <values name="scxtoday">
+    <scx type="String"/>
+    <name type="String"/>   
+   <age type="int"/>
+    <score type="int"/>   
+</values>
+ </schema>
