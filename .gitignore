@@ -1,6 +1,7 @@
-/wsn-sdn/target
-/wsn-sdn/.settings
-/wsn-sdn/bin
+wsn-sdn/target
+wsn-sdn/.settings
+wsn-sdn/bin
+wsn-sdn/logs/*
 /MessageProcess/target
 /flow-master/.settings
 /flow-master/.idea

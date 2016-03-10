@@ -1,5 +1,5 @@
 
-administrator's address1: 10.109.253.2
+administrator's address1: 10.108.164.153
 
 
 administrator's address2: 10.109.254.131
@@ -18,10 +18,10 @@ poolCount: 5
 connectCount: 5
 
 
-local group name: G9
+local group name: G2
 
 
-local address: 10.108.167.134
+local address: 10.109.253.2
 
 local netmask: 255.255.252.0
 
