@@ -82,7 +82,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <mainClass>org.Mina.shorenMinaTest.handlers.Start.Main</mainClass>
+                    <mainClass>org.Mina.shorenMinaTest.handlers.Start</mainClass>
                 </configuration>
             </plugin>
             <plugin>
