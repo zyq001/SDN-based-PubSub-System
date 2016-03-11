@@ -12,7 +12,7 @@ public class Configure {
 
 	public static int sleepingTime = 50; // the unit is millisecond
 
-	public static String sflowServer;
+	public static String sflowServer = "10.109.253.2";
 
 	public static String floodlightIP;
 

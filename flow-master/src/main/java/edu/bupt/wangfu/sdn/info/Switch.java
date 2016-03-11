@@ -17,9 +17,29 @@ public class Switch extends DevInfo {
 
 	private double load;//参数无法通过flootlight获取
 	//    private Map<Integer, Integer> portList;
-	private Long lastSeen;
+	private Long connectedSince;
 
 	private List<Flow> flows;
+
+	private String port;
+
+	public Long getConnectedSince() {
+		return connectedSince;
+	}
+
+	public void setConnectedSince(Long connectedSince) {
+		this.connectedSince = connectedSince;
+	}
+
+	@Override
+	public String getPort() {
+		return port;
+	}
+
+	@Override
+	public void setPort(String port) {
+		this.port = port;
+	}
 
 	//key是端口号，value是设备
 	private Map<Integer, DevInfo> wsnDevMap = new ConcurrentHashMap<Integer, DevInfo>();

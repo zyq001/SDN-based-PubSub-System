@@ -26,6 +26,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.sql.Time;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
@@ -2651,35 +2653,35 @@ public class PSManagerUI implements IAdminUI {
 		devConf.addMouseListener(new MouseListener() {
 
 
-			//			@Override
+						@Override
 			public void mouseClicked(MouseEvent arg0) {
 				// TODO Auto-generated method stub
 				System.out.println("devConf Mouse Clicked fffffffffffff");
 				refreshInfo();
 			}
 
-			//			@Override
+						@Override
 			public void mouseEntered(MouseEvent arg0) {
 				// TODO Auto-generated method stub
 				System.out.println("devConf Mouse mouseEntered fffffffffffff");
 
 			}
 
-			//			@Override
+						@Override
 			public void mouseExited(MouseEvent arg0) {
 				// TODO Auto-generated method stub
 				System.out.println("devConf Mouse mouseExited fffffffffffff");
 
 			}
 
-			//			@Override
+						@Override
 			public void mousePressed(MouseEvent arg0) {
 				// TODO Auto-generated method stub
 				System.out.println("devConf Mouse mousePressed fffffffffffff");
 
 			}
 
-			//			@Override
+						@Override
 			public void mouseReleased(MouseEvent arg0) {
 				// TODO Auto-generated method stub
 
@@ -2687,14 +2689,18 @@ public class PSManagerUI implements IAdminUI {
 		});
 		String url = "http://" + interactIF.globalControllerAddr + ":8080";
 		MemoryInfo memInfo = RestProcess.getMemory(url);
-		ArrayList<DevInfo> devInfo = RestProcess.getDevInfo();
+		ArrayList<Flow> flow = RestProcess.getFlowInfo();
+//		ArrayList<DevInfo> devInfo = RestProcess.getDevInfo();
+		Map<String, Switch> devInfo = GlobleUtil.getInstance().centerController.getSwitchMap();
+
+
 		JTable jDevTab = new JTable(devInfo.size() + 2, 6);
 		devConf.add(jDevTab);
 		jDevTab.setValueAt("控制器：", 0, 0);
 		jDevTab.setValueAt(memInfo.getUrl(), 0, 1);
-		jDevTab.setValueAt("总内存：", 0, 2);
+		jDevTab.setValueAt("总内存（B）：", 0, 2);
 		jDevTab.setValueAt(memInfo.getTotalMem(), 0, 3);
-		jDevTab.setValueAt("空闲内存：", 0, 4);
+		jDevTab.setValueAt("空闲内存（B）：", 0, 4);
 		jDevTab.setValueAt(memInfo.getFreeMem(), 0, 5);
 
 		jDevTab.setValueAt("交换机IP", 1, 0);
@@ -2705,7 +2711,7 @@ public class PSManagerUI implements IAdminUI {
 
 		jDevTab.setValueAt("错误状态", 1, 3);
 
-		jDevTab.setValueAt("最后通信时间", 1, 4);
+		jDevTab.setValueAt("接入时间", 1, 4);
 
 		jDevTab.setValueAt("备注", 1, 5);
 
@@ -2731,20 +2737,32 @@ public class PSManagerUI implements IAdminUI {
 			ex.printStackTrace();
 		}
 
-		for (int i = 0; i < devInfo.size(); i++) {
-			jDevTab.setValueAt(devInfo.get(i).getUrl(), i + 2, 0);
-			jDevTab.setValueAt(devInfo.get(i).getMac(), i + 2, 1);
-			jDevTab.setValueAt(devInfo.get(i).getPort(), i + 2, 2);
-			jDevTab.setValueAt(devInfo.get(i).getErrorStatus(), i + 2, 3);
-			jDevTab.setValueAt(devInfo.get(i).getLastSeen(), i + 2, 4);
-			jDevTab.setValueAt(devInfo.get(i).getRemark(), i + 2, 5);
+		int ni = 0;
+		for(String dpid: devInfo.keySet()){
+			jDevTab.setValueAt(devInfo.get(dpid).getIpAddr(), ni + 2, 0);
+			jDevTab.setValueAt(devInfo.get(dpid).getMac(), ni + 2, 1);
+			jDevTab.setValueAt(devInfo.get(dpid).getPort(), ni + 2, 2);
+			jDevTab.setValueAt(devInfo.get(dpid).getErrorStatus(), ni + 2, 3);
+//			jDevTab.setValueAt(new Date(devInfo.get(dpid).getLastSeen()).toString(), ni + 2, 4);
+
+			jDevTab.setValueAt(new SimpleDateFormat("HH:mm:ss dd/MM/yy").format(new Date(devInfo.get(dpid).getConnectedSince())), ni + 2, 4);
+			jDevTab.setValueAt(devInfo.get(dpid).getRemark(), ni + 2, 5);
+			ni++;
 		}
+//		for (int i = 0; i < devInfo.size(); i++) {
+//			jDevTab.setValueAt(devInfo.get(i).getUrl(), i + 2, 0);
+//			jDevTab.setValueAt(devInfo.get(i).getMac(), i + 2, 1);
+//			jDevTab.setValueAt(devInfo.get(i).getPort(), i + 2, 2);
+//			jDevTab.setValueAt(devInfo.get(i).getErrorStatus(), i + 2, 3);
+//			jDevTab.setValueAt(new Date(devInfo.get(i).getLastSeen()).toString(), i + 2, 4);
+//			jDevTab.setValueAt(devInfo.get(i).getRemark(), i + 2, 5);
+//		}
 
 		flowConf = new JPanel();
 
 		flowConf.setLayout(new GridLayout(1, 0, 5, 0));
 
-		ArrayList<Flow> flow = RestProcess.getFlowInfo();
+//		ArrayList<Flow> flow = RestProcess.getFlowInfo();
 //		ArrayList<Flow> flow = new ArrayList<Flow>();
 		jFlowTab = new JTable(flow.size(), 4);
 		TableColumn firsetColumn = jFlowTab.getColumnModel().getColumn(0);
@@ -2758,9 +2776,9 @@ public class PSManagerUI implements IAdminUI {
 
 		flowConf.add(jFlowTab);
 //		jFlowTab.setValueAt("控制器：", 0, 0);
-		jFlowTab.setValueAt(flow.get(0).getDpid(), 0, 1);
-		jFlowTab.setValueAt("总流量：", 0, 2);
-		jFlowTab.setValueAt(flow.get(0).getFlowCount(), 0, 3);
+//		jFlowTab.setValueAt(flow.get(0).getDpid(), 0, 1);
+//		jFlowTab.setValueAt("总流量：", 0, 2);
+//		jFlowTab.setValueAt(flow.get(0).getFlowCount(), 0, 3);
 
 		try {
 			DefaultTableCellRenderer tcr = new DefaultTableCellRenderer() {
@@ -2784,13 +2802,89 @@ public class PSManagerUI implements IAdminUI {
 			ex.printStackTrace();
 		}
 
-		for (int i = 1; i < flow.size(); i++) {
+//		jFlowTab.lis
+		for (int i = 0; i < flow.size(); i++) {
 			jFlowTab.setValueAt("交换机：", i, 0);
 			jFlowTab.setValueAt(flow.get(i).getDpid(), i, 1);
-			jFlowTab.setValueAt("流量：", i, 2);
+			jFlowTab.setValueAt("流量（B）：", i, 2);
 			jFlowTab.setValueAt(flow.get(i).getFlowCount(), i, 3);
 		}
 
+//		flowConf.addMouseListener(new MouseListener() {
+//
+//
+//						@Override
+//			public void mouseClicked(MouseEvent arg0) {
+//				// TODO Auto-generated method stub
+//				System.out.println("devConf Mouse Clicked fffffffffffff");
+//				refreshInfo();
+//			}
+//
+//						@Override
+//			public void mouseEntered(MouseEvent arg0) {
+//				// TODO Auto-generated method stub
+//				System.out.println("devConf Mouse mouseEntered fffffffffffff");
+//
+//			}
+//
+//						@Override
+//			public void mouseExited(MouseEvent arg0) {
+//				// TODO Auto-generated method stub
+//				System.out.println("devConf Mouse mouseExited fffffffffffff");
+//
+//			}
+//
+//						@Override
+//			public void mousePressed(MouseEvent arg0) {
+//				// TODO Auto-generated method stub
+//				System.out.println("devConf Mouse mousePressed fffffffffffff");
+//
+//			}
+//
+//						@Override
+//			public void mouseReleased(MouseEvent arg0) {
+//				// TODO Auto-generated method stub
+//
+//			}
+//		});
+
+//		jFlowTab.addMouseListener(new MouseListener() {
+//
+//
+//						@Override
+//			public void mouseClicked(MouseEvent arg0) {
+//				// TODO Auto-generated method stub
+//				System.out.println("devConf Mouse Clicked fffffffffffff");
+//				refreshInfo();
+//			}
+//
+//						@Override
+//			public void mouseEntered(MouseEvent arg0) {
+//				// TODO Auto-generated method stub
+//				System.out.println("devConf Mouse mouseEntered fffffffffffff");
+//
+//			}
+//
+//						@Override
+//			public void mouseExited(MouseEvent arg0) {
+//				// TODO Auto-generated method stub
+//				System.out.println("devConf Mouse mouseExited fffffffffffff");
+//
+//			}
+//
+//						@Override
+//			public void mousePressed(MouseEvent arg0) {
+//				// TODO Auto-generated method stub
+//				System.out.println("devConf Mouse mousePressed fffffffffffff");
+//
+//			}
+//
+//						@Override
+//			public void mouseReleased(MouseEvent arg0) {
+//				// TODO Auto-generated method stub
+//
+//			}
+//		});
 
 	}
 }

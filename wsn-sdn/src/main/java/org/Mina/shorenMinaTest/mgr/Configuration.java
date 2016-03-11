@@ -146,7 +146,7 @@ public class Configuration extends AConfiguration {
 //					tPort = Integer.valueOf(props.getProperty ("localPort"));
 //				
 //					groupController = props.getProperty ("groupController");
-//					
+//
 //					globalController = props.getProperty ("globalController");
 
 //		String adminAddr1 = "";//������õ����ӹ���Ա��ַ

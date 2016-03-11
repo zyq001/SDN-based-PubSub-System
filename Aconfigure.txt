@@ -5,7 +5,7 @@ localAddr:10.108.164.153
 
 ldapAddr:10.109.253.27
 
-floodLightIP:10.109.253.2
+floodLightIP:10.108.164.153
 
 sflowServerIP:10.109.253.2
 

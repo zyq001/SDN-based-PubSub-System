@@ -36,6 +36,8 @@ public class GlobleUtil {
 		group2controller.put("G4", "10.109.253.4");
 		//init static initFlows{queueFlow, topics}
 		centerController = new Controller(AdminMgr.globalControllerAddr);
+//		centerController.setSwitchMap(getAllSwitch(centerController));
+		centerController.setSwitchMap(getRealtimeSwitchs2(centerController));
 		controllers.put(AdminMgr.globalControllerAddr, centerController);
 		Flow flow = new Flow("queue");
 		initFlows.add(flow);
@@ -46,7 +48,7 @@ public class GlobleUtil {
 
 	public static Map<String, Switch> getAllSwitch(Controller controller) {//获取当前controller下所有交换机的dpid
 		Map<String, Switch> switches = new HashMap<>();
-		String url = controller.getUrl() + "/wm/core/controller/switches/json";
+		String url = controller.getUrl() + ":8080/wm/core/controller/switches/json";
 		String body = doClientGet(url);
 		JSONArray json = new JSONArray(body);
 		for (int i = 0; i < json.length(); i++) {
@@ -107,25 +109,35 @@ public class GlobleUtil {
 
 	public static Map<String, Switch> getRealtimeSwitchs2(Controller controller) {//获取网络的拓扑结构
 
-		Map<String, Switch> switches = new HashMap<>();
-		try {
-			String url = controller.getUrl() + "/wm/core/controller/switches/json";
+		Map<String, Switch> switches = new HashMap<String, Switch>();
+//		try {
+			String url = controller.getUrl() + ":8080/wm/core/controller/switches/json";
 			String body = doClientGet(url);
 			JSONArray json = new JSONArray(body);
 //			System.out.println(body);
 //			System.out.println(json.length());
 			for (int i = 0; i < json.length(); i++) {//获取交换机对象
 				Switch swc = new Switch();
-				String DPID = json.getJSONObject(i).getString("switchDPID");
+				JSONObject jbo = json.getJSONObject(i);
+				String DPID = jbo.getString("switchDPID");
+				String[] ipAport = jbo.getString("inetAddress").substring(1).split(":");
+				swc.setIpAddr(ipAport[0]);
+				swc.setPort(ipAport[1]);
+				swc.setConnectedSince(Long.valueOf(jbo.getLong("connectedSince")));
 				swc.setDPID(DPID);
 				String mac = null;
 				Map<Integer, DevInfo> wsnDevMap = new ConcurrentHashMap<>();//交换机所连接的所有设备
-				String url_af = controller.getUrl() + "/wm/core/switch/all/features/json";
+				String url_af = controller.getUrl() + ":8080/wm/core/switch/all/features/json";
 				String body_af = doClientGet(url_af);
 				JSONObject json_af = new JSONObject(body_af);
 				System.out.println("***" + body_af);
 				JSONObject json_each = json_af.getJSONObject(DPID);//根据当前的DPID获取到这个交换机的相关信息
-				JSONArray json_port = json_each.getJSONArray("portDesc");
+				JSONArray json_port;
+				try {
+					json_port = json_each.getJSONArray("portDesc");
+				}catch (Exception e){
+					continue;
+				}
 				for (int j = 0; j < json_port.length(); j++) {
 					if (json_port.getJSONObject(j).getString("portNumber").equals("local")) {
 						mac = json_port.getJSONObject(j).getString("hardwareAddress");
@@ -164,13 +176,13 @@ public class GlobleUtil {
 			for (Map.Entry<String, Switch> entry : switches.entrySet()) {
 				System.out.println("the switch is : " + entry.getValue().getDPID());
 			}
-			return switches;
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		for (Map.Entry<String, Switch> entry : switches.entrySet()) {
-			System.out.println("the switch is : " + entry.getValue().getDPID());
-		}
+//			return switches;
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//		for (Map.Entry<String, Switch> entry : switches.entrySet()) {
+////			System.out.println("the switch is : " + entry.getValue().getDPID());
+//		}
 		return switches;
 	}
 

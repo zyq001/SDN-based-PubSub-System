@@ -11,6 +11,7 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.servicemix.wsn.router.admin.AdminMgr;
+import org.apache.servicemix.wsn.router.router.GlobleUtil;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -53,7 +54,7 @@ public class RestProcess {///wm/device/
 			info.setTotalMem(json.get("total").toString());
 			info.setFreeMem(json.get("free").toString());
 
-			System.out.println("info: "+ info);
+			System.out.println("info: " + info);
 			return info;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -126,14 +127,14 @@ public class RestProcess {///wm/device/
 	public static ArrayList<Flow> getFlowInfo() {
 		ArrayList<Flow> all = new ArrayList<Flow>();
 		try {
-			String devurl = "http://" + AdminMgr.globalControllerAddr + ":8080" + "/wm/device/";
+			String devurl = "http://" + AdminMgr.globalControllerAddr + ":8080" + "/wm/core/counter/OFSwitchManager/all/json";
 			String devbody = doClientGet(devurl);
-			JSONArray devjson = new JSONArray(devbody);
-			System.out.println(devjson);
-
-			String DPID = devjson.getJSONObject(0).getJSONArray("attachmentPoint")
-					.length() > 0 ? devjson.getJSONObject(0).getJSONArray("attachmentPoint")
-					.getJSONObject(0).getString("switchDPID") : "";
+			JSONObject devjson = new JSONObject(devbody);
+//			System.out.println(devjson);
+//
+//			String DPID = devjson.getJSONObject(0).getJSONArray("attachmentPoint")
+//					.length() > 0 ? devjson.getJSONObject(0).getJSONArray("attachmentPoint")
+//					.getJSONObject(0).getString("switchDPID") : "";
 //			String url = REST_URL + "/wm/core/counter/all/json";
 //			String body = doClientGet(url);
 //			JSONObject json = new JSONObject(body);
@@ -150,7 +151,13 @@ public class RestProcess {///wm/device/
 
 			for (int i = 0; i < switchjson.length(); i++) {//test
 				String dpid = switchjson.getJSONObject(i).getString("switchDPID");
-
+				try {
+					String errorStatus = "" + devjson.getInt(dpid + ":0x0/read/ERROR");
+					GlobleUtil.getInstance().centerController.getSwitchMap().get(dpid).setErrorStatus(errorStatus);
+				}catch (Exception e){
+//					e.printStackTrace();
+					System.out.println("获取错误状态出错，可能交换机id不存在");
+				}
 				Flow list = new Flow(dpid);
 				list.setDpid(dpid);
 //				list.setDpid(DPID+"__"+(devjson.getJSONObject(i)
@@ -160,6 +167,13 @@ public class RestProcess {///wm/device/
 ////						+"__"+(devjson.getJSONObject(i).getJSONArray("attachmentPoint").length() > 0 ? devjson.getJSONObject(i)
 ////								.getJSONArray("attachmentPoint").getJSONObject(0).getInt("port") : "")
 //						+ "__OFPacketIn"));
+				String count = "";
+				try {
+					count = "" + devjson.getInt(dpid + ":0x0/write/PACKET_OUT");
+				}catch (Exception e){
+
+				}
+				list.setFlowCount(count);
 				all.add(list);
 			}
 			return all;

@@ -14,12 +14,16 @@ public class SflowAPI {
 		double speed = 0;
 		String url = "http://" + Configure.sflowServer + ":8008/metric/" + agent + "/" + port
 				+ "." +metric + "/json";
-		String result = RestProcess.doClientGet(url);
-		try {
-			speed = Double.valueOf(new JSONObject(result).get("metricValue").toString());
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
+
+		//端口对应 sflow端口与真实端口对应
+
+
+//		String result = RestProcess.doClientGet(url);
+//		try {
+//			speed = Double.valueOf(new JSONObject(result).get("metricValue").toString());
+//		} catch (JSONException e) {
+//			e.printStackTrace();
+//		}
 		return speed;
 	}
 

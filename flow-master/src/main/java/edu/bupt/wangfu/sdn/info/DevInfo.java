@@ -89,6 +89,7 @@ public class DevInfo {
 	}
 
 	public String getLastSeen() {//transfer to Date
+		if (lastSeen == null) return "";
 		return new SimpleDateFormat("HH:mm:ss dd/MM/yy").format(new Date(Long.valueOf(lastSeen)));
 //		return lastSeen;
 	}
