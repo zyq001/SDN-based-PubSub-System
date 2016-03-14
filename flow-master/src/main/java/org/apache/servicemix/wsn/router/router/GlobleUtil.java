@@ -35,10 +35,15 @@ public class GlobleUtil {
 		group2controller.put("G3", "10.109.253.3");
 		group2controller.put("G4", "10.109.253.4");
 		//init static initFlows{queueFlow, topics}
+
 		centerController = new Controller(AdminMgr.globalControllerAddr);
 //		centerController.setSwitchMap(getAllSwitch(centerController));
 		centerController.setSwitchMap(getRealtimeSwitchs2(centerController));
 		controllers.put(AdminMgr.globalControllerAddr, centerController);
+
+		Controller g2Controller = new Controller("10.109.253.2");
+		g2Controller.getSwitchMap().put("00:00:5c:f3:fc:db:75:32",new Switch("00:00:5c:f3:fc:db:75:32"));
+		controllers.put("10.109.253.2", g2Controller);
 		Flow flow = new Flow("queue");
 		initFlows.add(flow);
 		// start timer to recaclateRoute
@@ -135,41 +140,42 @@ public class GlobleUtil {
 				JSONArray json_port;
 				try {
 					json_port = json_each.getJSONArray("portDesc");
-				}catch (Exception e){
-					continue;
-				}
-				for (int j = 0; j < json_port.length(); j++) {
-					if (json_port.getJSONObject(j).getString("portNumber").equals("local")) {
-						mac = json_port.getJSONObject(j).getString("hardwareAddress");
-						swc.setMac(mac);
-						System.out.println("****" + mac);
-					} else {
-						if (!json_port.getJSONObject(j).getString("portNumber").equals("1")) {//如果端口号不是local与1则为所连接的设备
-							int portNum = json_port.getJSONObject(j).getInt("portNumber");
-							String macAddr = json_port.getJSONObject(j).getString("hardwareAddress");
-							boolean flag = false;//用来记录是否在map中找到该交换机
-							Switch swth = null;
-							for (Map.Entry<String, Switch> entry : switches.entrySet()) {
-								Switch swt = entry.getValue();
-								if (swt.getMac().equals(macAddr)) {
-									flag = true;
-									swth = swt;
+
+					for (int j = 0; j < json_port.length(); j++) {
+						if (json_port.getJSONObject(j).getString("portNumber").equals("local")) {
+							mac = json_port.getJSONObject(j).getString("hardwareAddress");
+							swc.setMac(mac);
+							System.out.println("****" + mac);
+						} else {
+							if (!json_port.getJSONObject(j).getString("portNumber").equals("1")) {//如果端口号不是local与1则为所连接的设备
+								int portNum = json_port.getJSONObject(j).getInt("portNumber");
+								String macAddr = json_port.getJSONObject(j).getString("hardwareAddress");
+								boolean flag = false;//用来记录是否在map中找到该交换机
+								Switch swth = null;
+								for (Map.Entry<String, Switch> entry : switches.entrySet()) {
+									Switch swt = entry.getValue();
+									if (swt.getMac().equals(macAddr)) {
+										flag = true;
+										swth = swt;
+									}
 								}
+								if (flag) {
+									System.out.println("a switch is added...");
+									System.out.println("the DPID of this switch is :" + swth.getDPID());
+									wsnDevMap.put(portNum, swth);
+								} else {
+									System.out.println("a host is added...");
+									WSNHost host = new WSNHost();
+									host.setMac(macAddr);
+									System.out.println("the macAddr of this host is : " + macAddr);
+									wsnDevMap.put(portNum, host);
+								}
+								swc.setWsnDevMap(wsnDevMap);
 							}
-							if (flag) {
-								System.out.println("a switch is added...");
-								System.out.println("the DPID of this switch is :" + swth.getDPID());
-								wsnDevMap.put(portNum, swth);
-							} else {
-								System.out.println("a host is added...");
-								WSNHost host = new WSNHost();
-								host.setMac(macAddr);
-								System.out.println("the macAddr of this host is : " + macAddr);
-								wsnDevMap.put(portNum, host);
-							}
-							swc.setWsnDevMap(wsnDevMap);
 						}
 					}
+				}catch (Exception e){
+//					continue;
 				}
 				switches.put(DPID, swc);
 			}

@@ -1,5 +1,7 @@
 package edu.bupt.wangfu.sdn.info;
 
+import org.apache.servicemix.wsn.router.router.GlobleUtil;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -68,7 +70,7 @@ public class Controller {
 	}
 
 	public void reflashSwitchMap() {
-//		switchMap = GlobleUtil.getRealtimeSwitchs(this);
+		switchMap = GlobleUtil.getRealtimeSwitchs2(this);
 	}
 
 	public String getUrl() {

@@ -23,6 +23,14 @@ public class Switch extends DevInfo {
 
 	private String port;
 
+	public Switch(){
+
+	}
+
+	public Switch(String DPID) {
+		this.DPID = DPID;
+	}
+
 	public Long getConnectedSince() {
 		return connectedSince;
 	}

@@ -2848,43 +2848,43 @@ public class PSManagerUI implements IAdminUI {
 //			}
 //		});
 
-//		jFlowTab.addMouseListener(new MouseListener() {
-//
-//
-//						@Override
-//			public void mouseClicked(MouseEvent arg0) {
-//				// TODO Auto-generated method stub
-//				System.out.println("devConf Mouse Clicked fffffffffffff");
-//				refreshInfo();
-//			}
-//
-//						@Override
-//			public void mouseEntered(MouseEvent arg0) {
-//				// TODO Auto-generated method stub
-//				System.out.println("devConf Mouse mouseEntered fffffffffffff");
-//
-//			}
-//
-//						@Override
-//			public void mouseExited(MouseEvent arg0) {
-//				// TODO Auto-generated method stub
-//				System.out.println("devConf Mouse mouseExited fffffffffffff");
-//
-//			}
-//
-//						@Override
-//			public void mousePressed(MouseEvent arg0) {
-//				// TODO Auto-generated method stub
-//				System.out.println("devConf Mouse mousePressed fffffffffffff");
-//
-//			}
-//
-//						@Override
-//			public void mouseReleased(MouseEvent arg0) {
-//				// TODO Auto-generated method stub
-//
-//			}
-//		});
+		jFlowTab.addMouseListener(new MouseListener() {
+
+
+						@Override
+			public void mouseClicked(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				System.out.println("devConf Mouse Clicked fffffffffffff");
+				refreshInfo();
+			}
+
+						@Override
+			public void mouseEntered(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				System.out.println("devConf Mouse mouseEntered fffffffffffff");
+
+			}
+
+						@Override
+			public void mouseExited(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				System.out.println("devConf Mouse mouseExited fffffffffffff");
+
+			}
+
+						@Override
+			public void mousePressed(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				System.out.println("devConf Mouse mousePressed fffffffffffff");
+
+			}
+
+						@Override
+			public void mouseReleased(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+
+			}
+		});
 
 	}
 }

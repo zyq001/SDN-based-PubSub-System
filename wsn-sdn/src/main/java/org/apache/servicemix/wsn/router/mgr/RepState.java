@@ -645,9 +645,9 @@ public class RepState extends AState {
 			}
 		}
 
-		if (!cacheLSA.distBtnNebrs.containsKey(neighbor)) {
-			cacheLSA.distBtnNebrs.put(neighbor, new DistBtnNebr(1));
-		}
+//		if (!cacheLSA.distBtnNebrs.containsKey(neighbor)) {
+//			cacheLSA.distBtnNebrs.put(neighbor, new DistBtnNebr(1));
+//		}
 
 		if (needInit) {
 			Timer timer = new Timer();
